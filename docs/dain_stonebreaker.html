@@ -279,10 +279,6 @@
       <button class="stud" data-ref="stat_prof" type="button"><span class="sl">Prof</span><span class="sv">+2</span></button>
       <button class="stud" data-ref="stat_pass" type="button"><span class="sl">Pass.Per</span><span class="sv">14</span></button>
     </div>
-    <div class="header-actions">
-      <div class="sync" id="sync"><span class="dot"></span><span id="syncText">local</span></div>
-      <button class="btn ember" id="restBtn" type="button">Rest</button>
-    </div>
   </div>
 </header>
 
@@ -320,6 +316,7 @@
         <div class="rivets" id="hitDiceRivets"></div>
         <div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="spendHd" type="button">Spend Hit Die</button></div>
       </div>
+      <div class="row" style="justify-content:flex-start;margin-top:.7rem"><button class="btn ember" id="restBtn" type="button">Rest</button></div>
       <div id="deathSaves" style="margin-top:.8rem;display:none">
         <div class="hp-label" style="text-align:left;margin-bottom:.4rem">Death Saves</div>
         <div class="ds-row"><span class="lbl">Saves +</span><div class="rivets" id="dsSucc"></div></div>
@@ -474,6 +471,7 @@
   </div>
 
   <footer>
+    <div class="sync" id="sync" style="justify-content:center;margin-bottom:.5rem"><span class="dot"></span><span id="syncText">local</span></div>
     Stonebreaker combat sheet · changes save automatically · <a id="resetLink" role="button" tabindex="0">Reset sheet</a>
   </footer>
 </div>
