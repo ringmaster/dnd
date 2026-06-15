@@ -57,7 +57,6 @@
   .stud:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
   .stud .sl{display:block;font-family:"Cinzel",serif;font-size:.54rem;letter-spacing:.1em;color:var(--ash);text-transform:uppercase}
   .stud .sv{font-family:"Cinzel",serif;font-weight:700;font-size:1rem;color:var(--bone)}
-  .header-actions{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
   .sync{font-size:.66rem;letter-spacing:.06em;color:var(--ash-dim);display:flex;align-items:center;gap:.3rem;white-space:nowrap}
   .sync .dot{width:8px;height:8px;border-radius:50%;background:var(--ash-dim);transition:background .2s}
   .sync.saved .dot{background:var(--crit)} .sync.saving .dot{background:var(--ember)} .sync.error .dot{background:var(--fumble)}
@@ -686,8 +685,7 @@
           "If it still fails, you don't lose the Second Wind use."] };
   REF.asi = { title:"Level 4 — Ability Score Improvement", dice:null,
     chips:[{t:"+2 Strength",c:"ember"}],
-    body:["You raised Strength from 16 to 18 (+4). That improved your attack and damage bonuses, maneuver save DC, Athletics, and Strength saves.",
-          "If you would rather take a feat instead, that swap is available — Sentinel (lock down enemies, punish those who go after allies) and Shield Master (shove with the shield, better Dex saves) both fit a defender."] };
+    body:["You raised Strength from 16 to 18 (+4). That improved your attack and damage bonuses, maneuver save DC, Athletics, and Strength saves."] };
   REF.alert = { title:"Alert (Origin Feat)", dice:"Initiative: d20 +3",
     chips:[{t:"+Prof to initiative",c:"ember"},{t:"Initiative swap",c:"storm"}],
     body:["Initiative Proficiency: you add your proficiency bonus (+2) to Initiative, so you roll d20 +3 (Dex +1, prof +2).",
