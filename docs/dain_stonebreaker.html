@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stonebreaker — Battle Master Combat Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --slate-deep:#131519; --slate-panel:#1d212a; --slate-raise:#252b35;
+    --iron:#3a414d; --iron-light:#4d5563;
+    --ember:#d9853f; --ember-bright:#f0a85a; --storm:#6fa8c7;
+    --bone:#e9e3d5; --ash:#9aa0a8; --ash-dim:#6b7079;
+    --crit:#84c06a; --fumble:#c75444;
+    --shadow-carve: inset 0 1px 0 rgba(255,255,255,.05), inset 0 -2px 6px rgba(0,0,0,.5), 0 2px 4px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #20242d 0%, transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, #1b1f27 0%, transparent 55%),
+      var(--slate-deep);
+    color:var(--bone); font-family:"Spectral", Georgia, serif; font-size:16px; line-height:1.45;
+    min-height:100vh; padding-bottom:4rem; -webkit-text-size-adjust:100%;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 1rem}
+  h1,h2,h3,.cinzel{font-family:"Cinzel", Georgia, serif;letter-spacing:.04em}
+
+  button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(180deg, #181c24 0%, #14171e 100%);
+    border-bottom:2px solid var(--iron); box-shadow:0 6px 18px rgba(0,0,0,.5);
+    padding:.6rem 1rem; margin-bottom:1.25rem;
+  }
+  .header-grid{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:.8rem 1rem;flex-wrap:wrap}
+  .who{flex:1 1 auto;min-width:150px}
+  .who h1{margin:0;font-size:1.3rem;font-weight:900;color:var(--bone);line-height:1}
+  .who .sub{color:var(--ash);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .studs{display:flex;gap:.4rem;flex-wrap:wrap}
+  .stud{
+    background:linear-gradient(180deg,#222732,#181c24);border:1px solid var(--iron);border-radius:8px;
+    box-shadow:var(--shadow-carve);padding:.35rem .6rem;text-align:center;min-width:54px;
+  }
+  .stud .sl{display:block;font-family:"Cinzel",serif;font-size:.54rem;letter-spacing:.1em;color:var(--ash);text-transform:uppercase}
+  .stud .sv{font-family:"Cinzel",serif;font-weight:700;font-size:1rem;color:var(--bone)}
+  .header-actions{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
+  .sync{font-size:.66rem;letter-spacing:.06em;color:var(--ash-dim);display:flex;align-items:center;gap:.3rem;white-space:nowrap}
+  .sync .dot{width:8px;height:8px;border-radius:50%;background:var(--ash-dim);transition:background .2s}
+  .sync.saved .dot{background:var(--crit)} .sync.saving .dot{background:var(--ember)} .sync.error .dot{background:var(--fumble)}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    font-family:"Cinzel",serif;letter-spacing:.04em;
+    background:linear-gradient(180deg,#2c333e,#222831);color:var(--bone);
+    border:1px solid var(--iron-light);border-radius:8px;padding:.7rem 1rem;cursor:pointer;font-size:.85rem;
+    box-shadow:var(--shadow-carve);transition:border-color .15s, background .15s;min-height:44px;
+  }
+  .btn:hover{border-color:var(--ember)}
+  .btn:active{background:linear-gradient(180deg,#3a2e22,#2a2118);border-color:var(--ember)}
+  .btn.ember{border-color:var(--ember);color:var(--ember-bright)}
+  .btn.tiny{padding:.5rem .7rem;font-size:.74rem;min-height:40px}
+  .btn:focus-visible, .ability:focus-visible, .tap:focus-visible, .rivet:focus-visible, .pip:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+
+  /* ---------- Grid / cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;align-items:start}
+  .card{
+    background:linear-gradient(180deg,var(--slate-panel),#191d25);border:1px solid var(--iron);border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);padding:1rem;
+  }
+  .card > h2{
+    margin:0 0 .85rem;font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ember);
+    border-bottom:1px solid var(--iron);padding-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;
+  }
+  .card > h2 .hint{font-family:"Spectral",serif;font-weight:400;font-size:.7rem;letter-spacing:.02em;text-transform:none;color:var(--ash-dim)}
+
+  /* ---------- Abilities ---------- */
+  .abilities{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .ability{
+    background:linear-gradient(180deg,#222732,#1a1e27);border:1px solid var(--iron);border-radius:9px;
+    text-align:center;padding:.6rem .3rem;box-shadow:var(--shadow-carve);cursor:pointer;color:var(--bone);min-height:44px;
+  }
+  .ability:active{border-color:var(--ember)}
+  .ability .name{font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.1em;color:var(--ash)}
+  .ability .amod{font-family:"Cinzel",serif;font-weight:900;font-size:1.5rem;line-height:1.1;color:var(--bone)}
+  .ability .arow{display:flex;justify-content:center;gap:.4rem;font-size:.62rem;margin-top:.15rem}
+  .ability .arow .sc{color:var(--ash-dim)} .ability .arow .sv{color:var(--storm)}
+
+  /* ---------- HP ---------- */
+  .hp-top{display:flex;align-items:flex-end;gap:.5rem;justify-content:center;margin-bottom:.4rem}
+  .hp-cur{font-family:"Cinzel",serif;font-weight:900;font-size:2.9rem;line-height:1;color:var(--bone);flex:0 0 auto;width:4.4ch;text-align:right;background:transparent;border:none;border-bottom:2px solid transparent;padding:0}
+  .hp-cur:focus{outline:none;border-bottom-color:var(--ember);color:var(--ember-bright)}
+  .hp-sep{font-size:1.6rem;color:var(--ash-dim);padding-bottom:.25rem}
+  .hp-max{font-family:"Cinzel",serif;font-size:1.5rem;color:var(--ash);flex:0 0 auto;width:4.4ch;background:transparent;border:none;border-bottom:2px solid transparent;padding-bottom:.25rem}
+  .hp-max:focus{outline:none;border-bottom-color:var(--storm);color:var(--storm)}
+  .hp-label{text-align:center;font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.14em;color:var(--ash);text-transform:uppercase;margin-bottom:.5rem}
+  .temp-badge{display:inline-flex;align-items:center;gap:.3rem;background:rgba(111,168,199,.14);border:1px solid var(--storm);border-radius:20px;padding:.15rem .6rem;color:var(--storm);font-size:.8rem}
+  .num{width:4.8rem;background:#12151b;border:1px solid var(--iron);border-radius:7px;color:var(--bone);font-family:"Spectral",serif;font-size:16px;padding:.55rem .5rem;text-align:center;min-height:44px}
+  .num:focus{outline:none;border-color:var(--ember)}
+  .row{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap;justify-content:center}
+  .mini-label{font-size:.76rem;color:var(--ash);letter-spacing:.04em}
+
+  /* ---------- Rivets ---------- */
+  .pool{margin:.6rem 0}
+  .pool-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.35rem}
+  .pool-head .pname{font-family:"Cinzel",serif;font-size:.82rem;letter-spacing:.03em;color:var(--bone);background:none;border:none;padding:0;cursor:pointer}
+  .pool-head .pname:active{color:var(--ember-bright)}
+  .pool-head .pnote{font-size:.7rem;color:var(--ash-dim)}
+  .rivets{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+  .rivet{
+    width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid var(--iron-light);
+    background:radial-gradient(circle at 35% 30%, #2a2f39, #11141a);
+    box-shadow:inset 0 1px 1px rgba(255,255,255,.06), inset 0 -2px 3px rgba(0,0,0,.6);padding:0;transition:transform .06s;
+  }
+  .rivet:active{transform:scale(.9)}
+  .rivet.charged{border-color:var(--ember);background:radial-gradient(circle at 35% 30%, var(--ember-bright), #8a4a18 70%);box-shadow:0 0 8px rgba(217,133,63,.6), inset 0 1px 1px rgba(255,255,255,.3)}
+  .rivet.storm.charged{border-color:var(--storm);background:radial-gradient(circle at 35% 30%, #a9d4e8, #2d6585 70%);box-shadow:0 0 8px rgba(111,168,199,.55), inset 0 1px 1px rgba(255,255,255,.3)}
+
+  /* ---------- Attacks ---------- */
+  .tap{display:block;width:100%;text-align:left;background:#191d25;border:1px solid var(--iron);border-radius:9px;padding:.7rem;box-shadow:var(--shadow-carve);cursor:pointer;color:var(--bone);margin-bottom:.7rem;min-height:44px}
+  .tap:last-child{margin-bottom:0}
+  .tap:active{border-color:var(--ember)}
+  .tap-name{font-family:"Cinzel",serif;font-weight:700;font-size:1rem;color:var(--bone);display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+  .tap-name .mastery{font-family:"Spectral",serif;font-weight:600;font-size:.68rem;color:var(--storm);border:1px solid var(--storm);border-radius:5px;padding:.05rem .4rem;white-space:nowrap}
+  .tap-dice{font-family:"Cinzel",serif;font-size:.92rem;color:var(--ember-bright);margin-top:.35rem;letter-spacing:.02em}
+  .tap-sub{font-size:.74rem;color:var(--ash);margin-top:.15rem}
+  .info-tag{font-size:.62rem;color:var(--ash-dim);font-family:"Spectral",serif;font-weight:400}
+
+  /* ---------- Maneuvers ---------- */
+  .maneuver{display:flex;justify-content:space-between;align-items:center;gap:.6rem;width:100%;text-align:left;background:transparent;border:none;border-bottom:1px dashed var(--iron);padding:.6rem .15rem;cursor:pointer;color:var(--bone);min-height:44px}
+  .maneuver:last-of-type{border-bottom:none}
+  .maneuver:active{background:#20252f}
+  .maneuver .mtext b{font-family:"Cinzel",serif;font-size:.86rem;color:var(--bone);font-weight:700}
+  .maneuver .mtext span{color:var(--ash);display:block;font-size:.74rem}
+  .maneuver .mdie{font-family:"Cinzel",serif;font-size:1rem;color:var(--ember-bright);flex:0 0 auto}
+
+  /* ---------- Skills ---------- */
+  .skills{display:grid;grid-template-columns:1fr 1fr;gap:.1rem .9rem}
+  .skill{display:flex;align-items:center;gap:.5rem;padding:.4rem .25rem;border-radius:5px;font-size:.84rem}
+  .skill .pip{width:9px;height:9px;border-radius:50%;border:1px solid var(--iron-light);flex:0 0 auto}
+  .skill.prof .pip{background:var(--ember);border-color:var(--ember)}
+  .skill .sname{flex:1;color:var(--ash)} .skill.prof .sname{color:var(--bone)}
+  .skill .smod{font-variant-numeric:tabular-nums;color:var(--bone);font-weight:600}
+
+  /* ---------- Death saves ---------- */
+  .ds-row{display:flex;align-items:center;gap:.55rem;margin:.35rem 0}
+  .ds-row .lbl{font-size:.76rem;color:var(--ash);width:5.5rem;font-family:"Cinzel",serif;letter-spacing:.03em}
+  .ds-pip{width:24px;height:24px;border-radius:50%;border:2px solid var(--iron-light);background:#12151b;padding:0;cursor:pointer}
+  .ds-pip.succ.on{background:var(--crit);border-color:var(--crit)} .ds-pip.fail.on{background:var(--fumble);border-color:var(--fumble)}
+
+  /* ---------- Features ---------- */
+  .feat{display:block;width:100%;text-align:left;background:transparent;border:none;border-bottom:1px dashed var(--iron);padding:.6rem .15rem;cursor:pointer;color:var(--bone);min-height:44px}
+  .feat:last-child{border-bottom:none}
+  .feat:active{background:#20252f}
+  .feat b{font-family:"Cinzel",serif;font-size:.86rem;color:var(--bone)}
+  .feat span{display:block;font-size:.76rem;color:var(--ash);margin-top:.1rem}
+
+  /* ---------- Modal ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(8,9,12,.8);backdrop-filter:blur(3px);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem}
+  .overlay.show{display:flex}
+  .modal{
+    background:linear-gradient(180deg,#242935,#181c24);border:1px solid var(--iron-light);border-radius:14px;
+    max-width:540px;width:100%;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding:1.4rem;box-shadow:0 20px 60px rgba(0,0,0,.6);
+  }
+  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.6rem}
+  .modal-head h2{margin:0;color:var(--bone);font-size:1.3rem;border:none;padding:0;text-transform:none;letter-spacing:.03em}
+  .modal-close{background:#191d25;border:1px solid var(--iron-light);color:var(--ash);border-radius:8px;width:40px;height:40px;font-size:1.2rem;cursor:pointer;flex:0 0 auto}
+  .modal-close:active{border-color:var(--ember);color:var(--ember-bright)}
+  .modal-dice{font-family:"Cinzel",serif;font-weight:700;font-size:1.5rem;color:var(--ember-bright);margin:.2rem 0 .7rem}
+  .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
+  .chip{font-size:.7rem;letter-spacing:.03em;background:#1a1e26;border:1px solid var(--iron);border-radius:20px;padding:.2rem .6rem;color:var(--ash)}
+  .chip.storm{border-color:var(--storm);color:var(--storm)} .chip.ember{border-color:var(--ember);color:var(--ember-bright)}
+  .modal-body p{margin:.5rem 0;font-size:.92rem;color:var(--bone);line-height:1.55}
+  .modal-body p.muted{color:var(--ash);font-size:.84rem}
+  .modal-foot{margin-top:1.1rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+  .uses-left{font-size:.78rem;color:var(--ash);font-family:"Cinzel",serif}
+
+  /* ---------- Rest modal ---------- */
+  .rest-opts{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  .rest-card{text-align:left;background:#191d25;border:1px solid var(--iron);border-radius:10px;padding:1rem;cursor:pointer;box-shadow:var(--shadow-carve);color:var(--bone);min-height:44px}
+  .rest-card:active{border-color:var(--ember)}
+  .rest-card h3{margin:0 0 .35rem;font-size:1rem;color:var(--bone)} .rest-card.long h3{color:var(--storm)}
+  .rest-card ul{margin:.2rem 0 0;padding-left:1.1rem;font-size:.78rem;color:var(--ash)}
+
+  .toast{position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%) translateY(20px);background:#242935;border:1px solid var(--ember);color:var(--bone);padding:.7rem 1.1rem;border-radius:8px;font-family:"Cinzel",serif;font-size:.82rem;box-shadow:0 8px 24px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:120;max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ---------- Background ---------- */
+  .bg-text{column-count:1}
+  .bg-text p{margin:.55rem 0;font-size:.95rem;color:var(--bone);line-height:1.62;max-width:64ch}
+  .bg-text p.beat{font-style:italic;color:var(--ember-bright);text-align:center;line-height:1.95;margin:.9rem auto;max-width:none}
+  @media (min-width:760px){ .bg-text{column-count:2;column-gap:2.4rem} .bg-text p{break-inside:avoid} .bg-text p.beat{column-span:all} }
+
+  /* ---------- Build log ---------- */
+  .buildlog{grid-column:1 / -1}
+  .buildlog details{width:100%}
+  .buildlog summary{cursor:pointer;list-style:none;font-family:"Cinzel",serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);display:flex;align-items:center;justify-content:space-between;padding-bottom:.5rem;border-bottom:1px solid var(--iron)}
+  .buildlog summary::-webkit-details-marker{display:none}
+  .buildlog summary::after{content:"\25B8";color:var(--ash);transition:transform .2s}
+  .buildlog details[open] summary::after{transform:rotate(90deg)}
+  .lvl-wrap{margin-top:.5rem}
+  .lvl{border-top:1px solid var(--iron);padding:.7rem 0}
+  .lvl:first-child{border-top:none}
+  .lvl h4{margin:0 0 .3rem;font-family:"Cinzel",serif;font-size:.86rem;color:var(--bone);letter-spacing:.02em}
+  .lvl .tag{font-family:"Spectral",serif;font-weight:400;font-size:.7rem;color:var(--ash-dim);letter-spacing:0;text-transform:none}
+  .lvl ul{margin:.15rem 0 0;padding-left:1.15rem;font-size:.85rem;color:var(--ash);line-height:1.5}
+  .lvl ul li{margin:.22rem 0}
+  .lvl ul li b{color:var(--bone);font-weight:600}
+  .lvl ul li.choice b{color:var(--ember-bright)}
+  .lvl ul li.open{color:var(--storm)}
+  .lvl ul li.note{color:var(--ash-dim);font-style:italic}
+  @media (min-width:760px){ .lvl-wrap{column-count:2;column-gap:2.2rem} .lvl{break-inside:avoid} }
+
+  footer{max-width:1240px;margin:2rem auto 0;text-align:center;color:var(--ash-dim);font-size:.74rem}
+  footer a{color:var(--ash);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+
+  @media (max-width:560px){ .rest-opts{grid-template-columns:1fr} .who h1{font-size:1.15rem} }
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important;transition:none !important} }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-grid">
+    <div class="who">
+      <h1>Dain Stonebreaker</h1>
+      <div class="sub">Dwarf · Battle Master · Lvl 4</div>
+    </div>
+    <div class="studs">
+      <div class="stud"><span class="sl">AC</span><span class="sv">19</span></div>
+      <div class="stud"><span class="sl">Init</span><span class="sv">+3</span></div>
+      <div class="stud"><span class="sl">Speed</span><span class="sv">30</span></div>
+      <div class="stud"><span class="sl">Prof</span><span class="sv">+2</span></div>
+      <div class="stud"><span class="sl">Pass.Per</span><span class="sv">14</span></div>
+    </div>
+    <div class="header-actions">
+      <div class="sync" id="sync"><span class="dot"></span><span id="syncText">local</span></div>
+      <button class="btn ember" id="restBtn" type="button">Rest</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+
+    <!-- ABILITIES -->
+    <section class="card">
+      <h2>Abilities <span class="hint">tap for detail · all checks roll d20</span></h2>
+      <div class="abilities" id="abilities"></div>
+    </section>
+
+    <!-- HIT POINTS -->
+    <section class="card">
+      <h2>Hit Points</h2>
+      <div class="hp-top">
+        <input class="hp-cur" id="hpCur" type="text" inputmode="numeric" value="40" aria-label="Current hit points">
+        <span class="hp-sep">/</span>
+        <input class="hp-max" id="hpMax" type="text" inputmode="numeric" value="40" aria-label="Maximum hit points">
+      </div>
+      <div class="hp-label">Current / Max</div>
+      <div class="row" id="tempWrap" style="margin-bottom:.6rem"></div>
+      <div class="row">
+        <input class="num" id="hpDelta" type="number" min="0" inputmode="numeric" placeholder="#" aria-label="Amount">
+        <button class="btn tiny" id="dmgBtn" type="button">Damage</button>
+        <button class="btn tiny ember" id="healBtn" type="button">Heal</button>
+      </div>
+      <div class="row" style="margin-top:.6rem">
+        <span class="mini-label">Temp HP</span>
+        <input class="num" id="tempIn" type="number" min="0" inputmode="numeric" placeholder="0" aria-label="Set temporary hit points">
+        <button class="btn tiny" id="tempBtn" type="button">Set</button>
+      </div>
+      <div class="pool" style="margin-top:.8rem">
+        <div class="pool-head"><button class="pname" data-ref="hitdice" type="button">Hit Dice ⓘ</button><span class="pnote">1d10+2 · short rest</span></div>
+        <div class="rivets" id="hitDiceRivets"></div>
+        <div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="spendHd" type="button">Spend Hit Die</button></div>
+      </div>
+      <div style="margin-top:.8rem">
+        <div class="ds-row"><span class="lbl">Saves +</span><div class="rivets" id="dsSucc"></div></div>
+        <div class="ds-row"><span class="lbl">Saves −</span><div class="rivets" id="dsFail"></div></div>
+      </div>
+    </section>
+
+    <!-- ATTACKS -->
+    <section class="card">
+      <h2>Attacks <span class="hint">one attack / turn</span></h2>
+      <button class="tap" data-ref="battleaxe" type="button">
+        <div class="tap-name">Battleaxe <span class="mastery">Topple</span></div>
+        <div class="tap-dice">To hit: d20 +6 · Damage: 1d8 +4</div>
+        <div class="tap-sub">slashing · crit 2d8+4 · <span class="info-tag">tap for Topple rule ⓘ</span></div>
+      </button>
+      <button class="tap" data-ref="handaxe" type="button">
+        <div class="tap-name">Handaxe (thrown) <span class="mastery">Vex</span></div>
+        <div class="tap-dice">To hit: d20 +6 · Damage: 1d6 +4</div>
+        <div class="tap-sub">range 20/60 · crit 2d6+4 · <span class="info-tag">tap for Vex rule ⓘ</span></div>
+      </button>
+    </section>
+
+    <!-- MANEUVERS -->
+    <section class="card">
+      <h2>Maneuvers <span class="hint">Save DC 14</span></h2>
+      <div class="pool">
+        <div class="pool-head"><button class="pname" data-ref="combatsup" type="button">Superiority Dice ⓘ</button><span class="pnote">short rest</span></div>
+        <div class="rivets" id="supRivets"></div>
+      </div>
+      <button class="maneuver" data-ref="trip" type="button">
+        <div class="mtext"><b>Trip Attack</b><span>+dmg · Str save or prone</span></div><div class="mdie">1d8</div>
+      </button>
+      <button class="maneuver" data-ref="goad" type="button">
+        <div class="mtext"><b>Goading Attack</b><span>+dmg · Wis save or disadv vs others</span></div><div class="mdie">1d8</div>
+      </button>
+      <button class="maneuver" data-ref="precision" type="button">
+        <div class="mtext"><b>Precision Attack</b><span>add to the attack roll</span></div><div class="mdie">1d8</div>
+      </button>
+    </section>
+
+    <!-- RESOURCES -->
+    <section class="card">
+      <h2>Combat Resources</h2>
+      <div class="pool">
+        <div class="pool-head"><button class="pname" data-ref="secondwind" type="button">Second Wind ⓘ</button><span class="pnote">1d10+4 · short rest</span></div>
+        <div class="rivets" id="swRivets"></div>
+      </div>
+      <div class="pool">
+        <div class="pool-head"><button class="pname" data-ref="actionsurge" type="button">Action Surge ⓘ</button><span class="pnote">short rest</span></div>
+        <div class="rivets" id="asRivets"></div>
+      </div>
+      <div class="pool">
+        <div class="pool-head"><button class="pname" data-ref="stonecunning" type="button">Stonecunning ⓘ</button><span class="pnote">long rest</span></div>
+        <div class="rivets" id="scRivets"></div>
+      </div>
+      <button class="feat" data-ref="tacticalmind" type="button" style="margin-top:.5rem"><b>Tactical Mind ⓘ</b><span>spend Second Wind to boost a failed check</span></button>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="card">
+      <h2>Skills &amp; Saves <span class="hint">● proficient · roll d20 + value</span></h2>
+      <div class="skills" id="skills"></div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="card">
+      <h2>Features &amp; Traits <span class="hint">tap any for rules</span></h2>
+      <button class="feat" data-ref="asi" type="button"><b>Level 4: Ability Score Improvement</b><span>+2 Strength → 18</span></button>
+      <button class="feat" data-ref="alert" type="button"><b>Alert</b><span>Guard origin feat · +prof to initiative · swap with an ally</span></button>
+      <button class="feat" data-ref="weaponmastery" type="button"><b>Weapon Mastery</b><span>Topple (battleaxe) · Vex (handaxe) · +1 open slot</span></button>
+      <button class="feat" data-ref="fightingstyle" type="button"><b>Fighting Style: Defense</b><span>+1 AC while armored</span></button>
+      <button class="feat" data-ref="dwarven" type="button"><b>Dwarven Resilience</b><span>resist poison · advantage on poison saves</span></button>
+      <button class="feat" data-ref="darkvision" type="button"><b>Darkvision &amp; Toughness</b><span>see 120 ft · +1 HP per level</span></button>
+      <button class="feat" data-ref="studentofwar" type="button"><b>Student of War</b><span>extra skill + Smith's tools</span></button>
+    </section>
+
+    <!-- BACKGROUND -->
+    <section class="card" style="grid-column:1 / -1">
+      <h2>Background <span class="hint">Valtaran Dwarf · Battle Master</span></h2>
+      <div class="bg-text">
+        <p>Born in the Flintback Mountains, you spent much of your life working dangerous roads and wilderness routes between the mountain settlements and the settlements of the Shadowsong Peninsula.</p>
+        <p>Several years ago a rockslide trapped you and several companions in a remote canyon. Rescue seemed impossible.</p>
+        <p class="beat">Elowen Raincaller found you.<br>No one is entirely sure how.<br>Some say she followed a hawk spirit.<br>Others claim a mountain spirit guided her.</p>
+        <p>Whatever the truth, she led rescuers to your position and saved several lives. You have never forgotten it.</p>
+        <p>When word reaches Thunderford that Elowen has disappeared, you refuse to believe she simply wandered off. If she is in trouble, you intend to help. If someone harmed her, they will answer for it.</p>
+      </div>
+    </section>
+
+    <!-- BUILD LOG -->
+    <section class="card buildlog">
+      <details>
+        <summary>Build Log — choices by level</summary>
+        <div class="lvl-wrap">
+          <div class="lvl">
+            <h4>Level 1 <span class="tag">Fighter</span></h4>
+            <ul>
+              <li><b>Species: Dwarf</b> — Darkvision 120 ft, Dwarven Resilience, Dwarven Toughness, Stonecunning</li>
+              <li><b>Ability scores:</b> Str 16, Con 15, Dex 12, Wis 14, Int 10, Cha 8 <span class="tag">(standard array 15/14/13/12/10/8; Guard background +2 Str / +1 Wis; Con takes no background bonus)</span></li>
+              <li class="choice"><b>Fighting Style: Defense</b> (+1 AC)</li>
+              <li class="choice"><b>Weapon Mastery: Topple</b> (battleaxe) · <b>Vex</b> (handaxe)</li>
+              <li>Second Wind, Weapon Mastery feature</li>
+              <li class="choice"><b>Background: Guard</b> — Origin feat <b>Alert</b>; skills Athletics &amp; Perception; Gaming Set</li>
+            </ul>
+          </div>
+          <div class="lvl">
+            <h4>Level 2 <span class="tag">Fighter</span></h4>
+            <ul>
+              <li>Action Surge (1 use)</li>
+              <li>Tactical Mind</li>
+              <li class="note">No build choices this level</li>
+            </ul>
+          </div>
+          <div class="lvl">
+            <h4>Level 3 <span class="tag">Fighter · subclass</span></h4>
+            <ul>
+              <li class="choice"><b>Subclass: Battle Master</b></li>
+              <li>Combat Superiority — 4 d8 dice, maneuver DC</li>
+              <li class="choice"><b>Maneuvers: Trip, Goading, Precision</b></li>
+              <li class="choice"><b>Student of War:</b> +1 skill &amp; Smith's tools</li>
+            </ul>
+          </div>
+          <div class="lvl">
+            <h4>Level 4 <span class="tag">Fighter</span></h4>
+            <ul>
+              <li class="choice"><b>Ability Score Improvement: +2 Strength</b> (16 → 18)</li>
+              <li>Second Wind → 3 uses · Weapon Mastery → 4 slots <span class="tag">(automatic)</span></li>
+              <li class="note">Took the ASI rather than a feat</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </section>
+
+  </div>
+
+  <footer>
+    Stonebreaker combat sheet · changes save automatically · <a id="resetLink" role="button" tabindex="0">Reset sheet</a>
+  </footer>
+</div>
+
+<!-- REFERENCE MODAL -->
+<div class="overlay" id="refOverlay" role="dialog" aria-modal="true" aria-labelledby="refTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="refTitle"></h2>
+      <button class="modal-close" id="refClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-dice" id="refDice"></div>
+    <div class="chips" id="refChips"></div>
+    <div class="modal-body" id="refBody"></div>
+    <div class="modal-foot" id="refFoot"></div>
+  </div>
+</div>
+
+<!-- REST MODAL -->
+<div class="overlay" id="restOverlay" role="dialog" aria-modal="true" aria-labelledby="restTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="restTitle">Take a Rest</h2>
+      <button class="modal-close" id="restClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <p class="muted" style="color:var(--ash);margin:0 0 1rem">Resources refresh when you choose.</p>
+    <div class="rest-opts">
+      <button class="rest-card" id="shortRest" type="button">
+        <h3>Short Rest</h3>
+        <ul><li>Superiority dice → full</li><li>Action Surge → full</li><li>Second Wind → full</li><li>Spend hit dice to heal</li></ul>
+      </button>
+      <button class="rest-card long" id="longRest" type="button">
+        <h3>Long Rest</h3>
+        <ul><li>HP → maximum</li><li>All combat resources → full</li><li>Stonecunning + hit dice → full</li><li>Death saves cleared</li></ul>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =========================================================================
+     STORAGE ABSTRACTION
+     The app only ever calls store.load() / store.save() / store.clear().
+     To move persistence to a server later, set STORE_CONFIG.mode = 'remote'
+     and fill in baseUrl + token. No other code changes required.
+     ========================================================================= */
+  class StorageAdapter {
+    async load(){ throw new Error("not implemented"); }
+    async save(/*data*/){ throw new Error("not implemented"); }
+    async clear(){ throw new Error("not implemented"); }
+  }
+
+  class LocalStorageAdapter extends StorageAdapter {
+    constructor(key){ super(); this.key = key; }
+    async load(){
+      try { var raw = localStorage.getItem(this.key); return raw ? JSON.parse(raw) : null; }
+      catch(e){ return null; }
+    }
+    async save(data){
+      try { localStorage.setItem(this.key, JSON.stringify(data)); return true; }
+      catch(e){ return false; }
+    }
+    async clear(){ try { localStorage.removeItem(this.key); } catch(e){} }
+  }
+
+  /* Scaffold for a public key/value server secured by a bearer token.
+     Suggested server contract:
+       GET    {baseUrl}/{namespace}/{key}   -> 200 { "value": <json> }  | 404 if absent
+       PUT    {baseUrl}/{namespace}/{key}   body: <json>                -> 200
+       DELETE {baseUrl}/{namespace}/{key}                               -> 200
+     All requests send:  Authorization: Bearer <token>
+     Swap the active adapter below once your server implements this. */
+  class RemoteKVAdapter extends StorageAdapter {
+    constructor(opts){
+      super();
+      this.baseUrl   = (opts.baseUrl || "").replace(/\/+$/,"");
+      this.namespace = opts.namespace || "default";
+      this.key       = opts.key;
+      this.token     = opts.token || null;
+    }
+    setToken(t){ this.token = t; }                       // call after a future login flow
+    _url(){ return this.baseUrl + "/" + encodeURIComponent(this.namespace) + "/" + encodeURIComponent(this.key); }
+    _headers(){
+      var h = { "Content-Type":"application/json" };
+      if(this.token) h["Authorization"] = "Bearer " + this.token;
+      return h;
+    }
+    async load(){
+      var res = await fetch(this._url(), { headers:this._headers() });
+      if(res.status === 404) return null;
+      if(!res.ok) throw new Error("load failed: " + res.status);
+      var body = await res.json();
+      return (body && Object.prototype.hasOwnProperty.call(body,"value")) ? body.value : body;
+    }
+    async save(data){
+      var res = await fetch(this._url(), { method:"PUT", headers:this._headers(), body:JSON.stringify(data) });
+      if(!res.ok) throw new Error("save failed: " + res.status);
+      return true;
+    }
+    async clear(){
+      await fetch(this._url(), { method:"DELETE", headers:this._headers() });
+    }
+  }
+
+  var STORE_CONFIG = {
+    mode: "local",                                   // 'local' | 'remote'
+    key:  "stonebreaker_sheet_v3",                   // bumped on background change so corrected stats seed cleanly
+    remote: { baseUrl:"", namespace:"dnd", token:"" }
+  };
+  function makeStore(cfg){
+    if(cfg.mode === "remote" && cfg.remote.baseUrl){
+      return new RemoteKVAdapter({ baseUrl:cfg.remote.baseUrl, namespace:cfg.remote.namespace, key:cfg.key, token:cfg.remote.token });
+    }
+    return new LocalStorageAdapter(cfg.key);
+  }
+  var store = makeStore(STORE_CONFIG);
+
+  /* ============================ CHARACTER DATA (level 4) ============================ */
+  var PROF = 2;
+  var ABILS = [
+    {k:"STR", mod:4, score:18}, {k:"DEX", mod:1, score:12}, {k:"CON", mod:2, score:15},
+    {k:"INT", mod:0, score:10}, {k:"WIS", mod:2, score:14}, {k:"CHA", mod:-1, score:8}
+  ];
+  var SAVE_PROF = {STR:true, CON:true};
+  var GOVERNS = {
+    STR:"Athletics", DEX:"Acrobatics, Sleight of Hand, Stealth", CON:"—",
+    INT:"Arcana, History, Investigation, Nature, Religion",
+    WIS:"Animal Handling, Insight, Medicine, Perception, Survival",
+    CHA:"Deception, Intimidation, Performance, Persuasion"
+  };
+  var SKILLS = [
+    ["Acrobatics","DEX",false],["Animal Handling","WIS",false],["Arcana","INT",false],["Athletics","STR",true],
+    ["Deception","CHA",false],["History","INT",false],["Insight","WIS",false],["Intimidation","CHA",true],
+    ["Investigation","INT",false],["Medicine","WIS",false],["Nature","INT",false],["Perception","WIS",true],
+    ["Performance","CHA",false],["Persuasion","CHA",false],["Religion","INT",false],["Sleight of Hand","DEX",false],
+    ["Stealth","DEX",false],["Survival","WIS",true]
+  ];
+  function abilMod(k){ for(var i=0;i<ABILS.length;i++){ if(ABILS[i].k===k) return ABILS[i].mod; } return 0; }
+  function fmt(n){ return (n>=0?"+":"")+n; }
+
+  var POOL_MAX = { sup:4, sw:3, as:1, sc:2, hd:4 };
+  var POOL_REMINDER = {
+    sup:"Spend a superiority die — roll the maneuver's 1d8.",
+    sw:"Second Wind: roll 1d10+4, then add it with Heal.",
+    as:"Action Surge — take one extra action this turn.",
+    sc:"Stonecunning — tremorsense 60 ft for 10 minutes.",
+    hd:"Hit Die: roll 1d10+2, then add it with Heal."
+  };
+
+  /* Reference content for the tap-to-open modals. */
+  var REF = {};
+  ABILS.forEach(function(a){
+    var sv = a.mod + (SAVE_PROF[a.k]?PROF:0);
+    var names={STR:"Strength",DEX:"Dexterity",CON:"Constitution",INT:"Intelligence",WIS:"Wisdom",CHA:"Charisma"};
+    REF["abil_"+a.k] = {
+      title:names[a.k],
+      dice:"Check: d20 "+fmt(a.mod)+"   ·   Save: d20 "+fmt(sv),
+      chips: SAVE_PROF[a.k] ? [{t:"Save proficiency",c:"storm"}] : [],
+      body:["Ability score "+a.score+" ("+fmt(a.mod)+" modifier).",
+            "Governs: "+GOVERNS[a.k]+"."]
+    };
+  });
+  REF.battleaxe = { title:"Battleaxe", dice:"To hit: d20 +6   ·   Damage: 1d8 +4",
+    chips:[{t:"Slashing"},{t:"Versatile 1d10"},{t:"Crit 2d8+4",c:"ember"},{t:"Topple",c:"storm"}],
+    body:["One attack on your turn (Extra Attack arrives at level 5). Use two-handed for 1d10+4 when you drop the shield.",
+          "Topple (mastery): on a hit, the target makes a Constitution save (DC 14) or has the Prone condition."] };
+  REF.handaxe = { title:"Handaxe", dice:"To hit: d20 +6   ·   Damage: 1d6 +4",
+    chips:[{t:"Thrown 20/60"},{t:"Light"},{t:"Crit 2d6+4",c:"ember"},{t:"Vex",c:"storm"}],
+    body:["A reliable thrown option when melee isn't possible.",
+          "Vex (mastery): on a hit, you have Advantage on your next attack roll against that target before the end of your next turn."] };
+  REF.combatsup = { title:"Combat Superiority", dice:"4 superiority dice (d8)",
+    chips:[{t:"Maneuver DC 14",c:"ember"},{t:"Short or long rest",c:"storm"}],
+    body:["You have four d8 superiority dice. You spend them to fuel maneuvers, and regain all of them on a short or long rest.",
+          "Maneuver save DC = 8 + proficiency + Strength = 14."] };
+  REF.trip = { title:"Trip Attack", dice:"1d8  (spend a superiority die)", pool:"sup",
+    chips:[{t:"On a hit"},{t:"Str save DC 14",c:"storm"}],
+    body:["When you hit, add the superiority die to the damage. The target then makes a Strength save (DC 14) or falls Prone.",
+          "Prone gives melee attackers advantage and ranged attackers disadvantage against the target."] };
+  REF.goad = { title:"Goading Attack", dice:"1d8  (spend a superiority die)", pool:"sup",
+    chips:[{t:"On a hit"},{t:"Wis save DC 14",c:"storm"}],
+    body:["When you hit, add the superiority die to the damage. On a failed Wisdom save (DC 14), the target has Disadvantage on attacks against anyone other than you until the end of your next turn.",
+          "This is your bodyguard button: pull the dangerous enemy onto your high AC."] };
+  REF.precision = { title:"Precision Attack", dice:"1d8  (spend a superiority die)", pool:"sup",
+    chips:[{t:"To the attack roll",c:"ember"}],
+    body:["Add the superiority die to an attack roll. You may use this after you roll the d20 but before the hit or miss is decided.",
+          "Your insurance on a swing that has to land."] };
+  REF.secondwind = { title:"Second Wind", dice:"1d10 +4 healing", pool:"sw",
+    chips:[{t:"Bonus action"},{t:"3 uses"},{t:"Short or long rest",c:"storm"}],
+    body:["As a Bonus Action, regain 1d10+4 hit points (1d10 + your fighter level). Three uses; regain them on a short or long rest.",
+          "Tap Use below to spend a charge, then roll your d10 and apply it with the Heal control."] };
+  REF.actionsurge = { title:"Action Surge", dice:null, pool:"as",
+    chips:[{t:"1 use"},{t:"Short or long rest",c:"storm"}],
+    body:["Once per short or long rest, take one additional action on your turn. At level 4 that most often means a second Attack action — your burst round."] };
+  REF.stonecunning = { title:"Stonecunning", dice:null, pool:"sc",
+    chips:[{t:"Bonus action"},{t:"Tremorsense 60 ft",c:"storm"},{t:"Long rest"}],
+    body:["As a Bonus Action, gain Tremorsense out to 60 ft for 10 minutes while you are in contact with stone or a stone surface.",
+          "Uses equal to your proficiency bonus (2), regained on a long rest. Built for canyon roads and cave fights."] };
+  REF.tacticalmind = { title:"Tactical Mind", dice:"+1d10 to a failed check",
+    chips:[{t:"Uses Second Wind",c:"ember"}],
+    body:["When you fail an ability check, you can expend a use of Second Wind to add 1d10 to the check, potentially turning failure into success.",
+          "If it still fails, you don't lose the Second Wind use."] };
+  REF.asi = { title:"Level 4 — Ability Score Improvement", dice:null,
+    chips:[{t:"+2 Strength",c:"ember"}],
+    body:["You raised Strength from 16 to 18 (+4). That improved your attack and damage bonuses, maneuver save DC, Athletics, and Strength saves.",
+          "If you would rather take a feat instead, that swap is available — Sentinel (lock down enemies, punish those who go after allies) and Shield Master (shove with the shield, better Dex saves) both fit a defender."] };
+  REF.alert = { title:"Alert (Origin Feat)", dice:"Initiative: d20 +3",
+    chips:[{t:"+Prof to initiative",c:"ember"},{t:"Initiative swap",c:"storm"}],
+    body:["Initiative Proficiency: you add your proficiency bonus (+2) to Initiative, so you roll d20 +3 (Dex +1, prof +2).",
+          "Initiative Swap: right after rolling Initiative, you may trade your result with a willing ally's. Use it to push the right teammate to the top of the order, or to drop your control maneuvers before the enemy acts.",
+          "Granted by the Guard background."] };
+  REF.weaponmastery = { title:"Weapon Mastery", dice:null,
+    chips:[{t:"Topple",c:"storm"},{t:"Vex",c:"storm"},{t:"4 slots at lvl 4"}],
+    body:["Topple (battleaxe): on a hit, the target makes a Con save (DC 14) or falls Prone — a free knockdown attempt that costs no superiority die.",
+          "Vex (handaxe): on a hit, you gain Advantage on your next attack against that target.",
+          "At level 4 you can master four weapons. Two slots are open — a Warhammer (Push) to shove foes off ledges is a thematic pick."] };
+  REF.fightingstyle = { title:"Fighting Style: Defense", dice:null,
+    chips:[{t:"+1 AC",c:"ember"}],
+    body:["While you are wearing armor, you gain a +1 bonus to AC. Already included in your AC of 19 (chain mail 16 + shield 2 + 1)."] };
+  REF.dwarven = { title:"Dwarven Resilience", dice:null,
+    chips:[{t:"Resist poison",c:"storm"},{t:"Adv on poison saves",c:"storm"}],
+    body:["You have Resistance to poison damage and Advantage on saving throws you make to avoid or end the Poisoned condition."] };
+  REF.darkvision = { title:"Darkvision & Dwarven Toughness", dice:null,
+    chips:[{t:"120 ft"},{t:"+1 HP / level",c:"ember"}],
+    body:["Darkvision out to 120 ft. Dwarven Toughness raises your hit point maximum by 1 per level (already counted in your 40 HP)."] };
+  REF.studentofwar = { title:"Student of War", dice:null,
+    chips:[{t:"Skill"},{t:"Smith's tools"}],
+    body:["You gain proficiency with one type of artisan's tools (Smith's tools fits the name) and one skill from the fighter list."] };
+  REF.hitdice = { title:"Hit Dice", dice:"1d10 +2 healing each", pool:"hd",
+    chips:[{t:"4 dice at lvl 4"},{t:"Spent on a short rest",c:"storm"}],
+    body:["During a short rest you can spend Hit Dice to heal, rolling 1d10+2 each (1d10 + your Constitution modifier). You regain spent Hit Dice on a long rest.",
+          "Tap Spend Hit Die to mark one used, then roll and apply it with Heal."] };
+
+  /* ============================== STATE =============================== */
+  var defaults = { hpMax:40, hpCur:40, temp:0, sup:4, sw:3, as:1, sc:2, hd:4, dsSucc:0, dsFail:0 };
+  var state = JSON.parse(JSON.stringify(defaults));
+
+  function applyDefaults(loaded){
+    var s = JSON.parse(JSON.stringify(defaults));
+    if(loaded && typeof loaded === "object"){ for(var k in defaults){ if(k in loaded) s[k]=loaded[k]; } }
+    return s;
+  }
+
+  var sync = document.getElementById("sync"), syncText = document.getElementById("syncText");
+  function setStatus(s){
+    sync.classList.remove("saved","saving","error");
+    if(s==="saving"){ sync.classList.add("saving"); syncText.textContent="saving…"; }
+    else if(s==="error"){ sync.classList.add("error"); syncText.textContent="save error"; }
+    else if(s==="loading"){ syncText.textContent="loading…"; }
+    else { sync.classList.add("saved"); syncText.textContent = (STORE_CONFIG.mode==="remote"?"synced":"saved"); }
+  }
+
+  var saveTimer = null;
+  function persist(){
+    setStatus("saving");
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      Promise.resolve(store.save(state)).then(function(){ setStatus("saved"); })
+        .catch(function(){ setStatus("error"); });
+    }, 250);
+  }
+
+  /* ============================ RENDERING ============================ */
+  var abilWrap = document.getElementById("abilities");
+  ABILS.forEach(function(a){
+    var sv = a.mod + (SAVE_PROF[a.k]?PROF:0);
+    var b = document.createElement("button");
+    b.type="button"; b.className="ability"; b.setAttribute("data-ref","abil_"+a.k);
+    b.innerHTML = '<div class="name">'+a.k+'</div><div class="amod">'+fmt(a.mod)+'</div>'+
+                  '<div class="arow"><span class="sc">'+a.score+'</span><span class="sv">save '+fmt(sv)+'</span></div>';
+    abilWrap.appendChild(b);
+  });
+
+  var skillWrap = document.getElementById("skills");
+  SKILLS.forEach(function(s){
+    var mod = abilMod(s[1]) + (s[2]?PROF:0);
+    var d = document.createElement("div");
+    d.className = "skill"+(s[2]?" prof":"");
+    d.innerHTML = '<span class="pip"></span><span class="sname">'+s[0]+'</span><span class="smod">'+fmt(mod)+'</span>';
+    skillWrap.appendChild(d);
+  });
+
+  var POOL_EL = { sup:["supRivets",false], sw:["swRivets",true], as:["asRivets",false], sc:["scRivets",false], hd:["hitDiceRivets",false] };
+  function renderPools(){
+    Object.keys(POOL_EL).forEach(function(pool){
+      var elId = POOL_EL[pool][0], storm = POOL_EL[pool][1];
+      var el = document.getElementById(elId); el.innerHTML="";
+      var max = POOL_MAX[pool], count = state[pool];
+      for(var i=0;i<max;i++){
+        var b = document.createElement("button");
+        b.type="button";
+        b.className="rivet"+(storm?" storm":"")+(i<count?" charged":"");
+        b.setAttribute("aria-label",(i<count?"charged":"spent")+" "+(i+1));
+        (function(idx){
+          b.addEventListener("click", function(){
+            state[pool] = (idx < state[pool]) ? idx : idx+1;   // tap charged to spend down, spent to restore
+            persist(); renderPools(); refreshModalUses(pool);
+          });
+        })(i);
+        el.appendChild(b);
+      }
+    });
+  }
+
+  function renderDeath(){
+    [["dsSucc","succ"],["dsFail","fail"]].forEach(function(pair){
+      var el=document.getElementById(pair[0]); el.innerHTML="";
+      for(var i=0;i<3;i++){
+        var b=document.createElement("button");
+        b.type="button"; b.className="ds-pip "+pair[1]+(i<state[pair[0]]?" on":"");
+        b.setAttribute("aria-label",pair[1]+" "+(i+1));
+        (function(idx,key){
+          b.addEventListener("click", function(){ state[key] = (state[key]===idx+1)?idx:idx+1; persist(); renderDeath(); });
+        })(i,pair[0]);
+        el.appendChild(b);
+      }
+    });
+  }
+
+  var hpCur=document.getElementById("hpCur"), hpMax=document.getElementById("hpMax"), tempWrap=document.getElementById("tempWrap");
+  function renderHP(){
+    hpCur.value=state.hpCur; hpMax.value=state.hpMax;
+    tempWrap.innerHTML = state.temp>0 ? '<span class="temp-badge">＋'+state.temp+' temp HP</span>'
+                                      : '<span class="mini-label" style="color:var(--ash-dim)">no temp HP</span>';
+  }
+
+  /* ============================== HP LOGIC ============================== */
+  function commitHp(){
+    var c=parseInt(hpCur.value,10); if(isNaN(c)) c=state.hpCur;
+    var m=parseInt(hpMax.value,10); if(isNaN(m)||m<1) m=state.hpMax;
+    state.hpMax=m; state.hpCur=Math.max(0,Math.min(m,c)); persist(); renderHP();
+  }
+  hpCur.addEventListener("change", commitHp);
+  hpCur.addEventListener("keydown", function(e){ if(e.key==="Enter") hpCur.blur(); });
+  hpMax.addEventListener("change", commitHp);
+  document.getElementById("dmgBtn").addEventListener("click", function(){
+    var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return;
+    if(state.temp>0){ var a=Math.min(state.temp,v); state.temp-=a; v-=a; }
+    state.hpCur=Math.max(0,state.hpCur-v); persist(); renderHP(); document.getElementById("hpDelta").value="";
+  });
+  document.getElementById("healBtn").addEventListener("click", function(){
+    var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return;
+    state.hpCur=Math.min(parseInt(state.hpMax,10),state.hpCur+v); persist(); renderHP(); document.getElementById("hpDelta").value="";
+  });
+  document.getElementById("tempBtn").addEventListener("click", function(){
+    var v=parseInt(document.getElementById("tempIn").value,10); if(isNaN(v)||v<0) v=0;
+    state.temp=v; persist(); renderHP(); document.getElementById("tempIn").value="";
+  });
+  document.getElementById("spendHd").addEventListener("click", function(){
+    if(spendPool("hd")) toast(POOL_REMINDER.hd); else toast("No hit dice remaining.");
+  });
+
+  function spendPool(pool){
+    if(state[pool]<=0) return false;
+    state[pool]--; persist(); renderPools(); refreshModalUses(pool); return true;
+  }
+
+  /* ============================ REFERENCE MODAL ============================ */
+  var refOverlay=document.getElementById("refOverlay");
+  var refTitle=document.getElementById("refTitle"), refDice=document.getElementById("refDice"),
+      refChips=document.getElementById("refChips"), refBody=document.getElementById("refBody"), refFoot=document.getElementById("refFoot");
+  var lastTrigger=null, currentRefPool=null;
+
+  function openRef(id, trigger){
+    var r=REF[id]; if(!r) return;
+    lastTrigger=trigger||null; currentRefPool=r.pool||null;
+    refTitle.textContent=r.title;
+    refDice.textContent=r.dice||""; refDice.style.display=r.dice?"block":"none";
+    refChips.innerHTML="";
+    (r.chips||[]).forEach(function(c){ var s=document.createElement("span"); s.className="chip"+(c.c?(" "+c.c):""); s.textContent=c.t; refChips.appendChild(s); });
+    refChips.style.display=(r.chips&&r.chips.length)?"flex":"none";
+    refBody.innerHTML=""; (r.body||[]).forEach(function(p){ var el=document.createElement("p"); el.textContent=p; refBody.appendChild(el); });
+    refFoot.innerHTML="";
+    if(r.pool){
+      var btn=document.createElement("button"); btn.type="button"; btn.className="btn ember"; btn.id="refUseBtn";
+      btn.addEventListener("click", function(){
+        if(spendPool(r.pool)){ toast(POOL_REMINDER[r.pool]); }
+        else { toast("None left — rest to recover."); }
+      });
+      var left=document.createElement("span"); left.className="uses-left"; left.id="refUsesLeft";
+      refFoot.appendChild(btn); refFoot.appendChild(left);
+      refreshModalUses(r.pool);
+    }
+    refOverlay.classList.add("show");
+    document.getElementById("refClose").focus();
+  }
+  function refreshModalUses(pool){
+    if(!refOverlay.classList.contains("show") || currentRefPool!==pool) return;
+    var btn=document.getElementById("refUseBtn"), left=document.getElementById("refUsesLeft");
+    if(!btn) return;
+    var remaining=state[pool], max=POOL_MAX[pool];
+    btn.textContent = pool==="sw" ? "Use Second Wind" : (pool==="sup" ? "Spend a die" : "Use");
+    btn.disabled = remaining<=0;
+    btn.style.opacity = remaining<=0 ? ".5" : "1";
+    if(left) left.textContent = remaining+" / "+max+" remaining";
+  }
+  function closeRef(){ refOverlay.classList.remove("show"); currentRefPool=null; if(lastTrigger&&lastTrigger.focus) lastTrigger.focus(); }
+  document.getElementById("refClose").addEventListener("click", closeRef);
+  refOverlay.addEventListener("click", function(e){ if(e.target===refOverlay) closeRef(); });
+
+  /* delegate every [data-ref] tap to the modal */
+  document.addEventListener("click", function(e){
+    var t=e.target.closest("[data-ref]"); if(!t) return;
+    openRef(t.getAttribute("data-ref"), t);
+  });
+
+  /* ============================== REST ============================== */
+  var restOverlay=document.getElementById("restOverlay");
+  function openRest(){ restOverlay.classList.add("show"); }
+  function closeRest(){ restOverlay.classList.remove("show"); }
+  document.getElementById("restBtn").addEventListener("click", openRest);
+  document.getElementById("restClose").addEventListener("click", closeRest);
+  restOverlay.addEventListener("click", function(e){ if(e.target===restOverlay) closeRest(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape"){ closeRef(); closeRest(); } });
+
+  document.getElementById("shortRest").addEventListener("click", function(){
+    state.sup=4; state.sw=3; state.as=1; persist(); renderPools(); closeRest();
+    toast("Short rest — superiority, Second Wind & Action Surge restored.");
+  });
+  document.getElementById("longRest").addEventListener("click", function(){
+    state.hpCur=parseInt(state.hpMax,10); state.temp=0;
+    state.sup=4; state.sw=3; state.as=1; state.sc=2; state.hd=4; state.dsSucc=0; state.dsFail=0;
+    persist(); renderPools(); renderHP(); renderDeath(); closeRest();
+    toast("Long rest — fully restored.");
+  });
+
+  /* ============================== RESET ============================== */
+  document.getElementById("resetLink").addEventListener("click", function(){
+    if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
+      state=JSON.parse(JSON.stringify(defaults));
+      Promise.resolve(store.clear()).then(function(){ persist(); });
+      renderPools(); renderHP(); renderDeath(); toast("Sheet reset.");
+    }
+  });
+
+  /* ============================== TOAST ============================== */
+  var toastEl=document.getElementById("toast"), toastT=null;
+  function toast(msg){ toastEl.textContent=msg; toastEl.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(function(){ toastEl.classList.remove("show"); }, 2800); }
+
+  /* ============================== INIT ============================== */
+  (async function init(){
+    setStatus("loading");
+    var loaded=null;
+    try { loaded = await store.load(); } catch(e){ /* fall back to defaults */ }
+    state = applyDefaults(loaded);
+    renderPools(); renderHP(); renderDeath();
+    setStatus("saved");
+  })();
+})();
+</script>
+</body>
+</html>
