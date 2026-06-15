@@ -170,6 +170,17 @@
   .feat b{font-family:"Cinzel",serif;font-size:.86rem;color:var(--bone)}
   .feat span{display:block;font-size:.76rem;color:var(--ash);margin-top:.1rem}
 
+  /* ---------- Inventory ---------- */
+  .inv-magic{display:block;width:100%;text-align:left;border:1px solid var(--ember);border-radius:9px;padding:.7rem;margin-bottom:.8rem;background:rgba(217,133,63,.08);box-shadow:var(--shadow-carve);color:var(--bone);cursor:pointer;min-height:44px}
+  .inv-magic:active{border-color:var(--ember-bright)}
+  .inv-magic b{font-family:"Cinzel",serif;font-size:.9rem;color:var(--ember-bright)}
+  .inv-magic .mtag{font-family:"Spectral",serif;font-weight:600;font-size:.66rem;color:var(--ember);border:1px solid var(--ember);border-radius:5px;padding:.05rem .4rem;margin-left:.4rem;white-space:nowrap}
+  .inv-magic span.desc{display:block;font-size:.78rem;color:var(--ash);margin-top:.2rem}
+  .inv-row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;border-bottom:1px dashed var(--iron);padding:.55rem .15rem}
+  .inv-row:last-child{border-bottom:none}
+  .inv-row .iname{font-family:"Cinzel",serif;font-size:.84rem;color:var(--bone)}
+  .inv-row .itag{font-size:.72rem;color:var(--ash-dim);text-align:right;white-space:nowrap}
+
   /* ---------- Modal ---------- */
   .overlay{position:fixed;inset:0;background:rgba(8,9,12,.8);backdrop-filter:blur(3px);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem}
   .overlay.show{display:flex}
@@ -362,12 +373,27 @@
       <div class="skills" id="skills"></div>
     </section>
 
+    <!-- INVENTORY -->
+    <section class="card">
+      <h2>Inventory <span class="hint">gear &amp; carried items</span></h2>
+      <div class="inv-magic" id="magicItemSlot">
+        <b>Minor Magic Item</b><span class="mtag">unassigned</span>
+        <span class="desc">Not yet recorded on this sheet. Tell me which item it is and I'll add it here with its full rules.</span>
+      </div>
+      <div class="inv-row"><span class="iname">Battleaxe</span><span class="itag">martial weapon · Topple</span></div>
+      <div class="inv-row"><span class="iname">Handaxe (thrown)</span><span class="itag">martial weapon · Vex · 20/60</span></div>
+      <div class="inv-row"><span class="iname">Chain Mail</span><span class="itag">heavy armor · AC 16</span></div>
+      <div class="inv-row"><span class="iname">Shield</span><span class="itag">+2 AC</span></div>
+      <div class="inv-row"><span class="iname">Smith's Tools</span><span class="itag">artisan's tools</span></div>
+      <div class="inv-row"><span class="iname">Gaming Set</span><span class="itag">Guard background</span></div>
+    </section>
+
     <!-- FEATURES -->
     <section class="card">
       <h2>Features &amp; Traits <span class="hint">tap any for rules</span></h2>
       <button class="feat" data-ref="asi" type="button"><b>Level 4: Ability Score Improvement</b><span>+2 Strength → 18</span></button>
       <button class="feat" data-ref="alert" type="button"><b>Alert</b><span>Guard origin feat · +prof to initiative · swap with an ally</span></button>
-      <button class="feat" data-ref="weaponmastery" type="button"><b>Weapon Mastery</b><span>Topple (battleaxe) · Vex (handaxe) · +1 open slot</span></button>
+      <button class="feat" data-ref="weaponmastery" type="button"><b>Weapon Mastery</b><span>Topple (battleaxe) · Vex (handaxe) · 2 open slots</span></button>
       <button class="feat" data-ref="fightingstyle" type="button"><b>Fighting Style: Defense</b><span>+1 AC while armored</span></button>
       <button class="feat" data-ref="dwarven" type="button"><b>Dwarven Resilience</b><span>resist poison · advantage on poison saves</span></button>
       <button class="feat" data-ref="darkvision" type="button"><b>Darkvision &amp; Toughness</b><span>see 120 ft · +1 HP per level</span></button>
