@@ -807,9 +807,9 @@
       });
       var left=document.createElement("span"); left.className="uses-left"; left.id="refUsesLeft";
       refFoot.appendChild(btn); refFoot.appendChild(left);
-      refreshModalUses(r.pool);
     }
     refOverlay.classList.add("show");
+    if(r.pool){ refreshModalUses(r.pool); }
     document.getElementById("refClose").focus();
   }
   function refreshModalUses(pool){
