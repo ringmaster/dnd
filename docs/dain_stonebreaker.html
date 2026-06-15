@@ -283,17 +283,17 @@
       </div>
       <div class="hp-label">Current / Max</div>
       <div class="row" id="tempWrap" style="margin-bottom:.6rem"></div>
-      <div class="row">
+      <div class="row" id="hpAdjust">
         <input class="num" id="hpDelta" type="number" min="0" inputmode="numeric" placeholder="#" aria-label="Amount">
         <button class="btn tiny" id="dmgBtn" type="button">Damage</button>
         <button class="btn tiny ember" id="healBtn" type="button">Heal</button>
       </div>
-      <div class="row" style="margin-top:.6rem">
+      <div class="row" id="tempRow" style="margin-top:.6rem">
         <span class="mini-label">Temp HP</span>
         <input class="num" id="tempIn" type="number" min="0" inputmode="numeric" placeholder="0" aria-label="Set temporary hit points">
         <button class="btn tiny" id="tempBtn" type="button">Set</button>
       </div>
-      <div class="pool" style="margin-top:.8rem">
+      <div class="pool" id="hitDicePool" style="margin-top:.8rem">
         <div class="pool-head"><button class="pname" data-ref="hitdice" type="button">Hit Dice ⓘ</button><span class="pnote">1d10+2 · short rest</span></div>
         <div class="rivets" id="hitDiceRivets"></div>
         <div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="spendHd" type="button">Spend Hit Die</button></div>
@@ -780,13 +780,15 @@
   }
 
   var hpCur=document.getElementById("hpCur"), hpMax=document.getElementById("hpMax"), tempWrap=document.getElementById("tempWrap"),
-      deathSaves=document.getElementById("deathSaves");
+      deathSaves=document.getElementById("deathSaves"),
+      hpAdjust=document.getElementById("hpAdjust"), tempRow=document.getElementById("tempRow"), hitDicePool=document.getElementById("hitDicePool");
   function renderHP(){
     hpCur.value=state.hpCur; hpMax.value=state.hpMax;
     tempWrap.innerHTML = state.temp>0 ? '<span class="temp-badge">＋'+state.temp+' temp HP</span>'
                                       : '<span class="mini-label" style="color:var(--ash-dim)">no temp HP</span>';
     var atZero = parseInt(state.hpCur,10)===0;
     deathSaves.style.display = atZero ? "block" : "none";
+    [tempWrap, hpAdjust, tempRow, hitDicePool].forEach(function(el){ el.style.display = atZero ? "none" : ""; });
     if(!atZero && (state.dsSucc||state.dsFail)){ state.dsSucc=0; state.dsFail=0; persist(); renderDeath(); }
   }
 
