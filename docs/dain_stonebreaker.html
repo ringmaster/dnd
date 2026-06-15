@@ -171,7 +171,7 @@
   .feat span{display:block;font-size:.76rem;color:var(--ash);margin-top:.1rem}
 
   /* ---------- Inventory ---------- */
-  .inv-magic{display:block;width:100%;text-align:left;border:1px solid var(--ember);border-radius:9px;padding:.7rem;margin-bottom:.8rem;background:rgba(217,133,63,.08);box-shadow:var(--shadow-carve);color:var(--bone);cursor:pointer;min-height:44px}
+  .inv-magic{display:block;width:100%;text-align:left;border:1px solid var(--ember);border-radius:9px;padding:.7rem;margin-bottom:.8rem;background:rgba(217,133,63,.08);box-shadow:var(--shadow-carve);color:var(--bone);cursor:pointer;min-height:44px;font-family:inherit}
   .inv-magic:active{border-color:var(--ember-bright)}
   .inv-magic b{font-family:"Cinzel",serif;font-size:.9rem;color:var(--ember-bright)}
   .inv-magic .mtag{font-family:"Spectral",serif;font-weight:600;font-size:.66rem;color:var(--ember);border:1px solid var(--ember);border-radius:5px;padding:.05rem .4rem;margin-left:.4rem;white-space:nowrap}
@@ -180,6 +180,17 @@
   .inv-row:last-child{border-bottom:none}
   .inv-row .iname{font-family:"Cinzel",serif;font-size:.84rem;color:var(--bone)}
   .inv-row .itag{font-size:.72rem;color:var(--ash-dim);text-align:right;white-space:nowrap}
+
+  /* ---------- Weapon mastery selector ---------- */
+  .wm-row{display:flex;align-items:flex-start;gap:.7rem;width:100%;text-align:left;background:transparent;border:none;border-bottom:1px dashed var(--iron);padding:.7rem .15rem;cursor:pointer;color:var(--bone);min-height:44px}
+  .wm-row:last-of-type{border-bottom:none}
+  .wm-row .acbox{margin-top:.15rem}
+  .wm-row.on .acbox{background:var(--ember);border-color:var(--ember);color:#1a1206}
+  .wm-main{display:flex;flex-direction:column;gap:.15rem}
+  .wm-name{font-family:"Cinzel",serif;font-size:.86rem;color:var(--bone);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+  .wm-name .mastery{font-family:"Spectral",serif;font-weight:600;font-size:.66rem;color:var(--storm);border:1px solid var(--storm);border-radius:5px;padding:.02rem .35rem}
+  .wm-name .own{font-size:.64rem;color:var(--ash-dim)}
+  .wm-eff{font-size:.74rem;color:var(--ash)}
 
   /* ---------- Modal ---------- */
   .overlay{position:fixed;inset:0;background:rgba(8,9,12,.8);backdrop-filter:blur(3px);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem}
@@ -322,7 +333,7 @@
       <button class="tap" data-ref="battleaxe" type="button">
         <div class="tap-name">Battleaxe <span class="mastery">Topple</span></div>
         <div class="tap-dice">To hit: d20 +6 · Damage: 1d8 +4</div>
-        <div class="tap-sub">slashing · crit 2d8+4 · <span class="info-tag">tap for Topple rule ⓘ</span></div>
+        <div class="tap-sub">slashing · crit 2d8+4 · magical · <span class="info-tag">tap for rules ⓘ</span></div>
       </button>
       <button class="tap" data-ref="handaxe" type="button">
         <div class="tap-name">Handaxe (thrown) <span class="mastery">Vex</span></div>
@@ -376,11 +387,10 @@
     <!-- INVENTORY -->
     <section class="card">
       <h2>Inventory <span class="hint">gear &amp; carried items</span></h2>
-      <div class="inv-magic" id="magicItemSlot">
-        <b>Minor Magic Item</b><span class="mtag">unassigned</span>
-        <span class="desc">Not yet recorded on this sheet. Tell me which item it is and I'll add it here with its full rules.</span>
-      </div>
-      <div class="inv-row"><span class="iname">Battleaxe</span><span class="itag">martial weapon · Topple</span></div>
+      <button class="inv-magic" data-ref="moontouched" type="button">
+        <b>Moon-Touched Battleaxe</b><span class="mtag">common · no attunement</span>
+        <span class="desc">Magic weapon — attacks count as magical. Sheds bright light (15 ft) + dim light (15 ft) while drawn in darkness. Your main weapon, carrying the Topple mastery.</span>
+      </button>
       <div class="inv-row"><span class="iname">Handaxe (thrown)</span><span class="itag">martial weapon · Vex · 20/60</span></div>
       <div class="inv-row"><span class="iname">Chain Mail</span><span class="itag">heavy armor · AC 16</span></div>
       <div class="inv-row"><span class="iname">Shield</span><span class="itag">+2 AC</span></div>
@@ -393,7 +403,7 @@
       <h2>Features &amp; Traits <span class="hint">tap any for rules</span></h2>
       <button class="feat" data-ref="asi" type="button"><b>Level 4: Ability Score Improvement</b><span>+2 Strength → 18</span></button>
       <button class="feat" data-ref="alert" type="button"><b>Alert</b><span>Guard origin feat · +prof to initiative · swap with an ally</span></button>
-      <button class="feat" data-ref="weaponmastery" type="button"><b>Weapon Mastery</b><span>Topple (battleaxe) · Vex (handaxe) · 2 open slots</span></button>
+      <button class="feat" data-ref="weaponmastery" type="button"><b>Weapon Mastery</b><span id="wmSummary">Topple (battleaxe) · Vex (handaxe) · 2 of 4 mastered</span></button>
       <button class="feat" data-ref="fightingstyle" type="button"><b>Fighting Style: Defense</b><span>+1 AC while armored</span></button>
       <button class="feat" data-ref="dwarven" type="button"><b>Dwarven Resilience</b><span>resist poison · advantage on poison saves</span></button>
       <button class="feat" data-ref="darkvision" type="button"><b>Darkvision &amp; Toughness</b><span>see 120 ft · +1 HP per level</span></button>
@@ -426,6 +436,7 @@
               <li><b>Species: Dwarf</b> — Darkvision 120 ft, Dwarven Resilience, Dwarven Toughness, Stonecunning</li>
               <li><b>Ability scores:</b> Str 16, Con 15, Dex 12, Wis 14, Int 10, Cha 8 <span class="tag">(standard array 15/14/13/12/10/8; Guard background +2 Str / +1 Wis; Con takes no background bonus)</span></li>
               <li class="choice"><b>Fighting Style: Defense</b> (+1 AC)</li>
+              <li class="choice"><b>Skills (Fighter):</b> Intimidation, Survival</li>
               <li class="choice"><b>Weapon Mastery: Topple</b> (battleaxe) · <b>Vex</b> (handaxe)</li>
               <li>Second Wind, Weapon Mastery feature</li>
               <li class="choice"><b>Background: Guard</b> — Origin feat <b>Alert</b>; skills Athletics &amp; Perception; Gaming Set</li>
@@ -445,7 +456,7 @@
               <li class="choice"><b>Subclass: Battle Master</b></li>
               <li>Combat Superiority — 4 d8 dice, maneuver DC</li>
               <li class="choice"><b>Maneuvers: Trip, Goading, Precision</b></li>
-              <li class="choice"><b>Student of War:</b> +1 skill &amp; Smith's tools</li>
+              <li class="choice"><b>Student of War:</b> skill <b>Insight</b> · Smith's tools</li>
             </ul>
           </div>
           <div class="lvl">
@@ -600,7 +611,7 @@
   };
   var SKILLS = [
     ["Acrobatics","DEX",false],["Animal Handling","WIS",false],["Arcana","INT",false],["Athletics","STR",true],
-    ["Deception","CHA",false],["History","INT",false],["Insight","WIS",false],["Intimidation","CHA",true],
+    ["Deception","CHA",false],["History","INT",false],["Insight","WIS",true],["Intimidation","CHA",true],
     ["Investigation","INT",false],["Medicine","WIS",false],["Nature","INT",false],["Perception","WIS",true],
     ["Performance","CHA",false],["Persuasion","CHA",false],["Religion","INT",false],["Sleight of Hand","DEX",false],
     ["Stealth","DEX",false],["Survival","WIS",true]
@@ -630,10 +641,16 @@
             "Governs: "+GOVERNS[a.k]+"."]
     };
   });
-  REF.battleaxe = { title:"Battleaxe", dice:"To hit: d20 +6   ·   Damage: 1d8 +4",
-    chips:[{t:"Slashing"},{t:"Versatile 1d10"},{t:"Crit 2d8+4",c:"ember"},{t:"Topple",c:"storm"}],
+  REF.battleaxe = { title:"Battleaxe (Moon-Touched)", dice:"To hit: d20 +6   ·   Damage: 1d8 +4",
+    chips:[{t:"Slashing"},{t:"Versatile 1d10"},{t:"Crit 2d8+4",c:"ember"},{t:"Topple",c:"storm"},{t:"Magical",c:"storm"}],
     body:["One attack on your turn (Extra Attack arrives at level 5). Use two-handed for 1d10+4 when you drop the shield.",
-          "Topple (mastery): on a hit, the target makes a Constitution save (DC 14) or has the Prone condition."] };
+          "Topple (mastery): on a hit, the target makes a Constitution save (DC 14) or has the Prone condition.",
+          "Moon-Touched: a magic weapon, so your attacks with it count as magical — they bypass resistance and immunity to nonmagical damage. While drawn in darkness it sheds Bright Light (15 ft) and Dim Light for another 15 ft. It grants no bonus to attack or damage rolls."] };
+  REF.moontouched = { title:"Moon-Touched Battleaxe", dice:null,
+    chips:[{t:"Common"},{t:"No attunement",c:"storm"},{t:"Magic weapon",c:"storm"},{t:"Sheds light",c:"ember"}],
+    body:["A common magic battleaxe. While it is drawn in darkness, the blade sheds Bright Light in a 15-foot radius and Dim Light for an additional 15 feet.",
+          "Because it is a magic weapon, attacks made with it count as magical and overcome resistance or immunity to damage from nonmagical attacks. It grants no bonus to attack or damage rolls.",
+          "This is the weapon you wield, carrying the Topple mastery."] };
   REF.handaxe = { title:"Handaxe", dice:"To hit: d20 +6   ·   Damage: 1d6 +4",
     chips:[{t:"Thrown 20/60"},{t:"Light"},{t:"Crit 2d6+4",c:"ember"},{t:"Vex",c:"storm"}],
     body:["A reliable thrown option when melee isn't possible.",
@@ -678,11 +695,6 @@
     body:["Initiative Proficiency: you add your proficiency bonus (+2) to Initiative, so you roll d20 +3 (Dex +1, prof +2).",
           "Initiative Swap: right after rolling Initiative, you may trade your result with a willing ally's. Use it to push the right teammate to the top of the order, or to drop your control maneuvers before the enemy acts.",
           "Granted by the Guard background."] };
-  REF.weaponmastery = { title:"Weapon Mastery", dice:null,
-    chips:[{t:"Topple",c:"storm"},{t:"Vex",c:"storm"},{t:"4 slots at lvl 4"}],
-    body:["Topple (battleaxe): on a hit, the target makes a Con save (DC 14) or falls Prone — a free knockdown attempt that costs no superiority die.",
-          "Vex (handaxe): when you hit and deal damage, you gain Advantage on your next attack against that target until the end of your next turn.",
-          "At level 4 you can master four weapons. Two slots are open — a Warhammer (Push) to shove foes off ledges is a thematic pick."] };
   REF.fightingstyle = { title:"Fighting Style: Defense", dice:null,
     chips:[{t:"+1 AC",c:"ember"}],
     body:["While you are wearing armor, you gain a +1 bonus to AC. Already included in your AC of 19 (chain mail 16 + shield 2 + 1)."] };
@@ -720,7 +732,8 @@
 
   /* ============================== STATE =============================== */
   var defaults = { hpMax:40, hpCur:40, temp:0, sup:4, sw:3, as:1, sc:2, hd:4, dsSucc:0, dsFail:0,
-                   ac:{ armor:true, shield:true, defense:true } };
+                   ac:{ armor:true, shield:true, defense:true },
+                   masteries:["battleaxe","handaxe"] };
   var state = JSON.parse(JSON.stringify(defaults));
 
   function applyDefaults(loaded){
@@ -870,6 +883,62 @@
   var acVal=document.getElementById("acVal");
   function renderACStud(){ acVal.textContent = computeAC(state.ac); }
 
+  /* ============================ WEAPON MASTERY (interactive) ============================ */
+  var MASTERY_MAX = 4;
+  var WEAPONS = [
+    { id:"battleaxe", name:"Battleaxe",  mastery:"Topple", eff:"On a hit, Con save (DC 14) or Prone.", owned:true },
+    { id:"handaxe",   name:"Handaxe",    mastery:"Vex",    eff:"Hit + damage: Advantage on your next attack vs the target.", owned:true },
+    { id:"warhammer", name:"Warhammer",  mastery:"Push",   eff:"Hit + damage: push a Large-or-smaller target 10 ft away.", owned:false },
+    { id:"longsword", name:"Longsword",  mastery:"Sap",    eff:"Hit + damage: target has Disadvantage on its next attack.", owned:false },
+    { id:"greataxe",  name:"Greataxe",   mastery:"Cleave", eff:"On a hit, also strike a second creature within 5 ft.", owned:false },
+    { id:"maul",      name:"Maul",       mastery:"Topple", eff:"On a hit, Con save or Prone (two-handed).", owned:false },
+    { id:"spear",     name:"Spear",      mastery:"Sap",    eff:"Hit + damage: target has Disadvantage on its next attack.", owned:false },
+    { id:"javelin",   name:"Javelin",    mastery:"Slow",   eff:"Hit + damage: target's Speed drops 10 ft.", owned:false }
+  ];
+  function wById(id){ for(var i=0;i<WEAPONS.length;i++){ if(WEAPONS[i].id===id) return WEAPONS[i]; } return null; }
+  function renderMasterySummary(){
+    var span=document.getElementById("wmSummary"); if(!span) return;
+    var parts=state.masteries.map(function(id){ var w=wById(id); return w ? w.mastery+" ("+w.name.toLowerCase()+")" : null; }).filter(Boolean);
+    span.textContent = (parts.length?parts.join(" · ")+" · ":"") + state.masteries.length+" of "+MASTERY_MAX+" mastered";
+  }
+  function openMastery(trigger){
+    lastTrigger=trigger||null; currentRefPool=null;
+    refTitle.textContent="Weapon Mastery";
+    refChips.innerHTML=""; refChips.style.display="none";
+    refDice.style.display="block";
+    refBody.innerHTML="";
+    var intro=document.createElement("p"); intro.className="muted";
+    intro.textContent="Choose up to "+MASTERY_MAX+" weapons to master; you can change these after each long rest. Each weapon's mastery property is fixed to that weapon.";
+    refBody.appendChild(intro);
+    WEAPONS.forEach(function(w){
+      var btn=document.createElement("button"); btn.type="button"; btn.className="wm-row";
+      btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+w.name+
+        (w.owned?'':' <span class="own">(not carried)</span>')+' <span class="mastery">'+w.mastery+
+        '</span></span><span class="wm-eff">'+w.eff+'</span></span>';
+      btn.addEventListener("click", function(){ toggleMastery(w.id); });
+      refBody.appendChild(btn);
+    });
+    refFoot.innerHTML='<span class="uses-left" id="wmCount"></span>';
+    paintMastery();
+    refOverlay.classList.add("show");
+    document.getElementById("refClose").focus();
+  }
+  function toggleMastery(id){
+    var i=state.masteries.indexOf(id);
+    if(i>=0){ state.masteries.splice(i,1); }
+    else {
+      if(state.masteries.length>=MASTERY_MAX){ toast("You can master "+MASTERY_MAX+" weapons — deselect one first."); return; }
+      state.masteries.push(id);
+    }
+    persist(); paintMastery(); renderMasterySummary();
+  }
+  function paintMastery(){
+    refDice.textContent = "Mastered: "+state.masteries.length+" / "+MASTERY_MAX;
+    var rows=refBody.querySelectorAll(".wm-row");
+    WEAPONS.forEach(function(w,i){ if(rows[i]) rows[i].classList.toggle("on", state.masteries.indexOf(w.id)>=0); });
+    var c=document.getElementById("wmCount"); if(c) c.textContent="Swap your choices after any long rest.";
+  }
+
   /* ============================ REFERENCE MODAL ============================ */
   var refOverlay=document.getElementById("refOverlay");
   var refTitle=document.getElementById("refTitle"), refDice=document.getElementById("refDice"),
@@ -912,6 +981,7 @@
 
   function openRef(id, trigger){
     if(id==="stat_ac"){ openAC(trigger); return; }
+    if(id==="weaponmastery"){ openMastery(trigger); return; }
     var r=REF[id]; if(!r) return;
     lastTrigger=trigger||null; currentRefPool=r.pool||null;
     refTitle.textContent=r.title;
@@ -979,7 +1049,7 @@
     if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
       state=JSON.parse(JSON.stringify(defaults));
       Promise.resolve(store.clear()).then(function(){ persist(); });
-      renderPools(); renderHP(); renderDeath(); renderACStud(); toast("Sheet reset.");
+      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); toast("Sheet reset.");
     }
   });
 
@@ -994,7 +1064,8 @@
     try { loaded = await store.load(); } catch(e){ /* fall back to defaults */ }
     state = applyDefaults(loaded);
     if(!state.ac || typeof state.ac!=="object"){ state.ac=JSON.parse(JSON.stringify(defaults.ac)); }
-    renderPools(); renderHP(); renderDeath(); renderACStud();
+    if(!Array.isArray(state.masteries)){ state.masteries=defaults.masteries.slice(); }
+    renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary();
     setStatus("saved");
   })();
 })();
