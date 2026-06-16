@@ -19,6 +19,8 @@ const engineJs = ORDER.map((f) => "/* ===== engine/" + f + " ===== */\n" + read(
 
 function indent(s, pad) { return s.split("\n").map((l) => (l.length ? pad + l : l)).join("\n"); }
 
+fs.mkdirSync(DOCS, { recursive: true });
+
 const charFiles = fs.readdirSync(path.join(SRC, "characters")).filter((f) => f.endsWith(".json"));
 if (!charFiles.length) { console.error("No characters in src/characters/"); process.exit(1); }
 

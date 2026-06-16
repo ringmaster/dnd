@@ -1,3 +1,7 @@
+# Generated sheets — built by `node src/build.mjs` (locally or in CI), never committed.
+# GitHub Pages is published from the build artifact by .github/workflows/pages.yml.
+/docs/
+
 # macOS
 .DS_Store
 
