@@ -7,6 +7,7 @@ A collection of characters and other D&D material for games I'm playing in (not 
 | Character | Sheet |
 | --- | --- |
 | Dain Stonebreaker — Battle Master Combat Sheet | [View](https://ringmaster.github.io/dnd/dain_stonebreaker.html) |
+| Brynja Ashbow — Fey Wanderer Ranger Sheet | [View](https://ringmaster.github.io/dnd/brynja_ashbow.html) |
 
 > The links above point to the **rendered** pages served by GitHub Pages. The HTML source lives in [`docs/`](docs/).
 
