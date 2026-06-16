@@ -375,6 +375,13 @@
         <button class="feat" data-ref="longstrider" type="button"><b>Longstrider</b><span>+10 ft Speed for 1 hour</span></button>
         <button class="feat" data-ref="ensnaringstrike" type="button"><b>Ensnaring Strike</b><span>Restrained on hit · Concentration</span></button>
         <button class="feat" data-ref="fogcloud" type="button"><b>Fog Cloud</b><span>20-ft sphere, Heavily Obscured · Concentration</span></button>
+        <div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Magic Initiate (Druid) · Wis</div>
+        <button class="feat" data-ref="guidance" type="button"><b>Guidance</b><span>cantrip · +1d4 to one ability check · Concentration</span></button>
+        <button class="feat" data-ref="produceflame" type="button"><b>Produce Flame</b><span>cantrip · 1d8 fire ranged · sheds light</span></button>
+      </div>
+      <div class="pool" style="margin-top:.5rem">
+        <div class="pool-head"><button class="pname" data-ref="faeriefire" type="button">Faerie Fire — free ⓘ</button><span class="pnote">long rest</span></div>
+        <div class="rivets" id="miRivets"></div>
       </div>
     </section>
 
@@ -428,7 +435,8 @@
       <button class="feat" data-ref="wayfarer" type="button"><b>Background: Wayfarer</b><span>Insight · Stealth · Thieves' Tools · Lucky</span></button>
       <button class="feat" data-ref="resourceful" type="button"><b>Human: Resourceful</b><span>Heroic Inspiration after each long rest</span></button>
       <button class="feat" data-ref="skillful" type="button"><b>Human: Skillful</b><span>extra skill — Animal Handling</span></button>
-      <button class="feat" data-ref="versatile" type="button"><b>Human: Versatile</b><span>a second Origin feat — to place (not Lucky again)</span></button>
+      <button class="feat" data-ref="magicinitiate" type="button"><b>Magic Initiate (Druid)</b><span>Versatile feat · Guidance, Produce Flame · Faerie Fire 1×/long rest</span></button>
+      <button class="feat" data-ref="versatile" type="button"><b>Human: Versatile</b><span>second Origin feat → Magic Initiate (Druid)</span></button>
     </section>
 
     <!-- BACKGROUND -->
@@ -482,7 +490,7 @@
             <h4>Level 4 <span class="tag">Ranger</span></h4>
             <ul>
               <li class="choice"><b>Ability Score Improvement: +2 Dexterity</b> (17 → 19)</li>
-              <li class="open"><b>Human Versatile Origin feat — to place</b> (Lucky, Alert, Tough, or Savage Attacker)</li>
+              <li class="choice"><b>Human Versatile Origin feat: Magic Initiate (Druid)</b> — Guidance &amp; Produce Flame cantrips, Faerie Fire (Wis casting)</li>
               <li class="note">Took the ASI rather than a feat for the level-4 slot</li>
             </ul>
           </div>
@@ -643,12 +651,13 @@
   function fmt(n){ return (n>=0?"+":"")+n; }
   function skillMod(s){ return abilMod(s[1]) + (s[2]?PROF:0) + (s[3]?PROF:0) + (s[1]==="CHA"?GLAMOUR:0); }
 
-  var POOL_MAX = { slot1:3, hm:2, insp:1, luck:2, hd:4 };
+  var POOL_MAX = { slot1:3, hm:2, insp:1, luck:2, mi:1, hd:4 };
   var POOL_REMINDER = {
     slot1:"Spend a 1st-level spell slot.",
     hm:"Hunter's Mark: free cast (no slot). Bonus Action; +1d6 force on each hit.",
     insp:"Heroic Inspiration: reroll any d20 and keep either result.",
     luck:"Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you.",
+    mi:"Magic Initiate: free cast of Faerie Fire (no slot).",
     hd:"Hit Die: roll 1d10+1, then add it with Heal."
   };
 
@@ -752,13 +761,29 @@
           "Advantage: when you roll a d20 for a d20 Test (an attack roll, ability check, or saving throw), you can spend 1 Luck Point to give yourself Advantage on the roll.",
           "Disadvantage: when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll.",
           "Granted by the Wayfarer background. Tap Use below to spend a Luck Point."] };
+  REF.magicinitiate = { title:"Magic Initiate (Druid)", dice:null,
+    chips:[{t:"Human Versatile feat",c:"ember"},{t:"Wis casting",c:"storm"},{t:"DC 12 · atk +4"}],
+    body:["From the Druid list you learn two cantrips (Guidance and Produce Flame) and one level-1 spell (Faerie Fire). Wisdom is the spellcasting ability, so the numbers match your ranger casting: save DC 12, spell attack +4.",
+          "You can cast Faerie Fire once per long rest without a slot, and also with your ranger spell slots. Cantrips are at-will.",
+          "Placed here with the Human Versatile Origin feat — confirm the cantrip/spell picks with your table."] };
+  REF.guidance = { title:"Guidance", dice:"+1d4 to a check",
+    chips:[{t:"Cantrip"},{t:"Concentration",c:"storm"}],
+    body:["Touch a willing creature; once before the spell ends (up to 1 minute) it can roll 1d4 and add it to one ability check of its choice. Requires Concentration."] };
+  REF.produceflame = { title:"Produce Flame", dice:"1d8 fire · spell atk +4",
+    chips:[{t:"Cantrip"},{t:"Bright light 10 ft"}],
+    body:["A flame in your hand sheds Bright Light (10 ft) and Dim Light (another 10 ft) for 10 minutes. You can hurl it as a ranged spell attack (to 30 ft) for 1d8 fire damage; the die grows at higher levels.",
+          "A handy light source and a backup ranged option when a bow won't serve."] };
+  REF.faeriefire = { title:"Faerie Fire", dice:"Dex save DC 12", pool:"mi",
+    chips:[{t:"Level 1"},{t:"Concentration",c:"storm"},{t:"Free 1×/long rest",c:"ember"}],
+    body:["Each creature in a 20-foot cube must succeed on a Dexterity save (DC 12) or be outlined in light for 1 minute. Attack rolls against an outlined creature have Advantage, and it can't benefit from being Invisible.",
+          "Concentration, so it competes with Hunter's Mark. From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use below to spend the free cast."] };
   REF.wayfarer = { title:"Background: Wayfarer", dice:null,
     chips:[{t:"Lucky feat",c:"ember"},{t:"Insight · Stealth",c:"storm"},{t:"Thieves' Tools"}],
     body:["A life lived on the road and the margins. Wayfarer grants the Lucky Origin feat, proficiency in Insight and Stealth, proficiency with Thieves' Tools, and the +2 Dexterity / +1 Wisdom that shaped your scores."] };
   REF.versatile = { title:"Human: Versatile", dice:null,
-    chips:[{t:"+1 Origin feat",c:"ember"}],
-    body:["You gain one Origin feat of your choice, on top of the Lucky feat from your Wayfarer background. Strong picks for Brynja: Alert, Tough, Savage Attacker, or Magic Initiate. Not yet placed — choose one and it goes here.",
-          "It can't be Lucky again, since Wayfarer already granted that."] };
+    chips:[{t:"Magic Initiate (Druid)",c:"ember"}],
+    body:["You gain one Origin feat of your choice, on top of the Lucky feat from your Wayfarer background. Placed in Magic Initiate (Druid) — see that entry for the cantrips and spell it grants.",
+          "Swap it for another feat (Alert, Tough, Savage Attacker…) any time before play if you'd rather; it just can't be Lucky again."] };
   REF.hitdice = { title:"Hit Dice", dice:"1d10 +1 healing each", pool:"hd",
     chips:[{t:"4 dice at lvl 4"},{t:"Spent on a short rest",c:"storm"}],
     body:["During a short rest you can spend Hit Dice to heal, rolling 1d10+1 each (1d10 + your Constitution modifier). You regain spent Hit Dice on a long rest.",
@@ -782,7 +807,7 @@
           "Perception is +4 (Wis +2, proficiency +2), so 14. If you moved your Deft Explorer Expertise onto Perception, this would be 16."] };
 
   /* ============================== STATE =============================== */
-  var defaults = { hpMax:32, hpCur:32, temp:0, slot1:3, hm:2, insp:1, luck:2, hd:4, dsSucc:0, dsFail:0,
+  var defaults = { hpMax:32, hpCur:32, temp:0, slot1:3, hm:2, insp:1, luck:2, mi:1, hd:4, dsSucc:0, dsFail:0,
                    ac:{ armor:true, shield:false },
                    masteries:["longbow","shortsword"] };
   var state = JSON.parse(JSON.stringify(defaults));
@@ -835,7 +860,7 @@
     skillWrap.appendChild(d);
   });
 
-  var POOL_EL = { slot1:["slot1Rivets",true], hm:["hmRivets",false], insp:["inspRivets",true], luck:["luckRivets",false], hd:["hitDiceRivets",false] };
+  var POOL_EL = { slot1:["slot1Rivets",true], hm:["hmRivets",false], insp:["inspRivets",true], luck:["luckRivets",false], mi:["miRivets",true], hd:["hitDiceRivets",false] };
   function renderPools(){
     Object.keys(POOL_EL).forEach(function(pool){
       var elId = POOL_EL[pool][0], storm = POOL_EL[pool][1];
@@ -1310,7 +1335,7 @@
     var btn=document.getElementById("refUseBtn"), left=document.getElementById("refUsesLeft");
     if(!btn) return;
     var remaining=state[pool], max=POOL_MAX[pool];
-    btn.textContent = pool==="hm" ? "Use a free cast" : (pool==="slot1" ? "Spend a slot" : (pool==="insp" ? "Spend Inspiration" : (pool==="luck" ? "Spend a Luck Point" : "Use")));
+    btn.textContent = pool==="hm" ? "Use a free cast" : (pool==="slot1" ? "Spend a slot" : (pool==="insp" ? "Spend Inspiration" : (pool==="luck" ? "Spend a Luck Point" : (pool==="mi" ? "Use free cast" : "Use"))));
     btn.disabled = remaining<=0;
     btn.style.opacity = remaining<=0 ? ".5" : "1";
     if(left) left.textContent = remaining+" / "+max+" remaining";
@@ -1358,7 +1383,7 @@
   });
   document.getElementById("longRest").addEventListener("click", function(){
     state.hpCur=parseInt(state.hpMax,10); state.temp=0;
-    state.slot1=3; state.hm=2; state.insp=1; state.luck=2; state.hd=4; state.dsSucc=0; state.dsFail=0;
+    state.slot1=3; state.hm=2; state.insp=1; state.luck=2; state.mi=1; state.hd=4; state.dsSucc=0; state.dsFail=0;
     persist(); renderPools(); renderHP(); renderDeath(); closeRest();
     toast("Long rest — fully restored.");
   });
