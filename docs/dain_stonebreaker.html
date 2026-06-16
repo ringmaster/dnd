@@ -150,7 +150,9 @@
 
   /* ---------- Skills ---------- */
   .skills{display:grid;grid-template-columns:1fr 1fr;gap:.1rem .9rem}
-  .skill{display:flex;align-items:center;gap:.5rem;padding:.4rem .25rem;border-radius:5px;font-size:.84rem}
+  .skill{display:flex;align-items:center;gap:.5rem;padding:.4rem .25rem;border-radius:5px;font-size:.84rem;width:100%;text-align:left;background:none;border:none;color:inherit;font-family:inherit;cursor:pointer;min-height:34px}
+  .skill:hover{background:#20252f} .skill:active{background:#262c38}
+  .skill:focus-visible{outline:2px solid var(--ember);outline-offset:1px}
   .skill .pip{width:9px;height:9px;border-radius:50%;border:1px solid var(--iron-light);flex:0 0 auto}
   .skill.prof .pip{background:var(--ember);border-color:var(--ember)}
   .skill .sname{flex:1;color:var(--ash)} .skill.prof .sname{color:var(--bone)}
@@ -389,7 +391,7 @@
 
     <!-- SKILLS -->
     <section class="card">
-      <h2>Skills &amp; Saves <span class="hint">● proficient · roll d20 + value</span></h2>
+      <h2>Skills <span class="hint">tap a skill · ● proficient · roll d20 + value</span></h2>
       <div class="skills" id="skills"></div>
     </section>
 
@@ -785,8 +787,10 @@
   var skillWrap = document.getElementById("skills");
   SKILLS.forEach(function(s){
     var mod = abilMod(s[1]) + (s[2]?PROF:0);
-    var d = document.createElement("div");
+    var d = document.createElement("button");
+    d.type = "button";
     d.className = "skill"+(s[2]?" prof":"");
+    d.setAttribute("data-skill", s[0]);
     d.innerHTML = '<span class="pip"></span><span class="sname">'+s[0]+'</span><span class="smod">'+fmt(mod)+'</span>';
     skillWrap.appendChild(d);
   });
@@ -1078,6 +1082,7 @@
     "prone":{term:"Prone",def:"A condition. A Prone creature can only crawl and attacks with Disadvantage. Attack rolls against it have Advantage if the attacker is within 5 feet, and Disadvantage otherwise. Standing up costs half your movement."},
     "saving-throw":{term:"Saving Throw",def:"A d20 roll to resist an effect, adding the relevant ability modifier plus your Proficiency Bonus if you're proficient. You succeed if the total meets or beats the effect's DC."},
     "ability-check":{term:"Ability Check",def:"A d20 roll plus an ability modifier (plus your Proficiency Bonus if proficient in a relevant skill) to attempt something uncertain, compared against a DC."},
+    "ability-score":{term:"Ability Score",def:"The rating of one of the six abilities (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma), usually 1–20. Its modifier is (score − 10) ÷ 2 rounded down — that modifier is what you add to d20 rolls."},
     "initiative":{term:"Initiative",def:"A Dexterity check rolled at the start of combat to set turn order, highest first. The Alert feat lets you add your Proficiency Bonus."},
     "proficiency-bonus":{term:"Proficiency Bonus",def:"A bonus tied to your level (+2 at levels 1–4) that you add to attack rolls, saving throws, and ability checks you're proficient with."},
     "tremorsense":{term:"Tremorsense",def:"You can pinpoint creatures and moving objects within range, as long as both you and them are in contact with the same ground or surface. It can't detect flying or incorporeal creatures."},
@@ -1113,7 +1118,8 @@
     "bonus action":"bonus-action",
     "prone":"prone","prone condition":"prone",
     "saving throw":"saving-throw","saving throws":"saving-throw","save":"saving-throw","saves":"saving-throw",
-    "ability check":"ability-check","ability checks":"ability-check",
+    "ability check":"ability-check","ability checks":"ability-check","check":"ability-check","checks":"ability-check",
+    "ability score":"ability-score","ability scores":"ability-score","ability modifier":"ability-score",
     "initiative":"initiative",
     "proficiency bonus":"proficiency-bonus",
     "tremorsense":"tremorsense","darkvision":"darkvision",
@@ -1276,8 +1282,26 @@
   document.getElementById("refClose").addEventListener("click", closeRef);
   refOverlay.addEventListener("click", function(e){ if(e.target===refOverlay) closeRef(); });
 
-  /* delegate every [data-ref] tap to the modal */
+  /* Open a glossary entry as a full modal (used by the Skills list) */
+  function openGlossModal(key, trigger){
+    var g=GLOSSARY[key]; if(!g) return;
+    resetGlossary();
+    lastTrigger=trigger||null; currentRefPool=null;
+    refTitle.textContent=g.term;
+    refDice.textContent=""; refDice.style.display="none";
+    refChips.innerHTML=""; refChips.style.display="none";
+    refBody.innerHTML="";
+    var p=document.createElement("p"); p.textContent=g.def; refBody.appendChild(p);
+    linkifyTerms(refBody);
+    refFoot.innerHTML="";
+    refOverlay.classList.add("show");
+    document.getElementById("refClose").focus();
+  }
+
+  /* delegate taps: [data-ref] opens reference/AC/mastery, [data-skill] opens a skill description */
   document.addEventListener("click", function(e){
+    var sk=e.target.closest("[data-skill]");
+    if(sk){ openGlossModal(ALIASES[sk.getAttribute("data-skill").toLowerCase()], sk); return; }
     var t=e.target.closest("[data-ref]"); if(!t) return;
     openRef(t.getAttribute("data-ref"), t);
   });
