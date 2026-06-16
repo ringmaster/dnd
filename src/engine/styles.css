@@ -51,6 +51,13 @@
   .sync .dot{width:8px;height:8px;border-radius:50%;background:var(--ash-dim);transition:background .2s}
   .sync.saved .dot{background:var(--crit)} .sync.saving .dot{background:var(--ember)} .sync.error .dot{background:var(--fumble)}
 
+  /* ---------- Concentration bar (under the sticky header) ---------- */
+  .conc-bar{display:block;width:100%;max-width:1240px;margin:.55rem auto 0;background:rgba(111,168,199,.13);border:1px solid var(--storm);border-radius:8px;color:var(--bone);font-family:"Spectral",serif;font-size:.82rem;text-align:left;padding:.42rem .75rem;cursor:pointer;box-shadow:var(--shadow-carve)}
+  .conc-bar:hover{border-color:var(--ember)} .conc-bar:active{background:rgba(111,168,199,.2)}
+  .conc-bar .conc-lbl{color:var(--storm);font-family:"Cinzel",serif;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+  .conc-bar b{color:var(--bone);font-weight:700;font-family:"Cinzel",serif;font-size:.86rem;margin-left:.35rem}
+  .conc-bar .conc-tap{color:var(--ash-dim);font-size:.68rem;float:right;margin-top:.15rem}
+
   /* ---------- Buttons ---------- */
   .btn{
     font-family:"Cinzel",serif;letter-spacing:.04em;

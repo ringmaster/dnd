@@ -51,7 +51,7 @@ var SPELL_CATALOG = CHARACTER.prepared ? CHARACTER.prepared.catalog : [];
 function spById(id){ for(var i=0;i<SPELL_CATALOG.length;i++){ if(SPELL_CATALOG[i].id===id) return SPELL_CATALOG[i]; } return null; }
 
 /* ----- state ----- */
-var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0, view:"attacks",
+var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0, view:"attacks", conc:"",
                  ac:acDefault(), masteries:(CHARACTER.masteryDefault||[]).slice() };
 Object.keys(CHARACTER.pools).forEach(function(id){ defaults[id]=CHARACTER.pools[id].max; });
 if(CHARACTER.prepared) defaults.prepared = CHARACTER.prepared.default.slice();
@@ -194,6 +194,50 @@ function setView(v){
   if(t) t.textContent = combat?"Combat Mode":"Attacks";
   if(btn) btn.textContent = combat?"← Attacks":"Combat Mode →";
 }
+
+/* ----- Concentration ----- */
+function renderConc(){
+  var bar=document.getElementById("concBar"); if(!bar) return;
+  if(state.conc){ bar.style.display="block"; bar.innerHTML='<span class="conc-lbl">Concentrating on</span><b>'+esc(state.conc)+'</b><span class="conc-tap">tap to manage</span>'; }
+  else { bar.style.display="none"; bar.innerHTML=""; }
+}
+function setConc(name){ state.conc=name||""; persist(); renderConc(); }
+function stopConcentration(){ setConc(""); toast("Concentration ended."); }
+function startConcentration(name){
+  if(state.conc && state.conc!==name){ concSwitchModal(name); return; }
+  setConc(name); closeRef(); toast("Concentrating on "+name+".");
+}
+function concSwitchModal(newName){
+  var old=state.conc;
+  resetGlossary(); currentRefPool=null;
+  refTitle.textContent="Already Concentrating";
+  refDice.textContent=""; refDice.style.display="none"; refChips.innerHTML=""; refChips.style.display="none";
+  refBody.innerHTML="";
+  var p=document.createElement("p"); p.textContent="You're concentrating on "+old+". Starting "+newName+" ends it — you can only concentrate on one effect at a time."; refBody.appendChild(p);
+  refFoot.innerHTML="";
+  var sw=document.createElement("button"); sw.type="button"; sw.className="btn ember"; sw.textContent="Switch to "+newName;
+  sw.addEventListener("click", function(){ setConc(newName); closeRef(); toast("Now concentrating on "+newName+"."); });
+  var keep=document.createElement("button"); keep.type="button"; keep.className="btn"; keep.textContent="Keep "+old;
+  keep.addEventListener("click", closeRef);
+  refFoot.appendChild(sw); refFoot.appendChild(keep);
+  refOverlay.classList.add("show"); document.getElementById("refClose").focus();
+}
+function openConcManage(){
+  if(!state.conc) return;
+  resetGlossary(); currentRefPool=null; lastTrigger=null;
+  refTitle.textContent="Concentration";
+  refDice.textContent=""; refDice.style.display="none"; refChips.innerHTML=""; refChips.style.display="none";
+  refBody.innerHTML="";
+  var p=document.createElement("p"); p.textContent="You're concentrating on "+state.conc+"."; refBody.appendChild(p);
+  var p2=document.createElement("p"); p2.className="muted"; p2.textContent="It also ends if you cast another concentration spell, become Incapacitated, or fail a Constitution save when you take damage."; refBody.appendChild(p2);
+  refFoot.innerHTML="";
+  var stop=document.createElement("button"); stop.type="button"; stop.className="btn ember"; stop.textContent="Stop concentrating";
+  stop.addEventListener("click", function(){ stopConcentration(); closeRef(); });
+  var keep=document.createElement("button"); keep.type="button"; keep.className="btn"; keep.textContent="Keep concentrating";
+  keep.addEventListener("click", closeRef);
+  refFoot.appendChild(stop); refFoot.appendChild(keep);
+  refOverlay.classList.add("show"); document.getElementById("refClose").focus();
+}
 function renderPrepared(){
   if(!preparedList) return; preparedList.innerHTML="";
   state.prepared.forEach(function(id){ var sp=spById(id); if(!sp) return;
@@ -303,6 +347,12 @@ function openRef(id, trigger){
     var left=document.createElement("span"); left.className="uses-left"; left.id="refUsesLeft";
     refFoot.appendChild(btn); refFoot.appendChild(left);
   }
+  if(r.concentration){
+    var here = state.conc===r.concentration;
+    var cbtn=document.createElement("button"); cbtn.type="button"; cbtn.className="btn"+(here?"":" ember"); cbtn.textContent= here?"Stop concentrating":"Concentrate";
+    cbtn.addEventListener("click", function(){ if(state.conc===r.concentration){ stopConcentration(); closeRef(); } else { startConcentration(r.concentration); } });
+    refFoot.appendChild(cbtn);
+  }
   refOverlay.classList.add("show");
   if(r.pool){ refreshModalUses(r.pool); }
   document.getElementById("refClose").focus();
@@ -329,13 +379,13 @@ function openRest(){ restOverlay.classList.add("show"); }
 function closeRest(){ restOverlay.classList.remove("show"); }
 function doShortRest(){
   Object.keys(CHARACTER.pools).forEach(function(id){ if(CHARACTER.pools[id].rest==="short") state[id]=CHARACTER.pools[id].max; });
-  persist(); renderPools(); closeRest(); toast(CHARACTER.rest.shortToast||"Short rest.");
+  state.conc=""; persist(); renderPools(); renderConc(); closeRest(); toast(CHARACTER.rest.shortToast||"Short rest.");
 }
 function doLongRest(){
   state.hpCur=parseInt(state.hpMax,10); state.temp=0;
   Object.keys(CHARACTER.pools).forEach(function(id){ state[id]=CHARACTER.pools[id].max; });
-  state.dsSucc=0; state.dsFail=0;
-  persist(); renderPools(); renderHP(); renderDeath(); closeRest(); toast(CHARACTER.rest.longToast||"Long rest — fully restored.");
+  state.dsSucc=0; state.dsFail=0; state.conc="";
+  persist(); renderPools(); renderHP(); renderDeath(); renderConc(); closeRest(); toast(CHARACTER.rest.longToast||"Long rest — fully restored.");
 }
 
 /* ----- wiring (after render; assigns dynamic handles + listeners) ----- */
@@ -354,6 +404,7 @@ function wireSheet(){
   document.getElementById("restBtn").addEventListener("click", openRest);
   var pb=document.getElementById("prepareBtn"); if(pb) pb.addEventListener("click", function(){ openPrepare(pb); });
   var tg=document.getElementById("atkToggle"); if(tg) tg.addEventListener("click", function(){ state.view=(state.view==="combat")?"attacks":"combat"; persist(); setView(state.view); });
+  var cb=document.getElementById("concBar"); if(cb) cb.addEventListener("click", openConcManage);
 
   document.getElementById("refClose").addEventListener("click", closeRef);
   refOverlay.addEventListener("click", function(e){ if(e.target===refOverlay) closeRef(); });
@@ -373,7 +424,7 @@ function wireSheet(){
     if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
       state=JSON.parse(JSON.stringify(defaults));
       Promise.resolve(store.clear()).then(function(){ persist(); });
-      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); if(CHARACTER.prepared) renderPrepared(); toast("Sheet reset.");
+      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); if(CHARACTER.prepared) renderPrepared(); renderConc(); toast("Sheet reset.");
     }
   });
 }
@@ -391,5 +442,6 @@ function wireSheet(){
   renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks();
   if(CHARACTER.prepared) renderPrepared();
   if(CHARACTER.combat) setView(state.view);
+  renderConc();
   setStatus("saved");
 })();
