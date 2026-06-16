@@ -203,6 +203,16 @@
       "note": "1d10+1 · short rest",
       "use": "Use",
       "reminder": "Hit Die: roll 1d10+1, then add it with Heal."
+    },
+    "luck": {
+      "label": "Luck Points",
+      "max": 2,
+      "rest": "long",
+      "ref": "lucky",
+      "storm": false,
+      "note": "long rest",
+      "use": "Spend a Luck Point",
+      "reminder": "Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you."
     }
   },
   "prepared": {
@@ -335,7 +345,8 @@
       "title": "Resources",
       "pools": [
         "hm",
-        "insp"
+        "insp",
+        "luck"
       ],
       "extras": [
         {
@@ -422,6 +433,11 @@
           "sub": "+Wis to all Charisma checks · Persuasion proficiency"
         },
         {
+          "ref": "lucky",
+          "name": "Lucky",
+          "sub": "Versatile feat · 2 Luck Points · Advantage or impose Disadvantage"
+        },
+        {
           "ref": "guide",
           "name": "Background: Guide",
           "sub": "Stealth · Survival · Cartographer's Tools · Magic Initiate (Druid)"
@@ -444,7 +460,7 @@
         {
           "ref": "versatile",
           "name": "Human: Versatile",
-          "sub": "a second Origin feat — to place"
+          "sub": "second Origin feat → Lucky"
         }
       ]
     },
@@ -547,8 +563,8 @@
               "html": "<b>Ability Score Improvement: +2 Dexterity</b> (17 → 19)"
             },
             {
-              "cls": "open",
-              "html": "<b>Human Versatile Origin feat — to place</b> (Lucky, Alert, Tough, or Savage Attacker)"
+              "cls": "choice",
+              "html": "<b>Human Versatile Origin feat: Lucky</b> — 2 Luck Points (Advantage, or impose Disadvantage on an attacker)"
             },
             {
               "cls": "note",
@@ -1032,13 +1048,13 @@
       "dice": null,
       "chips": [
         {
-          "t": "+1 Origin feat",
+          "t": "Lucky",
           "c": "ember"
         }
       ],
       "body": [
-        "You gain one Origin feat of your choice, on top of the Magic Initiate (Druid) feat from your Guide background. Strong picks for Brynja: Lucky, Alert, Tough, or Savage Attacker. Not yet placed — choose one and it goes here.",
-        "It can re-take Magic Initiate only with a different spell list; otherwise pick a new feat."
+        "You gain one Origin feat of your choice, on top of the Magic Initiate (Druid) feat from your Guide background. Placed in Lucky — see that entry for how Luck Points work.",
+        "Swap it for another feat (Alert, Tough, Savage Attacker…) any time before play if you'd rather."
       ]
     },
     "hitdice": {
@@ -1132,6 +1148,31 @@
       "body": [
         "A life spent leading travelers through trackless wilds. Guide grants the Magic Initiate (Druid) Origin feat, proficiency in Stealth and Survival, proficiency with Cartographer's Tools, and the +2 Dexterity / +1 Wisdom that shaped your scores."
       ]
+    },
+    "lucky": {
+      "title": "Lucky (Origin Feat)",
+      "dice": null,
+      "pool": "luck",
+      "chips": [
+        {
+          "t": "2 Luck Points",
+          "c": "ember"
+        },
+        {
+          "t": "Long rest",
+          "c": "storm"
+        },
+        {
+          "t": "From Versatile",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You have Luck Points equal to your Proficiency Bonus (2), regained on a long rest.",
+        "Advantage: when you roll a d20 for a d20 Test (an attack roll, ability check, or saving throw), you can spend 1 Luck Point to give yourself Advantage on the roll.",
+        "Disadvantage: when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll.",
+        "Taken with the Human Versatile Origin feat. Tap Use below to spend a Luck Point."
+      ]
     }
   },
   "combat": {
@@ -1187,12 +1228,24 @@
             "label": "Opportunity Attack",
             "ref": "shortsword",
             "detail": "when a foe leaves your reach"
+          },
+          {
+            "label": "Lucky — impose Disadvantage",
+            "ref": "lucky",
+            "detail": "on an attack made against you",
+            "pool": "luck"
           }
         ]
       },
       {
         "cost": "Anytime (a d20 Test)",
         "moves": [
+          {
+            "label": "Lucky — gain Advantage",
+            "ref": "lucky",
+            "detail": "on an attack, check, or save",
+            "pool": "luck"
+          },
           {
             "label": "Heroic Inspiration — reroll",
             "ref": "inspiration",
