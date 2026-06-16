@@ -16,6 +16,11 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+# Run JS actions (checkout/setup-node/upload-pages-artifact) on Node.js 24.
+# Node 20 is deprecated on the runners (forced default 2026-06-16, removed 2026-09-16).
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +28,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
       - name: Build character sheets
         run: node src/build.mjs
       - name: Upload Pages artifact
