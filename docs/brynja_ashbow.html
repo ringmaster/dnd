@@ -157,6 +157,7 @@
   .skill.prof .pip{background:var(--ember);border-color:var(--ember)}
   .skill.exp .pip{background:var(--storm);border-color:var(--storm);box-shadow:0 0 0 2px rgba(111,168,199,.35)}
   .exp-tag{font-family:"Cinzel",serif;font-size:.52rem;color:var(--storm);border:1px solid var(--storm);border-radius:4px;padding:0 .22rem;letter-spacing:.06em;vertical-align:middle;margin-left:.25rem}
+  .count-tag{font-family:"Cinzel",serif;font-size:.6rem;color:var(--ember);border:1px solid var(--ember);border-radius:4px;padding:0 .3rem;letter-spacing:.04em;vertical-align:middle;margin-left:.3rem}
   .skill .sname{flex:1;color:var(--ash)} .skill.prof .sname{color:var(--bone)}
   .skill .smod{font-variant-numeric:tabular-nums;color:var(--bone);font-weight:600}
 
@@ -344,16 +345,7 @@
     <!-- ATTACKS -->
     <section class="card">
       <h2>Attacks <span class="hint">one attack / turn</span></h2>
-      <button class="tap" data-ref="longbow" type="button">
-        <div class="tap-name">Longbow <span class="mastery">Slow</span></div>
-        <div class="tap-dice">To hit: d20 +8 · Damage: 1d8 +4</div>
-        <div class="tap-sub">piercing · range 150/600 · crit 2d8+4 · <span class="info-tag">tap for rules ⓘ</span></div>
-      </button>
-      <button class="tap" data-ref="shortsword" type="button">
-        <div class="tap-name">Shortsword <span class="mastery">Vex</span></div>
-        <div class="tap-dice">To hit: d20 +6 · Damage: 1d6 +4</div>
-        <div class="tap-sub">piercing · finesse · crit 2d6+4 · <span class="info-tag">tap for Vex rule ⓘ</span></div>
-      </button>
+      <div id="attackList"></div>
       <button class="feat" data-ref="dreadful" type="button" style="margin-top:.5rem"><b>Dreadful Strikes ⓘ</b><span>+1d4 psychic on a weapon hit · once per target per turn</span></button>
       <button class="feat" data-ref="huntersmark" type="button"><b>Hunter's Mark ⓘ</b><span>+1d6 force on each hit · free 2×/long rest · Concentration</span></button>
     </section>
@@ -369,13 +361,10 @@
         <div class="hp-label" style="text-align:left;margin:.2rem 0 .35rem">Always prepared</div>
         <button class="feat" data-ref="huntersmark" type="button"><b>Hunter's Mark</b><span>Favored Enemy · Concentration</span></button>
         <button class="feat" data-ref="charmperson" type="button"><b>Charm Person</b><span>Fey Wanderer · Wis save DC 12</span></button>
-        <div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Prepared — 5 of choice (swap on a long rest)</div>
-        <button class="feat" data-ref="curewounds" type="button"><b>Cure Wounds</b><span>heal 2d8 +2</span></button>
-        <button class="feat" data-ref="goodberry" type="button"><b>Goodberry</b><span>10 berries, 1 HP each</span></button>
-        <button class="feat" data-ref="longstrider" type="button"><b>Longstrider</b><span>+10 ft Speed for 1 hour</span></button>
-        <button class="feat" data-ref="ensnaringstrike" type="button"><b>Ensnaring Strike</b><span>Restrained on hit · Concentration</span></button>
-        <button class="feat" data-ref="fogcloud" type="button"><b>Fog Cloud</b><span>20-ft sphere, Heavily Obscured · Concentration</span></button>
-        <div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Magic Initiate (Druid) · Wis</div>
+        <div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Prepared spells <span id="prepCount" class="count-tag">5/5</span></div>
+        <div id="preparedList"></div>
+        <div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="prepareBtn" type="button">Prepare spells…</button></div>
+        <div class="hp-label" style="text-align:left;margin:.8rem 0 .35rem">Magic Initiate (Druid) · Wis</div>
         <button class="feat" data-ref="guidance" type="button"><b>Guidance</b><span>cantrip · +1d4 to one ability check · Concentration</span></button>
         <button class="feat" data-ref="produceflame" type="button"><b>Produce Flame</b><span>cantrip · 1d8 fire ranged · sheds light</span></button>
       </div>
@@ -730,6 +719,14 @@
     chips:[{t:"Level 1"},{t:"Concentration",c:"storm"}],
     body:["Create a 20-foot-radius sphere of fog within 120 ft; the area is Heavily Obscured. Wind disperses it, and a higher-level slot makes it larger.",
           "A getaway or reposition tool — it blocks line of sight for everyone."] };
+  REF.entangle = { title:"Entangle", dice:"Str save DC 12",
+    chips:[{t:"Level 1"},{t:"Concentration",c:"storm"}],
+    body:["Grasping weeds and vines sprout in a 20-foot square within 90 ft. Each creature there makes a Strength save (DC 12) or is Restrained for the duration; the area is also Difficult Terrain.",
+          "A Restrained creature can use its action to make a Strength check to free itself. Concentration, so it competes with Hunter's Mark."] };
+  REF.detectmagic = { title:"Detect Magic", dice:null,
+    chips:[{t:"Level 1"},{t:"Ritual",c:"storm"},{t:"Concentration",c:"storm"}],
+    body:["For the duration you sense the presence of magic within 30 ft. As an action you can see a faint aura around any visible magical creature or object and learn its school of magic.",
+          "Has the Ritual tag, but rangers lack a Ritual Casting feature, so cast it with a slot (or your free prepared casting)."] };
   REF.asi = { title:"Level 4 — Ability Score Improvement", dice:null,
     chips:[{t:"+2 Dexterity",c:"ember"}],
     body:["You raised Dexterity from 17 to 19 (+4). That sharpened your attack and damage bonuses, AC, Initiative, and Dexterity saves.",
@@ -809,7 +806,8 @@
   /* ============================== STATE =============================== */
   var defaults = { hpMax:32, hpCur:32, temp:0, slot1:3, hm:2, insp:1, luck:2, mi:1, hd:4, dsSucc:0, dsFail:0,
                    ac:{ armor:true, shield:false },
-                   masteries:["longbow","shortsword"] };
+                   masteries:["longbow","shortsword"],
+                   prepared:["curewounds","goodberry","longstrider","ensnaringstrike","fogcloud"] };
   var state = JSON.parse(JSON.stringify(defaults));
 
   function applyDefaults(loaded){
@@ -962,9 +960,13 @@
 
   /* ============================ WEAPON MASTERY (interactive) ============================ */
   var MASTERY_MAX = 2;
+  /* carried weapons include attack stats and render in the Attacks card; the mastery tag
+     shows only while that weapon's mastery is active (in state.masteries). */
   var WEAPONS = [
-    { id:"longbow",    name:"Longbow",     mastery:"Slow", eff:"Hit + damage: target's Speed drops 10 ft.", owned:true },
-    { id:"shortsword", name:"Shortsword",  mastery:"Vex",  eff:"Hit + damage: Advantage on your next attack vs the target.", owned:true },
+    { id:"longbow",    name:"Longbow",     mastery:"Slow", eff:"Hit + damage: target's Speed drops 10 ft.", owned:true,
+      atk:{ toHit:"+8", dmg:"1d8 +4", sub:"piercing · range 150/600 · crit 2d8+4" } },
+    { id:"shortsword", name:"Shortsword",  mastery:"Vex",  eff:"Hit + damage: Advantage on your next attack vs the target.", owned:true,
+      atk:{ toHit:"+6", dmg:"1d6 +4", sub:"piercing · finesse · crit 2d6+4" } },
     { id:"shortbow",   name:"Shortbow",    mastery:"Vex",  eff:"Hit + damage: Advantage on your next attack vs the target.", owned:false },
     { id:"scimitar",   name:"Scimitar",    mastery:"Nick", eff:"Make the Light off-hand attack as part of the Attack action (no Bonus Action).", owned:false },
     { id:"handcrossbow",name:"Hand Crossbow",mastery:"Vex",eff:"Hit + damage: Advantage on your next attack vs the target.", owned:false },
@@ -972,6 +974,20 @@
     { id:"spear",      name:"Spear",       mastery:"Sap",  eff:"Hit + damage: target has Disadvantage on its next attack.", owned:false }
   ];
   function wById(id){ for(var i=0;i<WEAPONS.length;i++){ if(WEAPONS[i].id===id) return WEAPONS[i]; } return null; }
+  var attackList = document.getElementById("attackList");
+  function renderAttacks(){
+    attackList.innerHTML="";
+    WEAPONS.forEach(function(w){
+      if(!w.atk) return;
+      var mastered = state.masteries.indexOf(w.id) >= 0;
+      var b=document.createElement("button"); b.type="button"; b.className="tap"; b.setAttribute("data-ref", w.id);
+      var tag = mastered ? ' <span class="mastery">'+w.mastery+'</span>' : '';
+      b.innerHTML='<div class="tap-name">'+w.name+tag+'</div>'+
+                  '<div class="tap-dice">To hit: d20 '+w.atk.toHit+' · Damage: '+w.atk.dmg+'</div>'+
+                  '<div class="tap-sub">'+w.atk.sub+' · <span class="info-tag">tap for rules ⓘ</span></div>';
+      attackList.appendChild(b);
+    });
+  }
   function renderMasterySummary(){
     var span=document.getElementById("wmSummary"); if(!span) return;
     var parts=state.masteries.map(function(id){ var w=wById(id); return w ? w.mastery+" ("+w.name.toLowerCase()+")" : null; }).filter(Boolean);
@@ -1007,7 +1023,7 @@
       if(state.masteries.length>=MASTERY_MAX){ toast("You can master "+MASTERY_MAX+" weapons — deselect one first."); return; }
       state.masteries.push(id);
     }
-    persist(); paintMastery(); renderMasterySummary();
+    persist(); paintMastery(); renderMasterySummary(); renderAttacks();
   }
   function paintMastery(){
     refDice.textContent = "Mastered: "+state.masteries.length+" / "+MASTERY_MAX;
@@ -1015,6 +1031,68 @@
     WEAPONS.forEach(function(w,i){ if(rows[i]) rows[i].classList.toggle("on", state.masteries.indexOf(w.id)>=0); });
     var c=document.getElementById("wmCount"); if(c) c.textContent="Swap your choices after any long rest.";
   }
+
+  /* ============================ PREPARED SPELLS (interactive) ============================ */
+  var PREPARED_MAX = 5;
+  var RANGER_SPELLS = [
+    { id:"curewounds",      name:"Cure Wounds",        note:"heal 2d8 +2 · touch" },
+    { id:"goodberry",       name:"Goodberry",          note:"10 berries, 1 HP each" },
+    { id:"longstrider",     name:"Longstrider",        note:"+10 ft Speed for 1 hour" },
+    { id:"ensnaringstrike", name:"Ensnaring Strike",   note:"Restrained on hit · Concentration" },
+    { id:"fogcloud",        name:"Fog Cloud",          note:"20-ft Heavily Obscured · Concentration" },
+    { id:"speakwithanimals",name:"Speak with Animals", note:"talk to Beasts · 10 min" },
+    { id:"entangle",        name:"Entangle",           note:"Restrain in a 20-ft square · Concentration" },
+    { id:"detectmagic",     name:"Detect Magic",       note:"sense magic within 30 ft · Concentration" }
+  ];
+  function spById(id){ for(var i=0;i<RANGER_SPELLS.length;i++){ if(RANGER_SPELLS[i].id===id) return RANGER_SPELLS[i]; } return null; }
+  var preparedList = document.getElementById("preparedList");
+  function renderPrepared(){
+    preparedList.innerHTML="";
+    state.prepared.forEach(function(id){
+      var sp=spById(id); if(!sp) return;
+      var b=document.createElement("button"); b.type="button"; b.className="feat"; b.setAttribute("data-ref", id);
+      b.innerHTML='<b>'+sp.name+'</b><span>'+sp.note+'</span>';
+      preparedList.appendChild(b);
+    });
+    var c=document.getElementById("prepCount"); if(c) c.textContent=state.prepared.length+"/"+PREPARED_MAX;
+  }
+  function openPrepare(trigger){
+    resetGlossary();
+    lastTrigger=trigger||null; currentRefPool=null;
+    refTitle.textContent="Prepare Spells";
+    refChips.innerHTML=""; refChips.style.display="none";
+    refDice.style.display="block";
+    refBody.innerHTML="";
+    var intro=document.createElement("p"); intro.className="muted";
+    intro.textContent="Choose up to "+PREPARED_MAX+" level-1 Ranger spells to prepare; you can change these after a long rest. Hunter's Mark and Charm Person are always prepared and don't count.";
+    refBody.appendChild(intro);
+    RANGER_SPELLS.forEach(function(sp){
+      var btn=document.createElement("button"); btn.type="button"; btn.className="wm-row";
+      btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+sp.name+'</span><span class="wm-eff">'+sp.note+'</span></span>';
+      btn.addEventListener("click", function(){ togglePrepare(sp.id); });
+      refBody.appendChild(btn);
+    });
+    refFoot.innerHTML='<span class="uses-left" id="prepFoot"></span>';
+    paintPrepare();
+    refOverlay.classList.add("show");
+    document.getElementById("refClose").focus();
+  }
+  function togglePrepare(id){
+    var i=state.prepared.indexOf(id);
+    if(i>=0){ state.prepared.splice(i,1); }
+    else {
+      if(state.prepared.length>=PREPARED_MAX){ toast("You can prepare "+PREPARED_MAX+" — unprepare one first."); return; }
+      state.prepared.push(id);
+    }
+    persist(); paintPrepare(); renderPrepared();
+  }
+  function paintPrepare(){
+    refDice.textContent = "Prepared: "+state.prepared.length+" / "+PREPARED_MAX;
+    var rows=refBody.querySelectorAll(".wm-row");
+    RANGER_SPELLS.forEach(function(sp,i){ if(rows[i]) rows[i].classList.toggle("on", state.prepared.indexOf(sp.id)>=0); });
+    var f=document.getElementById("prepFoot"); if(f) f.textContent="Swap after a long rest.";
+  }
+  (function(){ var pb=document.getElementById("prepareBtn"); if(pb) pb.addEventListener("click", function(){ openPrepare(pb); }); })();
 
   /* ============================ REFERENCE MODAL ============================ */
   var refOverlay=document.getElementById("refOverlay");
@@ -1393,7 +1471,7 @@
     if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
       state=JSON.parse(JSON.stringify(defaults));
       Promise.resolve(store.clear()).then(function(){ persist(); });
-      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); toast("Sheet reset.");
+      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderPrepared(); toast("Sheet reset.");
     }
   });
 
@@ -1409,7 +1487,8 @@
     state = applyDefaults(loaded);
     if(!state.ac || typeof state.ac!=="object"){ state.ac=JSON.parse(JSON.stringify(defaults.ac)); }
     if(!Array.isArray(state.masteries)){ state.masteries=defaults.masteries.slice(); }
-    renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary();
+    if(!Array.isArray(state.prepared)){ state.prepared=defaults.prepared.slice(); }
+    renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderPrepared();
     setStatus("saved");
   })();
 })();
