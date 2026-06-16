@@ -2,7 +2,7 @@
   "id": "brynja_ashbow",
   "out": "brynja_ashbow.html",
   "name": "Brynja Ashbow",
-  "subtitle": "Human · Wayfarer · Fey Wanderer · Lvl 4",
+  "subtitle": "Human · Guide · Fey Wanderer · Lvl 4",
   "title": "Ashbow — Fey Wanderer Ranger Sheet",
   "footer": "Ashbow ranger sheet",
   "storageKey": "ashbow_sheet_v1",
@@ -184,16 +184,6 @@
       "use": "Spend Inspiration",
       "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
     },
-    "luck": {
-      "label": "Luck Points",
-      "max": 2,
-      "rest": "long",
-      "ref": "lucky",
-      "storm": false,
-      "note": "long rest",
-      "use": "Spend a Luck Point",
-      "reminder": "Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you."
-    },
     "mi": {
       "label": "Faerie Fire — free",
       "max": 1,
@@ -345,8 +335,7 @@
       "title": "Resources",
       "pools": [
         "hm",
-        "insp",
-        "luck"
+        "insp"
       ],
       "extras": [
         {
@@ -388,8 +377,8 @@
           "tag": "rope, rations, torches…"
         },
         {
-          "name": "Thieves' Tools",
-          "tag": "Wayfarer background"
+          "name": "Cartographer's Tools",
+          "tag": "Guide background"
         }
       ]
     },
@@ -433,14 +422,9 @@
           "sub": "+Wis to all Charisma checks · Persuasion proficiency"
         },
         {
-          "ref": "lucky",
-          "name": "Lucky",
-          "sub": "Wayfarer feat · 2 Luck Points · Advantage or impose Disadvantage"
-        },
-        {
-          "ref": "wayfarer",
-          "name": "Background: Wayfarer",
-          "sub": "Insight · Stealth · Thieves' Tools · Lucky"
+          "ref": "guide",
+          "name": "Background: Guide",
+          "sub": "Stealth · Survival · Cartographer's Tools · Magic Initiate (Druid)"
         },
         {
           "ref": "resourceful",
@@ -455,18 +439,18 @@
         {
           "ref": "magicinitiate",
           "name": "Magic Initiate (Druid)",
-          "sub": "Versatile feat · Guidance, Produce Flame · Faerie Fire 1×/long rest"
+          "sub": "Guide feat · Guidance, Produce Flame · Faerie Fire 1×/long rest"
         },
         {
           "ref": "versatile",
           "name": "Human: Versatile",
-          "sub": "second Origin feat → Magic Initiate (Druid)"
+          "sub": "a second Origin feat — to place"
         }
       ]
     },
     {
       "type": "background",
-      "hint": "Human · Wayfarer · Fey Wanderer",
+      "hint": "Human · Guide · Fey Wanderer",
       "paras": [
         "Brynja Ashbow was raised among the Hrafnir, a people of trackers and outriders who range the wooded marches where the mortal world thins against the Feywild.",
         "As a child she wandered too far along a deer trail and crossed, without knowing it, into the realm beyond. She came back a day later by her own reckoning — a full season by everyone else's — carrying a quiet that never quite left her.",
@@ -501,11 +485,15 @@
             },
             {
               "cls": "choice",
-              "html": "<b>Skills (Ranger, choose 3):</b> Perception, Survival, Nature"
+              "html": "<b>Skills (Ranger, choose 3):</b> Perception, Nature, Insight"
             },
             {
               "cls": "choice",
-              "html": "<b>Background: Wayfarer</b> — Origin feat <b>Lucky</b>; skills Insight &amp; Stealth; Thieves' Tools; +2 Dex / +1 Wis"
+              "html": "<b>Background: Guide</b> — Origin feat <b>Magic Initiate (Druid)</b>; skills Stealth &amp; Survival; Cartographer's Tools; +2 Dex / +1 Wis"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Magic Initiate (Druid):</b> Guidance &amp; Produce Flame cantrips, Faerie Fire (Wis casting)"
             },
             {
               "cls": "choice",
@@ -559,8 +547,8 @@
               "html": "<b>Ability Score Improvement: +2 Dexterity</b> (17 → 19)"
             },
             {
-              "cls": "choice",
-              "html": "<b>Human Versatile Origin feat: Magic Initiate (Druid)</b> — Guidance &amp; Produce Flame cantrips, Faerie Fire (Wis casting)"
+              "cls": "open",
+              "html": "<b>Human Versatile Origin feat — to place</b> (Lucky, Alert, Tough, or Savage Attacker)"
             },
             {
               "cls": "note",
@@ -960,32 +948,7 @@
         }
       ],
       "body": [
-        "You gain proficiency in one additional skill from any list. Taken in Animal Handling (Insight comes from the Wayfarer background)."
-      ]
-    },
-    "lucky": {
-      "title": "Lucky (Origin Feat)",
-      "dice": null,
-      "pool": "luck",
-      "chips": [
-        {
-          "t": "2 Luck Points",
-          "c": "ember"
-        },
-        {
-          "t": "Long rest",
-          "c": "storm"
-        },
-        {
-          "t": "From Wayfarer",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "You have Luck Points equal to your Proficiency Bonus (2), regained on a long rest.",
-        "Advantage: when you roll a d20 for a d20 Test (an attack roll, ability check, or saving throw), you can spend 1 Luck Point to give yourself Advantage on the roll.",
-        "Disadvantage: when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll.",
-        "Granted by the Wayfarer background. Tap Use below to spend a Luck Point."
+        "You gain proficiency in one additional skill from any list. Taken in Animal Handling (Stealth and Survival come from the Guide background; Insight is one of your Ranger skill picks)."
       ]
     },
     "magicinitiate": {
@@ -993,7 +956,7 @@
       "dice": null,
       "chips": [
         {
-          "t": "Human Versatile feat",
+          "t": "Guide feat",
           "c": "ember"
         },
         {
@@ -1007,7 +970,7 @@
       "body": [
         "From the Druid list you learn two cantrips (Guidance and Produce Flame) and one level-1 spell (Faerie Fire). Wisdom is the spellcasting ability, so the numbers match your ranger casting: save DC 12, spell attack +4.",
         "You can cast Faerie Fire once per long rest without a slot, and also with your ranger spell slots. Cantrips are at-will.",
-        "Placed here with the Human Versatile Origin feat — confirm the cantrip/spell picks with your table."
+        "Granted by the Guide background — confirm the cantrip and spell picks with your table."
       ]
     },
     "guidance": {
@@ -1064,38 +1027,18 @@
         "Concentration, so it competes with Hunter's Mark. From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use below to spend the free cast."
       ]
     },
-    "wayfarer": {
-      "title": "Background: Wayfarer",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Lucky feat",
-          "c": "ember"
-        },
-        {
-          "t": "Insight · Stealth",
-          "c": "storm"
-        },
-        {
-          "t": "Thieves' Tools"
-        }
-      ],
-      "body": [
-        "A life lived on the road and the margins. Wayfarer grants the Lucky Origin feat, proficiency in Insight and Stealth, proficiency with Thieves' Tools, and the +2 Dexterity / +1 Wisdom that shaped your scores."
-      ]
-    },
     "versatile": {
       "title": "Human: Versatile",
       "dice": null,
       "chips": [
         {
-          "t": "Magic Initiate (Druid)",
+          "t": "+1 Origin feat",
           "c": "ember"
         }
       ],
       "body": [
-        "You gain one Origin feat of your choice, on top of the Lucky feat from your Wayfarer background. Placed in Magic Initiate (Druid) — see that entry for the cantrips and spell it grants.",
-        "Swap it for another feat (Alert, Tough, Savage Attacker…) any time before play if you'd rather; it just can't be Lucky again."
+        "You gain one Origin feat of your choice, on top of the Magic Initiate (Druid) feat from your Guide background. Strong picks for Brynja: Lucky, Alert, Tough, or Savage Attacker. Not yet placed — choose one and it goes here.",
+        "It can re-take Magic Initiate only with a different spell list; otherwise pick a new feat."
       ]
     },
     "hitdice": {
@@ -1169,6 +1112,26 @@
         "Passive Perception = 10 + your Perception check modifier.",
         "Perception is +4 (Wis +2, proficiency +2), so 14. If you moved your Deft Explorer Expertise onto Perception, this would be 16."
       ]
+    },
+    "guide": {
+      "title": "Background: Guide",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Magic Initiate (Druid)",
+          "c": "ember"
+        },
+        {
+          "t": "Stealth · Survival",
+          "c": "storm"
+        },
+        {
+          "t": "Cartographer's Tools"
+        }
+      ],
+      "body": [
+        "A life spent leading travelers through trackless wilds. Guide grants the Magic Initiate (Druid) Origin feat, proficiency in Stealth and Survival, proficiency with Cartographer's Tools, and the +2 Dexterity / +1 Wisdom that shaped your scores."
+      ]
     }
   },
   "combat": {
@@ -1224,24 +1187,12 @@
             "label": "Opportunity Attack",
             "ref": "shortsword",
             "detail": "when a foe leaves your reach"
-          },
-          {
-            "label": "Lucky — impose Disadvantage",
-            "ref": "lucky",
-            "detail": "on an attack made against you",
-            "pool": "luck"
           }
         ]
       },
       {
         "cost": "Anytime (a d20 Test)",
         "moves": [
-          {
-            "label": "Lucky — gain Advantage",
-            "ref": "lucky",
-            "detail": "on an attack, check, or save",
-            "pool": "luck"
-          },
           {
             "label": "Heroic Inspiration — reroll",
             "ref": "inspiration",
