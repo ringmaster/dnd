@@ -231,10 +231,6 @@
       "type": "attacks"
     },
     {
-      "type": "combat",
-      "full": true
-    },
-    {
       "type": "pools",
       "title": "Maneuvers",
       "hint": "Save DC 14",
@@ -849,48 +845,96 @@
     }
   },
   "combat": {
+    "note": "Your turn: <b>Move</b> up to your Speed, take <b>one Action</b>, and <b>one Bonus Action</b>. You also get one <button class=\"gloss-term\" data-gloss=\"reaction\" type=\"button\">Reaction</button>, used when its trigger happens (often on someone else’s turn) — like a foe leaving your <button class=\"gloss-term\" data-gloss=\"reach\" type=\"button\">reach</button>.",
     "groups": [
       {
         "cost": "Action",
+        "more": [
+          {
+            "label": "Dash",
+            "gloss": "dash"
+          },
+          {
+            "label": "Disengage",
+            "gloss": "disengage"
+          },
+          {
+            "label": "Dodge",
+            "gloss": "dodge"
+          },
+          {
+            "label": "Hide",
+            "gloss": "hide"
+          },
+          {
+            "label": "Help",
+            "gloss": "help"
+          },
+          {
+            "label": "Search",
+            "gloss": "search"
+          },
+          {
+            "label": "Ready",
+            "gloss": "ready-action"
+          }
+        ],
         "moves": [
           {
             "label": "Attack — Battleaxe",
             "weapon": "battleaxe",
-            "detail": "Con save DC 14 or Prone"
+            "detail": "Con save DC 14 or Prone",
+            "riders": [
+              {
+                "ref": "trip",
+                "label": "Trip Attack",
+                "detail": "+1d8 dmg · Str save DC 14 or Prone",
+                "pool": "sup"
+              },
+              {
+                "ref": "goad",
+                "label": "Goading Attack",
+                "detail": "+1d8 · Wis save DC 14 or disadv vs others",
+                "pool": "sup"
+              },
+              {
+                "ref": "precision",
+                "label": "Precision Attack",
+                "detail": "add 1d8 to the attack roll",
+                "pool": "sup"
+              }
+            ]
           },
           {
             "label": "Attack — Handaxe (thrown)",
             "weapon": "handaxe",
-            "detail": "Adv. on next hit"
+            "detail": "Adv. on next hit",
+            "riders": [
+              {
+                "ref": "trip",
+                "label": "Trip Attack",
+                "detail": "+1d8 dmg · Str save DC 14 or Prone",
+                "pool": "sup"
+              },
+              {
+                "ref": "goad",
+                "label": "Goading Attack",
+                "detail": "+1d8 · Wis save DC 14 or disadv vs others",
+                "pool": "sup"
+              },
+              {
+                "ref": "precision",
+                "label": "Precision Attack",
+                "detail": "add 1d8 to the attack roll",
+                "pool": "sup"
+              }
+            ]
           },
           {
             "label": "Action Surge",
             "ref": "actionsurge",
             "detail": "take one extra action this turn",
             "pool": "as"
-          }
-        ]
-      },
-      {
-        "cost": "On a hit — spend a superiority die",
-        "moves": [
-          {
-            "label": "Trip Attack",
-            "ref": "trip",
-            "detail": "+1d8 dmg · Str save DC 14 or Prone",
-            "pool": "sup"
-          },
-          {
-            "label": "Goading Attack",
-            "ref": "goad",
-            "detail": "+1d8 dmg · Wis save DC 14 or disadv vs others",
-            "pool": "sup"
-          },
-          {
-            "label": "Precision Attack",
-            "ref": "precision",
-            "detail": "add 1d8 to the attack roll",
-            "pool": "sup"
           }
         ]
       },
@@ -912,21 +956,22 @@
         ]
       },
       {
-        "cost": "Reaction",
-        "moves": [
-          {
-            "label": "Opportunity Attack",
-            "ref": "battleaxe",
-            "detail": "when a foe leaves your reach"
-          }
-        ]
-      },
-      {
         "cost": "Movement",
         "moves": [
           {
             "label": "Move",
-            "detail": "30 ft"
+            "detail": "up to your Speed (30 ft)"
+          }
+        ]
+      },
+      {
+        "cost": "Reaction",
+        "reaction": true,
+        "moves": [
+          {
+            "label": "Opportunity Attack",
+            "gloss": "opportunity-attack",
+            "detail": "one melee attack when a foe leaves your reach"
           }
         ]
       }

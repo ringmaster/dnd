@@ -51,7 +51,7 @@ var SPELL_CATALOG = CHARACTER.prepared ? CHARACTER.prepared.catalog : [];
 function spById(id){ for(var i=0;i<SPELL_CATALOG.length;i++){ if(SPELL_CATALOG[i].id===id) return SPELL_CATALOG[i]; } return null; }
 
 /* ----- state ----- */
-var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0,
+var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0, view:"attacks",
                  ac:acDefault(), masteries:(CHARACTER.masteryDefault||[]).slice() };
 Object.keys(CHARACTER.pools).forEach(function(id){ defaults[id]=CHARACTER.pools[id].max; });
 if(CHARACTER.prepared) defaults.prepared = CHARACTER.prepared.default.slice();
@@ -155,23 +155,44 @@ function renderAttacks(){
     attackList.appendChild(b);
   });
 }
+function moveTarget(mv){ return mv.gloss ? (' data-gloss="'+esc(mv.gloss)+'"') : ((mv.ref||mv.weapon) ? (' data-ref="'+esc(mv.ref||mv.weapon)+'"') : ''); }
+function meterText(id, asFree){ return '<span class="cm-left">'+state[id]+'/'+POOL_MAX[id]+(asFree?' free':' left')+'</span>'; }
 function combatMove(mv){
-  var ref = mv.ref || mv.weapon, bits=[], grey=false;
+  var bits=[], grey=false;
   if(mv.weapon){ var w=wById(mv.weapon); if(w){ var mastered=state.masteries.indexOf(w.id)>=0;
     bits.push('<span class="cm-num">d20 '+weaponToHit(w)+' · '+weaponDmg(w)+'</span>'+(mastered?(' · '+esc(w.mastery)):'')); } }
   if(mv.detail) bits.push(esc(mv.detail));
   var sub=bits.join(' · ');
-  var meter = mv.pool || mv.show;           // pool greys at 0; show just displays the count
-  if(meter){ var n=state[meter], max=POOL_MAX[meter]; if(mv.pool && n<=0) grey=true;
-    sub+=(sub?' · ':'')+'<span class="cm-left">'+n+'/'+max+(mv.show?' free':' left')+'</span>'; }
-  var attr=ref?(' data-ref="'+esc(ref)+'"'):'';
-  return '<button class="cm-move'+(grey?' spent':'')+'"'+attr+' type="button"><span class="cm-name">'+esc(mv.label)+'</span><span class="cm-sub">'+sub+'</span></button>';
+  var meter = mv.pool || mv.show;
+  if(meter){ if(mv.pool && state[mv.pool]<=0) grey=true; sub+=(sub?' · ':'')+meterText(meter, !!mv.show); }
+  var html='<button class="cm-move'+(grey?' spent':'')+'"'+moveTarget(mv)+' type="button"><span class="cm-name">'+esc(mv.label)+'</span><span class="cm-sub">'+sub+'</span></button>';
+  // nested riders (e.g. maneuvers) — only shown while their resource remains
+  if(mv.riders && mv.riders.length){
+    var avail = mv.riders.filter(function(r){ return !r.pool || state[r.pool]>0; });
+    if(avail.length){
+      html += '<div class="cm-riders">'+avail.map(function(r){
+        var sub2 = esc(r.detail||"") + (r.pool ? (' · '+meterText(r.pool,false)) : "");
+        return '<button class="cm-rider"'+moveTarget(r)+' type="button"><span class="cm-rname">'+esc(r.label)+'</span><span class="cm-rsub">'+sub2+'</span></button>';
+      }).join('')+'</div>';
+    }
+  }
+  return html;
 }
 function renderCombat(){
   var el=document.getElementById("combatBody"); if(!el || !CHARACTER.combat) return;
-  el.innerHTML='<div class="cm-groups">'+CHARACTER.combat.groups.map(function(g){
-    return '<div class="cm-group"><div class="cm-cost">'+esc(g.cost)+'</div>'+g.moves.map(combatMove).join("")+'</div>';
-  }).join("")+'</div>';
+  var note = CHARACTER.combat.note ? ('<p class="cm-banner">'+CHARACTER.combat.note+'</p>') : "";
+  var groups = CHARACTER.combat.groups.map(function(g){
+    var more = (g.more&&g.more.length) ? '<div class="cm-more">Also: '+g.more.map(function(m){ return '<button class="gloss-term" data-gloss="'+esc(m.gloss)+'" type="button">'+esc(m.label)+'</button>'; }).join(' · ')+'</div>' : "";
+    return '<div class="cm-group'+(g.reaction?' cm-reaction':'')+'"><div class="cm-cost">'+esc(g.cost)+'</div>'+g.moves.map(combatMove).join("")+more+'</div>';
+  }).join("");
+  el.innerHTML = note + groups;
+}
+function setView(v){
+  var av=document.getElementById("attackView"), cv=document.getElementById("combatView"); if(!cv) return;
+  var t=document.getElementById("atkTitle"), btn=document.getElementById("atkToggle"), combat=(v==="combat");
+  av.style.display = combat?"none":""; cv.style.display = combat?"":"none";
+  if(t) t.textContent = combat?"Combat Mode":"Attacks";
+  if(btn) btn.textContent = combat?"← Attacks":"Combat Mode →";
 }
 function renderPrepared(){
   if(!preparedList) return; preparedList.innerHTML="";
@@ -332,6 +353,7 @@ function wireSheet(){
   document.getElementById("spendHd").addEventListener("click", function(){ if(spendPool("hd")) toast(POOL_REMINDER.hd); else toast("No hit dice remaining."); });
   document.getElementById("restBtn").addEventListener("click", openRest);
   var pb=document.getElementById("prepareBtn"); if(pb) pb.addEventListener("click", function(){ openPrepare(pb); });
+  var tg=document.getElementById("atkToggle"); if(tg) tg.addEventListener("click", function(){ state.view=(state.view==="combat")?"attacks":"combat"; persist(); setView(state.view); });
 
   document.getElementById("refClose").addEventListener("click", closeRef);
   refOverlay.addEventListener("click", function(e){ if(e.target===refOverlay) closeRef(); });
@@ -342,6 +364,7 @@ function wireSheet(){
   document.addEventListener("keydown", function(e){ if(e.key==="Escape"){ closeRef(); closeRest(); } });
 
   document.addEventListener("click", function(e){
+    var gl=e.target.closest("[data-gloss]"); if(gl){ openGlossModal(gl.getAttribute("data-gloss"), gl); return; }
     var sk=e.target.closest("[data-skill]"); if(sk){ openGlossModal(ALIASES[sk.getAttribute("data-skill").toLowerCase()], sk); return; }
     var t=e.target.closest("[data-ref]"); if(!t) return; openRef(t.getAttribute("data-ref"), t);
   });
@@ -367,5 +390,6 @@ function wireSheet(){
   renderAbilities(); renderSkills();
   renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks();
   if(CHARACTER.prepared) renderPrepared();
+  if(CHARACTER.combat) setView(state.view);
   setStatus("saved");
 })();

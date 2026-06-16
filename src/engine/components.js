@@ -49,7 +49,10 @@ var CARD = {
   },
   attacks: function(card){
     var extras=(card.extras||[]).map(function(f,i){ return featBtn(f, i===0); }).join("");
-    return '<h2>Attacks <span class="hint">'+esc(card.hint||"one attack / turn")+'</span></h2><div id="attackList"></div>'+extras;
+    var toggle = CHARACTER.combat ? '<button class="card-toggle" id="atkToggle" type="button">Combat Mode →</button>' : '<span class="hint">one attack / turn</span>';
+    return '<h2><span id="atkTitle">Attacks</span> '+toggle+'</h2>'+
+           '<div id="attackView"><div id="attackList"></div>'+extras+'</div>'+
+           (CHARACTER.combat ? '<div id="combatView" style="display:none"><div id="combatBody"></div></div>' : '');
   },
   pools: function(card){
     var pools=(card.pools||[]).map(poolBlock).join("");
@@ -74,7 +77,6 @@ var CARD = {
     if(card.initiate && card.initiate.pool){ html+=poolBlock(card.initiate.pool); }
     return html;
   },
-  combat: function(card){ return '<h2>Combat Mode <span class="hint">'+esc(card.hint||"your turn · valid moves")+'</span></h2><div id="combatBody"></div>'; },
   skills: function(){ return '<h2>Skills <span class="hint">tap a skill · ● proficient · roll d20 + value</span></h2><div class="skills" id="skills"></div>'; },
   inventory: function(card){
     var html='<h2>Inventory <span class="hint">gear &amp; carried items</span></h2>';
@@ -104,7 +106,7 @@ var CARD = {
 function renderGridHTML(){
   return CHARACTER.cards.map(function(card){
     var fn=CARD[card.type]; if(!fn) return "";
-    var full = (card.type==="background"||card.type==="buildlog"||card.type==="combat"||card.full) ? ' style="grid-column:1 / -1"' : '';
+    var full = (card.type==="background"||card.type==="buildlog"||card.full) ? ' style="grid-column:1 / -1"' : '';
     var cls = "card" + (card.type==="buildlog" ? " buildlog" : "");
     return '<section class="'+cls+'"'+full+'>'+fn(card)+'</section>';
   }).join("");
