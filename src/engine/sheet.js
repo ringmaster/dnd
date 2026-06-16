@@ -229,6 +229,24 @@ function concCastConfirm(newName, onYes){
   refFoot.appendChild(yes); refFoot.appendChild(no);
   refOverlay.classList.add("show"); document.getElementById("refClose").focus();
 }
+function concDamageModal(dmg){
+  var dc=Math.max(10, Math.floor(dmg/2)), con=saveMod("CON");
+  resetGlossary(); currentRefPool=null; lastTrigger=null;
+  refTitle.textContent="Concentration Check";
+  refDice.textContent="Con save: d20 "+fmt(con)+"   ·   DC "+dc; refDice.style.display="block";
+  refChips.innerHTML=""; refChips.style.display="none";
+  refBody.innerHTML="";
+  var p=document.createElement("p"); p.textContent="You took "+dmg+" damage while concentrating on "+state.conc+". Make a Constitution saving throw to maintain concentration."; refBody.appendChild(p);
+  var p2=document.createElement("p"); p2.className="muted"; p2.textContent="DC is 10, or half the damage taken if that's higher (here "+dc+"). On a failed save, the effect ends."; refBody.appendChild(p2);
+  linkifyTerms(refBody);
+  refFoot.innerHTML="";
+  var fail=document.createElement("button"); fail.type="button"; fail.className="btn ember"; fail.textContent="Failed — end it";
+  fail.addEventListener("click", function(){ stopConcentration(); closeRef(); });
+  var held=document.createElement("button"); held.type="button"; held.className="btn"; held.textContent="Held";
+  held.addEventListener("click", closeRef);
+  refFoot.appendChild(fail); refFoot.appendChild(held);
+  refOverlay.classList.add("show"); document.getElementById("refClose").focus();
+}
 function openConcManage(){
   if(!state.conc) return;
   resetGlossary(); currentRefPool=null; lastTrigger=null;
@@ -406,7 +424,13 @@ function wireSheet(){
   hpCur.addEventListener("change", commitHp);
   hpCur.addEventListener("keydown", function(e){ if(e.key==="Enter") hpCur.blur(); });
   hpMax.addEventListener("change", commitHp);
-  document.getElementById("dmgBtn").addEventListener("click", function(){ var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return; if(state.temp>0){ var a=Math.min(state.temp,v); state.temp-=a; v-=a; } state.hpCur=Math.max(0,state.hpCur-v); persist(); renderHP(); document.getElementById("hpDelta").value=""; });
+  document.getElementById("dmgBtn").addEventListener("click", function(){
+    var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return;
+    var dmg=v;
+    if(state.temp>0){ var a=Math.min(state.temp,v); state.temp-=a; v-=a; }
+    state.hpCur=Math.max(0,state.hpCur-v); persist(); renderHP(); document.getElementById("hpDelta").value="";
+    if(state.conc){ if(parseInt(state.hpCur,10)===0){ stopConcentration(); } else { concDamageModal(dmg); } }
+  });
   document.getElementById("healBtn").addEventListener("click", function(){ var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return; state.hpCur=Math.min(parseInt(state.hpMax,10),state.hpCur+v); persist(); renderHP(); document.getElementById("hpDelta").value=""; });
   document.getElementById("tempBtn").addEventListener("click", function(){ var v=parseInt(document.getElementById("tempIn").value,10); if(isNaN(v)||v<0) v=0; state.temp=v; persist(); renderHP(); document.getElementById("tempIn").value=""; });
   document.getElementById("spendHd").addEventListener("click", function(){ if(spendPool("hd")) toast(POOL_REMINDER.hd); else toast("No hit dice remaining."); });
