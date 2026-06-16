@@ -255,7 +255,8 @@
   /* ---------- Build log ---------- */
   .buildlog{grid-column:1 / -1}
   .buildlog details{width:100%}
-  .buildlog summary{cursor:pointer;list-style:none;font-family:"Cinzel",serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);display:flex;align-items:center;justify-content:space-between;padding-bottom:.5rem;border-bottom:1px solid var(--iron)}
+  .buildlog summary{cursor:pointer;list-style:none;font-family:"Cinzel",serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);display:flex;align-items:center;justify-content:space-between}
+  .buildlog details[open] summary{padding-bottom:.5rem;border-bottom:1px solid var(--iron)}
   .buildlog summary::-webkit-details-marker{display:none}
   .buildlog summary::after{content:"\25B8";color:var(--ash);transition:transform .2s}
   .buildlog details[open] summary::after{transform:rotate(90deg)}
