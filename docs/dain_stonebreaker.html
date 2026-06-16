@@ -971,7 +971,8 @@
     "resistance":{term:"Resistance",def:"If you have Resistance to a damage type, you take half damage from it. It's applied after other modifiers, and multiple instances of Resistance don't stack."},
     "poisoned":{term:"Poisoned",def:"A condition. A Poisoned creature has Disadvantage on attack rolls and ability checks."},
     "extra-attack":{term:"Extra Attack",def:"Starting at level 5, you can attack twice whenever you take the Attack action on your turn. You're level 4, so not yet."},
-    "magic-weapon":{term:"Magic Weapon",def:"A weapon with magical properties. Attacks made with it count as magical, so they overcome a target's Resistance or immunity to damage from nonmagical attacks."}
+    "magic-weapon":{term:"Magic Weapon",def:"A weapon with magical properties. Attacks made with it count as magical, so they overcome a target's Resistance or immunity to damage from nonmagical attacks."},
+    "dc":{term:"Difficulty Class (DC)",def:"The target number for a d20 roll. To succeed on a saving throw or ability check, the total must equal or exceed the DC set by the effect or the GM."}
   };
   var ALIASES = {
     "advantage":"advantage","disadvantage":"disadvantage",
@@ -986,7 +987,8 @@
     "resistance":"resistance","resist":"resistance",
     "poisoned":"poisoned","poisoned condition":"poisoned",
     "extra attack":"extra-attack",
-    "magic weapon":"magic-weapon","magical":"magic-weapon"
+    "magic weapon":"magic-weapon","magical":"magic-weapon",
+    "dc":"dc","difficulty class":"dc"
   };
   function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
   var TERM_RE = new RegExp("\\b("+Object.keys(ALIASES).sort(function(a,b){return b.length-a.length;}).map(escapeRe).join("|")+")\\b","gi");
