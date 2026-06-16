@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{TITLE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+{{STYLES}}
+</style>
+</head>
+<body>
+<!-- This file is GENERATED from src/ by `node src/build.mjs`. Do not edit by hand. -->
+<header><div class="header-grid" id="headerGrid"></div></header>
+
+<div class="wrap">
+  <div class="grid" id="grid"></div>
+  <footer>
+    <div class="sync" id="sync" style="justify-content:center;margin-bottom:.5rem"><span class="dot"></span><span id="syncText">local</span></div>
+    <span id="footerLabel"></span> · changes save automatically · <a id="resetLink" role="button" tabindex="0">Reset sheet</a>
+  </footer>
+</div>
+
+<!-- REFERENCE MODAL -->
+<div class="overlay" id="refOverlay" role="dialog" aria-modal="true" aria-labelledby="refTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="refTitle"></h2>
+      <button class="modal-close" id="refClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-dice" id="refDice"></div>
+    <div class="chips" id="refChips"></div>
+    <div class="modal-body" id="refBody"></div>
+    <div class="modal-foot" id="refFoot"></div>
+    <div class="glossary" id="refGlossary"></div>
+  </div>
+</div>
+
+<!-- REST MODAL -->
+<div class="overlay" id="restOverlay" role="dialog" aria-modal="true" aria-labelledby="restTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="restTitle">Take a Rest</h2>
+      <button class="modal-close" id="restClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <p class="muted" style="color:var(--ash);margin:0 0 1rem">Resources refresh when you choose.</p>
+    <div class="rest-opts">
+      <button class="rest-card" id="shortRest" type="button"><h3>Short Rest</h3><ul id="shortRestList"></ul></button>
+      <button class="rest-card long" id="longRest" type="button"><h3>Long Rest</h3><ul id="longRestList"></ul></button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+{{SCRIPT}}
+})();
+</script>
+</body>
+</html>

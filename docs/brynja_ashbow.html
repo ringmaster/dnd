@@ -285,214 +285,14 @@
 </style>
 </head>
 <body>
-<header>
-  <div class="header-grid">
-    <div class="who">
-      <h1>Brynja Ashbow</h1>
-      <div class="sub">Human · Ranger (Fey Wanderer) · Lvl 4</div>
-    </div>
-    <div class="studs">
-      <button class="stud" data-ref="stat_ac" type="button"><span class="sl">AC</span><span class="sv" id="acVal">16</span></button>
-      <button class="stud" data-ref="stat_init" type="button"><span class="sl">Init</span><span class="sv">+4</span></button>
-      <button class="stud" data-ref="stat_speed" type="button"><span class="sl">Speed</span><span class="sv">30</span></button>
-      <button class="stud" data-ref="stat_prof" type="button"><span class="sl">Prof</span><span class="sv">+2</span></button>
-      <button class="stud" data-ref="stat_pass" type="button"><span class="sl">Pass.Per</span><span class="sv">14</span></button>
-    </div>
-  </div>
-</header>
+<!-- This file is GENERATED from src/ by `node src/build.mjs`. Do not edit by hand. -->
+<header><div class="header-grid" id="headerGrid"></div></header>
 
 <div class="wrap">
-  <div class="grid">
-
-    <!-- ABILITIES -->
-    <section class="card">
-      <h2>Abilities <span class="hint">tap for detail · all checks roll d20</span></h2>
-      <div class="abilities" id="abilities"></div>
-    </section>
-
-    <!-- HIT POINTS -->
-    <section class="card">
-      <h2>Hit Points</h2>
-      <div class="hp-top">
-        <input class="hp-cur" id="hpCur" type="text" inputmode="numeric" value="32" aria-label="Current hit points">
-        <span class="hp-sep">/</span>
-        <input class="hp-max" id="hpMax" type="text" inputmode="numeric" value="32" aria-label="Maximum hit points">
-      </div>
-      <div class="hp-label">Current / Max</div>
-      <div class="row" id="tempWrap" style="margin-bottom:.6rem"></div>
-      <div class="row" id="hpAdjust">
-        <input class="num" id="hpDelta" type="number" min="0" inputmode="numeric" placeholder="#" aria-label="Amount">
-        <button class="btn tiny" id="dmgBtn" type="button">Damage</button>
-        <button class="btn tiny ember" id="healBtn" type="button">Heal</button>
-      </div>
-      <div class="row" id="tempRow" style="margin-top:.6rem">
-        <span class="mini-label">Temp HP</span>
-        <input class="num" id="tempIn" type="number" min="0" inputmode="numeric" placeholder="0" aria-label="Set temporary hit points">
-        <button class="btn tiny" id="tempBtn" type="button">Set</button>
-      </div>
-      <div class="pool" id="hitDicePool" style="margin-top:.8rem">
-        <div class="pool-head"><button class="pname" data-ref="hitdice" type="button">Hit Dice ⓘ</button><span class="pnote">1d10+1 · short rest</span></div>
-        <div class="rivets" id="hitDiceRivets"></div>
-        <div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="spendHd" type="button">Spend Hit Die</button></div>
-      </div>
-      <div class="row" style="justify-content:flex-start;margin-top:.7rem"><button class="btn ember" id="restBtn" type="button">Rest</button></div>
-      <div id="deathSaves" style="margin-top:.8rem;display:none">
-        <div class="hp-label" style="text-align:left;margin-bottom:.4rem">Death Saves</div>
-        <div class="ds-row"><span class="lbl">Saves +</span><div class="rivets" id="dsSucc"></div></div>
-        <div class="ds-row"><span class="lbl">Saves −</span><div class="rivets" id="dsFail"></div></div>
-      </div>
-    </section>
-
-    <!-- ATTACKS -->
-    <section class="card">
-      <h2>Attacks <span class="hint">one attack / turn</span></h2>
-      <div id="attackList"></div>
-      <button class="feat" data-ref="dreadful" type="button" style="margin-top:.5rem"><b>Dreadful Strikes ⓘ</b><span>+1d4 psychic on a weapon hit · once per target per turn</span></button>
-      <button class="feat" data-ref="huntersmark" type="button"><b>Hunter's Mark ⓘ</b><span>+1d6 force on each hit · free 2×/long rest · Concentration</span></button>
-    </section>
-
-    <!-- SPELLCASTING -->
-    <section class="card">
-      <h2>Spellcasting <span class="hint">Wisdom · save DC 12 · atk +4</span></h2>
-      <div class="pool">
-        <div class="pool-head"><button class="pname" data-ref="spellslots" type="button">Level 1 Slots ⓘ</button><span class="pnote">long rest</span></div>
-        <div class="rivets" id="slot1Rivets"></div>
-      </div>
-      <div style="margin-top:.6rem">
-        <div class="hp-label" style="text-align:left;margin:.2rem 0 .35rem">Always prepared</div>
-        <button class="feat" data-ref="huntersmark" type="button"><b>Hunter's Mark</b><span>Favored Enemy · Concentration</span></button>
-        <button class="feat" data-ref="charmperson" type="button"><b>Charm Person</b><span>Fey Wanderer · Wis save DC 12</span></button>
-        <div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Prepared spells <span id="prepCount" class="count-tag">5/5</span></div>
-        <div id="preparedList"></div>
-        <div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="prepareBtn" type="button">Prepare spells…</button></div>
-        <div class="hp-label" style="text-align:left;margin:.8rem 0 .35rem">Magic Initiate (Druid) · Wis</div>
-        <button class="feat" data-ref="guidance" type="button"><b>Guidance</b><span>cantrip · +1d4 to one ability check · Concentration</span></button>
-        <button class="feat" data-ref="produceflame" type="button"><b>Produce Flame</b><span>cantrip · 1d8 fire ranged · sheds light</span></button>
-      </div>
-      <div class="pool" style="margin-top:.5rem">
-        <div class="pool-head"><button class="pname" data-ref="faeriefire" type="button">Faerie Fire — free ⓘ</button><span class="pnote">long rest</span></div>
-        <div class="rivets" id="miRivets"></div>
-      </div>
-    </section>
-
-    <!-- RESOURCES -->
-    <section class="card">
-      <h2>Resources</h2>
-      <div class="pool">
-        <div class="pool-head"><button class="pname" data-ref="huntersmark" type="button">Hunter's Mark — free casts ⓘ</button><span class="pnote">long rest</span></div>
-        <div class="rivets" id="hmRivets"></div>
-      </div>
-      <div class="pool">
-        <div class="pool-head"><button class="pname" data-ref="inspiration" type="button">Heroic Inspiration ⓘ</button><span class="pnote">after a long rest</span></div>
-        <div class="rivets" id="inspRivets"></div>
-      </div>
-      <div class="pool">
-        <div class="pool-head"><button class="pname" data-ref="lucky" type="button">Luck Points ⓘ</button><span class="pnote">long rest</span></div>
-        <div class="rivets" id="luckRivets"></div>
-      </div>
-      <button class="feat" data-ref="dreadful" type="button" style="margin-top:.5rem"><b>Dreadful Strikes ⓘ</b><span>+1d4 psychic on a weapon hit · once per target per turn</span></button>
-      <button class="feat" data-ref="glamour" type="button"><b>Otherworldly Glamour ⓘ</b><span>+Wis to all Charisma checks · Persuasion proficiency</span></button>
-    </section>
-
-    <!-- SKILLS -->
-    <section class="card">
-      <h2>Skills <span class="hint">tap a skill · ● proficient · roll d20 + value</span></h2>
-      <div class="skills" id="skills"></div>
-    </section>
-
-    <!-- INVENTORY -->
-    <section class="card">
-      <h2>Inventory <span class="hint">gear &amp; carried items</span></h2>
-      <div class="inv-row"><span class="iname">Longbow</span><span class="itag">martial weapon · Slow · 150/600</span></div>
-      <div class="inv-row"><span class="iname">Shortsword</span><span class="itag">martial weapon · Vex · finesse</span></div>
-      <div class="inv-row"><span class="iname">Arrows</span><span class="itag">ammunition · quiver</span></div>
-      <div class="inv-row"><span class="iname">Studded Leather</span><span class="itag">light armor · AC 12 + Dex</span></div>
-      <div class="inv-row"><span class="iname">Explorer's Pack</span><span class="itag">rope, rations, torches…</span></div>
-      <div class="inv-row"><span class="iname">Thieves' Tools</span><span class="itag">Wayfarer background</span></div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="card">
-      <h2>Features &amp; Traits <span class="hint">tap any for rules</span></h2>
-      <button class="feat" data-ref="asi" type="button"><b>Level 4: Ability Score Improvement</b><span>+2 Dexterity → 19</span></button>
-      <button class="feat" data-ref="favoredenemy" type="button"><b>Favored Enemy</b><span>Hunter's Mark always prepared · free 2×/long rest</span></button>
-      <button class="feat" data-ref="archery" type="button"><b>Fighting Style: Archery</b><span>+2 to ranged weapon attack rolls</span></button>
-      <button class="feat" data-ref="weaponmastery" type="button"><b>Weapon Mastery</b><span id="wmSummary">Slow (longbow) · Vex (shortsword) · 2 of 2 mastered</span></button>
-      <button class="feat" data-ref="deftexplorer" type="button"><b>Deft Explorer</b><span>Expertise (Stealth) · two extra languages</span></button>
-      <button class="feat" data-ref="dreadful" type="button"><b>Dreadful Strikes</b><span>+1d4 psychic on a weapon hit</span></button>
-      <button class="feat" data-ref="glamour" type="button"><b>Otherworldly Glamour</b><span>+Wis to all Charisma checks · Persuasion proficiency</span></button>
-      <button class="feat" data-ref="lucky" type="button"><b>Lucky</b><span>Wayfarer feat · 2 Luck Points · Advantage or impose Disadvantage</span></button>
-      <button class="feat" data-ref="wayfarer" type="button"><b>Background: Wayfarer</b><span>Insight · Stealth · Thieves' Tools · Lucky</span></button>
-      <button class="feat" data-ref="resourceful" type="button"><b>Human: Resourceful</b><span>Heroic Inspiration after each long rest</span></button>
-      <button class="feat" data-ref="skillful" type="button"><b>Human: Skillful</b><span>extra skill — Animal Handling</span></button>
-      <button class="feat" data-ref="magicinitiate" type="button"><b>Magic Initiate (Druid)</b><span>Versatile feat · Guidance, Produce Flame · Faerie Fire 1×/long rest</span></button>
-      <button class="feat" data-ref="versatile" type="button"><b>Human: Versatile</b><span>second Origin feat → Magic Initiate (Druid)</span></button>
-    </section>
-
-    <!-- BACKGROUND -->
-    <section class="card" style="grid-column:1 / -1">
-      <h2>Background <span class="hint">Human · Wayfarer · Fey Wanderer</span></h2>
-      <div class="bg-text">
-        <p>Brynja Ashbow was raised among the Hrafnir, a people of trackers and outriders who range the wooded marches where the mortal world thins against the Feywild.</p>
-        <p>As a child she wandered too far along a deer trail and crossed, without knowing it, into the realm beyond. She came back a day later by her own reckoning — a full season by everyone else's — carrying a quiet that never quite left her.</p>
-        <p>The fey took a liking to her. Their glamour clings to her still: strangers trust her too quickly, animals come when she calls, and a faint silver shimmer haunts the edge of her sight.</p>
-        <p>She works now as a guide and hunter for hire, following trails others lose. The wilds hold few secrets from her, and she has learned to turn the fey's gifts of charm and misdirection to her own ends.</p>
-        <p>Lately the boundaries have grown thin again, and things are crossing over that should not. Brynja means to find out why — and to be the one waiting when they do.</p>
-      </div>
-    </section>
-
-    <!-- BUILD LOG -->
-    <section class="card buildlog">
-      <details>
-        <summary>Build Log — choices by level</summary>
-        <div class="lvl-wrap">
-          <div class="lvl">
-            <h4>Level 1 <span class="tag">Ranger</span></h4>
-            <ul>
-              <li><b>Species: Human</b> — Resourceful, Skillful (+1 skill), Versatile (+1 Origin feat), Speed 30</li>
-              <li><b>Ability scores:</b> Str 8, Dex 17, Con 13, Int 10, Wis 15, Cha 12 <span class="tag">(standard array 15/14/13/12/10/8; background +2 Dex / +1 Wis)</span></li>
-              <li><b>Spellcasting</b> — Wisdom half-caster, 2 first-level slots</li>
-              <li class="choice"><b>Favored Enemy:</b> Hunter's Mark always prepared, free casts = proficiency / long rest</li>
-              <li class="choice"><b>Weapon Mastery: Slow</b> (longbow) · <b>Vex</b> (shortsword)</li>
-              <li class="choice"><b>Skills (Ranger, choose 3):</b> Perception, Survival, Nature</li>
-              <li class="choice"><b>Background: Wayfarer</b> — Origin feat <b>Lucky</b>; skills Insight &amp; Stealth; Thieves' Tools; +2 Dex / +1 Wis</li>
-              <li class="choice"><b>Human Skillful:</b> Animal Handling</li>
-            </ul>
-          </div>
-          <div class="lvl">
-            <h4>Level 2 <span class="tag">Ranger</span></h4>
-            <ul>
-              <li class="choice"><b>Fighting Style: Archery</b> (+2 ranged attack rolls)</li>
-              <li class="choice"><b>Deft Explorer:</b> Expertise (Stealth) · two extra languages</li>
-            </ul>
-          </div>
-          <div class="lvl">
-            <h4>Level 3 <span class="tag">Ranger · subclass</span></h4>
-            <ul>
-              <li class="choice"><b>Subclass: Fey Wanderer</b></li>
-              <li>Dreadful Strikes — +1d4 psychic on a weapon hit</li>
-              <li class="choice"><b>Otherworldly Glamour:</b> +Wis to Charisma checks · proficiency in <b>Persuasion</b></li>
-              <li>Always prepared: Charm Person</li>
-              <li>Spells → 3 first-level slots</li>
-            </ul>
-          </div>
-          <div class="lvl">
-            <h4>Level 4 <span class="tag">Ranger</span></h4>
-            <ul>
-              <li class="choice"><b>Ability Score Improvement: +2 Dexterity</b> (17 → 19)</li>
-              <li class="choice"><b>Human Versatile Origin feat: Magic Initiate (Druid)</b> — Guidance &amp; Produce Flame cantrips, Faerie Fire (Wis casting)</li>
-              <li class="note">Took the ASI rather than a feat for the level-4 slot</li>
-            </ul>
-          </div>
-        </div>
-      </details>
-    </section>
-
-  </div>
-
+  <div class="grid" id="grid"></div>
   <footer>
     <div class="sync" id="sync" style="justify-content:center;margin-bottom:.5rem"><span class="dot"></span><span id="syncText">local</span></div>
-    Ashbow ranger sheet · changes save automatically · <a id="resetLink" role="button" tabindex="0">Reset sheet</a>
+    <span id="footerLabel"></span> · changes save automatically · <a id="resetLink" role="button" tabindex="0">Reset sheet</a>
   </footer>
 </div>
 
@@ -520,14 +320,8 @@
     </div>
     <p class="muted" style="color:var(--ash);margin:0 0 1rem">Resources refresh when you choose.</p>
     <div class="rest-opts">
-      <button class="rest-card" id="shortRest" type="button">
-        <h3>Short Rest</h3>
-        <ul><li>Spend Hit Dice to heal</li><li>Rangers regain no slots here</li></ul>
-      </button>
-      <button class="rest-card long" id="longRest" type="button">
-        <h3>Long Rest</h3>
-        <ul><li>HP → maximum</li><li>Spell slots → full</li><li>Hunter's Mark casts + Hit Dice → full</li><li>Heroic Inspiration restored · Death saves cleared</li></ul>
-      </button>
+      <button class="rest-card" id="shortRest" type="button"><h3>Short Rest</h3><ul id="shortRestList"></ul></button>
+      <button class="rest-card long" id="longRest" type="button"><h3>Long Rest</h3><ul id="longRestList"></ul></button>
     </div>
   </div>
 </div>
@@ -537,859 +331,757 @@
 <script>
 (function(){
   "use strict";
+  var CHARACTER = {"id":"brynja_ashbow","out":"brynja_ashbow.html","name":"Brynja Ashbow","subtitle":"Human · Wayfarer · Fey Wanderer · Lvl 4","title":"Ashbow — Fey Wanderer Ranger Sheet","footer":"Ashbow ranger sheet","storageKey":"ashbow_sheet_v1","level":4,"proficiencyBonus":2,"abilities":{"STR":8,"DEX":19,"CON":13,"INT":10,"WIS":15,"CHA":12},"saves":["STR","DEX"],"checkMods":{"CHA":2},"checkModNote":{"CHA":"Otherworldly Glamour adds your Wisdom modifier (+2) to every Charisma check"},"skillProf":["Animal Handling","Insight","Nature","Perception","Persuasion","Stealth","Survival"],"skillExp":["Stealth"],"speed":30,"initiativeBonus":0,"ac":{"armor":{"label":"Studded leather","base":12,"addDex":true,"note":"light armor · 12 + full Dex","default":true},"shield":{"label":"Shield","bonus":2,"note":"+2 AC (not normally carried)","default":false}},"hp":{"max":32},"spellcasting":{"ability":"WIS"},"studs":[{"ref":"stat_ac","label":"AC","id":"acVal"},{"ref":"stat_init","label":"Init"},{"ref":"stat_speed","label":"Speed"},{"ref":"stat_prof","label":"Prof"},{"ref":"stat_pass","label":"Pass.Per"}],"weapons":[{"id":"longbow","name":"Longbow","mastery":"Slow","masteryEff":"Hit + damage: target's Speed drops 10 ft.","carried":true,"ability":"DEX","dmgDice":"1d8","atkBonus":2,"props":["piercing","range 150/600"]},{"id":"shortsword","name":"Shortsword","mastery":"Vex","masteryEff":"Hit + damage: Advantage on your next attack vs the target.","carried":true,"ability":"FIN","dmgDice":"1d6","props":["piercing","finesse"]},{"id":"shortbow","name":"Shortbow","mastery":"Vex","masteryEff":"Hit + damage: Advantage on your next attack vs the target.","carried":false},{"id":"scimitar","name":"Scimitar","mastery":"Nick","masteryEff":"Make the Light off-hand attack as part of the Attack action (no Bonus Action).","carried":false},{"id":"handcrossbow","name":"Hand Crossbow","mastery":"Vex","masteryEff":"Hit + damage: Advantage on your next attack vs the target.","carried":false},{"id":"dagger","name":"Dagger","mastery":"Nick","masteryEff":"Make the Light off-hand attack as part of the Attack action.","carried":false},{"id":"spear","name":"Spear","mastery":"Sap","masteryEff":"Hit + damage: target has Disadvantage on its next attack.","carried":false}],"masteryMax":2,"masteryDefault":["longbow","shortsword"],"pools":{"slot1":{"label":"Level 1 Slots","max":3,"rest":"long","ref":"spellslots","storm":true,"note":"long rest","use":"Spend a slot","reminder":"Spend a 1st-level spell slot."},"hm":{"label":"Hunter's Mark — free casts","max":2,"rest":"long","ref":"huntersmark","storm":false,"note":"long rest","use":"Use a free cast","reminder":"Hunter's Mark: free cast (no slot). Bonus Action; +1d6 force on each hit."},"insp":{"label":"Heroic Inspiration","max":1,"rest":"long","ref":"inspiration","storm":true,"note":"after a long rest","use":"Spend Inspiration","reminder":"Heroic Inspiration: reroll any d20 and keep either result."},"luck":{"label":"Luck Points","max":2,"rest":"long","ref":"lucky","storm":false,"note":"long rest","use":"Spend a Luck Point","reminder":"Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you."},"mi":{"label":"Faerie Fire — free","max":1,"rest":"long","ref":"faeriefire","storm":true,"note":"long rest","use":"Use free cast","reminder":"Magic Initiate: free cast of Faerie Fire (no slot)."},"hd":{"label":"Hit Dice","max":4,"rest":"long","ref":"hitdice","storm":false,"note":"1d10+1 · short rest","use":"Use","reminder":"Hit Die: roll 1d10+1, then add it with Heal."}},"prepared":{"max":5,"default":["curewounds","goodberry","longstrider","ensnaringstrike","fogcloud"],"catalog":[{"id":"curewounds","name":"Cure Wounds","note":"heal 2d8 +2 · touch"},{"id":"goodberry","name":"Goodberry","note":"10 berries, 1 HP each"},{"id":"longstrider","name":"Longstrider","note":"+10 ft Speed for 1 hour"},{"id":"ensnaringstrike","name":"Ensnaring Strike","note":"Restrained on hit · Concentration"},{"id":"fogcloud","name":"Fog Cloud","note":"20-ft Heavily Obscured · Concentration"},{"id":"speakwithanimals","name":"Speak with Animals","note":"talk to Beasts · 10 min"},{"id":"entangle","name":"Entangle","note":"Restrain in a 20-ft square · Concentration"},{"id":"detectmagic","name":"Detect Magic","note":"sense magic within 30 ft · Concentration"}]},"rest":{"short":["Spend Hit Dice to heal","Rangers regain no slots here"],"long":["HP → maximum","Spell slots → full","Hunter's Mark casts + Hit Dice → full","Heroic Inspiration restored · Death saves cleared"],"shortToast":"Short rest — spend Hit Dice to heal. (Rangers regain little else.)","longToast":"Long rest — fully restored."},"cards":[{"type":"abilities"},{"type":"hitpoints"},{"type":"attacks","extras":[{"ref":"dreadful","name":"Dreadful Strikes ⓘ","sub":"+1d4 psychic on a weapon hit · once per target per turn"},{"ref":"huntersmark","name":"Hunter's Mark ⓘ","sub":"+1d6 force on each hit · free 2×/long rest · Concentration"}]},{"type":"spellcasting","slotPool":"slot1","always":[{"ref":"huntersmark","name":"Hunter's Mark","sub":"Favored Enemy · Concentration"},{"ref":"charmperson","name":"Charm Person","sub":"Fey Wanderer · Wis save DC 12"}],"prepared":true,"initiate":{"label":"Magic Initiate (Druid) · Wis","pool":"mi","spells":[{"ref":"guidance","name":"Guidance","sub":"cantrip · +1d4 to one ability check · Concentration"},{"ref":"produceflame","name":"Produce Flame","sub":"cantrip · 1d8 fire ranged · sheds light"}]}},{"type":"pools","title":"Resources","pools":["hm","insp","luck"],"extras":[{"ref":"dreadful","name":"Dreadful Strikes ⓘ","sub":"+1d4 psychic on a weapon hit · once per target per turn"},{"ref":"glamour","name":"Otherworldly Glamour ⓘ","sub":"+Wis to all Charisma checks · Persuasion proficiency"}]},{"type":"skills"},{"type":"inventory","items":[{"name":"Longbow","tag":"martial weapon · Slow · 150/600"},{"name":"Shortsword","tag":"martial weapon · Vex · finesse"},{"name":"Arrows","tag":"ammunition · quiver"},{"name":"Studded Leather","tag":"light armor · AC 12 + Dex"},{"name":"Explorer's Pack","tag":"rope, rations, torches…"},{"name":"Thieves' Tools","tag":"Wayfarer background"}]},{"type":"features","list":[{"ref":"asi","name":"Level 4: Ability Score Improvement","sub":"+2 Dexterity → 19"},{"ref":"favoredenemy","name":"Favored Enemy","sub":"Hunter's Mark always prepared · free 2×/long rest"},{"ref":"archery","name":"Fighting Style: Archery","sub":"+2 to ranged weapon attack rolls"},{"ref":"weaponmastery","name":"Weapon Mastery","sub":"Slow (longbow) · Vex (shortsword) · 2 of 2 mastered","spanId":"wmSummary"},{"ref":"deftexplorer","name":"Deft Explorer","sub":"Expertise (Stealth) · two extra languages"},{"ref":"dreadful","name":"Dreadful Strikes","sub":"+1d4 psychic on a weapon hit"},{"ref":"glamour","name":"Otherworldly Glamour","sub":"+Wis to all Charisma checks · Persuasion proficiency"},{"ref":"lucky","name":"Lucky","sub":"Wayfarer feat · 2 Luck Points · Advantage or impose Disadvantage"},{"ref":"wayfarer","name":"Background: Wayfarer","sub":"Insight · Stealth · Thieves' Tools · Lucky"},{"ref":"resourceful","name":"Human: Resourceful","sub":"Heroic Inspiration after each long rest"},{"ref":"skillful","name":"Human: Skillful","sub":"extra skill — Animal Handling"},{"ref":"magicinitiate","name":"Magic Initiate (Druid)","sub":"Versatile feat · Guidance, Produce Flame · Faerie Fire 1×/long rest"},{"ref":"versatile","name":"Human: Versatile","sub":"second Origin feat → Magic Initiate (Druid)"}]},{"type":"background","hint":"Human · Wayfarer · Fey Wanderer","paras":["Brynja Ashbow was raised among the Hrafnir, a people of trackers and outriders who range the wooded marches where the mortal world thins against the Feywild.","As a child she wandered too far along a deer trail and crossed, without knowing it, into the realm beyond. She came back a day later by her own reckoning — a full season by everyone else's — carrying a quiet that never quite left her.","The fey took a liking to her. Their glamour clings to her still: strangers trust her too quickly, animals come when she calls, and a faint silver shimmer haunts the edge of her sight.","She works now as a guide and hunter for hire, following trails others lose. The wilds hold few secrets from her, and she has learned to turn the fey's gifts of charm and misdirection to her own ends.","Lately the boundaries have grown thin again, and things are crossing over that should not. Brynja means to find out why — and to be the one waiting when they do."]},{"type":"buildlog","levels":[{"title":"Level 1","tag":"Ranger","items":[{"html":"<b>Species: Human</b> — Resourceful, Skillful (+1 skill), Versatile (+1 Origin feat), Speed 30"},{"html":"<b>Ability scores:</b> Str 8, Dex 17, Con 13, Int 10, Wis 15, Cha 12 <span class=\"tag\">(standard array 15/14/13/12/10/8; background +2 Dex / +1 Wis)</span>"},{"html":"<b>Spellcasting</b> — Wisdom half-caster, 2 first-level slots"},{"cls":"choice","html":"<b>Favored Enemy:</b> Hunter's Mark always prepared, free casts = proficiency / long rest"},{"cls":"choice","html":"<b>Weapon Mastery: Slow</b> (longbow) · <b>Vex</b> (shortsword)"},{"cls":"choice","html":"<b>Skills (Ranger, choose 3):</b> Perception, Survival, Nature"},{"cls":"choice","html":"<b>Background: Wayfarer</b> — Origin feat <b>Lucky</b>; skills Insight &amp; Stealth; Thieves' Tools; +2 Dex / +1 Wis"},{"cls":"choice","html":"<b>Human Skillful:</b> Animal Handling"}]},{"title":"Level 2","tag":"Ranger","items":[{"cls":"choice","html":"<b>Fighting Style: Archery</b> (+2 ranged attack rolls)"},{"cls":"choice","html":"<b>Deft Explorer:</b> Expertise (Stealth) · two extra languages"}]},{"title":"Level 3","tag":"Ranger · subclass","items":[{"cls":"choice","html":"<b>Subclass: Fey Wanderer</b>"},{"html":"Dreadful Strikes — +1d4 psychic on a weapon hit"},{"cls":"choice","html":"<b>Otherworldly Glamour:</b> +Wis to Charisma checks · proficiency in <b>Persuasion</b>"},{"html":"Always prepared: Charm Person"},{"html":"Spells → 3 first-level slots"}]},{"title":"Level 4","tag":"Ranger","items":[{"cls":"choice","html":"<b>Ability Score Improvement: +2 Dexterity</b> (17 → 19)"},{"cls":"choice","html":"<b>Human Versatile Origin feat: Magic Initiate (Druid)</b> — Guidance &amp; Produce Flame cantrips, Faerie Fire (Wis casting)"},{"cls":"note","html":"Took the ASI rather than a feat for the level-4 slot"}]}]}],"ref":{"longbow":{"title":"Longbow","dice":"To hit: d20 +8   ·   Damage: 1d8 +4","chips":[{"t":"Piercing"},{"t":"Range 150/600"},{"t":"Two-handed"},{"t":"Crit 2d8+4","c":"ember"},{"t":"Slow","c":"storm"}],"body":["One attack on your turn (Extra Attack arrives at level 5). +8 to hit = Dex +4, proficiency +2, and the Archery fighting style +2. Damage adds your Dexterity (+4).","Slow (mastery): when you hit and deal damage, the target's Speed drops by 10 feet until the start of your next turn.","Needs ammunition and two free hands to fire."]},"shortsword":{"title":"Shortsword","dice":"To hit: d20 +6   ·   Damage: 1d6 +4","chips":[{"t":"Piercing"},{"t":"Finesse"},{"t":"Light"},{"t":"Crit 2d6+4","c":"ember"},{"t":"Vex","c":"storm"}],"body":["Your melee sidearm. Finesse lets you use Dexterity for attack and damage, so +6 to hit (Dex +4, proficiency +2) and 1d6+4.","Vex (mastery): when you hit and deal damage, you have Advantage on your next attack roll against that target, until the end of your next turn."]},"dreadful":{"title":"Dreadful Strikes","dice":"+1d4 psychic","chips":[{"t":"Once per target / turn","c":"ember"},{"t":"No action"}],"body":["Once per turn, when you hit a creature with a weapon, you can deal an extra 1d4 psychic damage. Each creature can take this extra damage only once per turn.","It costs no action and stacks with Hunter's Mark; the die grows to 1d6 at ranger level 11.","It isn't magical and needs no Concentration — it simply rides your hits."]},"huntersmark":{"title":"Hunter's Mark","dice":"+1d6 force on each hit","pool":"hm","chips":[{"t":"Bonus action"},{"t":"Concentration","c":"storm"},{"t":"Free 2×/long rest","c":"ember"}],"body":["As a Bonus Action, mark a creature you can see. Until your Concentration ends (up to 1 hour), your weapon attacks against it deal an extra 1d6 force damage.","When the target drops, move the mark to a new creature as a Bonus Action.","Favored Enemy keeps it always prepared and lets you cast it free (no slot) twice per long rest (your Proficiency Bonus); after that, cast it with a slot. Tap Use below to spend a free cast."]},"spellslots":{"title":"Spell Slots (Level 1)","dice":"3 first-level slots","pool":"slot1","chips":[{"t":"Long rest","c":"storm"}],"body":["You have three 1st-level spell slots, regained on a long rest. As a half-caster you only have 1st-level slots at level 4 — 2nd-level slots arrive at level 5.","Spell save DC 12 (8 + Wis +2 + prof +2); spell attack +4. Tap Use below to spend a slot."]},"inspiration":{"title":"Heroic Inspiration","dice":null,"pool":"insp","chips":[{"t":"Reroll a d20","c":"ember"},{"t":"After a long rest","c":"storm"}],"body":["When you have Heroic Inspiration you can expend it to reroll any d20 and use either roll. You can hold only one at a time.","Your Human Resourceful trait grants it after every long rest; the GM may also award it for great play."]},"charmperson":{"title":"Charm Person","dice":"Wis save DC 12","chips":[{"t":"Level 1"},{"t":"Always prepared","c":"storm"}],"body":["One humanoid within 30 ft makes a Wisdom save (DC 12) or is Charmed by you for 1 hour or until you or your allies harm it. It saves with Advantage if you're already fighting it.","A Charmed creature can't attack you and treats you as a friendly acquaintance. Always prepared by Fey Wanderer."]},"curewounds":{"title":"Cure Wounds","dice":"Heal 2d8 +2","chips":[{"t":"Level 1"},{"t":"Touch"}],"body":["Touch a creature to restore 2d8 + your spellcasting modifier (Wis +2) hit points. A higher-level slot heals an extra 2d8 per level. No effect on Undead or Constructs."]},"goodberry":{"title":"Goodberry","dice":"10 berries · 1 HP each","chips":[{"t":"Level 1"}],"body":["Create up to ten berries. Eating one (a Bonus Action) restores 1 hit point, and a berry feeds a creature for a day. They lose potency after 24 hours.","Ten guaranteed HP in one-point bites — best out of combat."]},"longstrider":{"title":"Longstrider","dice":"+10 ft Speed","chips":[{"t":"Level 1"},{"t":"1 hour"}],"body":["Touch a creature; its Speed increases by 10 feet for 1 hour. A higher-level slot affects one extra creature per level."]},"ensnaringstrike":{"title":"Ensnaring Strike","dice":"Str save DC 12","chips":[{"t":"Level 1"},{"t":"Bonus action"},{"t":"Concentration","c":"storm"}],"body":["As a Bonus Action, the next time you hit with a weapon this turn the target makes a Strength save (DC 12) or is Restrained by magical vines, taking 1d6 piercing at the start of each of its turns. It can repeat the save to break free.","Requires Concentration, so it competes with Hunter's Mark."]},"speakwithanimals":{"title":"Speak with Animals","dice":null,"chips":[{"t":"Level 1"},{"t":"Ritual","c":"storm"},{"t":"10 min"}],"body":["You can comprehend and verbally communicate with Beasts for 10 minutes. As a ritual you can cast it without a slot if you spend 10 extra minutes.","Pairs naturally with Animal Handling for a fey-touched tracker."]},"fogcloud":{"title":"Fog Cloud","dice":null,"chips":[{"t":"Level 1"},{"t":"Concentration","c":"storm"}],"body":["Create a 20-foot-radius sphere of fog within 120 ft; the area is Heavily Obscured. Wind disperses it, and a higher-level slot makes it larger.","A getaway or reposition tool — it blocks line of sight for everyone."]},"entangle":{"title":"Entangle","dice":"Str save DC 12","chips":[{"t":"Level 1"},{"t":"Concentration","c":"storm"}],"body":["Grasping weeds and vines sprout in a 20-foot square within 90 ft. Each creature there makes a Strength save (DC 12) or is Restrained for the duration; the area is also Difficult Terrain.","A Restrained creature can use its action to make a Strength check to free itself. Concentration, so it competes with Hunter's Mark."]},"detectmagic":{"title":"Detect Magic","dice":null,"chips":[{"t":"Level 1"},{"t":"Ritual","c":"storm"},{"t":"Concentration","c":"storm"}],"body":["For the duration you sense the presence of magic within 30 ft. As an action you can see a faint aura around any visible magical creature or object and learn its school of magic.","Has the Ritual tag, but rangers lack a Ritual Casting feature, so cast it with a slot (or your free prepared casting)."]},"asi":{"title":"Level 4 — Ability Score Improvement","dice":null,"chips":[{"t":"+2 Dexterity","c":"ember"}],"body":["You raised Dexterity from 17 to 19 (+4). That sharpened your attack and damage bonuses, AC, Initiative, and Dexterity saves.","A feat was the alternative; you also still have the Human Versatile Origin feat to place."]},"favoredenemy":{"title":"Favored Enemy","dice":null,"chips":[{"t":"Hunter's Mark","c":"storm"},{"t":"Free 2×/long rest","c":"ember"}],"body":["You always have Hunter's Mark prepared, and you can cast it without a spell slot a number of times equal to your Proficiency Bonus (2) per long rest. After that, cast it with a slot.","This is your signature damage rider — turn it on as a Bonus Action at the start of a fight."]},"archery":{"title":"Fighting Style: Archery","dice":null,"chips":[{"t":"+2 ranged attacks","c":"ember"}],"body":["You gain a +2 bonus to attack rolls with ranged weapons. Already included in the longbow's +8 to hit."]},"deftexplorer":{"title":"Deft Explorer","dice":null,"chips":[{"t":"Expertise (Stealth)","c":"ember"},{"t":"+2 languages","c":"storm"}],"body":["You gain Expertise in one skill — taken in Stealth, doubling your Proficiency Bonus there (Stealth +8). You also learn two additional languages.","Move the Expertise onto Perception instead if you'd rather have Passive Perception 16."]},"glamour":{"title":"Otherworldly Glamour","dice":null,"chips":[{"t":"+Wis to Cha checks","c":"ember"},{"t":"Persuasion","c":"storm"}],"body":["Whenever you make a Charisma check, add your Wisdom modifier (minimum +1) — here +2. You also gain proficiency in one of Deception, Performance, or Persuasion — taken in Persuasion.","This makes a Charisma-12 ranger a strong talker: Persuasion is +5 (Cha +1, prof +2, glamour +2)."]},"resourceful":{"title":"Human: Resourceful","dice":null,"chips":[{"t":"Heroic Inspiration","c":"ember"}],"body":["You gain Heroic Inspiration whenever you finish a long rest, if you don't already have it. Spend it to reroll a d20."]},"skillful":{"title":"Human: Skillful","dice":null,"chips":[{"t":"+1 skill"}],"body":["You gain proficiency in one additional skill from any list. Taken in Animal Handling (Insight comes from the Wayfarer background)."]},"lucky":{"title":"Lucky (Origin Feat)","dice":null,"pool":"luck","chips":[{"t":"2 Luck Points","c":"ember"},{"t":"Long rest","c":"storm"},{"t":"From Wayfarer","c":"storm"}],"body":["You have Luck Points equal to your Proficiency Bonus (2), regained on a long rest.","Advantage: when you roll a d20 for a d20 Test (an attack roll, ability check, or saving throw), you can spend 1 Luck Point to give yourself Advantage on the roll.","Disadvantage: when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll.","Granted by the Wayfarer background. Tap Use below to spend a Luck Point."]},"magicinitiate":{"title":"Magic Initiate (Druid)","dice":null,"chips":[{"t":"Human Versatile feat","c":"ember"},{"t":"Wis casting","c":"storm"},{"t":"DC 12 · atk +4"}],"body":["From the Druid list you learn two cantrips (Guidance and Produce Flame) and one level-1 spell (Faerie Fire). Wisdom is the spellcasting ability, so the numbers match your ranger casting: save DC 12, spell attack +4.","You can cast Faerie Fire once per long rest without a slot, and also with your ranger spell slots. Cantrips are at-will.","Placed here with the Human Versatile Origin feat — confirm the cantrip/spell picks with your table."]},"guidance":{"title":"Guidance","dice":"+1d4 to a check","chips":[{"t":"Cantrip"},{"t":"Concentration","c":"storm"}],"body":["Touch a willing creature; once before the spell ends (up to 1 minute) it can roll 1d4 and add it to one ability check of its choice. Requires Concentration."]},"produceflame":{"title":"Produce Flame","dice":"1d8 fire · spell atk +4","chips":[{"t":"Cantrip"},{"t":"Bright light 10 ft"}],"body":["A flame in your hand sheds Bright Light (10 ft) and Dim Light (another 10 ft) for 10 minutes. You can hurl it as a ranged spell attack (to 30 ft) for 1d8 fire damage; the die grows at higher levels.","A handy light source and a backup ranged option when a bow won't serve."]},"faeriefire":{"title":"Faerie Fire","dice":"Dex save DC 12","pool":"mi","chips":[{"t":"Level 1"},{"t":"Concentration","c":"storm"},{"t":"Free 1×/long rest","c":"ember"}],"body":["Each creature in a 20-foot cube must succeed on a Dexterity save (DC 12) or be outlined in light for 1 minute. Attack rolls against an outlined creature have Advantage, and it can't benefit from being Invisible.","Concentration, so it competes with Hunter's Mark. From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use below to spend the free cast."]},"wayfarer":{"title":"Background: Wayfarer","dice":null,"chips":[{"t":"Lucky feat","c":"ember"},{"t":"Insight · Stealth","c":"storm"},{"t":"Thieves' Tools"}],"body":["A life lived on the road and the margins. Wayfarer grants the Lucky Origin feat, proficiency in Insight and Stealth, proficiency with Thieves' Tools, and the +2 Dexterity / +1 Wisdom that shaped your scores."]},"versatile":{"title":"Human: Versatile","dice":null,"chips":[{"t":"Magic Initiate (Druid)","c":"ember"}],"body":["You gain one Origin feat of your choice, on top of the Lucky feat from your Wayfarer background. Placed in Magic Initiate (Druid) — see that entry for the cantrips and spell it grants.","Swap it for another feat (Alert, Tough, Savage Attacker…) any time before play if you'd rather; it just can't be Lucky again."]},"hitdice":{"title":"Hit Dice","dice":"1d10 +1 healing each","pool":"hd","chips":[{"t":"4 dice at lvl 4"},{"t":"Spent on a short rest","c":"storm"}],"body":["During a short rest you can spend Hit Dice to heal, rolling 1d10+1 each (1d10 + your Constitution modifier). You regain spent Hit Dice on a long rest.","Tap Spend Hit Die to mark one used, then roll and apply it with Heal."]},"stat_init":{"title":"Initiative","dice":"Initiative: d20 +4","chips":[{"t":"Dex +4"}],"body":["Initiative equals your Dexterity modifier (+4).","If you place the Alert Origin feat from Human Versatile, you would add your Proficiency Bonus too (+6)."]},"stat_speed":{"title":"Speed","dice":"30 feet","chips":[{"t":"Human base 30"}],"body":["Your walking speed is 30 feet. Studded leather is light armor, so it doesn't slow you.","Longstrider can add 10 feet for an hour."]},"stat_prof":{"title":"Proficiency Bonus","dice":"+2","chips":[{"t":"Levels 1–4","c":"storm"}],"body":["Your proficiency bonus is +2 at character levels 1–4. It rises to +3 at level 5.","It is added to attack rolls, saves, skills you're proficient in, your spell save DC, and your spell attack bonus."]},"stat_pass":{"title":"Passive Perception","dice":"14","chips":[{"t":"10 + Perception +4","c":"ember"}],"body":["Passive Perception = 10 + your Perception check modifier.","Perception is +4 (Wis +2, proficiency +2), so 14. If you moved your Deft Explorer Expertise onto Perception, this would be 16."]}}};
 
-  /* =========================================================================
-     STORAGE ABSTRACTION
-     The app only ever calls store.load() / store.save() / store.clear().
-     To move persistence to a server later, set STORE_CONFIG.mode = 'remote'
-     and fill in baseUrl + token. No other code changes required.
-     ========================================================================= */
-  class StorageAdapter {
-    async load(){ throw new Error("not implemented"); }
-    async save(/*data*/){ throw new Error("not implemented"); }
-    async clear(){ throw new Error("not implemented"); }
-  }
-
-  class LocalStorageAdapter extends StorageAdapter {
-    constructor(key){ super(); this.key = key; }
-    async load(){
-      try { var raw = localStorage.getItem(this.key); return raw ? JSON.parse(raw) : null; }
-      catch(e){ return null; }
-    }
-    async save(data){
-      try { localStorage.setItem(this.key, JSON.stringify(data)); return true; }
-      catch(e){ return false; }
-    }
-    async clear(){ try { localStorage.removeItem(this.key); } catch(e){} }
-  }
-
-  /* Scaffold for a public key/value server secured by a bearer token.
-     Suggested server contract:
-       GET    {baseUrl}/{namespace}/{key}   -> 200 { "value": <json> }  | 404 if absent
-       PUT    {baseUrl}/{namespace}/{key}   body: <json>                -> 200
-       DELETE {baseUrl}/{namespace}/{key}                               -> 200
-     All requests send:  Authorization: Bearer <token>
-     Swap the active adapter below once your server implements this. */
-  class RemoteKVAdapter extends StorageAdapter {
-    constructor(opts){
-      super();
-      this.baseUrl   = (opts.baseUrl || "").replace(/\/+$/,"");
-      this.namespace = opts.namespace || "default";
-      this.key       = opts.key;
-      this.token     = opts.token || null;
-    }
-    setToken(t){ this.token = t; }                       // call after a future login flow
-    _url(){ return this.baseUrl + "/" + encodeURIComponent(this.namespace) + "/" + encodeURIComponent(this.key); }
-    _headers(){
-      var h = { "Content-Type":"application/json" };
-      if(this.token) h["Authorization"] = "Bearer " + this.token;
-      return h;
-    }
-    async load(){
-      var res = await fetch(this._url(), { headers:this._headers() });
-      if(res.status === 404) return null;
-      if(!res.ok) throw new Error("load failed: " + res.status);
-      var body = await res.json();
-      return (body && Object.prototype.hasOwnProperty.call(body,"value")) ? body.value : body;
-    }
-    async save(data){
-      var res = await fetch(this._url(), { method:"PUT", headers:this._headers(), body:JSON.stringify(data) });
-      if(!res.ok) throw new Error("save failed: " + res.status);
-      return true;
-    }
-    async clear(){
-      await fetch(this._url(), { method:"DELETE", headers:this._headers() });
-    }
-  }
-
-  var STORE_CONFIG = {
-    mode: "local",                                   // 'local' | 'remote'
-    key:  "ashbow_sheet_v1",                         // separate storage from the Stonebreaker sheet
-    remote: { baseUrl:"", namespace:"dnd", token:"" }
-  };
-  function makeStore(cfg){
-    if(cfg.mode === "remote" && cfg.remote.baseUrl){
-      return new RemoteKVAdapter({ baseUrl:cfg.remote.baseUrl, namespace:cfg.remote.namespace, key:cfg.key, token:cfg.remote.token });
-    }
-    return new LocalStorageAdapter(cfg.key);
-  }
-  var store = makeStore(STORE_CONFIG);
-
-  /* ============================ CHARACTER DATA (level 4) ============================ */
-  var PROF = 2;
-  var GLAMOUR = 2;   // Otherworldly Glamour adds Wisdom (+2) to every Charisma check
-  var ABILS = [
-    {k:"STR", mod:-1, score:8}, {k:"DEX", mod:4, score:19}, {k:"CON", mod:1, score:13},
-    {k:"INT", mod:0, score:10}, {k:"WIS", mod:2, score:15}, {k:"CHA", mod:1, score:12}
-  ];
-  var SAVE_PROF = {STR:true, DEX:true};
+  /* ===== engine/derive.js ===== */
+  /* Shared: derived math. Everything computed from CHARACTER inputs. */
+  var PB = CHARACTER.proficiencyBonus;
+  var ABIL_ORDER = ["STR","DEX","CON","INT","WIS","CHA"];
+  var ABIL_NAME = {STR:"Strength",DEX:"Dexterity",CON:"Constitution",INT:"Intelligence",WIS:"Wisdom",CHA:"Charisma"};
   var GOVERNS = {
     STR:"Athletics", DEX:"Acrobatics, Sleight of Hand, Stealth", CON:"—",
     INT:"Arcana, History, Investigation, Nature, Religion",
     WIS:"Animal Handling, Insight, Medicine, Perception, Survival",
     CHA:"Deception, Intimidation, Performance, Persuasion"
   };
-  /* [name, ability, proficient, expertise] */
-  var SKILLS = [
-    ["Acrobatics","DEX",false,false],["Animal Handling","WIS",true,false],["Arcana","INT",false,false],["Athletics","STR",false,false],
-    ["Deception","CHA",false,false],["History","INT",false,false],["Insight","WIS",true,false],["Intimidation","CHA",false,false],
-    ["Investigation","INT",false,false],["Medicine","WIS",false,false],["Nature","INT",true,false],["Perception","WIS",true,false],
-    ["Performance","CHA",false,false],["Persuasion","CHA",true,false],["Religion","INT",false,false],["Sleight of Hand","DEX",false,false],
-    ["Stealth","DEX",true,true],["Survival","WIS",true,false]
+  var SKILL_DEF = [
+    ["Acrobatics","DEX"],["Animal Handling","WIS"],["Arcana","INT"],["Athletics","STR"],
+    ["Deception","CHA"],["History","INT"],["Insight","WIS"],["Intimidation","CHA"],
+    ["Investigation","INT"],["Medicine","WIS"],["Nature","INT"],["Perception","WIS"],
+    ["Performance","CHA"],["Persuasion","CHA"],["Religion","INT"],["Sleight of Hand","DEX"],
+    ["Stealth","DEX"],["Survival","WIS"]
   ];
-  function abilMod(k){ for(var i=0;i<ABILS.length;i++){ if(ABILS[i].k===k) return ABILS[i].mod; } return 0; }
-  function fmt(n){ return (n>=0?"+":"")+n; }
-  function skillMod(s){ return abilMod(s[1]) + (s[2]?PROF:0) + (s[3]?PROF:0) + (s[1]==="CHA"?GLAMOUR:0); }
+  var SKILLS = SKILL_DEF.map(function(d){
+    return { name:d[0], ability:d[1],
+             prof:(CHARACTER.skillProf||[]).indexOf(d[0])>=0,
+             exp:(CHARACTER.skillExp||[]).indexOf(d[0])>=0 };
+  });
+  function findSkill(name){ for(var i=0;i<SKILLS.length;i++){ if(SKILLS[i].name===name) return SKILLS[i]; } return null; }
 
-  var POOL_MAX = { slot1:3, hm:2, insp:1, luck:2, mi:1, hd:4 };
-  var POOL_REMINDER = {
-    slot1:"Spend a 1st-level spell slot.",
-    hm:"Hunter's Mark: free cast (no slot). Bonus Action; +1d6 force on each hit.",
-    insp:"Heroic Inspiration: reroll any d20 and keep either result.",
-    luck:"Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you.",
-    mi:"Magic Initiate: free cast of Faerie Fire (no slot).",
-    hd:"Hit Die: roll 1d10+1, then add it with Heal."
+  function mod(score){ return Math.floor((score-10)/2); }
+  function abilMod(k){ return mod(CHARACTER.abilities[k]); }
+  function fmt(n){ return (n>=0?"+":"")+n; }
+  function checkMod(k){ return (CHARACTER.checkMods && CHARACTER.checkMods[k]) || 0; }   // e.g. Otherworldly Glamour
+  function abilCheckMod(k){ return abilMod(k) + checkMod(k); }
+  function saveMod(k){ return abilMod(k) + (CHARACTER.saves.indexOf(k)>=0?PB:0); }
+  function skillMod(s){ return abilMod(s.ability) + (s.prof?PB:0) + (s.exp?PB:0) + checkMod(s.ability); }
+
+  function weaponAbil(w){
+    if(w.ability==="FIN") return abilMod("STR")>=abilMod("DEX") ? "STR" : "DEX";
+    return w.ability;
+  }
+  function weaponToHitNum(w){ return abilMod(weaponAbil(w)) + (w.proficient===false?0:PB) + (w.atkBonus||0); }
+  function weaponDmgFlat(w){ return abilMod(weaponAbil(w)) + (w.dmgBonus||0); }
+  function weaponToHit(w){ return fmt(weaponToHitNum(w)); }
+  function weaponDmg(w){ return w.dmgDice + " " + fmt(weaponDmgFlat(w)); }
+  function critDmg(w){
+    var m = (w.dmgDice||"").match(/^(\d+)d(\d+)$/); if(!m) return w.dmgDice;
+    return (parseInt(m[1],10)*2)+"d"+m[2]+fmt(weaponDmgFlat(w));
+  }
+
+  function computeAC(acState){
+    var ac=CHARACTER.ac, dex=abilMod("DEX"), base;
+    if(acState.armor && ac.armor){
+      var dexAdd = ac.armor.addDex ? (ac.armor.dexCap!=null ? Math.min(dex, ac.armor.dexCap) : dex) : 0;
+      base = ac.armor.base + dexAdd;
+    } else { base = 10 + dex; }
+    base += (acState.shield && ac.shield ? ac.shield.bonus : 0);
+    if(acState.style && ac.style && acState.armor) base += ac.style.bonus;
+    return base;
+  }
+  function passivePerception(){ var s=findSkill("Perception"); return 10 + (s ? skillMod(s) : abilMod("WIS")); }
+  function initiative(){ return abilMod("DEX") + (CHARACTER.initiativeBonus||0); }
+  function hasSpellcasting(){ return !!CHARACTER.spellcasting; }
+  function spellDC(){ return 8 + PB + abilMod(CHARACTER.spellcasting.ability); }
+  function spellAtk(){ return PB + abilMod(CHARACTER.spellcasting.ability); }
+
+  /* ===== engine/storage.js ===== */
+  /* Shared: storage adapter (localStorage now; remote KV scaffold for later) */
+  class StorageAdapter {
+    async load(){ throw new Error("not implemented"); }
+    async save(){ throw new Error("not implemented"); }
+    async clear(){ throw new Error("not implemented"); }
+  }
+  class LocalStorageAdapter extends StorageAdapter {
+    constructor(key){ super(); this.key = key; }
+    async load(){ try { var raw = localStorage.getItem(this.key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; } }
+    async save(data){ try { localStorage.setItem(this.key, JSON.stringify(data)); return true; } catch(e){ return false; } }
+    async clear(){ try { localStorage.removeItem(this.key); } catch(e){} }
+  }
+  /* Scaffold for a public key/value server secured by a bearer token (not wired yet). */
+  class RemoteKVAdapter extends StorageAdapter {
+    constructor(opts){ super(); this.baseUrl=(opts.baseUrl||"").replace(/\/+$/,""); this.namespace=opts.namespace||"default"; this.key=opts.key; this.token=opts.token||null; }
+    setToken(t){ this.token=t; }
+    _url(){ return this.baseUrl+"/"+encodeURIComponent(this.namespace)+"/"+encodeURIComponent(this.key); }
+    _headers(){ var h={"Content-Type":"application/json"}; if(this.token) h["Authorization"]="Bearer "+this.token; return h; }
+    async load(){ var res=await fetch(this._url(),{headers:this._headers()}); if(res.status===404) return null; if(!res.ok) throw new Error("load failed: "+res.status); var b=await res.json(); return (b&&Object.prototype.hasOwnProperty.call(b,"value"))?b.value:b; }
+    async save(data){ var res=await fetch(this._url(),{method:"PUT",headers:this._headers(),body:JSON.stringify(data)}); if(!res.ok) throw new Error("save failed: "+res.status); return true; }
+    async clear(){ await fetch(this._url(),{method:"DELETE",headers:this._headers()}); }
+  }
+  var STORE_CONFIG = { mode:"local", key: CHARACTER.storageKey, remote:{ baseUrl:"", namespace:"dnd", token:"" } };
+  function makeStore(cfg){ if(cfg.mode==="remote" && cfg.remote.baseUrl){ return new RemoteKVAdapter({baseUrl:cfg.remote.baseUrl,namespace:cfg.remote.namespace,key:cfg.key,token:cfg.remote.token}); } return new LocalStorageAdapter(cfg.key); }
+  var store = makeStore(STORE_CONFIG);
+
+  /* ===== engine/domrefs.js ===== */
+  /* Shared: DOM references for the static modal/footer shell (must load before glossary.js) */
+  var refOverlay=document.getElementById("refOverlay");
+  var refTitle=document.getElementById("refTitle"), refDice=document.getElementById("refDice"),
+      refChips=document.getElementById("refChips"), refBody=document.getElementById("refBody"),
+      refFoot=document.getElementById("refFoot"), refGlossary=document.getElementById("refGlossary");
+  var restOverlay=document.getElementById("restOverlay");
+  var toastEl=document.getElementById("toast"), toastT=null;
+  var sync=document.getElementById("sync"), syncText=document.getElementById("syncText");
+  var grid=document.getElementById("grid"), headerGrid=document.getElementById("headerGrid");
+  var lastTrigger=null, currentRefPool=null;
+  function toast(msg){ toastEl.textContent=msg; toastEl.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(function(){ toastEl.classList.remove("show"); }, 2800); }
+
+  /* ===== engine/glossary.js ===== */
+  /* Shared: 3D dice + recursive glossary engine */
+    /* ---------- 3D die renderer (library-free canvas) ---------- */
+    var PHI=(1+Math.sqrt(5))/2;
+    function v_sub(a,b){return[a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+    function v_add(a,b){return[a[0]+b[0],a[1]+b[1],a[2]+b[2]];}
+    function v_scale(a,s){return[a[0]*s,a[1]*s,a[2]*s];}
+    function v_dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+    function v_cross(a,b){return[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+    function v_len(a){return Math.sqrt(v_dot(a,a));}
+    function v_norm(a){var l=v_len(a)||1;return v_scale(a,1/l);}
+    function v_cent(V,idx){var c=[0,0,0];idx.forEach(function(i){c=v_add(c,V[i]);});return v_scale(c,1/idx.length);}
+    function orderFace(V,idx){
+      var c=v_cent(V,idx),n=v_norm(c),ref=v_norm(v_sub(V[idx[0]],c)),ax=v_norm(v_cross(n,ref));
+      return idx.slice().sort(function(a,b){var va=v_sub(V[a],c),vb=v_sub(V[b],c);return Math.atan2(v_dot(va,ax),v_dot(va,ref))-Math.atan2(v_dot(vb,ax),v_dot(vb,ref));});
+    }
+    function triFaces(V){
+      var n=V.length,min=Infinity,i,j,k;
+      for(i=0;i<n;i++)for(j=i+1;j<n;j++){var d=v_len(v_sub(V[i],V[j]));if(d<min)min=d;}
+      function adj(a,b){return Math.abs(v_len(v_sub(V[a],V[b]))-min)<1e-6*min;}
+      var F=[];for(i=0;i<n;i++)for(j=i+1;j<n;j++)if(adj(i,j))for(k=j+1;k<n;k++)if(adj(i,k)&&adj(j,k))F.push([i,j,k]);
+      return F;
+    }
+    var TET=[[1,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]];
+    var OCTA=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+    var CUBE=[[1,1,1],[1,1,-1],[1,-1,1],[1,-1,-1],[-1,1,1],[-1,1,-1],[-1,-1,1],[-1,-1,-1]];
+    var CUBE_F=[[0,1,2,3],[4,5,6,7],[0,1,4,5],[2,3,6,7],[0,2,4,6],[1,3,5,7]];
+    var ICO=[[0,1,PHI],[0,1,-PHI],[0,-1,PHI],[0,-1,-PHI],[1,PHI,0],[1,-PHI,0],[-1,PHI,0],[-1,-PHI,0],[PHI,0,1],[PHI,0,-1],[-PHI,0,1],[-PHI,0,-1]];
+    function makeDodeca(){
+      var icoF=triFaces(ICO);
+      var DV=icoF.map(function(f){return v_cent(ICO,f);});
+      var DF=ICO.map(function(_,u){var g=[];icoF.forEach(function(f,fi){if(f.indexOf(u)>=0)g.push(fi);});return g;});
+      return {verts:DV,faces:DF};
+    }
+    function trapezohedron(n){
+      var z0=0.38,h=1.15,V=[[0,0,h],[0,0,-h]],up=[],lo=[],i;
+      for(i=0;i<n;i++){var a=2*Math.PI*i/n;V.push([Math.cos(a),Math.sin(a),z0]);up.push(V.length-1);}
+      for(i=0;i<n;i++){var a=2*Math.PI*i/n+Math.PI/n;V.push([Math.cos(a),Math.sin(a),-z0]);lo.push(V.length-1);}
+      var F=[];for(i=0;i<n;i++){var ni=(i+1)%n;F.push([0,up[i],lo[i],up[ni]]);F.push([1,lo[i],up[ni],lo[ni]]);}
+      return {verts:V,faces:F};
+    }
+    var GEO_CACHE={};
+    function buildGeometry(sides){
+      if(GEO_CACHE[sides]) return GEO_CACHE[sides];
+      var V,F;
+      if(sides===4){V=TET;F=triFaces(V);}
+      else if(sides===6){V=CUBE;F=CUBE_F;}
+      else if(sides===8){V=OCTA;F=triFaces(V);}
+      else if(sides===20){V=ICO;F=triFaces(V);}
+      else if(sides===12){var d=makeDodeca();V=d.verts;F=d.faces;}
+      else {var t=trapezohedron(5);V=t.verts;F=t.faces;}
+      var R=0;V.forEach(function(v){R=Math.max(R,v_len(v));});
+      V=V.map(function(v){return v_scale(v,1/R);});
+      F=F.map(function(f){return orderFace(V,f);});
+      var labels;
+      if(sides===100) labels=["00","10","20","30","40","50","60","70","80","90"];
+      else if(sides===10) labels=["0","1","2","3","4","5","6","7","8","9"];
+      else {labels=[];for(var i=0;i<F.length;i++)labels.push(String(i+1));}
+      return (GEO_CACHE[sides]={verts:V,faces:F,labels:labels});
+    }
+    var dieAnims=[];
+    function startDie(canvas, sides){
+      var geo=buildGeometry(sides), ctx=canvas.getContext("2d");
+      var disp=74, dpr=Math.min(window.devicePixelRatio||1,2);
+      canvas.width=disp*dpr; canvas.height=disp*dpr; canvas.style.width=disp+"px"; canvas.style.height=disp+"px";
+      ctx.scale(dpr,dpr);
+      var cx=disp/2, cy=disp/2, scale=disp*0.4, light=v_norm([0.35,0.55,1]);
+      var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var rot=0.6, tilt=0.5, raf=null, stopped=false;
+      function rotate(v){
+        var cy_=Math.cos(rot),sy=Math.sin(rot),x=v[0]*cy_+v[2]*sy,z=-v[0]*sy+v[2]*cy_,y=v[1];
+        var cx_=Math.cos(tilt),sx=Math.sin(tilt);return [x,y*cx_-z*sx,y*sx+z*cx_];
+      }
+      function frame(){
+        if(stopped) return;
+        ctx.clearRect(0,0,disp,disp);
+        var rv=geo.verts.map(rotate), items=[];
+        geo.faces.forEach(function(f,fi){
+          var pts=f.map(function(i){return rv[i];}),nx=0,ny=0,nz=0,k;
+          for(k=0;k<pts.length;k++){var a=pts[k],b=pts[(k+1)%pts.length];nx+=(a[1]-b[1])*(a[2]+b[2]);ny+=(a[2]-b[2])*(a[0]+b[0]);nz+=(a[0]-b[0])*(a[1]+b[1]);}
+          var nl=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;nz/=nl;if(nz<=0.02)return;
+          nx/=nl;ny/=nl;var cz=0;pts.forEach(function(p){cz+=p[2];});
+          items.push({pts:pts,n:[nx,ny,nz],cz:cz/pts.length,label:geo.labels[fi]});
+        });
+        items.sort(function(a,b){return a.cz-b.cz;});
+        items.forEach(function(it){
+          ctx.beginPath();
+          it.pts.forEach(function(p,k){var X=cx+p[0]*scale,Y=cy-p[1]*scale;if(k===0)ctx.moveTo(X,Y);else ctx.lineTo(X,Y);});
+          ctx.closePath();
+          var sh=0.42+0.58*Math.max(0,v_dot(it.n,light));
+          ctx.fillStyle="rgb("+Math.round(214*sh)+","+Math.round(130*sh)+","+Math.round(62*sh)+")";
+          ctx.fill();
+          ctx.lineWidth=1;ctx.strokeStyle="rgba(245,200,140,.85)";ctx.stroke();
+          if(it.n[2]>0.34){
+            var c=[0,0];it.pts.forEach(function(p){c[0]+=p[0];c[1]+=p[1];});
+            var fs=Math.max(6,scale*0.4*it.n[2]);
+            ctx.fillStyle="#241405";ctx.font="700 "+fs.toFixed(1)+'px "Cinzel",serif';
+            ctx.textAlign="center";ctx.textBaseline="middle";
+            ctx.fillText(it.label, cx+(c[0]/it.pts.length)*scale, cy-(c[1]/it.pts.length)*scale);
+          }
+        });
+        if(!reduce){rot+=0.011;raf=requestAnimationFrame(frame);}
+      }
+      frame();
+      var ctrl={stop:function(){stopped=true;if(raf)cancelAnimationFrame(raf);}};
+      dieAnims.push(ctrl); return ctrl;
+    }
+
+    /* ---------- Glossary: underline known terms, expand definitions inline (recursive) ---------- */
+    var GLOSSARY = {
+      "die-4":{term:"d4",def:"A four-sided die (a tetrahedron). The smallest common die; used by some small weapons and spells.",die:4},
+      "die-6":{term:"d6",def:"A six-sided die — the familiar cube. Used for many superiority dice and weapon damage.",die:6},
+      "die-8":{term:"d8",def:"An eight-sided die — common for weapon damage and class dice such as superiority dice.",die:8},
+      "die-10":{term:"d10",def:"A ten-sided die — used for d10 Hit Dice and many damage and healing rolls.",die:10},
+      "die-12":{term:"d12",def:"A twelve-sided die (a dodecahedron). Used by heavy weapons such as the greataxe (1d12).",die:12},
+      "die-20":{term:"d20",def:"A twenty-sided die — the core die. Attack rolls, saving throws, ability checks, and Initiative all roll a d20.",die:20},
+      "die-100":{term:"d100",def:"Percentile dice: roll two d10s (one for tens, one for ones) to get a number from 1 to 100.",die:100},
+      "advantage":{term:"Advantage",def:"Roll two d20s and use the higher roll. Advantage doesn't stack — and if you have both Advantage and Disadvantage on the same roll, they cancel out and you roll a single d20."},
+      "disadvantage":{term:"Disadvantage",def:"Roll two d20s and use the lower roll. If you have both Advantage and Disadvantage on a roll, they cancel and you roll one d20."},
+      "bonus-action":{term:"Bonus Action",def:"A quick extra action you can take on your turn on top of your action and movement. You get only one Bonus Action per turn, and only when a feature specifically grants one."},
+      "prone":{term:"Prone",def:"A condition. A Prone creature can only crawl and attacks with Disadvantage. Attack rolls against it have Advantage if the attacker is within 5 feet, and Disadvantage otherwise. Standing up costs half your movement."},
+      "saving-throw":{term:"Saving Throw",def:"A d20 roll to resist an effect, adding the relevant ability modifier plus your Proficiency Bonus if you're proficient. You succeed if the total meets or beats the effect's DC."},
+      "ability-check":{term:"Ability Check",def:"A d20 roll plus an ability modifier (plus your Proficiency Bonus if proficient in a relevant skill) to attempt something uncertain, compared against a DC."},
+      "ability-score":{term:"Ability Score",def:"The rating of one of the six abilities (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma), usually 1–20. Its modifier is (score − 10) ÷ 2 rounded down — that modifier is what you add to d20 rolls."},
+      "initiative":{term:"Initiative",def:"A Dexterity check rolled at the start of combat to set turn order, highest first. The Alert feat lets you add your Proficiency Bonus."},
+      "proficiency-bonus":{term:"Proficiency Bonus",def:"A bonus tied to your level (+2 at levels 1–4) that you add to attack rolls, saving throws, and ability checks you're proficient with."},
+      "tremorsense":{term:"Tremorsense",def:"You can pinpoint creatures and moving objects within range, as long as both you and them are in contact with the same ground or surface. It can't detect flying or incorporeal creatures."},
+      "darkvision":{term:"Darkvision",def:"Within range you see in Dim Light as if it were Bright Light, and in Darkness as if it were Dim Light (in shades of gray)."},
+      "bright-light":{term:"Bright Light",def:"Normal illumination. Most creatures see normally in Bright Light."},
+      "dim-light":{term:"Dim Light",def:"A shadowy area, also called shadows. It is Lightly Obscured, giving Disadvantage on Wisdom (Perception) checks that rely on sight."},
+      "resistance":{term:"Resistance",def:"If you have Resistance to a damage type, you take half damage from it. It's applied after other modifiers, and multiple instances of Resistance don't stack."},
+      "poisoned":{term:"Poisoned",def:"A condition. A Poisoned creature has Disadvantage on attack rolls and ability checks."},
+      "extra-attack":{term:"Extra Attack",def:"Starting at level 5, you can attack twice whenever you take the Attack action on your turn. You're level 4, so not yet."},
+      "magic-weapon":{term:"Magic Weapon",def:"A weapon with magical properties. Attacks made with it count as magical, so they overcome a target's Resistance or immunity to damage from nonmagical attacks."},
+      "dc":{term:"Difficulty Class (DC)",def:"The target number for a d20 roll. To succeed on a saving throw or ability check, the total must equal or exceed the DC set by the effect or the GM."},
+      "sk-athletics":{term:"Athletics",def:"A Strength skill for climbing, jumping, swimming, and grappling or shoving."},
+      "sk-acrobatics":{term:"Acrobatics",def:"A Dexterity skill for keeping your balance, tumbling, and staying on your feet."},
+      "sk-sleight":{term:"Sleight of Hand",def:"A Dexterity skill for palming objects, picking pockets, and other manual trickery."},
+      "sk-stealth":{term:"Stealth",def:"A Dexterity skill for moving silently and staying hidden from notice."},
+      "sk-arcana":{term:"Arcana",def:"An Intelligence skill recalling lore about spells, magic items, and the planes."},
+      "sk-history":{term:"History",def:"An Intelligence skill recalling lore about past events, people, and civilizations."},
+      "sk-investigation":{term:"Investigation",def:"An Intelligence skill for studying clues, searching for hidden details, and reasoning things out."},
+      "sk-nature":{term:"Nature",def:"An Intelligence skill recalling lore about terrain, plants, animals, and weather."},
+      "sk-religion":{term:"Religion",def:"An Intelligence skill recalling lore about deities, rites, and holy symbols."},
+      "sk-animal":{term:"Animal Handling",def:"A Wisdom skill for calming, controlling, or reading the intentions of animals."},
+      "sk-insight":{term:"Insight",def:"A Wisdom skill for reading body language and sensing lies or true intentions."},
+      "sk-medicine":{term:"Medicine",def:"A Wisdom skill for stabilizing the dying and diagnosing illness."},
+      "sk-perception":{term:"Perception",def:"A Wisdom skill for noticing things with your senses; its passive value sets how alert you are."},
+      "sk-survival":{term:"Survival",def:"A Wisdom skill for tracking, foraging, navigating, and enduring the wilds."},
+      "sk-deception":{term:"Deception",def:"A Charisma skill for convincingly lying or hiding the truth."},
+      "sk-intimidation":{term:"Intimidation",def:"A Charisma skill for influencing others through threats or a hostile presence."},
+      "sk-performance":{term:"Performance",def:"A Charisma skill for entertaining an audience with music, acting, or storytelling."},
+      "sk-persuasion":{term:"Persuasion",def:"A Charisma skill for influencing others with tact, charm, or good-faith argument."}
+    };
+    var ALIASES = {
+      "advantage":"advantage","disadvantage":"disadvantage",
+      "bonus action":"bonus-action",
+      "prone":"prone","prone condition":"prone",
+      "saving throw":"saving-throw","saving throws":"saving-throw","save":"saving-throw","saves":"saving-throw",
+      "ability check":"ability-check","ability checks":"ability-check","check":"ability-check","checks":"ability-check",
+      "ability score":"ability-score","ability scores":"ability-score","ability modifier":"ability-score",
+      "initiative":"initiative",
+      "proficiency bonus":"proficiency-bonus",
+      "tremorsense":"tremorsense","darkvision":"darkvision",
+      "bright light":"bright-light","dim light":"dim-light",
+      "resistance":"resistance","resist":"resistance",
+      "poisoned":"poisoned","poisoned condition":"poisoned",
+      "extra attack":"extra-attack",
+      "magic weapon":"magic-weapon","magical":"magic-weapon",
+      "dc":"dc","difficulty class":"dc",
+      "athletics":"sk-athletics","acrobatics":"sk-acrobatics","sleight of hand":"sk-sleight","stealth":"sk-stealth",
+      "arcana":"sk-arcana","history":"sk-history","investigation":"sk-investigation","nature":"sk-nature","religion":"sk-religion",
+      "animal handling":"sk-animal","insight":"sk-insight","medicine":"sk-medicine","perception":"sk-perception","survival":"sk-survival",
+      "deception":"sk-deception","intimidation":"sk-intimidation","performance":"sk-performance","persuasion":"sk-persuasion"
+    };
+    function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\{{SCRIPT}}"); }
+    var aliasAlt = Object.keys(ALIASES).sort(function(a,b){return b.length-a.length;}).map(escapeRe).join("|");
+    var diceAlt  = "\\d*d(?:100|20|12|10|8|6|4)";
+    var TERM_RE  = new RegExp("\\b(?:"+aliasAlt+"|"+diceAlt+")\\b","gi");
+    function termKey(matched){
+      var raw=matched.toLowerCase();
+      if(ALIASES[raw]) return ALIASES[raw];
+      var dm=raw.match(/^\d*d(100|20|12|10|8|6|4)$/);
+      return dm ? "die-"+dm[1] : null;
+    }
+    var glossExpanded = null;
+
+    function linkifyTerms(root){
+      var walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), targets=[], n;
+      while(n=walker.nextNode()){
+        if(n.parentNode && n.parentNode.classList && n.parentNode.classList.contains("gloss-term")) continue;
+        TERM_RE.lastIndex=0;
+        if(TERM_RE.test(n.nodeValue)) targets.push(n);
+      }
+      targets.forEach(function(node){
+        var text=node.nodeValue, frag=document.createDocumentFragment(), last=0, m;
+        TERM_RE.lastIndex=0;
+        while(m=TERM_RE.exec(text)){
+          if(m.index>last) frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+          var key=termKey(m[0]);
+          if(key){
+            var btn=document.createElement("button");
+            btn.type="button"; btn.className="gloss-term"; btn.textContent=m[0];
+            btn.setAttribute("data-term", key);
+            frag.appendChild(btn);
+          } else {
+            frag.appendChild(document.createTextNode(m[0]));
+          }
+          last=m.index+m[0].length;
+        }
+        if(last<text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      });
+    }
+    function resetGlossary(){ dieAnims.forEach(function(a){a.stop();}); dieAnims=[]; refGlossary.innerHTML=""; glossExpanded=new Set(); }
+    function expandTerm(key){
+      var g=GLOSSARY[key]; if(!g) return;
+      if(glossExpanded.has(key)){
+        var ex=refGlossary.querySelector('[data-gd="'+key+'"]');
+        if(ex){ ex.scrollIntoView({block:"nearest"}); ex.classList.add("flash"); setTimeout(function(){ ex.classList.remove("flash"); },600); }
+        return;
+      }
+      glossExpanded.add(key);
+      var box=document.createElement("div"); box.className="gloss-def"; box.setAttribute("data-gd",key);
+      var h=document.createElement("span"); h.className="gd-term"; h.textContent=g.term; box.appendChild(h);
+      var b=document.createElement("div"); b.className="gd-body"; b.textContent=g.def;
+      if(g.die){
+        var row=document.createElement("div"); row.className="gd-row";
+        var fig=document.createElement("div"); fig.className="die-wrap";
+        var canvas=document.createElement("canvas"); canvas.className="die-canvas"; fig.appendChild(canvas);
+        row.appendChild(fig); row.appendChild(b); box.appendChild(row);
+        refGlossary.appendChild(box);
+        startDie(canvas, g.die);
+      } else {
+        box.appendChild(b);
+        refGlossary.appendChild(box);
+      }
+      linkifyTerms(b);
+      box.scrollIntoView({block:"nearest"});
+    }
+    refOverlay.addEventListener("click", function(e){
+      var t=e.target.closest(".gloss-term"); if(!t) return;
+      e.stopPropagation();
+      expandTerm(t.getAttribute("data-term"));
+    });
+
+    function openAC(trigger){
+      resetGlossary();
+      lastTrigger=trigger||null; currentRefPool=null;
+      refTitle.textContent="Armor Class";
+      refChips.innerHTML=""; refChips.style.display="none";
+      refDice.style.display="block";
+      refBody.innerHTML="";
+      var intro=document.createElement("p"); intro.className="muted";
+      intro.textContent="Toggle gear to see how your AC changes."; refBody.appendChild(intro);
+      AC_PARTS.forEach(function(p){
+        var btn=document.createElement("button"); btn.type="button"; btn.className="ac-toggle";
+        btn.innerHTML='<span class="acbox">✓</span><span class="acname">'+p.label+'</span><span class="acnote">'+p.note+'</span>';
+        btn.addEventListener("click", function(){
+          state.ac[p.id]=!state.ac[p.id];
+          persist(); renderACStud(); paintAC();
+        });
+        refBody.appendChild(btn);
+      });
+      refFoot.innerHTML='<span class="uses-left" id="acBreak"></span>';
+      paintAC();
+      refOverlay.classList.add("show");
+      document.getElementById("refClose").focus();
+    }
+    function paintAC(){
+      refDice.textContent = "AC " + computeAC(state.ac);
+      var btns=refBody.querySelectorAll(".ac-toggle");
+      AC_PARTS.forEach(function(p,i){
+        var b=btns[i]; if(!b) return;
+        b.classList.toggle("on", !!state.ac[p.id]);
+        // Defense only functions while wearing armor — show it inactive otherwise
+        b.classList.toggle("inactive", p.id==="defense" && !state.ac.armor);
+      });
+      var brk=document.getElementById("acBreak"); if(brk) brk.textContent=acBreakdown(state.ac);
+    }
+
+  /* ===== engine/components.js ===== */
+  /* Shared: card render functions. Each returns an HTML string built from CHARACTER + derived math.
+     Dynamic sub-parts (rivets, hp values, attack/prepared lists) are left as empty
+     containers and filled by sheet.js. */
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function poolBlock(id){
+    var p=CHARACTER.pools[id]; if(!p) return "";
+    return '<div class="pool"><div class="pool-head">'+
+      '<button class="pname" data-ref="'+esc(p.ref)+'" type="button">'+esc(p.label)+' ⓘ</button>'+
+      '<span class="pnote">'+esc(p.note||"")+'</span></div>'+
+      '<div class="rivets" id="'+id+'Rivets"></div></div>';
+  }
+  function featBtn(f, first){
+    var style = first ? ' style="margin-top:.5rem"' : '';
+    var span = f.spanId ? '<span id="'+f.spanId+'">'+esc(f.sub)+'</span>' : '<span>'+esc(f.sub)+'</span>';
+    return '<button class="feat" data-ref="'+esc(f.ref)+'" type="button"'+style+'><b>'+esc(f.name)+'</b>'+span+'</button>';
+  }
+  function label(text, m){ return '<div class="hp-label" style="text-align:left;margin:'+(m||'.7rem 0 .35rem')+'">'+esc(text)+'</div>'; }
+
+  function studDisplay(s){
+    switch(s.ref){
+      case "stat_ac":    return computeAC(defaults.ac);
+      case "stat_init":  return fmt(initiative());
+      case "stat_prof":  return fmt(PB);
+      case "stat_pass":  return passivePerception();
+      case "stat_speed": return CHARACTER.speed;
+      default:           return s.value;
+    }
+  }
+  function renderHeaderHTML(){
+    var studs = CHARACTER.studs.map(function(s){
+      return '<button class="stud" data-ref="'+esc(s.ref)+'" type="button"><span class="sl">'+esc(s.label)+'</span><span class="sv"'+(s.id?' id="'+s.id+'"':'')+'>'+esc(studDisplay(s))+'</span></button>';
+    }).join("");
+    return '<div class="who"><h1>'+esc(CHARACTER.name)+'</h1><div class="sub">'+esc(CHARACTER.subtitle)+'</div></div><div class="studs">'+studs+'</div>';
+  }
+
+  var CARD = {
+    abilities: function(){ return '<h2>Abilities <span class="hint">tap for detail · all checks roll d20</span></h2><div class="abilities" id="abilities"></div>'; },
+    hitpoints: function(){
+      var hdNote = (CHARACTER.pools.hd && CHARACTER.pools.hd.note) || "short rest";
+      return '<h2>Hit Points</h2>'+
+        '<div class="hp-top"><input class="hp-cur" id="hpCur" type="text" inputmode="numeric" aria-label="Current hit points"><span class="hp-sep">/</span><input class="hp-max" id="hpMax" type="text" inputmode="numeric" aria-label="Maximum hit points"></div>'+
+        '<div class="hp-label">Current / Max</div>'+
+        '<div class="row" id="tempWrap" style="margin-bottom:.6rem"></div>'+
+        '<div class="row" id="hpAdjust"><input class="num" id="hpDelta" type="number" min="0" inputmode="numeric" placeholder="#" aria-label="Amount"><button class="btn tiny" id="dmgBtn" type="button">Damage</button><button class="btn tiny ember" id="healBtn" type="button">Heal</button></div>'+
+        '<div class="row" id="tempRow" style="margin-top:.6rem"><span class="mini-label">Temp HP</span><input class="num" id="tempIn" type="number" min="0" inputmode="numeric" placeholder="0" aria-label="Set temporary hit points"><button class="btn tiny" id="tempBtn" type="button">Set</button></div>'+
+        '<div class="pool" id="hitDicePool" style="margin-top:.8rem"><div class="pool-head"><button class="pname" data-ref="hitdice" type="button">Hit Dice ⓘ</button><span class="pnote">'+esc(hdNote)+'</span></div><div class="rivets" id="hdRivets"></div><div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="spendHd" type="button">Spend Hit Die</button></div></div>'+
+        '<div class="row" style="justify-content:flex-start;margin-top:.7rem"><button class="btn ember" id="restBtn" type="button">Rest</button></div>'+
+        '<div id="deathSaves" style="margin-top:.8rem;display:none"><div class="hp-label" style="text-align:left;margin-bottom:.4rem">Death Saves</div><div class="ds-row"><span class="lbl">Saves +</span><div class="rivets" id="dsSucc"></div></div><div class="ds-row"><span class="lbl">Saves −</span><div class="rivets" id="dsFail"></div></div></div>';
+    },
+    attacks: function(card){
+      var extras=(card.extras||[]).map(function(f,i){ return featBtn(f, i===0); }).join("");
+      return '<h2>Attacks <span class="hint">'+esc(card.hint||"one attack / turn")+'</span></h2><div id="attackList"></div>'+extras;
+    },
+    pools: function(card){
+      var pools=(card.pools||[]).map(poolBlock).join("");
+      var extras=(card.extras||[]).map(function(f,i){ return featBtn(f, i===0); }).join("");
+      var hint=card.hint?' <span class="hint">'+esc(card.hint)+'</span>':'';
+      return '<h2>'+esc(card.title||"Resources")+hint+'</h2>'+pools+extras;
+    },
+    spellcasting: function(card){
+      var html='<h2>Spellcasting <span class="hint">'+esc(ABIL_NAME[CHARACTER.spellcasting.ability])+' · save DC '+spellDC()+' · atk '+fmt(spellAtk())+'</span></h2>';
+      if(card.slotPool) html+=poolBlock(card.slotPool);
+      html+='<div style="margin-top:.6rem">';
+      if(card.always && card.always.length){ html+=label("Always prepared",".2rem 0 .35rem"); html+=card.always.map(function(f){return featBtn(f,false);}).join(""); }
+      if(card.prepared){
+        html+='<div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Prepared spells <span id="prepCount" class="count-tag">0/0</span></div><div id="preparedList"></div>'+
+              '<div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="prepareBtn" type="button">Prepare spells…</button></div>';
+      }
+      if(card.initiate){
+        html+=label(card.initiate.label,".8rem 0 .35rem");
+        html+=(card.initiate.spells||[]).map(function(f){return featBtn(f,false);}).join("");
+      }
+      html+='</div>';
+      if(card.initiate && card.initiate.pool){ html+=poolBlock(card.initiate.pool); }
+      return html;
+    },
+    skills: function(){ return '<h2>Skills <span class="hint">tap a skill · ● proficient · roll d20 + value</span></h2><div class="skills" id="skills"></div>'; },
+    inventory: function(card){
+      var html='<h2>Inventory <span class="hint">gear &amp; carried items</span></h2>';
+      if(card.magic){ html+='<button class="inv-magic" data-ref="'+esc(card.magic.ref)+'" type="button"><b>'+esc(card.magic.name)+'</b><span class="mtag">'+esc(card.magic.tag)+'</span><span class="desc">'+esc(card.magic.desc)+'</span></button>'; }
+      html+=(card.items||[]).map(function(it){ return '<div class="inv-row"><span class="iname">'+esc(it.name)+'</span><span class="itag">'+esc(it.tag)+'</span></div>'; }).join("");
+      return html;
+    },
+    features: function(card){
+      return '<h2>Features &amp; Traits <span class="hint">tap any for rules</span></h2>'+(card.list||[]).map(function(f){return featBtn(f,false);}).join("");
+    },
+    background: function(card){
+      var paras=(card.paras||[]).map(function(p){return '<p>'+esc(p)+'</p>';}).join("");
+      return '<h2>Background <span class="hint">'+esc(card.hint||"")+'</span></h2><div class="bg-text">'+paras+'</div>';
+    },
+    buildlog: function(card){
+      var lvls=(card.levels||[]).map(function(lv){
+        var items=(lv.items||[]).map(function(it){
+          var cls=it.cls?(' class="'+it.cls+'"'):'';
+          return '<li'+cls+'>'+(it.html||esc(it.text))+'</li>';
+        }).join("");
+        return '<div class="lvl"><h4>'+esc(lv.title)+(lv.tag?' <span class="tag">'+esc(lv.tag)+'</span>':'')+'</h4><ul>'+items+'</ul></div>';
+      }).join("");
+      return '<details><summary>Build Log — choices by level</summary><div class="lvl-wrap">'+lvls+'</div></details>';
+    }
   };
 
-  /* Reference content for the tap-to-open modals. */
+  function renderGridHTML(){
+    return CHARACTER.cards.map(function(card){
+      var fn=CARD[card.type]; if(!fn) return "";
+      var full = (card.type==="background"||card.type==="buildlog"||card.full) ? ' style="grid-column:1 / -1"' : '';
+      var cls = "card" + (card.type==="buildlog" ? " buildlog" : "");
+      return '<section class="'+cls+'"'+full+'>'+fn(card)+'</section>';
+    }).join("");
+  }
+
+  /* ===== engine/sheet.js ===== */
+  /* Shared: state, rendering orchestration, and interactions — all read from CHARACTER. */
+
+  /* ----- reference content: auto ability modals + character-specific entries ----- */
   var REF = {};
-  ABILS.forEach(function(a){
-    var sv = a.mod + (SAVE_PROF[a.k]?PROF:0);
-    var chk = a.mod + (a.k==="CHA"?GLAMOUR:0);
-    var names={STR:"Strength",DEX:"Dexterity",CON:"Constitution",INT:"Intelligence",WIS:"Wisdom",CHA:"Charisma"};
-    var body=["Ability score "+a.score+" ("+fmt(a.mod)+" modifier).","Governs: "+GOVERNS[a.k]+"."];
-    var chips = SAVE_PROF[a.k] ? [{t:"Save proficiency",c:"storm"}] : [];
-    if(a.k==="CHA"){ chips=chips.concat([{t:"Glamour +2 to checks",c:"ember"}]); body.push("Otherworldly Glamour adds your Wisdom modifier (+2) to every Charisma check, so a bare Charisma check is d20 "+fmt(chk)+"."); }
-    REF["abil_"+a.k] = {
-      title:names[a.k],
-      dice:"Check: d20 "+fmt(chk)+"   ·   Save: d20 "+fmt(sv),
-      chips: chips,
-      body: body
-    };
+  ABIL_ORDER.forEach(function(k){
+    var sv=saveMod(k), chk=abilCheckMod(k);
+    var body=["Ability score "+CHARACTER.abilities[k]+" ("+fmt(abilMod(k))+" modifier).","Governs: "+GOVERNS[k]+"."];
+    var chips = CHARACTER.saves.indexOf(k)>=0 ? [{t:"Save proficiency",c:"storm"}] : [];
+    if(checkMod(k)){
+      chips=chips.concat([{t:fmt(checkMod(k))+" to checks",c:"ember"}]);
+      if(CHARACTER.checkModNote && CHARACTER.checkModNote[k]) body.push(CHARACTER.checkModNote[k]+", so a bare "+ABIL_NAME[k]+" check is d20 "+fmt(chk)+".");
+    }
+    REF["abil_"+k]={ title:ABIL_NAME[k], dice:"Check: d20 "+fmt(chk)+"   ·   Save: d20 "+fmt(sv), chips:chips, body:body };
   });
-  REF.longbow = { title:"Longbow", dice:"To hit: d20 +8   ·   Damage: 1d8 +4",
-    chips:[{t:"Piercing"},{t:"Range 150/600"},{t:"Two-handed"},{t:"Crit 2d8+4",c:"ember"},{t:"Slow",c:"storm"}],
-    body:["One attack on your turn (Extra Attack arrives at level 5). +8 to hit = Dex +4, proficiency +2, and the Archery fighting style +2. Damage adds your Dexterity (+4).",
-          "Slow (mastery): when you hit and deal damage, the target's Speed drops by 10 feet until the start of your next turn.",
-          "Needs ammunition and two free hands to fire."] };
-  REF.shortsword = { title:"Shortsword", dice:"To hit: d20 +6   ·   Damage: 1d6 +4",
-    chips:[{t:"Piercing"},{t:"Finesse"},{t:"Light"},{t:"Crit 2d6+4",c:"ember"},{t:"Vex",c:"storm"}],
-    body:["Your melee sidearm. Finesse lets you use Dexterity for attack and damage, so +6 to hit (Dex +4, proficiency +2) and 1d6+4.",
-          "Vex (mastery): when you hit and deal damage, you have Advantage on your next attack roll against that target, until the end of your next turn."] };
-  REF.dreadful = { title:"Dreadful Strikes", dice:"+1d4 psychic",
-    chips:[{t:"Once per target / turn",c:"ember"},{t:"No action"}],
-    body:["Once per turn, when you hit a creature with a weapon, you can deal an extra 1d4 psychic damage. Each creature can take this extra damage only once per turn.",
-          "It costs no action and stacks with Hunter's Mark; the die grows to 1d6 at ranger level 11.",
-          "It isn't magical and needs no Concentration — it simply rides your hits."] };
-  REF.huntersmark = { title:"Hunter's Mark", dice:"+1d6 force on each hit", pool:"hm",
-    chips:[{t:"Bonus action"},{t:"Concentration",c:"storm"},{t:"Free 2×/long rest",c:"ember"}],
-    body:["As a Bonus Action, mark a creature you can see. Until your Concentration ends (up to 1 hour), your weapon attacks against it deal an extra 1d6 force damage.",
-          "When the target drops, move the mark to a new creature as a Bonus Action.",
-          "Favored Enemy keeps it always prepared and lets you cast it free (no slot) twice per long rest (your Proficiency Bonus); after that, cast it with a slot. Tap Use below to spend a free cast."] };
-  REF.spellslots = { title:"Spell Slots (Level 1)", dice:"3 first-level slots", pool:"slot1",
-    chips:[{t:"Long rest",c:"storm"}],
-    body:["You have three 1st-level spell slots, regained on a long rest. As a half-caster you only have 1st-level slots at level 4 — 2nd-level slots arrive at level 5.",
-          "Spell save DC 12 (8 + Wis +2 + prof +2); spell attack +4. Tap Use below to spend a slot."] };
-  REF.inspiration = { title:"Heroic Inspiration", dice:null, pool:"insp",
-    chips:[{t:"Reroll a d20",c:"ember"},{t:"After a long rest",c:"storm"}],
-    body:["When you have Heroic Inspiration you can expend it to reroll any d20 and use either roll. You can hold only one at a time.",
-          "Your Human Resourceful trait grants it after every long rest; the GM may also award it for great play."] };
-  REF.charmperson = { title:"Charm Person", dice:"Wis save DC 12",
-    chips:[{t:"Level 1"},{t:"Always prepared",c:"storm"}],
-    body:["One humanoid within 30 ft makes a Wisdom save (DC 12) or is Charmed by you for 1 hour or until you or your allies harm it. It saves with Advantage if you're already fighting it.",
-          "A Charmed creature can't attack you and treats you as a friendly acquaintance. Always prepared by Fey Wanderer."] };
-  REF.curewounds = { title:"Cure Wounds", dice:"Heal 2d8 +2",
-    chips:[{t:"Level 1"},{t:"Touch"}],
-    body:["Touch a creature to restore 2d8 + your spellcasting modifier (Wis +2) hit points. A higher-level slot heals an extra 2d8 per level. No effect on Undead or Constructs."] };
-  REF.goodberry = { title:"Goodberry", dice:"10 berries · 1 HP each",
-    chips:[{t:"Level 1"}],
-    body:["Create up to ten berries. Eating one (a Bonus Action) restores 1 hit point, and a berry feeds a creature for a day. They lose potency after 24 hours.",
-          "Ten guaranteed HP in one-point bites — best out of combat."] };
-  REF.longstrider = { title:"Longstrider", dice:"+10 ft Speed",
-    chips:[{t:"Level 1"},{t:"1 hour"}],
-    body:["Touch a creature; its Speed increases by 10 feet for 1 hour. A higher-level slot affects one extra creature per level."] };
-  REF.ensnaringstrike = { title:"Ensnaring Strike", dice:"Str save DC 12",
-    chips:[{t:"Level 1"},{t:"Bonus action"},{t:"Concentration",c:"storm"}],
-    body:["As a Bonus Action, the next time you hit with a weapon this turn the target makes a Strength save (DC 12) or is Restrained by magical vines, taking 1d6 piercing at the start of each of its turns. It can repeat the save to break free.",
-          "Requires Concentration, so it competes with Hunter's Mark."] };
-  REF.speakwithanimals = { title:"Speak with Animals", dice:null,
-    chips:[{t:"Level 1"},{t:"Ritual",c:"storm"},{t:"10 min"}],
-    body:["You can comprehend and verbally communicate with Beasts for 10 minutes. As a ritual you can cast it without a slot if you spend 10 extra minutes.",
-          "Pairs naturally with Animal Handling for a fey-touched tracker."] };
-  REF.fogcloud = { title:"Fog Cloud", dice:null,
-    chips:[{t:"Level 1"},{t:"Concentration",c:"storm"}],
-    body:["Create a 20-foot-radius sphere of fog within 120 ft; the area is Heavily Obscured. Wind disperses it, and a higher-level slot makes it larger.",
-          "A getaway or reposition tool — it blocks line of sight for everyone."] };
-  REF.entangle = { title:"Entangle", dice:"Str save DC 12",
-    chips:[{t:"Level 1"},{t:"Concentration",c:"storm"}],
-    body:["Grasping weeds and vines sprout in a 20-foot square within 90 ft. Each creature there makes a Strength save (DC 12) or is Restrained for the duration; the area is also Difficult Terrain.",
-          "A Restrained creature can use its action to make a Strength check to free itself. Concentration, so it competes with Hunter's Mark."] };
-  REF.detectmagic = { title:"Detect Magic", dice:null,
-    chips:[{t:"Level 1"},{t:"Ritual",c:"storm"},{t:"Concentration",c:"storm"}],
-    body:["For the duration you sense the presence of magic within 30 ft. As an action you can see a faint aura around any visible magical creature or object and learn its school of magic.",
-          "Has the Ritual tag, but rangers lack a Ritual Casting feature, so cast it with a slot (or your free prepared casting)."] };
-  REF.asi = { title:"Level 4 — Ability Score Improvement", dice:null,
-    chips:[{t:"+2 Dexterity",c:"ember"}],
-    body:["You raised Dexterity from 17 to 19 (+4). That sharpened your attack and damage bonuses, AC, Initiative, and Dexterity saves.",
-          "A feat was the alternative; you also still have the Human Versatile Origin feat to place."] };
-  REF.favoredenemy = { title:"Favored Enemy", dice:null,
-    chips:[{t:"Hunter's Mark",c:"storm"},{t:"Free 2×/long rest",c:"ember"}],
-    body:["You always have Hunter's Mark prepared, and you can cast it without a spell slot a number of times equal to your Proficiency Bonus (2) per long rest. After that, cast it with a slot.",
-          "This is your signature damage rider — turn it on as a Bonus Action at the start of a fight."] };
-  REF.archery = { title:"Fighting Style: Archery", dice:null,
-    chips:[{t:"+2 ranged attacks",c:"ember"}],
-    body:["You gain a +2 bonus to attack rolls with ranged weapons. Already included in the longbow's +8 to hit."] };
-  REF.deftexplorer = { title:"Deft Explorer", dice:null,
-    chips:[{t:"Expertise (Stealth)",c:"ember"},{t:"+2 languages",c:"storm"}],
-    body:["You gain Expertise in one skill — taken in Stealth, doubling your Proficiency Bonus there (Stealth +8). You also learn two additional languages.",
-          "Move the Expertise onto Perception instead if you'd rather have Passive Perception 16."] };
-  REF.glamour = { title:"Otherworldly Glamour", dice:null,
-    chips:[{t:"+Wis to Cha checks",c:"ember"},{t:"Persuasion",c:"storm"}],
-    body:["Whenever you make a Charisma check, add your Wisdom modifier (minimum +1) — here +2. You also gain proficiency in one of Deception, Performance, or Persuasion — taken in Persuasion.",
-          "This makes a Charisma-12 ranger a strong talker: Persuasion is +5 (Cha +1, prof +2, glamour +2)."] };
-  REF.resourceful = { title:"Human: Resourceful", dice:null,
-    chips:[{t:"Heroic Inspiration",c:"ember"}],
-    body:["You gain Heroic Inspiration whenever you finish a long rest, if you don't already have it. Spend it to reroll a d20."] };
-  REF.skillful = { title:"Human: Skillful", dice:null,
-    chips:[{t:"+1 skill"}],
-    body:["You gain proficiency in one additional skill from any list. Taken in Animal Handling (Insight comes from the Wayfarer background)."] };
-  REF.lucky = { title:"Lucky (Origin Feat)", dice:null, pool:"luck",
-    chips:[{t:"2 Luck Points",c:"ember"},{t:"Long rest",c:"storm"},{t:"From Wayfarer",c:"storm"}],
-    body:["You have Luck Points equal to your Proficiency Bonus (2), regained on a long rest.",
-          "Advantage: when you roll a d20 for a d20 Test (an attack roll, ability check, or saving throw), you can spend 1 Luck Point to give yourself Advantage on the roll.",
-          "Disadvantage: when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll.",
-          "Granted by the Wayfarer background. Tap Use below to spend a Luck Point."] };
-  REF.magicinitiate = { title:"Magic Initiate (Druid)", dice:null,
-    chips:[{t:"Human Versatile feat",c:"ember"},{t:"Wis casting",c:"storm"},{t:"DC 12 · atk +4"}],
-    body:["From the Druid list you learn two cantrips (Guidance and Produce Flame) and one level-1 spell (Faerie Fire). Wisdom is the spellcasting ability, so the numbers match your ranger casting: save DC 12, spell attack +4.",
-          "You can cast Faerie Fire once per long rest without a slot, and also with your ranger spell slots. Cantrips are at-will.",
-          "Placed here with the Human Versatile Origin feat — confirm the cantrip/spell picks with your table."] };
-  REF.guidance = { title:"Guidance", dice:"+1d4 to a check",
-    chips:[{t:"Cantrip"},{t:"Concentration",c:"storm"}],
-    body:["Touch a willing creature; once before the spell ends (up to 1 minute) it can roll 1d4 and add it to one ability check of its choice. Requires Concentration."] };
-  REF.produceflame = { title:"Produce Flame", dice:"1d8 fire · spell atk +4",
-    chips:[{t:"Cantrip"},{t:"Bright light 10 ft"}],
-    body:["A flame in your hand sheds Bright Light (10 ft) and Dim Light (another 10 ft) for 10 minutes. You can hurl it as a ranged spell attack (to 30 ft) for 1d8 fire damage; the die grows at higher levels.",
-          "A handy light source and a backup ranged option when a bow won't serve."] };
-  REF.faeriefire = { title:"Faerie Fire", dice:"Dex save DC 12", pool:"mi",
-    chips:[{t:"Level 1"},{t:"Concentration",c:"storm"},{t:"Free 1×/long rest",c:"ember"}],
-    body:["Each creature in a 20-foot cube must succeed on a Dexterity save (DC 12) or be outlined in light for 1 minute. Attack rolls against an outlined creature have Advantage, and it can't benefit from being Invisible.",
-          "Concentration, so it competes with Hunter's Mark. From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use below to spend the free cast."] };
-  REF.wayfarer = { title:"Background: Wayfarer", dice:null,
-    chips:[{t:"Lucky feat",c:"ember"},{t:"Insight · Stealth",c:"storm"},{t:"Thieves' Tools"}],
-    body:["A life lived on the road and the margins. Wayfarer grants the Lucky Origin feat, proficiency in Insight and Stealth, proficiency with Thieves' Tools, and the +2 Dexterity / +1 Wisdom that shaped your scores."] };
-  REF.versatile = { title:"Human: Versatile", dice:null,
-    chips:[{t:"Magic Initiate (Druid)",c:"ember"}],
-    body:["You gain one Origin feat of your choice, on top of the Lucky feat from your Wayfarer background. Placed in Magic Initiate (Druid) — see that entry for the cantrips and spell it grants.",
-          "Swap it for another feat (Alert, Tough, Savage Attacker…) any time before play if you'd rather; it just can't be Lucky again."] };
-  REF.hitdice = { title:"Hit Dice", dice:"1d10 +1 healing each", pool:"hd",
-    chips:[{t:"4 dice at lvl 4"},{t:"Spent on a short rest",c:"storm"}],
-    body:["During a short rest you can spend Hit Dice to heal, rolling 1d10+1 each (1d10 + your Constitution modifier). You regain spent Hit Dice on a long rest.",
-          "Tap Spend Hit Die to mark one used, then roll and apply it with Heal."] };
+  Object.keys(CHARACTER.ref||{}).forEach(function(k){ REF[k]=CHARACTER.ref[k]; });
 
-  REF.stat_init = { title:"Initiative", dice:"Initiative: d20 +4",
-    chips:[{t:"Dex +4"}],
-    body:["Initiative equals your Dexterity modifier (+4).",
-          "If you place the Alert Origin feat from Human Versatile, you would add your Proficiency Bonus too (+6)."] };
-  REF.stat_speed = { title:"Speed", dice:"30 feet",
-    chips:[{t:"Human base 30"}],
-    body:["Your walking speed is 30 feet. Studded leather is light armor, so it doesn't slow you.",
-          "Longstrider can add 10 feet for an hour."] };
-  REF.stat_prof = { title:"Proficiency Bonus", dice:"+2",
-    chips:[{t:"Levels 1–4",c:"storm"}],
-    body:["Your proficiency bonus is +2 at character levels 1–4. It rises to +3 at level 5.",
-          "It is added to attack rolls, saves, skills you're proficient in, your spell save DC, and your spell attack bonus."] };
-  REF.stat_pass = { title:"Passive Perception", dice:"14",
-    chips:[{t:"10 + Perception +4",c:"ember"}],
-    body:["Passive Perception = 10 + your Perception check modifier.",
-          "Perception is +4 (Wis +2, proficiency +2), so 14. If you moved your Deft Explorer Expertise onto Perception, this would be 16."] };
+  /* ----- pools derived from data ----- */
+  var POOL_MAX={}, POOL_REMINDER={}, POOL_EL={};
+  Object.keys(CHARACTER.pools).forEach(function(id){
+    var p=CHARACTER.pools[id];
+    POOL_MAX[id]=p.max; POOL_REMINDER[id]=p.reminder||""; POOL_EL[id]=[id+"Rivets", !!p.storm];
+  });
 
-  /* ============================== STATE =============================== */
-  var defaults = { hpMax:32, hpCur:32, temp:0, slot1:3, hm:2, insp:1, luck:2, mi:1, hd:4, dsSucc:0, dsFail:0,
-                   ac:{ armor:true, shield:false },
-                   masteries:["longbow","shortsword"],
-                   prepared:["curewounds","goodberry","longstrider","ensnaringstrike","fogcloud"] };
+  /* ----- AC config ----- */
+  var AC_PARTS=[];
+  ["armor","shield","style"].forEach(function(k){ if(CHARACTER.ac[k]) AC_PARTS.push({id:k,label:CHARACTER.ac[k].label,note:CHARACTER.ac[k].note,requiresArmor:!!CHARACTER.ac[k].requiresArmor}); });
+  function acDefault(){
+    var ac=CHARACTER.ac, o={};
+    if(ac.armor) o.armor = ac.armor.default!==false;
+    if(ac.shield) o.shield = ac.shield.default===true;
+    if(ac.style) o.style = ac.style.default!==false;
+    return o;
+  }
+  function acBreakdown(a){
+    var parts=[], ac=CHARACTER.ac, dex=abilMod("DEX");
+    if(a.armor && ac.armor){ parts.push(ac.armor.label.toLowerCase()+" "+ac.armor.base+(ac.armor.addDex?(" + Dex "+fmt(dex)):"")); }
+    else parts.push("10 + Dex "+fmt(dex));
+    if(a.shield && ac.shield) parts.push("shield "+fmt(ac.shield.bonus));
+    if(a.style && ac.style && a.armor) parts.push(ac.style.label+" "+fmt(ac.style.bonus));
+    return parts.join(" + ")+" = "+computeAC(a);
+  }
+
+  /* ----- weapons / mastery ----- */
+  var WEAPONS = CHARACTER.weapons;
+  var MASTERY_MAX = CHARACTER.masteryMax;
+  function wById(id){ for(var i=0;i<WEAPONS.length;i++){ if(WEAPONS[i].id===id) return WEAPONS[i]; } return null; }
+
+  /* ----- prepared spells (optional) ----- */
+  var PREPARED_MAX = CHARACTER.prepared ? CHARACTER.prepared.max : 0;
+  var SPELL_CATALOG = CHARACTER.prepared ? CHARACTER.prepared.catalog : [];
+  function spById(id){ for(var i=0;i<SPELL_CATALOG.length;i++){ if(SPELL_CATALOG[i].id===id) return SPELL_CATALOG[i]; } return null; }
+
+  /* ----- state ----- */
+  var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0,
+                   ac:acDefault(), masteries:(CHARACTER.masteryDefault||[]).slice() };
+  Object.keys(CHARACTER.pools).forEach(function(id){ defaults[id]=CHARACTER.pools[id].max; });
+  if(CHARACTER.prepared) defaults.prepared = CHARACTER.prepared.default.slice();
   var state = JSON.parse(JSON.stringify(defaults));
-
   function applyDefaults(loaded){
     var s = JSON.parse(JSON.stringify(defaults));
-    if(loaded && typeof loaded === "object"){ for(var k in defaults){ if(k in loaded) s[k]=loaded[k]; } }
+    if(loaded && typeof loaded==="object"){ for(var k in defaults){ if(k in loaded) s[k]=loaded[k]; } }
     return s;
   }
 
-  var sync = document.getElementById("sync"), syncText = document.getElementById("syncText");
   function setStatus(s){
     sync.classList.remove("saved","saving","error");
     if(s==="saving"){ sync.classList.add("saving"); syncText.textContent="saving…"; }
     else if(s==="error"){ sync.classList.add("error"); syncText.textContent="save error"; }
     else if(s==="loading"){ syncText.textContent="loading…"; }
-    else { sync.classList.add("saved"); syncText.textContent = (STORE_CONFIG.mode==="remote"?"synced":"saved"); }
+    else { sync.classList.add("saved"); syncText.textContent=(STORE_CONFIG.mode==="remote"?"synced":"saved"); }
   }
+  var saveTimer=null;
+  function persist(){ setStatus("saving"); clearTimeout(saveTimer); saveTimer=setTimeout(function(){ Promise.resolve(store.save(state)).then(function(){ setStatus("saved"); }).catch(function(){ setStatus("error"); }); }, 250); }
 
-  var saveTimer = null;
-  function persist(){
-    setStatus("saving");
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(function(){
-      Promise.resolve(store.save(state)).then(function(){ setStatus("saved"); })
-        .catch(function(){ setStatus("error"); });
-    }, 250);
+  /* ----- dynamic element handles (assigned in wireSheet, after render) ----- */
+  var hpCur,hpMax,tempWrap,deathSaves,hpAdjust,tempRow,hitDicePool,attackList,preparedList,acVal;
+
+  /* ----- render orchestration ----- */
+  function renderAll(){
+    headerGrid.innerHTML = renderHeaderHTML();
+    grid.innerHTML = renderGridHTML();
+    var fl=document.getElementById("footerLabel"); if(fl) fl.textContent = CHARACTER.footer || CHARACTER.name;
+    var sr=document.getElementById("shortRestList"), lr=document.getElementById("longRestList");
+    if(sr) sr.innerHTML=(CHARACTER.rest.short||[]).map(function(t){return "<li>"+esc(t)+"</li>";}).join("");
+    if(lr) lr.innerHTML=(CHARACTER.rest.long||[]).map(function(t){return "<li>"+esc(t)+"</li>";}).join("");
   }
-
-  /* ============================ RENDERING ============================ */
-  var abilWrap = document.getElementById("abilities");
-  ABILS.forEach(function(a){
-    var sv = a.mod + (SAVE_PROF[a.k]?PROF:0);
-    var b = document.createElement("button");
-    b.type="button"; b.className="ability"; b.setAttribute("data-ref","abil_"+a.k);
-    b.innerHTML = '<div class="name">'+a.k+'</div><div class="amod">'+fmt(a.mod)+'</div>'+
-                  '<div class="arow"><span class="sc">'+a.score+'</span><span class="sv">save '+fmt(sv)+'</span></div>';
-    abilWrap.appendChild(b);
-  });
-
-  var skillWrap = document.getElementById("skills");
-  SKILLS.forEach(function(s){
-    var mod = skillMod(s);
-    var d = document.createElement("button");
-    d.type = "button";
-    d.className = "skill"+(s[2]?" prof":"")+(s[3]?" exp":"");
-    d.setAttribute("data-skill", s[0]);
-    var star = s[3] ? ' <span class="exp-tag">EX</span>' : '';
-    d.innerHTML = '<span class="pip"></span><span class="sname">'+s[0]+star+'</span><span class="smod">'+fmt(mod)+'</span>';
-    skillWrap.appendChild(d);
-  });
-
-  var POOL_EL = { slot1:["slot1Rivets",true], hm:["hmRivets",false], insp:["inspRivets",true], luck:["luckRivets",false], mi:["miRivets",true], hd:["hitDiceRivets",false] };
+  function renderAbilities(){
+    var w=document.getElementById("abilities"); if(!w) return; w.innerHTML="";
+    ABIL_ORDER.forEach(function(k){
+      var b=document.createElement("button"); b.type="button"; b.className="ability"; b.setAttribute("data-ref","abil_"+k);
+      b.innerHTML='<div class="name">'+k+'</div><div class="amod">'+fmt(abilMod(k))+'</div><div class="arow"><span class="sc">'+CHARACTER.abilities[k]+'</span><span class="sv">save '+fmt(saveMod(k))+'</span></div>';
+      w.appendChild(b);
+    });
+  }
+  function renderSkills(){
+    var w=document.getElementById("skills"); if(!w) return; w.innerHTML="";
+    SKILLS.forEach(function(s){
+      var d=document.createElement("button"); d.type="button"; d.className="skill"+(s.prof?" prof":"")+(s.exp?" exp":"");
+      d.setAttribute("data-skill", s.name);
+      var star=s.exp?' <span class="exp-tag">EX</span>':'';
+      d.innerHTML='<span class="pip"></span><span class="sname">'+esc(s.name)+star+'</span><span class="smod">'+fmt(skillMod(s))+'</span>';
+      w.appendChild(d);
+    });
+  }
   function renderPools(){
     Object.keys(POOL_EL).forEach(function(pool){
-      var elId = POOL_EL[pool][0], storm = POOL_EL[pool][1];
-      var el = document.getElementById(elId); el.innerHTML="";
-      var max = POOL_MAX[pool], count = state[pool];
+      var elId=POOL_EL[pool][0], storm=POOL_EL[pool][1], el=document.getElementById(elId); if(!el) return;
+      el.innerHTML=""; var max=POOL_MAX[pool], count=state[pool];
       for(var i=0;i<max;i++){
-        var b = document.createElement("button");
-        b.type="button";
+        var b=document.createElement("button"); b.type="button";
         b.className="rivet"+(storm?" storm":"")+(i<count?" charged":"");
         b.setAttribute("aria-label",(i<count?"charged":"spent")+" "+(i+1));
-        (function(idx){
-          b.addEventListener("click", function(){
-            state[pool] = (idx < state[pool]) ? idx : idx+1;   // tap charged to spend down, spent to restore
-            persist(); renderPools(); refreshModalUses(pool);
-          });
-        })(i);
+        (function(idx){ b.addEventListener("click", function(){ state[pool]=(idx<state[pool])?idx:idx+1; persist(); renderPools(); refreshModalUses(pool); }); })(i);
         el.appendChild(b);
       }
     });
   }
-
   function renderDeath(){
     [["dsSucc","succ"],["dsFail","fail"]].forEach(function(pair){
-      var el=document.getElementById(pair[0]); el.innerHTML="";
+      var el=document.getElementById(pair[0]); if(!el) return; el.innerHTML="";
       for(var i=0;i<3;i++){
-        var b=document.createElement("button");
-        b.type="button"; b.className="ds-pip "+pair[1]+(i<state[pair[0]]?" on":"");
+        var b=document.createElement("button"); b.type="button"; b.className="ds-pip "+pair[1]+(i<state[pair[0]]?" on":"");
         b.setAttribute("aria-label",pair[1]+" "+(i+1));
-        (function(idx,key){
-          b.addEventListener("click", function(){ state[key] = (state[key]===idx+1)?idx:idx+1; persist(); renderDeath(); });
-        })(i,pair[0]);
+        (function(idx,key){ b.addEventListener("click", function(){ state[key]=(state[key]===idx+1)?idx:idx+1; persist(); renderDeath(); }); })(i,pair[0]);
         el.appendChild(b);
       }
     });
   }
-
-  var hpCur=document.getElementById("hpCur"), hpMax=document.getElementById("hpMax"), tempWrap=document.getElementById("tempWrap"),
-      deathSaves=document.getElementById("deathSaves"),
-      hpAdjust=document.getElementById("hpAdjust"), tempRow=document.getElementById("tempRow"), hitDicePool=document.getElementById("hitDicePool");
   function renderHP(){
     hpCur.value=state.hpCur; hpMax.value=state.hpMax;
-    tempWrap.innerHTML = state.temp>0 ? '<span class="temp-badge">＋'+state.temp+' temp HP</span>'
-                                      : '<span class="mini-label" style="color:var(--ash-dim)">no temp HP</span>';
+    tempWrap.innerHTML = state.temp>0 ? '<span class="temp-badge">＋'+state.temp+' temp HP</span>' : '<span class="mini-label" style="color:var(--ash-dim)">no temp HP</span>';
     var atZero = parseInt(state.hpCur,10)===0;
     deathSaves.style.display = atZero ? "block" : "none";
-    [tempWrap, hpAdjust, tempRow, hitDicePool].forEach(function(el){ el.style.display = atZero ? "none" : ""; });
+    [tempWrap,hpAdjust,tempRow,hitDicePool].forEach(function(el){ if(el) el.style.display = atZero ? "none" : ""; });
     if(!atZero && (state.dsSucc||state.dsFail)){ state.dsSucc=0; state.dsFail=0; persist(); renderDeath(); }
   }
-
-  /* ============================== HP LOGIC ============================== */
-  function commitHp(){
-    var c=parseInt(hpCur.value,10); if(isNaN(c)) c=state.hpCur;
-    var m=parseInt(hpMax.value,10); if(isNaN(m)||m<1) m=state.hpMax;
-    state.hpMax=m; state.hpCur=Math.max(0,Math.min(m,c)); persist(); renderHP();
+  function renderACStud(){ if(acVal) acVal.textContent=computeAC(state.ac); }
+  function renderMasterySummary(){
+    var span=document.getElementById("wmSummary"); if(!span) return;
+    var parts=state.masteries.map(function(id){ var w=wById(id); return w?w.mastery+" ("+w.name.toLowerCase()+")":null; }).filter(Boolean);
+    span.textContent=(parts.length?parts.join(" · ")+" · ":"")+state.masteries.length+" of "+MASTERY_MAX+" mastered";
   }
-  hpCur.addEventListener("change", commitHp);
-  hpCur.addEventListener("keydown", function(e){ if(e.key==="Enter") hpCur.blur(); });
-  hpMax.addEventListener("change", commitHp);
-  document.getElementById("dmgBtn").addEventListener("click", function(){
-    var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return;
-    if(state.temp>0){ var a=Math.min(state.temp,v); state.temp-=a; v-=a; }
-    state.hpCur=Math.max(0,state.hpCur-v); persist(); renderHP(); document.getElementById("hpDelta").value="";
-  });
-  document.getElementById("healBtn").addEventListener("click", function(){
-    var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return;
-    state.hpCur=Math.min(parseInt(state.hpMax,10),state.hpCur+v); persist(); renderHP(); document.getElementById("hpDelta").value="";
-  });
-  document.getElementById("tempBtn").addEventListener("click", function(){
-    var v=parseInt(document.getElementById("tempIn").value,10); if(isNaN(v)||v<0) v=0;
-    state.temp=v; persist(); renderHP(); document.getElementById("tempIn").value="";
-  });
-  document.getElementById("spendHd").addEventListener("click", function(){
-    if(spendPool("hd")) toast(POOL_REMINDER.hd); else toast("No hit dice remaining.");
-  });
-
-  function spendPool(pool){
-    if(state[pool]<=0) return false;
-    state[pool]--; persist(); renderPools(); refreshModalUses(pool); return true;
-  }
-
-  /* ============================ ARMOR CLASS (interactive) ============================ */
-  var AC_PARTS = [
-    { id:"armor",   label:"Studded leather", note:"light armor · 12 + full Dex" },
-    { id:"shield",  label:"Shield",          note:"+2 AC (not normally carried)" }
-  ];
-  function acDexMod(){ return abilMod("DEX"); }
-  function computeAC(ac){
-    var base = ac.armor ? (12 + acDexMod()) : (10 + acDexMod());
-    return base + (ac.shield?2:0);
-  }
-  function acBreakdown(ac){
-    var parts=[];
-    parts.push(ac.armor ? ("studded leather 12 + Dex "+fmt(acDexMod())) : ("10 + Dex "+fmt(acDexMod())));
-    if(ac.shield) parts.push("shield +2");
-    return parts.join(" + ") + " = " + computeAC(ac);
-  }
-  var acVal=document.getElementById("acVal");
-  function renderACStud(){ acVal.textContent = computeAC(state.ac); }
-
-  /* ============================ WEAPON MASTERY (interactive) ============================ */
-  var MASTERY_MAX = 2;
-  /* carried weapons include attack stats and render in the Attacks card; the mastery tag
-     shows only while that weapon's mastery is active (in state.masteries). */
-  var WEAPONS = [
-    { id:"longbow",    name:"Longbow",     mastery:"Slow", eff:"Hit + damage: target's Speed drops 10 ft.", owned:true,
-      atk:{ toHit:"+8", dmg:"1d8 +4", sub:"piercing · range 150/600 · crit 2d8+4" } },
-    { id:"shortsword", name:"Shortsword",  mastery:"Vex",  eff:"Hit + damage: Advantage on your next attack vs the target.", owned:true,
-      atk:{ toHit:"+6", dmg:"1d6 +4", sub:"piercing · finesse · crit 2d6+4" } },
-    { id:"shortbow",   name:"Shortbow",    mastery:"Vex",  eff:"Hit + damage: Advantage on your next attack vs the target.", owned:false },
-    { id:"scimitar",   name:"Scimitar",    mastery:"Nick", eff:"Make the Light off-hand attack as part of the Attack action (no Bonus Action).", owned:false },
-    { id:"handcrossbow",name:"Hand Crossbow",mastery:"Vex",eff:"Hit + damage: Advantage on your next attack vs the target.", owned:false },
-    { id:"dagger",     name:"Dagger",      mastery:"Nick", eff:"Make the Light off-hand attack as part of the Attack action.", owned:false },
-    { id:"spear",      name:"Spear",       mastery:"Sap",  eff:"Hit + damage: target has Disadvantage on its next attack.", owned:false }
-  ];
-  function wById(id){ for(var i=0;i<WEAPONS.length;i++){ if(WEAPONS[i].id===id) return WEAPONS[i]; } return null; }
-  var attackList = document.getElementById("attackList");
   function renderAttacks(){
-    attackList.innerHTML="";
+    if(!attackList) return; attackList.innerHTML="";
     WEAPONS.forEach(function(w){
-      if(!w.atk) return;
-      var mastered = state.masteries.indexOf(w.id) >= 0;
+      if(w.carried!==true || !w.dmgDice) return;
+      var mastered = state.masteries.indexOf(w.id)>=0;
+      var tag = mastered ? ' <span class="mastery">'+esc(w.mastery)+'</span>' : '';
+      var sub = (w.props||[]).join(" · ") + ((w.props&&w.props.length)?" · ":"") + "crit "+critDmg(w);
       var b=document.createElement("button"); b.type="button"; b.className="tap"; b.setAttribute("data-ref", w.id);
-      var tag = mastered ? ' <span class="mastery">'+w.mastery+'</span>' : '';
-      b.innerHTML='<div class="tap-name">'+w.name+tag+'</div>'+
-                  '<div class="tap-dice">To hit: d20 '+w.atk.toHit+' · Damage: '+w.atk.dmg+'</div>'+
-                  '<div class="tap-sub">'+w.atk.sub+' · <span class="info-tag">tap for rules ⓘ</span></div>';
+      b.innerHTML='<div class="tap-name">'+esc(w.name)+tag+'</div>'+
+        '<div class="tap-dice">To hit: d20 '+weaponToHit(w)+' · Damage: '+weaponDmg(w)+'</div>'+
+        '<div class="tap-sub">'+esc(sub)+' · <span class="info-tag">tap for rules ⓘ</span></div>';
       attackList.appendChild(b);
     });
   }
-  function renderMasterySummary(){
-    var span=document.getElementById("wmSummary"); if(!span) return;
-    var parts=state.masteries.map(function(id){ var w=wById(id); return w ? w.mastery+" ("+w.name.toLowerCase()+")" : null; }).filter(Boolean);
-    span.textContent = (parts.length?parts.join(" · ")+" · ":"") + state.masteries.length+" of "+MASTERY_MAX+" mastered";
+  function renderPrepared(){
+    if(!preparedList) return; preparedList.innerHTML="";
+    state.prepared.forEach(function(id){ var sp=spById(id); if(!sp) return;
+      var b=document.createElement("button"); b.type="button"; b.className="feat"; b.setAttribute("data-ref", id);
+      b.innerHTML='<b>'+esc(sp.name)+'</b><span>'+esc(sp.note)+'</span>'; preparedList.appendChild(b);
+    });
+    var c=document.getElementById("prepCount"); if(c) c.textContent=state.prepared.length+"/"+PREPARED_MAX;
   }
+
+  /* ----- HP logic ----- */
+  function commitHp(){ var c=parseInt(hpCur.value,10); if(isNaN(c)) c=state.hpCur; var m=parseInt(hpMax.value,10); if(isNaN(m)||m<1) m=state.hpMax; state.hpMax=m; state.hpCur=Math.max(0,Math.min(m,c)); persist(); renderHP(); }
+  function spendPool(pool){ if(state[pool]<=0) return false; state[pool]--; persist(); renderPools(); refreshModalUses(pool); return true; }
+
+  /* ----- ARMOR CLASS modal ----- */
+  function openAC(trigger){
+    resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
+    refTitle.textContent="Armor Class"; refChips.innerHTML=""; refChips.style.display="none"; refDice.style.display="block"; refBody.innerHTML="";
+    var intro=document.createElement("p"); intro.className="muted"; intro.textContent="Toggle gear to see how your AC changes."; refBody.appendChild(intro);
+    AC_PARTS.forEach(function(p){
+      var btn=document.createElement("button"); btn.type="button"; btn.className="ac-toggle";
+      btn.innerHTML='<span class="acbox">✓</span><span class="acname">'+esc(p.label)+'</span><span class="acnote">'+esc(p.note)+'</span>';
+      btn.addEventListener("click", function(){ state.ac[p.id]=!state.ac[p.id]; persist(); renderACStud(); paintAC(); });
+      refBody.appendChild(btn);
+    });
+    refFoot.innerHTML='<span class="uses-left" id="acBreak"></span>'; paintAC(); refOverlay.classList.add("show"); document.getElementById("refClose").focus();
+  }
+  function paintAC(){
+    refDice.textContent="AC "+computeAC(state.ac);
+    var btns=refBody.querySelectorAll(".ac-toggle");
+    AC_PARTS.forEach(function(p,i){ var b=btns[i]; if(!b) return; b.classList.toggle("on", !!state.ac[p.id]); b.classList.toggle("inactive", p.requiresArmor && !state.ac.armor); });
+    var brk=document.getElementById("acBreak"); if(brk) brk.textContent=acBreakdown(state.ac);
+  }
+
+  /* ----- WEAPON MASTERY modal ----- */
   function openMastery(trigger){
-    resetGlossary();
-    lastTrigger=trigger||null; currentRefPool=null;
-    refTitle.textContent="Weapon Mastery";
-    refChips.innerHTML=""; refChips.style.display="none";
-    refDice.style.display="block";
-    refBody.innerHTML="";
+    resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
+    refTitle.textContent="Weapon Mastery"; refChips.innerHTML=""; refChips.style.display="none"; refDice.style.display="block"; refBody.innerHTML="";
     var intro=document.createElement("p"); intro.className="muted";
     intro.textContent="Choose up to "+MASTERY_MAX+" weapons to master; you can change these after each long rest. Each weapon's mastery property is fixed to that weapon.";
     refBody.appendChild(intro);
     WEAPONS.forEach(function(w){
       var btn=document.createElement("button"); btn.type="button"; btn.className="wm-row";
-      btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+w.name+
-        (w.owned?'':' <span class="own">(not carried)</span>')+' <span class="mastery">'+w.mastery+
-        '</span></span><span class="wm-eff">'+w.eff+'</span></span>';
+      btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+esc(w.name)+(w.carried?'':' <span class="own">(not carried)</span>')+' <span class="mastery">'+esc(w.mastery)+'</span></span><span class="wm-eff">'+esc(w.masteryEff||w.eff||"")+'</span></span>';
       btn.addEventListener("click", function(){ toggleMastery(w.id); });
       refBody.appendChild(btn);
     });
-    refFoot.innerHTML='<span class="uses-left" id="wmCount"></span>';
-    paintMastery();
-    refOverlay.classList.add("show");
-    document.getElementById("refClose").focus();
+    refFoot.innerHTML='<span class="uses-left" id="wmCount"></span>'; paintMastery(); refOverlay.classList.add("show"); document.getElementById("refClose").focus();
   }
   function toggleMastery(id){
     var i=state.masteries.indexOf(id);
     if(i>=0){ state.masteries.splice(i,1); }
-    else {
-      if(state.masteries.length>=MASTERY_MAX){ toast("You can master "+MASTERY_MAX+" weapons — deselect one first."); return; }
-      state.masteries.push(id);
-    }
+    else { if(state.masteries.length>=MASTERY_MAX){ toast("You can master "+MASTERY_MAX+" weapons — deselect one first."); return; } state.masteries.push(id); }
     persist(); paintMastery(); renderMasterySummary(); renderAttacks();
   }
   function paintMastery(){
-    refDice.textContent = "Mastered: "+state.masteries.length+" / "+MASTERY_MAX;
+    refDice.textContent="Mastered: "+state.masteries.length+" / "+MASTERY_MAX;
     var rows=refBody.querySelectorAll(".wm-row");
     WEAPONS.forEach(function(w,i){ if(rows[i]) rows[i].classList.toggle("on", state.masteries.indexOf(w.id)>=0); });
     var c=document.getElementById("wmCount"); if(c) c.textContent="Swap your choices after any long rest.";
   }
 
-  /* ============================ PREPARED SPELLS (interactive) ============================ */
-  var PREPARED_MAX = 5;
-  var RANGER_SPELLS = [
-    { id:"curewounds",      name:"Cure Wounds",        note:"heal 2d8 +2 · touch" },
-    { id:"goodberry",       name:"Goodberry",          note:"10 berries, 1 HP each" },
-    { id:"longstrider",     name:"Longstrider",        note:"+10 ft Speed for 1 hour" },
-    { id:"ensnaringstrike", name:"Ensnaring Strike",   note:"Restrained on hit · Concentration" },
-    { id:"fogcloud",        name:"Fog Cloud",          note:"20-ft Heavily Obscured · Concentration" },
-    { id:"speakwithanimals",name:"Speak with Animals", note:"talk to Beasts · 10 min" },
-    { id:"entangle",        name:"Entangle",           note:"Restrain in a 20-ft square · Concentration" },
-    { id:"detectmagic",     name:"Detect Magic",       note:"sense magic within 30 ft · Concentration" }
-  ];
-  function spById(id){ for(var i=0;i<RANGER_SPELLS.length;i++){ if(RANGER_SPELLS[i].id===id) return RANGER_SPELLS[i]; } return null; }
-  var preparedList = document.getElementById("preparedList");
-  function renderPrepared(){
-    preparedList.innerHTML="";
-    state.prepared.forEach(function(id){
-      var sp=spById(id); if(!sp) return;
-      var b=document.createElement("button"); b.type="button"; b.className="feat"; b.setAttribute("data-ref", id);
-      b.innerHTML='<b>'+sp.name+'</b><span>'+sp.note+'</span>';
-      preparedList.appendChild(b);
-    });
-    var c=document.getElementById("prepCount"); if(c) c.textContent=state.prepared.length+"/"+PREPARED_MAX;
-  }
+  /* ----- PREPARED SPELLS modal ----- */
   function openPrepare(trigger){
-    resetGlossary();
-    lastTrigger=trigger||null; currentRefPool=null;
-    refTitle.textContent="Prepare Spells";
-    refChips.innerHTML=""; refChips.style.display="none";
-    refDice.style.display="block";
-    refBody.innerHTML="";
+    resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
+    refTitle.textContent="Prepare Spells"; refChips.innerHTML=""; refChips.style.display="none"; refDice.style.display="block"; refBody.innerHTML="";
     var intro=document.createElement("p"); intro.className="muted";
-    intro.textContent="Choose up to "+PREPARED_MAX+" level-1 Ranger spells to prepare; you can change these after a long rest. Hunter's Mark and Charm Person are always prepared and don't count.";
+    intro.textContent="Choose up to "+PREPARED_MAX+" spells to prepare; you can change these after a long rest. Always-prepared spells don't count.";
     refBody.appendChild(intro);
-    RANGER_SPELLS.forEach(function(sp){
+    SPELL_CATALOG.forEach(function(sp){
       var btn=document.createElement("button"); btn.type="button"; btn.className="wm-row";
-      btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+sp.name+'</span><span class="wm-eff">'+sp.note+'</span></span>';
+      btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+esc(sp.name)+'</span><span class="wm-eff">'+esc(sp.note)+'</span></span>';
       btn.addEventListener("click", function(){ togglePrepare(sp.id); });
       refBody.appendChild(btn);
     });
-    refFoot.innerHTML='<span class="uses-left" id="prepFoot"></span>';
-    paintPrepare();
-    refOverlay.classList.add("show");
-    document.getElementById("refClose").focus();
+    refFoot.innerHTML='<span class="uses-left" id="prepFoot"></span>'; paintPrepare(); refOverlay.classList.add("show"); document.getElementById("refClose").focus();
   }
   function togglePrepare(id){
     var i=state.prepared.indexOf(id);
     if(i>=0){ state.prepared.splice(i,1); }
-    else {
-      if(state.prepared.length>=PREPARED_MAX){ toast("You can prepare "+PREPARED_MAX+" — unprepare one first."); return; }
-      state.prepared.push(id);
-    }
+    else { if(state.prepared.length>=PREPARED_MAX){ toast("You can prepare "+PREPARED_MAX+" — unprepare one first."); return; } state.prepared.push(id); }
     persist(); paintPrepare(); renderPrepared();
   }
   function paintPrepare(){
-    refDice.textContent = "Prepared: "+state.prepared.length+" / "+PREPARED_MAX;
+    refDice.textContent="Prepared: "+state.prepared.length+" / "+PREPARED_MAX;
     var rows=refBody.querySelectorAll(".wm-row");
-    RANGER_SPELLS.forEach(function(sp,i){ if(rows[i]) rows[i].classList.toggle("on", state.prepared.indexOf(sp.id)>=0); });
+    SPELL_CATALOG.forEach(function(sp,i){ if(rows[i]) rows[i].classList.toggle("on", state.prepared.indexOf(sp.id)>=0); });
     var f=document.getElementById("prepFoot"); if(f) f.textContent="Swap after a long rest.";
   }
-  (function(){ var pb=document.getElementById("prepareBtn"); if(pb) pb.addEventListener("click", function(){ openPrepare(pb); }); })();
 
-  /* ============================ REFERENCE MODAL ============================ */
-  var refOverlay=document.getElementById("refOverlay");
-  var refTitle=document.getElementById("refTitle"), refDice=document.getElementById("refDice"),
-      refChips=document.getElementById("refChips"), refBody=document.getElementById("refBody"), refFoot=document.getElementById("refFoot"),
-      refGlossary=document.getElementById("refGlossary");
-  var lastTrigger=null, currentRefPool=null;
-
-  /* ---------- 3D die renderer (library-free canvas) ---------- */
-  var PHI=(1+Math.sqrt(5))/2;
-  function v_sub(a,b){return[a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
-  function v_add(a,b){return[a[0]+b[0],a[1]+b[1],a[2]+b[2]];}
-  function v_scale(a,s){return[a[0]*s,a[1]*s,a[2]*s];}
-  function v_dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
-  function v_cross(a,b){return[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
-  function v_len(a){return Math.sqrt(v_dot(a,a));}
-  function v_norm(a){var l=v_len(a)||1;return v_scale(a,1/l);}
-  function v_cent(V,idx){var c=[0,0,0];idx.forEach(function(i){c=v_add(c,V[i]);});return v_scale(c,1/idx.length);}
-  function orderFace(V,idx){
-    var c=v_cent(V,idx),n=v_norm(c),ref=v_norm(v_sub(V[idx[0]],c)),ax=v_norm(v_cross(n,ref));
-    return idx.slice().sort(function(a,b){var va=v_sub(V[a],c),vb=v_sub(V[b],c);return Math.atan2(v_dot(va,ax),v_dot(va,ref))-Math.atan2(v_dot(vb,ax),v_dot(vb,ref));});
-  }
-  function triFaces(V){
-    var n=V.length,min=Infinity,i,j,k;
-    for(i=0;i<n;i++)for(j=i+1;j<n;j++){var d=v_len(v_sub(V[i],V[j]));if(d<min)min=d;}
-    function adj(a,b){return Math.abs(v_len(v_sub(V[a],V[b]))-min)<1e-6*min;}
-    var F=[];for(i=0;i<n;i++)for(j=i+1;j<n;j++)if(adj(i,j))for(k=j+1;k<n;k++)if(adj(i,k)&&adj(j,k))F.push([i,j,k]);
-    return F;
-  }
-  var TET=[[1,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]];
-  var OCTA=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
-  var CUBE=[[1,1,1],[1,1,-1],[1,-1,1],[1,-1,-1],[-1,1,1],[-1,1,-1],[-1,-1,1],[-1,-1,-1]];
-  var CUBE_F=[[0,1,2,3],[4,5,6,7],[0,1,4,5],[2,3,6,7],[0,2,4,6],[1,3,5,7]];
-  var ICO=[[0,1,PHI],[0,1,-PHI],[0,-1,PHI],[0,-1,-PHI],[1,PHI,0],[1,-PHI,0],[-1,PHI,0],[-1,-PHI,0],[PHI,0,1],[PHI,0,-1],[-PHI,0,1],[-PHI,0,-1]];
-  function makeDodeca(){
-    var icoF=triFaces(ICO);
-    var DV=icoF.map(function(f){return v_cent(ICO,f);});
-    var DF=ICO.map(function(_,u){var g=[];icoF.forEach(function(f,fi){if(f.indexOf(u)>=0)g.push(fi);});return g;});
-    return {verts:DV,faces:DF};
-  }
-  function trapezohedron(n){
-    var z0=0.38,h=1.15,V=[[0,0,h],[0,0,-h]],up=[],lo=[],i;
-    for(i=0;i<n;i++){var a=2*Math.PI*i/n;V.push([Math.cos(a),Math.sin(a),z0]);up.push(V.length-1);}
-    for(i=0;i<n;i++){var a=2*Math.PI*i/n+Math.PI/n;V.push([Math.cos(a),Math.sin(a),-z0]);lo.push(V.length-1);}
-    var F=[];for(i=0;i<n;i++){var ni=(i+1)%n;F.push([0,up[i],lo[i],up[ni]]);F.push([1,lo[i],up[ni],lo[ni]]);}
-    return {verts:V,faces:F};
-  }
-  var GEO_CACHE={};
-  function buildGeometry(sides){
-    if(GEO_CACHE[sides]) return GEO_CACHE[sides];
-    var V,F;
-    if(sides===4){V=TET;F=triFaces(V);}
-    else if(sides===6){V=CUBE;F=CUBE_F;}
-    else if(sides===8){V=OCTA;F=triFaces(V);}
-    else if(sides===20){V=ICO;F=triFaces(V);}
-    else if(sides===12){var d=makeDodeca();V=d.verts;F=d.faces;}
-    else {var t=trapezohedron(5);V=t.verts;F=t.faces;}
-    var R=0;V.forEach(function(v){R=Math.max(R,v_len(v));});
-    V=V.map(function(v){return v_scale(v,1/R);});
-    F=F.map(function(f){return orderFace(V,f);});
-    var labels;
-    if(sides===100) labels=["00","10","20","30","40","50","60","70","80","90"];
-    else if(sides===10) labels=["0","1","2","3","4","5","6","7","8","9"];
-    else {labels=[];for(var i=0;i<F.length;i++)labels.push(String(i+1));}
-    return (GEO_CACHE[sides]={verts:V,faces:F,labels:labels});
-  }
-  var dieAnims=[];
-  function startDie(canvas, sides){
-    var geo=buildGeometry(sides), ctx=canvas.getContext("2d");
-    var disp=74, dpr=Math.min(window.devicePixelRatio||1,2);
-    canvas.width=disp*dpr; canvas.height=disp*dpr; canvas.style.width=disp+"px"; canvas.style.height=disp+"px";
-    ctx.scale(dpr,dpr);
-    var cx=disp/2, cy=disp/2, scale=disp*0.4, light=v_norm([0.35,0.55,1]);
-    var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var rot=0.6, tilt=0.5, raf=null, stopped=false;
-    function rotate(v){
-      var cy_=Math.cos(rot),sy=Math.sin(rot),x=v[0]*cy_+v[2]*sy,z=-v[0]*sy+v[2]*cy_,y=v[1];
-      var cx_=Math.cos(tilt),sx=Math.sin(tilt);return [x,y*cx_-z*sx,y*sx+z*cx_];
-    }
-    function frame(){
-      if(stopped) return;
-      ctx.clearRect(0,0,disp,disp);
-      var rv=geo.verts.map(rotate), items=[];
-      geo.faces.forEach(function(f,fi){
-        var pts=f.map(function(i){return rv[i];}),nx=0,ny=0,nz=0,k;
-        for(k=0;k<pts.length;k++){var a=pts[k],b=pts[(k+1)%pts.length];nx+=(a[1]-b[1])*(a[2]+b[2]);ny+=(a[2]-b[2])*(a[0]+b[0]);nz+=(a[0]-b[0])*(a[1]+b[1]);}
-        var nl=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;nz/=nl;if(nz<=0.02)return;
-        nx/=nl;ny/=nl;var cz=0;pts.forEach(function(p){cz+=p[2];});
-        items.push({pts:pts,n:[nx,ny,nz],cz:cz/pts.length,label:geo.labels[fi]});
-      });
-      items.sort(function(a,b){return a.cz-b.cz;});
-      items.forEach(function(it){
-        ctx.beginPath();
-        it.pts.forEach(function(p,k){var X=cx+p[0]*scale,Y=cy-p[1]*scale;if(k===0)ctx.moveTo(X,Y);else ctx.lineTo(X,Y);});
-        ctx.closePath();
-        var sh=0.42+0.58*Math.max(0,v_dot(it.n,light));
-        ctx.fillStyle="rgb("+Math.round(214*sh)+","+Math.round(130*sh)+","+Math.round(62*sh)+")";
-        ctx.fill();
-        ctx.lineWidth=1;ctx.strokeStyle="rgba(245,200,140,.85)";ctx.stroke();
-        if(it.n[2]>0.34){
-          var c=[0,0];it.pts.forEach(function(p){c[0]+=p[0];c[1]+=p[1];});
-          var fs=Math.max(6,scale*0.4*it.n[2]);
-          ctx.fillStyle="#241405";ctx.font="700 "+fs.toFixed(1)+'px "Cinzel",serif';
-          ctx.textAlign="center";ctx.textBaseline="middle";
-          ctx.fillText(it.label, cx+(c[0]/it.pts.length)*scale, cy-(c[1]/it.pts.length)*scale);
-        }
-      });
-      if(!reduce){rot+=0.011;raf=requestAnimationFrame(frame);}
-    }
-    frame();
-    var ctrl={stop:function(){stopped=true;if(raf)cancelAnimationFrame(raf);}};
-    dieAnims.push(ctrl); return ctrl;
-  }
-
-  /* ---------- Glossary: underline known terms, expand definitions inline (recursive) ---------- */
-  var GLOSSARY = {
-    "die-4":{term:"d4",def:"A four-sided die (a tetrahedron). The smallest common die; used by some small weapons and spells.",die:4},
-    "die-6":{term:"d6",def:"A six-sided die — the familiar cube. Used for many superiority dice and weapon damage.",die:6},
-    "die-8":{term:"d8",def:"An eight-sided die. Your longbow deals 1d8 piercing damage on a hit.",die:8},
-    "die-10":{term:"d10",def:"A ten-sided die. Your Hit Dice (1d10 + Con) roll a d10 — Rangers use a d10 Hit Die.",die:10},
-    "die-12":{term:"d12",def:"A twelve-sided die (a dodecahedron). Used by heavy weapons such as the greataxe (1d12).",die:12},
-    "die-20":{term:"d20",def:"A twenty-sided die — the core die. Attack rolls, saving throws, ability checks, and Initiative all roll a d20.",die:20},
-    "die-100":{term:"d100",def:"Percentile dice: roll two d10s (one for tens, one for ones) to get a number from 1 to 100.",die:100},
-    "advantage":{term:"Advantage",def:"Roll two d20s and use the higher roll. Advantage doesn't stack — and if you have both Advantage and Disadvantage on the same roll, they cancel out and you roll a single d20."},
-    "disadvantage":{term:"Disadvantage",def:"Roll two d20s and use the lower roll. If you have both Advantage and Disadvantage on a roll, they cancel and you roll one d20."},
-    "bonus-action":{term:"Bonus Action",def:"A quick extra action you can take on your turn on top of your action and movement. You get only one Bonus Action per turn, and only when a feature specifically grants one."},
-    "prone":{term:"Prone",def:"A condition. A Prone creature can only crawl and attacks with Disadvantage. Attack rolls against it have Advantage if the attacker is within 5 feet, and Disadvantage otherwise. Standing up costs half your movement."},
-    "saving-throw":{term:"Saving Throw",def:"A d20 roll to resist an effect, adding the relevant ability modifier plus your Proficiency Bonus if you're proficient. You succeed if the total meets or beats the effect's DC."},
-    "ability-check":{term:"Ability Check",def:"A d20 roll plus an ability modifier (plus your Proficiency Bonus if proficient in a relevant skill) to attempt something uncertain, compared against a DC."},
-    "ability-score":{term:"Ability Score",def:"The rating of one of the six abilities (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma), usually 1–20. Its modifier is (score − 10) ÷ 2 rounded down — that modifier is what you add to d20 rolls."},
-    "initiative":{term:"Initiative",def:"A Dexterity check rolled at the start of combat to set turn order, highest first. The Alert feat lets you add your Proficiency Bonus."},
-    "proficiency-bonus":{term:"Proficiency Bonus",def:"A bonus tied to your level (+2 at levels 1–4) that you add to attack rolls, saving throws, and ability checks you're proficient with."},
-    "tremorsense":{term:"Tremorsense",def:"You can pinpoint creatures and moving objects within range, as long as both you and them are in contact with the same ground or surface. It can't detect flying or incorporeal creatures."},
-    "darkvision":{term:"Darkvision",def:"Within range you see in Dim Light as if it were Bright Light, and in Darkness as if it were Dim Light (in shades of gray)."},
-    "bright-light":{term:"Bright Light",def:"Normal illumination. Most creatures see normally in Bright Light."},
-    "dim-light":{term:"Dim Light",def:"A shadowy area, also called shadows. It is Lightly Obscured, giving Disadvantage on Wisdom (Perception) checks that rely on sight."},
-    "resistance":{term:"Resistance",def:"If you have Resistance to a damage type, you take half damage from it. It's applied after other modifiers, and multiple instances of Resistance don't stack."},
-    "poisoned":{term:"Poisoned",def:"A condition. A Poisoned creature has Disadvantage on attack rolls and ability checks."},
-    "extra-attack":{term:"Extra Attack",def:"Starting at level 5, you can attack twice whenever you take the Attack action on your turn. You're level 4, so not yet."},
-    "magic-weapon":{term:"Magic Weapon",def:"A weapon with magical properties. Attacks made with it count as magical, so they overcome a target's Resistance or immunity to damage from nonmagical attacks."},
-    "dc":{term:"Difficulty Class (DC)",def:"The target number for a d20 roll. To succeed on a saving throw or ability check, the total must equal or exceed the DC set by the effect or the GM."},
-    "sk-athletics":{term:"Athletics",def:"A Strength skill for climbing, jumping, swimming, and grappling or shoving."},
-    "sk-acrobatics":{term:"Acrobatics",def:"A Dexterity skill for keeping your balance, tumbling, and staying on your feet."},
-    "sk-sleight":{term:"Sleight of Hand",def:"A Dexterity skill for palming objects, picking pockets, and other manual trickery."},
-    "sk-stealth":{term:"Stealth",def:"A Dexterity skill for moving silently and staying hidden from notice."},
-    "sk-arcana":{term:"Arcana",def:"An Intelligence skill recalling lore about spells, magic items, and the planes."},
-    "sk-history":{term:"History",def:"An Intelligence skill recalling lore about past events, people, and civilizations."},
-    "sk-investigation":{term:"Investigation",def:"An Intelligence skill for studying clues, searching for hidden details, and reasoning things out."},
-    "sk-nature":{term:"Nature",def:"An Intelligence skill recalling lore about terrain, plants, animals, and weather."},
-    "sk-religion":{term:"Religion",def:"An Intelligence skill recalling lore about deities, rites, and holy symbols."},
-    "sk-animal":{term:"Animal Handling",def:"A Wisdom skill for calming, controlling, or reading the intentions of animals."},
-    "sk-insight":{term:"Insight",def:"A Wisdom skill for reading body language and sensing lies or true intentions."},
-    "sk-medicine":{term:"Medicine",def:"A Wisdom skill for stabilizing the dying and diagnosing illness."},
-    "sk-perception":{term:"Perception",def:"A Wisdom skill for noticing things with your senses; its passive value sets how alert you are."},
-    "sk-survival":{term:"Survival",def:"A Wisdom skill for tracking, foraging, navigating, and enduring the wilds."},
-    "sk-deception":{term:"Deception",def:"A Charisma skill for convincingly lying or hiding the truth."},
-    "sk-intimidation":{term:"Intimidation",def:"A Charisma skill for influencing others through threats or a hostile presence."},
-    "sk-performance":{term:"Performance",def:"A Charisma skill for entertaining an audience with music, acting, or storytelling."},
-    "sk-persuasion":{term:"Persuasion",def:"A Charisma skill for influencing others with tact, charm, or good-faith argument."}
-  };
-  var ALIASES = {
-    "advantage":"advantage","disadvantage":"disadvantage",
-    "bonus action":"bonus-action",
-    "prone":"prone","prone condition":"prone",
-    "saving throw":"saving-throw","saving throws":"saving-throw","save":"saving-throw","saves":"saving-throw",
-    "ability check":"ability-check","ability checks":"ability-check","check":"ability-check","checks":"ability-check",
-    "ability score":"ability-score","ability scores":"ability-score","ability modifier":"ability-score",
-    "initiative":"initiative",
-    "proficiency bonus":"proficiency-bonus",
-    "tremorsense":"tremorsense","darkvision":"darkvision",
-    "bright light":"bright-light","dim light":"dim-light",
-    "resistance":"resistance","resist":"resistance",
-    "poisoned":"poisoned","poisoned condition":"poisoned",
-    "extra attack":"extra-attack",
-    "magic weapon":"magic-weapon","magical":"magic-weapon",
-    "dc":"dc","difficulty class":"dc",
-    "athletics":"sk-athletics","acrobatics":"sk-acrobatics","sleight of hand":"sk-sleight","stealth":"sk-stealth",
-    "arcana":"sk-arcana","history":"sk-history","investigation":"sk-investigation","nature":"sk-nature","religion":"sk-religion",
-    "animal handling":"sk-animal","insight":"sk-insight","medicine":"sk-medicine","perception":"sk-perception","survival":"sk-survival",
-    "deception":"sk-deception","intimidation":"sk-intimidation","performance":"sk-performance","persuasion":"sk-persuasion"
-  };
-  function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
-  var aliasAlt = Object.keys(ALIASES).sort(function(a,b){return b.length-a.length;}).map(escapeRe).join("|");
-  var diceAlt  = "\\d*d(?:100|20|12|10|8|6|4)";
-  var TERM_RE  = new RegExp("\\b(?:"+aliasAlt+"|"+diceAlt+")\\b","gi");
-  function termKey(matched){
-    var raw=matched.toLowerCase();
-    if(ALIASES[raw]) return ALIASES[raw];
-    var dm=raw.match(/^\d*d(100|20|12|10|8|6|4)$/);
-    return dm ? "die-"+dm[1] : null;
-  }
-  var glossExpanded = null;
-
-  function linkifyTerms(root){
-    var walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), targets=[], n;
-    while(n=walker.nextNode()){
-      if(n.parentNode && n.parentNode.classList && n.parentNode.classList.contains("gloss-term")) continue;
-      TERM_RE.lastIndex=0;
-      if(TERM_RE.test(n.nodeValue)) targets.push(n);
-    }
-    targets.forEach(function(node){
-      var text=node.nodeValue, frag=document.createDocumentFragment(), last=0, m;
-      TERM_RE.lastIndex=0;
-      while(m=TERM_RE.exec(text)){
-        if(m.index>last) frag.appendChild(document.createTextNode(text.slice(last,m.index)));
-        var key=termKey(m[0]);
-        if(key){
-          var btn=document.createElement("button");
-          btn.type="button"; btn.className="gloss-term"; btn.textContent=m[0];
-          btn.setAttribute("data-term", key);
-          frag.appendChild(btn);
-        } else {
-          frag.appendChild(document.createTextNode(m[0]));
-        }
-        last=m.index+m[0].length;
-      }
-      if(last<text.length) frag.appendChild(document.createTextNode(text.slice(last)));
-      node.parentNode.replaceChild(frag, node);
-    });
-  }
-  function resetGlossary(){ dieAnims.forEach(function(a){a.stop();}); dieAnims=[]; refGlossary.innerHTML=""; glossExpanded=new Set(); }
-  function expandTerm(key){
-    var g=GLOSSARY[key]; if(!g) return;
-    if(glossExpanded.has(key)){
-      var ex=refGlossary.querySelector('[data-gd="'+key+'"]');
-      if(ex){ ex.scrollIntoView({block:"nearest"}); ex.classList.add("flash"); setTimeout(function(){ ex.classList.remove("flash"); },600); }
-      return;
-    }
-    glossExpanded.add(key);
-    var box=document.createElement("div"); box.className="gloss-def"; box.setAttribute("data-gd",key);
-    var h=document.createElement("span"); h.className="gd-term"; h.textContent=g.term; box.appendChild(h);
-    var b=document.createElement("div"); b.className="gd-body"; b.textContent=g.def;
-    if(g.die){
-      var row=document.createElement("div"); row.className="gd-row";
-      var fig=document.createElement("div"); fig.className="die-wrap";
-      var canvas=document.createElement("canvas"); canvas.className="die-canvas"; fig.appendChild(canvas);
-      row.appendChild(fig); row.appendChild(b); box.appendChild(row);
-      refGlossary.appendChild(box);
-      startDie(canvas, g.die);
-    } else {
-      box.appendChild(b);
-      refGlossary.appendChild(box);
-    }
-    linkifyTerms(b);
-    box.scrollIntoView({block:"nearest"});
-  }
-  refOverlay.addEventListener("click", function(e){
-    var t=e.target.closest(".gloss-term"); if(!t) return;
-    e.stopPropagation();
-    expandTerm(t.getAttribute("data-term"));
-  });
-
-  function openAC(trigger){
-    resetGlossary();
-    lastTrigger=trigger||null; currentRefPool=null;
-    refTitle.textContent="Armor Class";
-    refChips.innerHTML=""; refChips.style.display="none";
-    refDice.style.display="block";
-    refBody.innerHTML="";
-    var intro=document.createElement("p"); intro.className="muted";
-    intro.textContent="Toggle gear to see how your AC changes."; refBody.appendChild(intro);
-    AC_PARTS.forEach(function(p){
-      var btn=document.createElement("button"); btn.type="button"; btn.className="ac-toggle";
-      btn.innerHTML='<span class="acbox">✓</span><span class="acname">'+p.label+'</span><span class="acnote">'+p.note+'</span>';
-      btn.addEventListener("click", function(){
-        state.ac[p.id]=!state.ac[p.id];
-        persist(); renderACStud(); paintAC();
-      });
-      refBody.appendChild(btn);
-    });
-    refFoot.innerHTML='<span class="uses-left" id="acBreak"></span>';
-    paintAC();
-    refOverlay.classList.add("show");
-    document.getElementById("refClose").focus();
-  }
-  function paintAC(){
-    refDice.textContent = "AC " + computeAC(state.ac);
-    var btns=refBody.querySelectorAll(".ac-toggle");
-    AC_PARTS.forEach(function(p,i){
-      var b=btns[i]; if(!b) return;
-      b.classList.toggle("on", !!state.ac[p.id]);
-      // Defense only functions while wearing armor — show it inactive otherwise
-      b.classList.toggle("inactive", p.id==="defense" && !state.ac.armor);
-    });
-    var brk=document.getElementById("acBreak"); if(brk) brk.textContent=acBreakdown(state.ac);
-  }
-
+  /* ----- REFERENCE MODAL ----- */
   function openRef(id, trigger){
     if(id==="stat_ac"){ openAC(trigger); return; }
     if(id==="weaponmastery"){ openMastery(trigger); return; }
     var r=REF[id]; if(!r) return;
-    resetGlossary();
-    lastTrigger=trigger||null; currentRefPool=r.pool||null;
+    resetGlossary(); lastTrigger=trigger||null; currentRefPool=r.pool||null;
     refTitle.textContent=r.title;
-    refDice.textContent=r.dice||""; refDice.style.display=r.dice?"block":"none";
-    if(r.dice) linkifyTerms(refDice);
+    refDice.textContent=r.dice||""; refDice.style.display=r.dice?"block":"none"; if(r.dice) linkifyTerms(refDice);
     refChips.innerHTML="";
     (r.chips||[]).forEach(function(c){ var s=document.createElement("span"); s.className="chip"+(c.c?(" "+c.c):""); s.textContent=c.t; refChips.appendChild(s); });
     refChips.style.display=(r.chips&&r.chips.length)?"flex":"none";
@@ -1398,10 +1090,7 @@
     refFoot.innerHTML="";
     if(r.pool){
       var btn=document.createElement("button"); btn.type="button"; btn.className="btn ember"; btn.id="refUseBtn";
-      btn.addEventListener("click", function(){
-        if(spendPool(r.pool)){ toast(POOL_REMINDER[r.pool]); }
-        else { toast("None left — rest to recover."); }
-      });
+      btn.addEventListener("click", function(){ if(spendPool(r.pool)){ toast(POOL_REMINDER[r.pool]); } else { toast("None left — rest to recover."); } });
       var left=document.createElement("span"); left.className="uses-left"; left.id="refUsesLeft";
       refFoot.appendChild(btn); refFoot.appendChild(left);
     }
@@ -1411,85 +1100,85 @@
   }
   function refreshModalUses(pool){
     if(!refOverlay.classList.contains("show") || currentRefPool!==pool) return;
-    var btn=document.getElementById("refUseBtn"), left=document.getElementById("refUsesLeft");
-    if(!btn) return;
+    var btn=document.getElementById("refUseBtn"), left=document.getElementById("refUsesLeft"); if(!btn) return;
     var remaining=state[pool], max=POOL_MAX[pool];
-    btn.textContent = pool==="hm" ? "Use a free cast" : (pool==="slot1" ? "Spend a slot" : (pool==="insp" ? "Spend Inspiration" : (pool==="luck" ? "Spend a Luck Point" : (pool==="mi" ? "Use free cast" : "Use"))));
-    btn.disabled = remaining<=0;
-    btn.style.opacity = remaining<=0 ? ".5" : "1";
-    if(left) left.textContent = remaining+" / "+max+" remaining";
+    btn.textContent=(CHARACTER.pools[pool] && CHARACTER.pools[pool].use) || "Use";
+    btn.disabled=remaining<=0; btn.style.opacity=remaining<=0?".5":"1";
+    if(left) left.textContent=remaining+" / "+max+" remaining";
   }
   function closeRef(){ refOverlay.classList.remove("show"); currentRefPool=null; resetGlossary(); if(lastTrigger&&lastTrigger.focus) lastTrigger.focus(); }
-  document.getElementById("refClose").addEventListener("click", closeRef);
-  refOverlay.addEventListener("click", function(e){ if(e.target===refOverlay) closeRef(); });
-
-  /* Open a glossary entry as a full modal (used by the Skills list) */
   function openGlossModal(key, trigger){
     var g=GLOSSARY[key]; if(!g) return;
-    resetGlossary();
-    lastTrigger=trigger||null; currentRefPool=null;
-    refTitle.textContent=g.term;
-    refDice.textContent=""; refDice.style.display="none";
-    refChips.innerHTML=""; refChips.style.display="none";
-    refBody.innerHTML="";
-    var p=document.createElement("p"); p.textContent=g.def; refBody.appendChild(p);
-    linkifyTerms(refBody);
-    refFoot.innerHTML="";
-    refOverlay.classList.add("show");
-    document.getElementById("refClose").focus();
+    resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
+    refTitle.textContent=g.term; refDice.textContent=""; refDice.style.display="none"; refChips.innerHTML=""; refChips.style.display="none"; refBody.innerHTML="";
+    var p=document.createElement("p"); p.textContent=g.def; refBody.appendChild(p); linkifyTerms(refBody);
+    refFoot.innerHTML=""; refOverlay.classList.add("show"); document.getElementById("refClose").focus();
   }
 
-  /* delegate taps: [data-ref] opens reference/AC/mastery, [data-skill] opens a skill description */
-  document.addEventListener("click", function(e){
-    var sk=e.target.closest("[data-skill]");
-    if(sk){ openGlossModal(ALIASES[sk.getAttribute("data-skill").toLowerCase()], sk); return; }
-    var t=e.target.closest("[data-ref]"); if(!t) return;
-    openRef(t.getAttribute("data-ref"), t);
-  });
-
-  /* ============================== REST ============================== */
-  var restOverlay=document.getElementById("restOverlay");
+  /* ----- REST ----- */
   function openRest(){ restOverlay.classList.add("show"); }
   function closeRest(){ restOverlay.classList.remove("show"); }
-  document.getElementById("restBtn").addEventListener("click", openRest);
-  document.getElementById("restClose").addEventListener("click", closeRest);
-  restOverlay.addEventListener("click", function(e){ if(e.target===restOverlay) closeRest(); });
-  document.addEventListener("keydown", function(e){ if(e.key==="Escape"){ closeRef(); closeRest(); } });
-
-  document.getElementById("shortRest").addEventListener("click", function(){
-    persist(); renderPools(); closeRest();
-    toast("Short rest — spend Hit Dice to heal. (Rangers regain little else.)");
-  });
-  document.getElementById("longRest").addEventListener("click", function(){
+  function doShortRest(){
+    Object.keys(CHARACTER.pools).forEach(function(id){ if(CHARACTER.pools[id].rest==="short") state[id]=CHARACTER.pools[id].max; });
+    persist(); renderPools(); closeRest(); toast(CHARACTER.rest.shortToast||"Short rest.");
+  }
+  function doLongRest(){
     state.hpCur=parseInt(state.hpMax,10); state.temp=0;
-    state.slot1=3; state.hm=2; state.insp=1; state.luck=2; state.mi=1; state.hd=4; state.dsSucc=0; state.dsFail=0;
-    persist(); renderPools(); renderHP(); renderDeath(); closeRest();
-    toast("Long rest — fully restored.");
-  });
+    Object.keys(CHARACTER.pools).forEach(function(id){ state[id]=CHARACTER.pools[id].max; });
+    state.dsSucc=0; state.dsFail=0;
+    persist(); renderPools(); renderHP(); renderDeath(); closeRest(); toast(CHARACTER.rest.longToast||"Long rest — fully restored.");
+  }
 
-  /* ============================== RESET ============================== */
-  document.getElementById("resetLink").addEventListener("click", function(){
-    if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
-      state=JSON.parse(JSON.stringify(defaults));
-      Promise.resolve(store.clear()).then(function(){ persist(); });
-      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderPrepared(); toast("Sheet reset.");
-    }
-  });
+  /* ----- wiring (after render; assigns dynamic handles + listeners) ----- */
+  function wireSheet(){
+    hpCur=document.getElementById("hpCur"); hpMax=document.getElementById("hpMax"); tempWrap=document.getElementById("tempWrap");
+    deathSaves=document.getElementById("deathSaves"); hpAdjust=document.getElementById("hpAdjust"); tempRow=document.getElementById("tempRow");
+    hitDicePool=document.getElementById("hitDicePool"); attackList=document.getElementById("attackList"); preparedList=document.getElementById("preparedList"); acVal=document.getElementById("acVal");
 
-  /* ============================== TOAST ============================== */
-  var toastEl=document.getElementById("toast"), toastT=null;
-  function toast(msg){ toastEl.textContent=msg; toastEl.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(function(){ toastEl.classList.remove("show"); }, 2800); }
+    hpCur.addEventListener("change", commitHp);
+    hpCur.addEventListener("keydown", function(e){ if(e.key==="Enter") hpCur.blur(); });
+    hpMax.addEventListener("change", commitHp);
+    document.getElementById("dmgBtn").addEventListener("click", function(){ var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return; if(state.temp>0){ var a=Math.min(state.temp,v); state.temp-=a; v-=a; } state.hpCur=Math.max(0,state.hpCur-v); persist(); renderHP(); document.getElementById("hpDelta").value=""; });
+    document.getElementById("healBtn").addEventListener("click", function(){ var v=parseInt(document.getElementById("hpDelta").value,10); if(isNaN(v)||v<=0) return; state.hpCur=Math.min(parseInt(state.hpMax,10),state.hpCur+v); persist(); renderHP(); document.getElementById("hpDelta").value=""; });
+    document.getElementById("tempBtn").addEventListener("click", function(){ var v=parseInt(document.getElementById("tempIn").value,10); if(isNaN(v)||v<0) v=0; state.temp=v; persist(); renderHP(); document.getElementById("tempIn").value=""; });
+    document.getElementById("spendHd").addEventListener("click", function(){ if(spendPool("hd")) toast(POOL_REMINDER.hd); else toast("No hit dice remaining."); });
+    document.getElementById("restBtn").addEventListener("click", openRest);
+    var pb=document.getElementById("prepareBtn"); if(pb) pb.addEventListener("click", function(){ openPrepare(pb); });
 
-  /* ============================== INIT ============================== */
+    document.getElementById("refClose").addEventListener("click", closeRef);
+    refOverlay.addEventListener("click", function(e){ if(e.target===refOverlay) closeRef(); });
+    document.getElementById("restClose").addEventListener("click", closeRest);
+    restOverlay.addEventListener("click", function(e){ if(e.target===restOverlay) closeRest(); });
+    document.getElementById("shortRest").addEventListener("click", doShortRest);
+    document.getElementById("longRest").addEventListener("click", doLongRest);
+    document.addEventListener("keydown", function(e){ if(e.key==="Escape"){ closeRef(); closeRest(); } });
+
+    document.addEventListener("click", function(e){
+      var sk=e.target.closest("[data-skill]"); if(sk){ openGlossModal(ALIASES[sk.getAttribute("data-skill").toLowerCase()], sk); return; }
+      var t=e.target.closest("[data-ref]"); if(!t) return; openRef(t.getAttribute("data-ref"), t);
+    });
+
+    document.getElementById("resetLink").addEventListener("click", function(){
+      if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
+        state=JSON.parse(JSON.stringify(defaults));
+        Promise.resolve(store.clear()).then(function(){ persist(); });
+        renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); if(CHARACTER.prepared) renderPrepared(); toast("Sheet reset.");
+      }
+    });
+  }
+
+  /* ----- init ----- */
   (async function init(){
+    renderAll(); wireSheet();
     setStatus("loading");
-    var loaded=null;
-    try { loaded = await store.load(); } catch(e){ /* fall back to defaults */ }
-    state = applyDefaults(loaded);
-    if(!state.ac || typeof state.ac!=="object"){ state.ac=JSON.parse(JSON.stringify(defaults.ac)); }
-    if(!Array.isArray(state.masteries)){ state.masteries=defaults.masteries.slice(); }
-    if(!Array.isArray(state.prepared)){ state.prepared=defaults.prepared.slice(); }
-    renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderPrepared();
+    var loaded=null; try { loaded=await store.load(); } catch(e){}
+    state=applyDefaults(loaded);
+    if(!state.ac || typeof state.ac!=="object") state.ac=JSON.parse(JSON.stringify(defaults.ac));
+    if(!Array.isArray(state.masteries)) state.masteries=defaults.masteries.slice();
+    if(CHARACTER.prepared && !Array.isArray(state.prepared)) state.prepared=defaults.prepared.slice();
+    renderAbilities(); renderSkills();
+    renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks();
+    if(CHARACTER.prepared) renderPrepared();
     setStatus("saved");
   })();
 })();
