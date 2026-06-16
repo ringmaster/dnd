@@ -189,7 +189,7 @@
   .wm-row{display:flex;align-items:flex-start;gap:.7rem;width:100%;text-align:left;background:transparent;border:none;border-bottom:1px dashed var(--iron);padding:.7rem .15rem;cursor:pointer;color:var(--bone);min-height:44px}
   .wm-row:last-of-type{border-bottom:none}
   .wm-row .acbox{margin-top:.15rem}
-  .wm-row.on .acbox{background:var(--ember);border-color:var(--ember);color:#1a1206}
+  .wm-row.on .acbox{border-color:var(--ember);background:radial-gradient(circle at 35% 28%, var(--ember-bright), #8a4a18 72%);box-shadow:0 0 9px rgba(217,133,63,.55), inset 0 1px 1px rgba(255,255,255,.3);color:#1a1206}
   .wm-main{display:flex;flex-direction:column;gap:.15rem}
   .wm-name{font-family:"Cinzel",serif;font-size:.86rem;color:var(--bone);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
   .wm-name .mastery{font-family:"Spectral",serif;font-weight:600;font-size:.66rem;color:var(--storm);border:1px solid var(--storm);border-radius:5px;padding:.02rem .35rem}
@@ -233,8 +233,9 @@
   /* ---------- AC toggle rows ---------- */
   .ac-toggle{display:flex;align-items:center;gap:.7rem;width:100%;text-align:left;background:transparent;border:none;border-bottom:1px dashed var(--iron);padding:.7rem .15rem;cursor:pointer;color:var(--bone);min-height:44px}
   .ac-toggle:last-child{border-bottom:none}
-  .ac-toggle .acbox{width:22px;height:22px;border-radius:6px;border:2px solid var(--iron-light);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:.85rem;line-height:1;color:transparent;transition:background .15s,border-color .15s}
-  .ac-toggle.on .acbox{background:var(--ember);border-color:var(--ember);color:#1a1206}
+  .acbox{width:24px;height:24px;border-radius:7px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;line-height:1;color:transparent;border:1px solid var(--iron-light);background:linear-gradient(180deg,#2a2f39,#171b22);box-shadow:var(--shadow-carve);transition:background .15s,border-color .15s,box-shadow .15s,color .15s,transform .08s}
+  .ac-toggle:active .acbox, .wm-row:active .acbox{transform:scale(.9)}
+  .ac-toggle.on .acbox{border-color:var(--ember);background:radial-gradient(circle at 35% 28%, var(--ember-bright), #8a4a18 72%);box-shadow:0 0 9px rgba(217,133,63,.55), inset 0 1px 1px rgba(255,255,255,.3);color:#1a1206}
   .ac-toggle .acname{font-family:"Cinzel",serif;font-size:.9rem;color:var(--bone)}
   .ac-toggle .acnote{color:var(--ash);font-size:.76rem;margin-left:auto;text-align:right;white-space:nowrap}
   .ac-toggle.inactive{opacity:.4}
