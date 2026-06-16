@@ -74,6 +74,7 @@ var CARD = {
     if(card.initiate && card.initiate.pool){ html+=poolBlock(card.initiate.pool); }
     return html;
   },
+  combat: function(card){ return '<h2>Combat Mode <span class="hint">'+esc(card.hint||"your turn · valid moves")+'</span></h2><div id="combatBody"></div>'; },
   skills: function(){ return '<h2>Skills <span class="hint">tap a skill · ● proficient · roll d20 + value</span></h2><div class="skills" id="skills"></div>'; },
   inventory: function(card){
     var html='<h2>Inventory <span class="hint">gear &amp; carried items</span></h2>';
@@ -103,7 +104,7 @@ var CARD = {
 function renderGridHTML(){
   return CHARACTER.cards.map(function(card){
     var fn=CARD[card.type]; if(!fn) return "";
-    var full = (card.type==="background"||card.type==="buildlog"||card.full) ? ' style="grid-column:1 / -1"' : '';
+    var full = (card.type==="background"||card.type==="buildlog"||card.type==="combat"||card.full) ? ' style="grid-column:1 / -1"' : '';
     var cls = "card" + (card.type==="buildlog" ? " buildlog" : "");
     return '<section class="'+cls+'"'+full+'>'+fn(card)+'</section>';
   }).join("");

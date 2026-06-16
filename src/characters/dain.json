@@ -231,6 +231,10 @@
       "type": "attacks"
     },
     {
+      "type": "combat",
+      "full": true
+    },
+    {
       "type": "pools",
       "title": "Maneuvers",
       "hint": "Save DC 14",
@@ -843,5 +847,89 @@
         "Perception is +4 (Wis +2, proficiency +2), so 10 + 4 = 14. It is the DC enemies must beat to hide or sneak past you when you are not actively searching."
       ]
     }
+  },
+  "combat": {
+    "groups": [
+      {
+        "cost": "Action",
+        "moves": [
+          {
+            "label": "Attack — Battleaxe",
+            "weapon": "battleaxe",
+            "detail": "Con save DC 14 or Prone"
+          },
+          {
+            "label": "Attack — Handaxe (thrown)",
+            "weapon": "handaxe",
+            "detail": "Adv. on next hit"
+          },
+          {
+            "label": "Action Surge",
+            "ref": "actionsurge",
+            "detail": "take one extra action this turn",
+            "pool": "as"
+          }
+        ]
+      },
+      {
+        "cost": "On a hit — spend a superiority die",
+        "moves": [
+          {
+            "label": "Trip Attack",
+            "ref": "trip",
+            "detail": "+1d8 dmg · Str save DC 14 or Prone",
+            "pool": "sup"
+          },
+          {
+            "label": "Goading Attack",
+            "ref": "goad",
+            "detail": "+1d8 dmg · Wis save DC 14 or disadv vs others",
+            "pool": "sup"
+          },
+          {
+            "label": "Precision Attack",
+            "ref": "precision",
+            "detail": "add 1d8 to the attack roll",
+            "pool": "sup"
+          }
+        ]
+      },
+      {
+        "cost": "Bonus Action",
+        "moves": [
+          {
+            "label": "Second Wind",
+            "ref": "secondwind",
+            "detail": "heal 1d10+4",
+            "pool": "sw"
+          },
+          {
+            "label": "Stonecunning",
+            "ref": "stonecunning",
+            "detail": "tremorsense 60 ft for 10 min",
+            "pool": "sc"
+          }
+        ]
+      },
+      {
+        "cost": "Reaction",
+        "moves": [
+          {
+            "label": "Opportunity Attack",
+            "ref": "battleaxe",
+            "detail": "when a foe leaves your reach"
+          }
+        ]
+      },
+      {
+        "cost": "Movement",
+        "moves": [
+          {
+            "label": "Move",
+            "detail": "30 ft"
+          }
+        ]
+      }
+    ]
   }
 }

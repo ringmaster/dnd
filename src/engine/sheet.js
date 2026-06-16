@@ -114,6 +114,7 @@ function renderPools(){
       el.appendChild(b);
     }
   });
+  renderCombat();
 }
 function renderDeath(){
   [["dsSucc","succ"],["dsFail","fail"]].forEach(function(pair){
@@ -153,6 +154,24 @@ function renderAttacks(){
       '<div class="tap-sub">'+esc(sub)+' · <span class="info-tag">tap for rules ⓘ</span></div>';
     attackList.appendChild(b);
   });
+}
+function combatMove(mv){
+  var ref = mv.ref || mv.weapon, bits=[], grey=false;
+  if(mv.weapon){ var w=wById(mv.weapon); if(w){ var mastered=state.masteries.indexOf(w.id)>=0;
+    bits.push('<span class="cm-num">d20 '+weaponToHit(w)+' · '+weaponDmg(w)+'</span>'+(mastered?(' · '+esc(w.mastery)):'')); } }
+  if(mv.detail) bits.push(esc(mv.detail));
+  var sub=bits.join(' · ');
+  var meter = mv.pool || mv.show;           // pool greys at 0; show just displays the count
+  if(meter){ var n=state[meter], max=POOL_MAX[meter]; if(mv.pool && n<=0) grey=true;
+    sub+=(sub?' · ':'')+'<span class="cm-left">'+n+'/'+max+(mv.show?' free':' left')+'</span>'; }
+  var attr=ref?(' data-ref="'+esc(ref)+'"'):'';
+  return '<button class="cm-move'+(grey?' spent':'')+'"'+attr+' type="button"><span class="cm-name">'+esc(mv.label)+'</span><span class="cm-sub">'+sub+'</span></button>';
+}
+function renderCombat(){
+  var el=document.getElementById("combatBody"); if(!el || !CHARACTER.combat) return;
+  el.innerHTML='<div class="cm-groups">'+CHARACTER.combat.groups.map(function(g){
+    return '<div class="cm-group"><div class="cm-cost">'+esc(g.cost)+'</div>'+g.moves.map(combatMove).join("")+'</div>';
+  }).join("")+'</div>';
 }
 function renderPrepared(){
   if(!preparedList) return; preparedList.innerHTML="";
@@ -206,7 +225,7 @@ function toggleMastery(id){
   var i=state.masteries.indexOf(id);
   if(i>=0){ state.masteries.splice(i,1); }
   else { if(state.masteries.length>=MASTERY_MAX){ toast("You can master "+MASTERY_MAX+" weapons — deselect one first."); return; } state.masteries.push(id); }
-  persist(); paintMastery(); renderMasterySummary(); renderAttacks();
+  persist(); paintMastery(); renderMasterySummary(); renderAttacks(); renderCombat();
 }
 function paintMastery(){
   refDice.textContent="Mastered: "+state.masteries.length+" / "+MASTERY_MAX;

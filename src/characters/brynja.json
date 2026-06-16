@@ -304,6 +304,10 @@
       ]
     },
     {
+      "type": "combat",
+      "full": true
+    },
+    {
       "type": "spellcasting",
       "slotPool": "slot1",
       "always": [
@@ -1166,5 +1170,95 @@
         "Perception is +4 (Wis +2, proficiency +2), so 14. If you moved your Deft Explorer Expertise onto Perception, this would be 16."
       ]
     }
+  },
+  "combat": {
+    "groups": [
+      {
+        "cost": "Action",
+        "moves": [
+          {
+            "label": "Attack — Longbow",
+            "weapon": "longbow",
+            "detail": "target Speed −10 ft on hit"
+          },
+          {
+            "label": "Attack — Shortsword",
+            "weapon": "shortsword",
+            "detail": "melee · Adv. on next hit"
+          },
+          {
+            "label": "Cast Faerie Fire",
+            "ref": "faeriefire",
+            "detail": "Dex save DC 12 · Adv. to hit them",
+            "show": "mi"
+          },
+          {
+            "label": "Cast Fog Cloud / Entangle / Cure Wounds",
+            "ref": "spellslots",
+            "detail": "costs a 1st-level slot",
+            "pool": "slot1"
+          }
+        ]
+      },
+      {
+        "cost": "Bonus Action",
+        "moves": [
+          {
+            "label": "Hunter’s Mark",
+            "ref": "huntersmark",
+            "detail": "+1d6 force/hit · move it on a kill",
+            "show": "hm"
+          },
+          {
+            "label": "Ensnaring Strike",
+            "ref": "ensnaringstrike",
+            "detail": "next hit: Str save DC 12 or Restrained",
+            "pool": "slot1"
+          }
+        ]
+      },
+      {
+        "cost": "Reaction",
+        "moves": [
+          {
+            "label": "Opportunity Attack",
+            "ref": "shortsword",
+            "detail": "when a foe leaves your reach"
+          },
+          {
+            "label": "Lucky — impose Disadvantage",
+            "ref": "lucky",
+            "detail": "on an attack made against you",
+            "pool": "luck"
+          }
+        ]
+      },
+      {
+        "cost": "Anytime (a d20 Test)",
+        "moves": [
+          {
+            "label": "Lucky — gain Advantage",
+            "ref": "lucky",
+            "detail": "on an attack, check, or save",
+            "pool": "luck"
+          },
+          {
+            "label": "Heroic Inspiration — reroll",
+            "ref": "inspiration",
+            "detail": "reroll any one d20",
+            "pool": "insp"
+          }
+        ]
+      },
+      {
+        "cost": "Movement",
+        "moves": [
+          {
+            "label": "Move",
+            "detail": "30 ft"
+          }
+        ]
+      }
+    ]
   }
 }

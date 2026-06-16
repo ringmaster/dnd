@@ -267,6 +267,19 @@
   .lvl ul li.note{color:var(--ash-dim);font-style:italic}
   @media (min-width:760px){ .lvl-wrap{column-count:2;column-gap:2.2rem} .lvl{break-inside:avoid} }
 
+  /* ---------- Combat mode ---------- */
+  .cm-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:0 1.6rem;align-items:start}
+  .cm-group{margin:.1rem 0 .7rem;break-inside:avoid}
+  .cm-cost{font-family:"Cinzel",serif;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);border-bottom:1px solid var(--iron);padding-bottom:.3rem;margin-bottom:.45rem}
+  .cm-move{display:flex;flex-direction:column;gap:.12rem;width:100%;text-align:left;background:#191d25;border:1px solid var(--iron);border-radius:8px;padding:.5rem .7rem;margin-bottom:.4rem;cursor:pointer;color:var(--bone);box-shadow:var(--shadow-carve);min-height:44px}
+  .cm-move:active{border-color:var(--ember)}
+  .cm-move.spent{opacity:.42}
+  .cm-name{font-family:"Cinzel",serif;font-size:.88rem;color:var(--bone)}
+  .cm-move.spent .cm-name{text-decoration:line-through}
+  .cm-sub{font-size:.76rem;color:var(--ash);line-height:1.35}
+  .cm-sub .cm-num{color:var(--ember-bright);font-family:"Cinzel",serif}
+  .cm-sub .cm-left{color:var(--storm)}
+
   footer{max-width:1240px;margin:2rem auto 0;text-align:center;color:var(--ash-dim);font-size:.74rem}
   footer a{color:var(--ash);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 
