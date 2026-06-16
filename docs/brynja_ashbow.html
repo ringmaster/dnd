@@ -366,15 +366,15 @@
         <div class="rivets" id="slot1Rivets"></div>
       </div>
       <div style="margin-top:.6rem">
-        <button class="feat" data-ref="huntersmark" type="button"><b>Hunter's Mark</b><span>always prepared · Favored Enemy · Concentration</span></button>
-        <button class="feat" data-ref="charmperson" type="button"><b>Charm Person</b><span>always prepared · Fey Wanderer · Wis save DC 12</span></button>
-        <button class="feat" data-ref="mistystep" type="button"><b>Misty Step</b><span>always prepared · Fey Wanderer · bonus-action teleport 30 ft</span></button>
-        <button class="feat" data-ref="curewounds" type="button"><b>Cure Wounds</b><span>prepared · heal 2d8 +2</span></button>
-        <button class="feat" data-ref="goodberry" type="button"><b>Goodberry</b><span>prepared · 10 berries, 1 HP each</span></button>
-        <button class="feat" data-ref="longstrider" type="button"><b>Longstrider</b><span>prepared · +10 ft Speed for 1 hour</span></button>
-        <button class="feat" data-ref="ensnaringstrike" type="button"><b>Ensnaring Strike</b><span>prepared · Restrained on hit · Concentration</span></button>
-        <button class="feat" data-ref="speakwithanimals" type="button"><b>Speak with Animals</b><span>prepared · ritual</span></button>
-        <button class="feat" data-ref="fogcloud" type="button"><b>Fog Cloud</b><span>prepared · 20-ft sphere, Heavily Obscured · Concentration</span></button>
+        <div class="hp-label" style="text-align:left;margin:.2rem 0 .35rem">Always prepared</div>
+        <button class="feat" data-ref="huntersmark" type="button"><b>Hunter's Mark</b><span>Favored Enemy · Concentration</span></button>
+        <button class="feat" data-ref="charmperson" type="button"><b>Charm Person</b><span>Fey Wanderer · Wis save DC 12</span></button>
+        <div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Prepared — 5 of choice (swap on a long rest)</div>
+        <button class="feat" data-ref="curewounds" type="button"><b>Cure Wounds</b><span>heal 2d8 +2</span></button>
+        <button class="feat" data-ref="goodberry" type="button"><b>Goodberry</b><span>10 berries, 1 HP each</span></button>
+        <button class="feat" data-ref="longstrider" type="button"><b>Longstrider</b><span>+10 ft Speed for 1 hour</span></button>
+        <button class="feat" data-ref="ensnaringstrike" type="button"><b>Ensnaring Strike</b><span>Restrained on hit · Concentration</span></button>
+        <button class="feat" data-ref="fogcloud" type="button"><b>Fog Cloud</b><span>20-ft sphere, Heavily Obscured · Concentration</span></button>
       </div>
     </section>
 
@@ -388,6 +388,10 @@
       <div class="pool">
         <div class="pool-head"><button class="pname" data-ref="inspiration" type="button">Heroic Inspiration ⓘ</button><span class="pnote">after a long rest</span></div>
         <div class="rivets" id="inspRivets"></div>
+      </div>
+      <div class="pool">
+        <div class="pool-head"><button class="pname" data-ref="lucky" type="button">Luck Points ⓘ</button><span class="pnote">long rest</span></div>
+        <div class="rivets" id="luckRivets"></div>
       </div>
       <button class="feat" data-ref="dreadful" type="button" style="margin-top:.5rem"><b>Dreadful Strikes ⓘ</b><span>+1d4 psychic on a weapon hit · once per target per turn</span></button>
       <button class="feat" data-ref="glamour" type="button"><b>Otherworldly Glamour ⓘ</b><span>+Wis to all Charisma checks · Persuasion proficiency</span></button>
@@ -407,7 +411,7 @@
       <div class="inv-row"><span class="iname">Arrows</span><span class="itag">ammunition · quiver</span></div>
       <div class="inv-row"><span class="iname">Studded Leather</span><span class="itag">light armor · AC 12 + Dex</span></div>
       <div class="inv-row"><span class="iname">Explorer's Pack</span><span class="itag">rope, rations, torches…</span></div>
-      <div class="inv-row"><span class="iname">Herbalism Kit</span><span class="itag">tools · for Goodberry &amp; foraging</span></div>
+      <div class="inv-row"><span class="iname">Thieves' Tools</span><span class="itag">Wayfarer background</span></div>
     </section>
 
     <!-- FEATURES -->
@@ -420,14 +424,16 @@
       <button class="feat" data-ref="deftexplorer" type="button"><b>Deft Explorer</b><span>Expertise (Stealth) · two extra languages</span></button>
       <button class="feat" data-ref="dreadful" type="button"><b>Dreadful Strikes</b><span>+1d4 psychic on a weapon hit</span></button>
       <button class="feat" data-ref="glamour" type="button"><b>Otherworldly Glamour</b><span>+Wis to all Charisma checks · Persuasion proficiency</span></button>
+      <button class="feat" data-ref="lucky" type="button"><b>Lucky</b><span>Wayfarer feat · 2 Luck Points · Advantage or impose Disadvantage</span></button>
+      <button class="feat" data-ref="wayfarer" type="button"><b>Background: Wayfarer</b><span>Insight · Stealth · Thieves' Tools · Lucky</span></button>
       <button class="feat" data-ref="resourceful" type="button"><b>Human: Resourceful</b><span>Heroic Inspiration after each long rest</span></button>
-      <button class="feat" data-ref="skillful" type="button"><b>Human: Skillful</b><span>one extra skill proficiency</span></button>
-      <button class="feat" data-ref="versatile" type="button"><b>Human: Versatile</b><span>a second Origin feat — to place</span></button>
+      <button class="feat" data-ref="skillful" type="button"><b>Human: Skillful</b><span>extra skill — Animal Handling</span></button>
+      <button class="feat" data-ref="versatile" type="button"><b>Human: Versatile</b><span>a second Origin feat — to place (not Lucky again)</span></button>
     </section>
 
     <!-- BACKGROUND -->
     <section class="card" style="grid-column:1 / -1">
-      <h2>Background <span class="hint">Human · Fey Wanderer</span></h2>
+      <h2>Background <span class="hint">Human · Wayfarer · Fey Wanderer</span></h2>
       <div class="bg-text">
         <p>Brynja Ashbow was raised among the Hrafnir, a people of trackers and outriders who range the wooded marches where the mortal world thins against the Feywild.</p>
         <p>As a child she wandered too far along a deer trail and crossed, without knowing it, into the realm beyond. She came back a day later by her own reckoning — a full season by everyone else's — carrying a quiet that never quite left her.</p>
@@ -447,18 +453,18 @@
             <ul>
               <li><b>Species: Human</b> — Resourceful, Skillful (+1 skill), Versatile (+1 Origin feat), Speed 30</li>
               <li><b>Ability scores:</b> Str 8, Dex 17, Con 13, Int 10, Wis 15, Cha 12 <span class="tag">(standard array 15/14/13/12/10/8; background +2 Dex / +1 Wis)</span></li>
-              <li class="choice"><b>Fighting Style: Archery</b> (+2 ranged attacks)</li>
+              <li><b>Spellcasting</b> — Wisdom half-caster, 2 first-level slots</li>
               <li class="choice"><b>Favored Enemy:</b> Hunter's Mark always prepared, free casts = proficiency / long rest</li>
               <li class="choice"><b>Weapon Mastery: Slow</b> (longbow) · <b>Vex</b> (shortsword)</li>
-              <li class="choice"><b>Skills (Ranger, choose 3):</b> Perception, Stealth, Survival</li>
-              <li class="open"><b>Background &amp; its Origin feat — to confirm</b> (grants 2 skills: Nature &amp; Animal Handling assumed)</li>
-              <li class="open"><b>Human Skillful skill — to confirm</b> (Insight assumed)</li>
+              <li class="choice"><b>Skills (Ranger, choose 3):</b> Perception, Survival, Nature</li>
+              <li class="choice"><b>Background: Wayfarer</b> — Origin feat <b>Lucky</b>; skills Insight &amp; Stealth; Thieves' Tools; +2 Dex / +1 Wis</li>
+              <li class="choice"><b>Human Skillful:</b> Animal Handling</li>
             </ul>
           </div>
           <div class="lvl">
             <h4>Level 2 <span class="tag">Ranger</span></h4>
             <ul>
-              <li><b>Spellcasting</b> — 2 first-level slots, Wisdom caster</li>
+              <li class="choice"><b>Fighting Style: Archery</b> (+2 ranged attack rolls)</li>
               <li class="choice"><b>Deft Explorer:</b> Expertise (Stealth) · two extra languages</li>
             </ul>
           </div>
@@ -637,11 +643,12 @@
   function fmt(n){ return (n>=0?"+":"")+n; }
   function skillMod(s){ return abilMod(s[1]) + (s[2]?PROF:0) + (s[3]?PROF:0) + (s[1]==="CHA"?GLAMOUR:0); }
 
-  var POOL_MAX = { slot1:3, hm:2, insp:1, hd:4 };
+  var POOL_MAX = { slot1:3, hm:2, insp:1, luck:2, hd:4 };
   var POOL_REMINDER = {
     slot1:"Spend a 1st-level spell slot.",
     hm:"Hunter's Mark: free cast (no slot). Bonus Action; +1d6 force on each hit.",
     insp:"Heroic Inspiration: reroll any d20 and keep either result.",
+    luck:"Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you.",
     hd:"Hit Die: roll 1d10+1, then add it with Heal."
   };
 
@@ -673,7 +680,7 @@
   REF.dreadful = { title:"Dreadful Strikes", dice:"+1d4 psychic",
     chips:[{t:"Once per target / turn",c:"ember"},{t:"No action"}],
     body:["Once per turn, when you hit a creature with a weapon, you can deal an extra 1d4 psychic damage. Each creature can take this extra damage only once per turn.",
-          "It costs no action and stacks with Hunter's Mark; the die grows to 1d6 at level 6.",
+          "It costs no action and stacks with Hunter's Mark; the die grows to 1d6 at ranger level 11.",
           "It isn't magical and needs no Concentration — it simply rides your hits."] };
   REF.huntersmark = { title:"Hunter's Mark", dice:"+1d6 force on each hit", pool:"hm",
     chips:[{t:"Bonus action"},{t:"Concentration",c:"storm"},{t:"Free 2×/long rest",c:"ember"}],
@@ -692,10 +699,6 @@
     chips:[{t:"Level 1"},{t:"Always prepared",c:"storm"}],
     body:["One humanoid within 30 ft makes a Wisdom save (DC 12) or is Charmed by you for 1 hour or until you or your allies harm it. It saves with Advantage if you're already fighting it.",
           "A Charmed creature can't attack you and treats you as a friendly acquaintance. Always prepared by Fey Wanderer."] };
-  REF.mistystep = { title:"Misty Step", dice:null,
-    chips:[{t:"Level 2"},{t:"Bonus action"},{t:"Always prepared",c:"storm"}],
-    body:["As a Bonus Action, teleport up to 30 feet to an unoccupied space you can see, wreathed in silvery mist.",
-          "Always prepared by Fey Wanderer. Note: it's a 2nd-level spell, so you can only cast it once you have 2nd-level slots (ranger level 5)."] };
   REF.curewounds = { title:"Cure Wounds", dice:"Heal 2d8 +2",
     chips:[{t:"Level 1"},{t:"Touch"}],
     body:["Touch a creature to restore 2d8 + your spellcasting modifier (Wis +2) hit points. A higher-level slot heals an extra 2d8 per level. No effect on Undead or Constructs."] };
@@ -735,17 +738,27 @@
           "Move the Expertise onto Perception instead if you'd rather have Passive Perception 16."] };
   REF.glamour = { title:"Otherworldly Glamour", dice:null,
     chips:[{t:"+Wis to Cha checks",c:"ember"},{t:"Persuasion",c:"storm"}],
-    body:["Whenever you make a Charisma check, add your Wisdom modifier (+2). You also gain proficiency in one of Deception, Intimidation, Performance, or Persuasion — taken in Persuasion.",
+    body:["Whenever you make a Charisma check, add your Wisdom modifier (minimum +1) — here +2. You also gain proficiency in one of Deception, Performance, or Persuasion — taken in Persuasion.",
           "This makes a Charisma-12 ranger a strong talker: Persuasion is +5 (Cha +1, prof +2, glamour +2)."] };
   REF.resourceful = { title:"Human: Resourceful", dice:null,
     chips:[{t:"Heroic Inspiration",c:"ember"}],
     body:["You gain Heroic Inspiration whenever you finish a long rest, if you don't already have it. Spend it to reroll a d20."] };
   REF.skillful = { title:"Human: Skillful", dice:null,
     chips:[{t:"+1 skill"}],
-    body:["You gain proficiency in one additional skill from any list. Assumed taken in Insight — confirm with your table."] };
+    body:["You gain proficiency in one additional skill from any list. Taken in Animal Handling (Insight comes from the Wayfarer background)."] };
+  REF.lucky = { title:"Lucky (Origin Feat)", dice:null, pool:"luck",
+    chips:[{t:"2 Luck Points",c:"ember"},{t:"Long rest",c:"storm"},{t:"From Wayfarer",c:"storm"}],
+    body:["You have Luck Points equal to your Proficiency Bonus (2), regained on a long rest.",
+          "Advantage: when you roll a d20 for a d20 Test (an attack roll, ability check, or saving throw), you can spend 1 Luck Point to give yourself Advantage on the roll.",
+          "Disadvantage: when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll.",
+          "Granted by the Wayfarer background. Tap Use below to spend a Luck Point."] };
+  REF.wayfarer = { title:"Background: Wayfarer", dice:null,
+    chips:[{t:"Lucky feat",c:"ember"},{t:"Insight · Stealth",c:"storm"},{t:"Thieves' Tools"}],
+    body:["A life lived on the road and the margins. Wayfarer grants the Lucky Origin feat, proficiency in Insight and Stealth, proficiency with Thieves' Tools, and the +2 Dexterity / +1 Wisdom that shaped your scores."] };
   REF.versatile = { title:"Human: Versatile", dice:null,
     chips:[{t:"+1 Origin feat",c:"ember"}],
-    body:["You gain one Origin feat of your choice, on top of your background's feat. Strong picks for Brynja: Lucky, Alert, Tough, or Savage Attacker. Not yet placed — choose one and it goes here."] };
+    body:["You gain one Origin feat of your choice, on top of the Lucky feat from your Wayfarer background. Strong picks for Brynja: Alert, Tough, Savage Attacker, or Magic Initiate. Not yet placed — choose one and it goes here.",
+          "It can't be Lucky again, since Wayfarer already granted that."] };
   REF.hitdice = { title:"Hit Dice", dice:"1d10 +1 healing each", pool:"hd",
     chips:[{t:"4 dice at lvl 4"},{t:"Spent on a short rest",c:"storm"}],
     body:["During a short rest you can spend Hit Dice to heal, rolling 1d10+1 each (1d10 + your Constitution modifier). You regain spent Hit Dice on a long rest.",
@@ -769,7 +782,7 @@
           "Perception is +4 (Wis +2, proficiency +2), so 14. If you moved your Deft Explorer Expertise onto Perception, this would be 16."] };
 
   /* ============================== STATE =============================== */
-  var defaults = { hpMax:32, hpCur:32, temp:0, slot1:3, hm:2, insp:1, hd:4, dsSucc:0, dsFail:0,
+  var defaults = { hpMax:32, hpCur:32, temp:0, slot1:3, hm:2, insp:1, luck:2, hd:4, dsSucc:0, dsFail:0,
                    ac:{ armor:true, shield:false },
                    masteries:["longbow","shortsword"] };
   var state = JSON.parse(JSON.stringify(defaults));
@@ -822,7 +835,7 @@
     skillWrap.appendChild(d);
   });
 
-  var POOL_EL = { slot1:["slot1Rivets",true], hm:["hmRivets",false], insp:["inspRivets",true], hd:["hitDiceRivets",false] };
+  var POOL_EL = { slot1:["slot1Rivets",true], hm:["hmRivets",false], insp:["inspRivets",true], luck:["luckRivets",false], hd:["hitDiceRivets",false] };
   function renderPools(){
     Object.keys(POOL_EL).forEach(function(pool){
       var elId = POOL_EL[pool][0], storm = POOL_EL[pool][1];
@@ -1297,7 +1310,7 @@
     var btn=document.getElementById("refUseBtn"), left=document.getElementById("refUsesLeft");
     if(!btn) return;
     var remaining=state[pool], max=POOL_MAX[pool];
-    btn.textContent = pool==="hm" ? "Use a free cast" : (pool==="slot1" ? "Spend a slot" : (pool==="insp" ? "Spend Inspiration" : "Use"));
+    btn.textContent = pool==="hm" ? "Use a free cast" : (pool==="slot1" ? "Spend a slot" : (pool==="insp" ? "Spend Inspiration" : (pool==="luck" ? "Spend a Luck Point" : "Use")));
     btn.disabled = remaining<=0;
     btn.style.opacity = remaining<=0 ? ".5" : "1";
     if(left) left.textContent = remaining+" / "+max+" remaining";
@@ -1345,7 +1358,7 @@
   });
   document.getElementById("longRest").addEventListener("click", function(){
     state.hpCur=parseInt(state.hpMax,10); state.temp=0;
-    state.slot1=3; state.hm=2; state.insp=1; state.hd=4; state.dsSucc=0; state.dsFail=0;
+    state.slot1=3; state.hm=2; state.insp=1; state.luck=2; state.hd=4; state.dsSucc=0; state.dsFail=0;
     persist(); renderPools(); renderHP(); renderDeath(); closeRest();
     toast("Long rest — fully restored.");
   });
