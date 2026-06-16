@@ -209,6 +209,16 @@
   .chip.storm{border-color:var(--storm);color:var(--storm)} .chip.ember{border-color:var(--ember);color:var(--ember-bright)}
   .modal-body p{margin:.5rem 0;font-size:.92rem;color:var(--bone);line-height:1.55}
   .modal-body p.muted{color:var(--ash);font-size:.84rem}
+
+  /* ---------- Glossary (recursive term expansion) ---------- */
+  .gloss-term{background:none;border:none;padding:0;margin:0;font:inherit;color:var(--storm);cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}
+  .gloss-term:hover{color:var(--ember-bright)}
+  .gloss-term:focus-visible{outline:2px solid var(--ember);outline-offset:2px;border-radius:3px}
+  .glossary:not(:empty){margin-top:1rem;border-top:1px solid var(--iron);padding-top:.7rem}
+  .gloss-def{border-left:2px solid var(--storm);background:rgba(111,168,199,.06);border-radius:0 8px 8px 0;padding:.5rem .75rem;margin:.5rem 0;transition:box-shadow .2s}
+  .gloss-def.flash{box-shadow:0 0 0 2px var(--ember)}
+  .gloss-def .gd-term{font-family:"Cinzel",serif;font-size:.82rem;color:var(--storm);letter-spacing:.03em;display:block;margin-bottom:.25rem}
+  .gloss-def .gd-body{font-size:.86rem;color:var(--bone);line-height:1.5}
   .modal-foot{margin-top:1.1rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
   .uses-left{font-size:.78rem;color:var(--ash);font-family:"Cinzel",serif}
 
@@ -486,6 +496,7 @@
     <div class="chips" id="refChips"></div>
     <div class="modal-body" id="refBody"></div>
     <div class="modal-foot" id="refFoot"></div>
+    <div class="glossary" id="refGlossary"></div>
   </div>
 </div>
 
@@ -898,6 +909,7 @@
     span.textContent = (parts.length?parts.join(" · ")+" · ":"") + state.masteries.length+" of "+MASTERY_MAX+" mastered";
   }
   function openMastery(trigger){
+    resetGlossary();
     lastTrigger=trigger||null; currentRefPool=null;
     refTitle.textContent="Weapon Mastery";
     refChips.innerHTML=""; refChips.style.display="none";
@@ -938,10 +950,94 @@
   /* ============================ REFERENCE MODAL ============================ */
   var refOverlay=document.getElementById("refOverlay");
   var refTitle=document.getElementById("refTitle"), refDice=document.getElementById("refDice"),
-      refChips=document.getElementById("refChips"), refBody=document.getElementById("refBody"), refFoot=document.getElementById("refFoot");
+      refChips=document.getElementById("refChips"), refBody=document.getElementById("refBody"), refFoot=document.getElementById("refFoot"),
+      refGlossary=document.getElementById("refGlossary");
   var lastTrigger=null, currentRefPool=null;
 
+  /* ---------- Glossary: underline known terms, expand definitions inline (recursive) ---------- */
+  var GLOSSARY = {
+    "advantage":{term:"Advantage",def:"Roll two d20s and use the higher roll. Advantage doesn't stack — and if you have both Advantage and Disadvantage on the same roll, they cancel out and you roll a single d20."},
+    "disadvantage":{term:"Disadvantage",def:"Roll two d20s and use the lower roll. If you have both Advantage and Disadvantage on a roll, they cancel and you roll one d20."},
+    "bonus-action":{term:"Bonus Action",def:"A quick extra action you can take on your turn on top of your action and movement. You get only one Bonus Action per turn, and only when a feature specifically grants one."},
+    "prone":{term:"Prone",def:"A condition. A Prone creature can only crawl and attacks with Disadvantage. Attack rolls against it have Advantage if the attacker is within 5 feet, and Disadvantage otherwise. Standing up costs half your movement."},
+    "saving-throw":{term:"Saving Throw",def:"A d20 roll to resist an effect, adding the relevant ability modifier plus your Proficiency Bonus if you're proficient. You succeed if the total meets or beats the effect's DC."},
+    "ability-check":{term:"Ability Check",def:"A d20 roll plus an ability modifier (plus your Proficiency Bonus if proficient in a relevant skill) to attempt something uncertain, compared against a DC."},
+    "initiative":{term:"Initiative",def:"A Dexterity check rolled at the start of combat to set turn order, highest first. The Alert feat lets you add your Proficiency Bonus."},
+    "proficiency-bonus":{term:"Proficiency Bonus",def:"A bonus tied to your level (+2 at levels 1–4) that you add to attack rolls, saving throws, and ability checks you're proficient with."},
+    "tremorsense":{term:"Tremorsense",def:"You can pinpoint creatures and moving objects within range, as long as both you and them are in contact with the same ground or surface. It can't detect flying or incorporeal creatures."},
+    "darkvision":{term:"Darkvision",def:"Within range you see in Dim Light as if it were Bright Light, and in Darkness as if it were Dim Light (in shades of gray)."},
+    "bright-light":{term:"Bright Light",def:"Normal illumination. Most creatures see normally in Bright Light."},
+    "dim-light":{term:"Dim Light",def:"A shadowy area, also called shadows. It is Lightly Obscured, giving Disadvantage on Wisdom (Perception) checks that rely on sight."},
+    "resistance":{term:"Resistance",def:"If you have Resistance to a damage type, you take half damage from it. It's applied after other modifiers, and multiple instances of Resistance don't stack."},
+    "poisoned":{term:"Poisoned",def:"A condition. A Poisoned creature has Disadvantage on attack rolls and ability checks."},
+    "extra-attack":{term:"Extra Attack",def:"Starting at level 5, you can attack twice whenever you take the Attack action on your turn. You're level 4, so not yet."},
+    "magic-weapon":{term:"Magic Weapon",def:"A weapon with magical properties. Attacks made with it count as magical, so they overcome a target's Resistance or immunity to damage from nonmagical attacks."}
+  };
+  var ALIASES = {
+    "advantage":"advantage","disadvantage":"disadvantage",
+    "bonus action":"bonus-action",
+    "prone":"prone","prone condition":"prone",
+    "saving throw":"saving-throw","saving throws":"saving-throw","save":"saving-throw","saves":"saving-throw",
+    "ability check":"ability-check","ability checks":"ability-check",
+    "initiative":"initiative",
+    "proficiency bonus":"proficiency-bonus",
+    "tremorsense":"tremorsense","darkvision":"darkvision",
+    "bright light":"bright-light","dim light":"dim-light",
+    "resistance":"resistance","resist":"resistance",
+    "poisoned":"poisoned","poisoned condition":"poisoned",
+    "extra attack":"extra-attack",
+    "magic weapon":"magic-weapon","magical":"magic-weapon"
+  };
+  function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
+  var TERM_RE = new RegExp("\\b("+Object.keys(ALIASES).sort(function(a,b){return b.length-a.length;}).map(escapeRe).join("|")+")\\b","gi");
+  var glossExpanded = null;
+
+  function linkifyTerms(root){
+    var walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), targets=[], n;
+    while(n=walker.nextNode()){
+      if(n.parentNode && n.parentNode.classList && n.parentNode.classList.contains("gloss-term")) continue;
+      TERM_RE.lastIndex=0;
+      if(TERM_RE.test(n.nodeValue)) targets.push(n);
+    }
+    targets.forEach(function(node){
+      var text=node.nodeValue, frag=document.createDocumentFragment(), last=0, m;
+      TERM_RE.lastIndex=0;
+      while(m=TERM_RE.exec(text)){
+        if(m.index>last) frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+        var btn=document.createElement("button");
+        btn.type="button"; btn.className="gloss-term"; btn.textContent=m[0];
+        btn.setAttribute("data-term", ALIASES[m[0].toLowerCase()]);
+        frag.appendChild(btn);
+        last=m.index+m[0].length;
+      }
+      if(last<text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+  function resetGlossary(){ refGlossary.innerHTML=""; glossExpanded=new Set(); }
+  function expandTerm(key){
+    var g=GLOSSARY[key]; if(!g) return;
+    if(glossExpanded.has(key)){
+      var ex=refGlossary.querySelector('[data-gd="'+key+'"]');
+      if(ex){ ex.scrollIntoView({block:"nearest"}); ex.classList.add("flash"); setTimeout(function(){ ex.classList.remove("flash"); },600); }
+      return;
+    }
+    glossExpanded.add(key);
+    var box=document.createElement("div"); box.className="gloss-def"; box.setAttribute("data-gd",key);
+    var h=document.createElement("span"); h.className="gd-term"; h.textContent=g.term;
+    var b=document.createElement("div"); b.className="gd-body"; b.textContent=g.def;
+    box.appendChild(h); box.appendChild(b); refGlossary.appendChild(box);
+    linkifyTerms(b);
+    box.scrollIntoView({block:"nearest"});
+  }
+  refOverlay.addEventListener("click", function(e){
+    var t=e.target.closest(".gloss-term"); if(!t) return;
+    e.stopPropagation();
+    expandTerm(t.getAttribute("data-term"));
+  });
+
   function openAC(trigger){
+    resetGlossary();
     lastTrigger=trigger||null; currentRefPool=null;
     refTitle.textContent="Armor Class";
     refChips.innerHTML=""; refChips.style.display="none";
@@ -979,6 +1075,7 @@
     if(id==="stat_ac"){ openAC(trigger); return; }
     if(id==="weaponmastery"){ openMastery(trigger); return; }
     var r=REF[id]; if(!r) return;
+    resetGlossary();
     lastTrigger=trigger||null; currentRefPool=r.pool||null;
     refTitle.textContent=r.title;
     refDice.textContent=r.dice||""; refDice.style.display=r.dice?"block":"none";
@@ -986,6 +1083,7 @@
     (r.chips||[]).forEach(function(c){ var s=document.createElement("span"); s.className="chip"+(c.c?(" "+c.c):""); s.textContent=c.t; refChips.appendChild(s); });
     refChips.style.display=(r.chips&&r.chips.length)?"flex":"none";
     refBody.innerHTML=""; (r.body||[]).forEach(function(p){ var el=document.createElement("p"); el.textContent=p; refBody.appendChild(el); });
+    linkifyTerms(refBody);
     refFoot.innerHTML="";
     if(r.pool){
       var btn=document.createElement("button"); btn.type="button"; btn.className="btn ember"; btn.id="refUseBtn";
@@ -1010,7 +1108,7 @@
     btn.style.opacity = remaining<=0 ? ".5" : "1";
     if(left) left.textContent = remaining+" / "+max+" remaining";
   }
-  function closeRef(){ refOverlay.classList.remove("show"); currentRefPool=null; if(lastTrigger&&lastTrigger.focus) lastTrigger.focus(); }
+  function closeRef(){ refOverlay.classList.remove("show"); currentRefPool=null; resetGlossary(); if(lastTrigger&&lastTrigger.focus) lastTrigger.focus(); }
   document.getElementById("refClose").addEventListener("click", closeRef);
   refOverlay.addEventListener("click", function(e){ if(e.target===refOverlay) closeRef(); });
 
