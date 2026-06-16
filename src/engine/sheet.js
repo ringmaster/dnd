@@ -203,23 +203,30 @@ function renderConc(){
 }
 function setConc(name){ state.conc=name||""; persist(); renderConc(); }
 function stopConcentration(){ setConc(""); toast("Concentration ended."); }
-function startConcentration(name){
-  if(state.conc && state.conc!==name){ concSwitchModal(name); return; }
-  setConc(name); closeRef(); toast("Concentrating on "+name+".");
+/* Casting a concentration spell starts (or switches) concentration. For pooled
+   spells the resource is spent as part of the cast; otherwise it's just the cast. */
+function castSpell(r){
+  var commit=function(){
+    if(r.pool){ if(!spendPool(r.pool)){ toast("None left — rest to recover."); return; } toast(POOL_REMINDER[r.pool]); }
+    setConc(r.concentration);
+    if(!r.pool) toast("Casting "+r.concentration+" — now concentrating.");
+  };
+  if(state.conc && state.conc!==r.concentration){ concCastConfirm(r.concentration, commit); }
+  else { commit(); }
 }
-function concSwitchModal(newName){
+function concCastConfirm(newName, onYes){
   var old=state.conc;
   resetGlossary(); currentRefPool=null;
-  refTitle.textContent="Already Concentrating";
+  refTitle.textContent="Switch Concentration?";
   refDice.textContent=""; refDice.style.display="none"; refChips.innerHTML=""; refChips.style.display="none";
   refBody.innerHTML="";
-  var p=document.createElement("p"); p.textContent="You're concentrating on "+old+". Starting "+newName+" ends it — you can only concentrate on one effect at a time."; refBody.appendChild(p);
+  var p=document.createElement("p"); p.textContent="Casting "+newName+" ends your concentration on "+old+" — you can only concentrate on one effect at a time."; refBody.appendChild(p);
   refFoot.innerHTML="";
-  var sw=document.createElement("button"); sw.type="button"; sw.className="btn ember"; sw.textContent="Switch to "+newName;
-  sw.addEventListener("click", function(){ setConc(newName); closeRef(); toast("Now concentrating on "+newName+"."); });
-  var keep=document.createElement("button"); keep.type="button"; keep.className="btn"; keep.textContent="Keep "+old;
-  keep.addEventListener("click", closeRef);
-  refFoot.appendChild(sw); refFoot.appendChild(keep);
+  var yes=document.createElement("button"); yes.type="button"; yes.className="btn ember"; yes.textContent="Cast "+newName;
+  yes.addEventListener("click", function(){ onYes(); closeRef(); });
+  var no=document.createElement("button"); no.type="button"; no.className="btn"; no.textContent="Keep "+old;
+  no.addEventListener("click", closeRef);
+  refFoot.appendChild(yes); refFoot.appendChild(no);
   refOverlay.classList.add("show"); document.getElementById("refClose").focus();
 }
 function openConcManage(){
@@ -343,15 +350,17 @@ function openRef(id, trigger){
   refFoot.innerHTML="";
   if(r.pool){
     var btn=document.createElement("button"); btn.type="button"; btn.className="btn ember"; btn.id="refUseBtn";
-    btn.addEventListener("click", function(){ if(spendPool(r.pool)){ toast(POOL_REMINDER[r.pool]); } else { toast("None left — rest to recover."); } });
+    btn.addEventListener("click", function(){
+      if(r.concentration){ castSpell(r); }
+      else if(spendPool(r.pool)){ toast(POOL_REMINDER[r.pool]); }
+      else { toast("None left — rest to recover."); }
+    });
     var left=document.createElement("span"); left.className="uses-left"; left.id="refUsesLeft";
     refFoot.appendChild(btn); refFoot.appendChild(left);
-  }
-  if(r.concentration){
-    var here = state.conc===r.concentration;
-    var cbtn=document.createElement("button"); cbtn.type="button"; cbtn.className="btn"+(here?"":" ember"); cbtn.textContent= here?"Stop concentrating":"Concentrate";
-    cbtn.addEventListener("click", function(){ if(state.conc===r.concentration){ stopConcentration(); closeRef(); } else { startConcentration(r.concentration); } });
-    refFoot.appendChild(cbtn);
+  } else if(r.concentration){
+    var cast=document.createElement("button"); cast.type="button"; cast.className="btn ember"; cast.textContent="Cast";
+    cast.addEventListener("click", function(){ castSpell(r); });
+    refFoot.appendChild(cast);
   }
   refOverlay.classList.add("show");
   if(r.pool){ refreshModalUses(r.pool); }
