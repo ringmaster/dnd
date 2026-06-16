@@ -342,16 +342,7 @@
     <!-- ATTACKS -->
     <section class="card">
       <h2>Attacks <span class="hint">one attack / turn</span></h2>
-      <button class="tap" data-ref="battleaxe" type="button">
-        <div class="tap-name">Battleaxe <span class="mastery">Topple</span></div>
-        <div class="tap-dice">To hit: d20 +6 · Damage: 1d8 +4</div>
-        <div class="tap-sub">slashing · crit 2d8+4 · magical · <span class="info-tag">tap for rules ⓘ</span></div>
-      </button>
-      <button class="tap" data-ref="handaxe" type="button">
-        <div class="tap-name">Handaxe (thrown) <span class="mastery">Vex</span></div>
-        <div class="tap-dice">To hit: d20 +6 · Damage: 1d6 +4</div>
-        <div class="tap-sub">range 20/60 · crit 2d6+4 · <span class="info-tag">tap for Vex rule ⓘ</span></div>
-      </button>
+      <div id="attackList"></div>
     </section>
 
     <!-- MANEUVERS -->
@@ -901,8 +892,10 @@
   /* ============================ WEAPON MASTERY (interactive) ============================ */
   var MASTERY_MAX = 4;
   var WEAPONS = [
-    { id:"battleaxe", name:"Battleaxe",  mastery:"Topple", eff:"On a hit, Con save (DC 14) or Prone.", owned:true },
-    { id:"handaxe",   name:"Handaxe",    mastery:"Vex",    eff:"Hit + damage: Advantage on your next attack vs the target.", owned:true },
+    { id:"battleaxe", name:"Battleaxe",  mastery:"Topple", eff:"On a hit, Con save (DC 14) or Prone.", owned:true,
+      atk:{ toHit:"+6", dmg:"1d8 +4", sub:"slashing · crit 2d8+4 · magical" } },
+    { id:"handaxe",   name:"Handaxe (thrown)", mastery:"Vex", eff:"Hit + damage: Advantage on your next attack vs the target.", owned:true,
+      atk:{ toHit:"+6", dmg:"1d6 +4", sub:"range 20/60 · crit 2d6+4" } },
     { id:"warhammer", name:"Warhammer",  mastery:"Push",   eff:"Hit + damage: push a Large-or-smaller target 10 ft away.", owned:false },
     { id:"longsword", name:"Longsword",  mastery:"Sap",    eff:"Hit + damage: target has Disadvantage on its next attack.", owned:false },
     { id:"greataxe",  name:"Greataxe",   mastery:"Cleave", eff:"On a hit, also strike a second creature within 5 ft.", owned:false },
@@ -911,6 +904,20 @@
     { id:"javelin",   name:"Javelin",    mastery:"Slow",   eff:"Hit + damage: target's Speed drops 10 ft.", owned:false }
   ];
   function wById(id){ for(var i=0;i<WEAPONS.length;i++){ if(WEAPONS[i].id===id) return WEAPONS[i]; } return null; }
+  var attackList = document.getElementById("attackList");
+  function renderAttacks(){
+    attackList.innerHTML="";
+    WEAPONS.forEach(function(w){
+      if(!w.atk) return;
+      var mastered = state.masteries.indexOf(w.id) >= 0;
+      var b=document.createElement("button"); b.type="button"; b.className="tap"; b.setAttribute("data-ref", w.id);
+      var tag = mastered ? ' <span class="mastery">'+w.mastery+'</span>' : '';
+      b.innerHTML='<div class="tap-name">'+w.name+tag+'</div>'+
+                  '<div class="tap-dice">To hit: d20 '+w.atk.toHit+' · Damage: '+w.atk.dmg+'</div>'+
+                  '<div class="tap-sub">'+w.atk.sub+' · <span class="info-tag">tap for rules ⓘ</span></div>';
+      attackList.appendChild(b);
+    });
+  }
   function renderMasterySummary(){
     var span=document.getElementById("wmSummary"); if(!span) return;
     var parts=state.masteries.map(function(id){ var w=wById(id); return w ? w.mastery+" ("+w.name.toLowerCase()+")" : null; }).filter(Boolean);
@@ -946,7 +953,7 @@
       if(state.masteries.length>=MASTERY_MAX){ toast("You can master "+MASTERY_MAX+" weapons — deselect one first."); return; }
       state.masteries.push(id);
     }
-    persist(); paintMastery(); renderMasterySummary();
+    persist(); paintMastery(); renderMasterySummary(); renderAttacks();
   }
   function paintMastery(){
     refDice.textContent = "Mastered: "+state.masteries.length+" / "+MASTERY_MAX;
@@ -1332,7 +1339,7 @@
     if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
       state=JSON.parse(JSON.stringify(defaults));
       Promise.resolve(store.clear()).then(function(){ persist(); });
-      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); toast("Sheet reset.");
+      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); toast("Sheet reset.");
     }
   });
 
@@ -1348,7 +1355,7 @@
     state = applyDefaults(loaded);
     if(!state.ac || typeof state.ac!=="object"){ state.ac=JSON.parse(JSON.stringify(defaults.ac)); }
     if(!Array.isArray(state.masteries)){ state.masteries=defaults.masteries.slice(); }
-    renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary();
+    renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks();
     setStatus("saved");
   })();
 })();
