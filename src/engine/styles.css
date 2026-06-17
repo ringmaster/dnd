@@ -68,6 +68,8 @@
   .sr-jump{flex:0 0 auto;width:42px;background:none;border:none;border-left:1px solid var(--iron);color:var(--storm);cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:0 6px 6px 0}
   .sr-jump:hover{color:var(--ember-bright);background:#20252f}
   .sr-empty{padding:.7rem;color:var(--ash);font-size:.84rem;text-align:center}
+  .sr-src{font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash-dim);padding:.45rem .55rem .25rem;border-bottom:1px solid var(--iron)}
+  .sr-main .sr-tag{font-size:.6rem;color:var(--storm);text-transform:uppercase;letter-spacing:.05em;margin-left:auto;border:1px solid var(--storm);border-radius:5px;padding:0 .3rem;flex:0 0 auto}
   .card{scroll-margin-top:96px}
   .search-flash{box-shadow:0 0 0 2px var(--ember), 0 0 14px rgba(217,133,63,.5) !important;transition:box-shadow .3s}
 

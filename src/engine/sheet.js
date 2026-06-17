@@ -222,7 +222,7 @@ function runSearch(){
   var matches=SEARCH_INDEX.filter(function(e){ return e.label.toLowerCase().indexOf(q)>=0; });
   matches.sort(function(a,b){ var as=a.label.toLowerCase().indexOf(q)===0?0:1, bs=b.label.toLowerCase().indexOf(q)===0?0:1; return as!==bs ? as-bs : a.label.localeCompare(b.label); });
   matches=matches.slice(0,12);
-  if(!matches.length){ searchResults.innerHTML='<div class="sr-empty">No matches</div>'; searchResults.style.display="block"; return; }
+  if(!matches.length){ if(q.length>=3){ remoteSearch(q); } else { searchResults.innerHTML='<div class="sr-empty">No matches — keep typing to search the 5e reference.</div>'; searchResults.style.display="block"; } return; }
   matches.forEach(function(e){
     var row=document.createElement("div"); row.className="sr-row";
     var main=document.createElement("button"); main.type="button"; main.className="sr-main"; main.textContent=e.label;
@@ -243,6 +243,49 @@ function scrollToAnchor(sel){
   card.scrollIntoView({behavior:"smooth", block:"start"});
   var flashEl=(el.offsetParent!==null)?el:card;
   flashEl.classList.add("search-flash"); setTimeout(function(){ flashEl.classList.remove("search-flash"); }, 1500);
+}
+/* Fallback: when nothing on the sheet or in the glossary matches, query the
+   open Open5e SRD reference (spells, items, conditions, rules). */
+function remoteSearch(q){
+  searchResults.innerHTML='<div class="sr-empty">Searching the 5e reference…</div>'; searchResults.style.display="block";
+  var cats=[["spells","spell"],["magicitems","item"],["conditions","condition"],["sections","rule"]];
+  Promise.all(cats.map(function(c){
+    return fetch("https://api.open5e.com/v1/"+c[0]+"/?search="+encodeURIComponent(q)+"&limit=3")
+      .then(function(r){ return r.ok?r.json():{results:[]}; })
+      .then(function(j){ return (j.results||[]).map(function(x){ return {name:x.name, type:c[1], desc:x.desc||x.description||""}; }); })
+      .catch(function(){ return []; });
+  })).then(function(lists){
+    if(searchInput.value.trim().toLowerCase()!==q) return;   // stale query
+    var all=[], seen={};
+    lists.forEach(function(l){ l.forEach(function(x){ var k=x.name.toLowerCase()+"|"+x.type; if(seen[k]||!x.name) return; seen[k]=1; all.push(x); }); });
+    renderRemoteResults(all);
+  }).catch(function(){ if(searchInput.value.trim().toLowerCase()===q){ searchResults.innerHTML='<div class="sr-empty">Couldn\'t reach the 5e reference.</div>'; } });
+}
+function renderRemoteResults(all){
+  searchResults.innerHTML="";
+  if(!all.length){ searchResults.innerHTML='<div class="sr-empty">No matches on the sheet or in the 5e reference.</div>'; return; }
+  var head=document.createElement("div"); head.className="sr-src"; head.textContent="From the 5e reference (SRD)"; searchResults.appendChild(head);
+  all.slice(0,8).forEach(function(x){
+    var row=document.createElement("div"); row.className="sr-row";
+    var main=document.createElement("button"); main.type="button"; main.className="sr-main";
+    main.innerHTML='<span>'+esc(x.name)+'</span><span class="sr-tag">'+esc(x.type)+'</span>';
+    main.addEventListener("click", function(){ closeSearch(); openRemoteModal(x); });
+    row.appendChild(main); searchResults.appendChild(row);
+  });
+  searchResults.style.display="block";
+}
+function openRemoteModal(x){
+  resetGlossary(); currentRefPool=null; lastTrigger=null;
+  refTitle.textContent=x.name;
+  refDice.textContent=""; refDice.style.display="none";
+  refChips.innerHTML='<span class="chip storm">5e reference · '+esc(x.type)+'</span>'; refChips.style.display="flex";
+  refBody.innerHTML="";
+  var paras=String(x.desc||"").split(/\n\n+/);
+  paras.forEach(function(t){ t=t.replace(/\s*\n\s*/g," ").trim(); if(t){ var p=document.createElement("p"); p.textContent=t; refBody.appendChild(p); } });
+  if(!refBody.childNodes.length){ var p=document.createElement("p"); p.textContent="No description available."; refBody.appendChild(p); }
+  linkifyTerms(refBody);
+  refFoot.innerHTML='<span class="uses-left">via Open5e · SRD (5e). Your sheet uses 2024 rules — wording may differ.</span>';
+  refOverlay.classList.add("show"); document.getElementById("refClose").focus();
 }
 
 /* ----- Concentration ----- */
