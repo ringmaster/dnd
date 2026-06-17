@@ -74,6 +74,7 @@ function persist(){ setStatus("saving"); clearTimeout(saveTimer); saveTimer=setT
 
 /* ----- dynamic element handles (assigned in wireSheet, after render) ----- */
 var hpCur,hpMax,tempWrap,deathSaves,hpAdjust,tempRow,hitDicePool,attackList,preparedList,acVal;
+var hstuds,hsearch,searchInput,searchResults,SEARCH_INDEX=null,searchTimer=null;
 
 /* ----- render orchestration ----- */
 function renderAll(){
@@ -193,6 +194,55 @@ function setView(v){
   av.style.display = combat?"none":""; cv.style.display = combat?"":"none";
   if(t) t.textContent = combat?"Combat Mode":"Attacks";
   if(btn) btn.textContent = combat?"← Attacks":"Combat Mode →";
+}
+
+/* ----- Search ----- */
+function buildSearchIndex(){
+  var idx=[], gSeen={};
+  ABIL_ORDER.forEach(function(k){ idx.push({label:ABIL_NAME[k], open:function(t){ openRef("abil_"+k,t); }, anchor:'[data-ref="abil_'+k+'"]'}); });
+  SKILLS.forEach(function(s){ var key=ALIASES[s.name.toLowerCase()]; if(key) gSeen[key]=1; idx.push({label:s.name, open:(function(kk){return function(t){ openGlossModal(kk,t); };})(key), anchor:'[data-skill="'+s.name+'"]'}); });
+  Object.keys(REF).forEach(function(id){ if(id.indexOf("abil_")===0) return; var inGrid=!!document.querySelector('.grid [data-ref="'+id+'"]'); idx.push({label:REF[id].title, open:(function(rid){return function(t){ openRef(rid,t); };})(id), anchor: inGrid?('.grid [data-ref="'+id+'"]'):null}); });
+  Object.keys(GLOSSARY).forEach(function(k){ if(k.indexOf("die-")===0||gSeen[k]) return; idx.push({label:GLOSSARY[k].term, open:(function(kk){return function(t){ openGlossModal(kk,t); };})(k), anchor:null}); });
+  return idx;
+}
+function openSearch(){
+  if(!SEARCH_INDEX) SEARCH_INDEX=buildSearchIndex();
+  hstuds.style.display="none"; hsearch.style.display="flex";
+  searchInput.value=""; searchResults.innerHTML=""; searchResults.style.display="none";
+  searchInput.focus();
+}
+function closeSearch(){
+  hsearch.style.display="none"; hstuds.style.display="";
+  searchInput.value=""; searchResults.innerHTML=""; searchResults.style.display="none";
+}
+function runSearch(){
+  var q=searchInput.value.trim().toLowerCase();
+  searchResults.innerHTML="";
+  if(!q){ searchResults.style.display="none"; return; }
+  var matches=SEARCH_INDEX.filter(function(e){ return e.label.toLowerCase().indexOf(q)>=0; });
+  matches.sort(function(a,b){ var as=a.label.toLowerCase().indexOf(q)===0?0:1, bs=b.label.toLowerCase().indexOf(q)===0?0:1; return as!==bs ? as-bs : a.label.localeCompare(b.label); });
+  matches=matches.slice(0,12);
+  if(!matches.length){ searchResults.innerHTML='<div class="sr-empty">No matches</div>'; searchResults.style.display="block"; return; }
+  matches.forEach(function(e){
+    var row=document.createElement("div"); row.className="sr-row";
+    var main=document.createElement("button"); main.type="button"; main.className="sr-main"; main.textContent=e.label;
+    main.addEventListener("click", function(){ var fn=e.open; closeSearch(); fn(null); });
+    row.appendChild(main);
+    if(e.anchor){
+      var jump=document.createElement("button"); jump.type="button"; jump.className="sr-jump"; jump.setAttribute("aria-label","Go to it on the sheet"); jump.innerHTML=svgIcon("sheet");
+      jump.addEventListener("click", function(){ var a=e.anchor; closeSearch(); scrollToAnchor(a); });
+      row.appendChild(jump);
+    }
+    searchResults.appendChild(row);
+  });
+  searchResults.style.display="block";
+}
+function scrollToAnchor(sel){
+  var el=document.querySelector(sel); if(!el) return;
+  var card=el.closest(".card")||el;
+  card.scrollIntoView({behavior:"smooth", block:"start"});
+  var flashEl=(el.offsetParent!==null)?el:card;
+  flashEl.classList.add("search-flash"); setTimeout(function(){ flashEl.classList.remove("search-flash"); }, 1500);
 }
 
 /* ----- Concentration ----- */
@@ -438,6 +488,14 @@ function wireSheet(){
   var pb=document.getElementById("prepareBtn"); if(pb) pb.addEventListener("click", function(){ openPrepare(pb); });
   var tg=document.getElementById("atkToggle"); if(tg) tg.addEventListener("click", function(){ state.view=(state.view==="combat")?"attacks":"combat"; persist(); setView(state.view); });
   var cb=document.getElementById("concBar"); if(cb) cb.addEventListener("click", openConcManage);
+  hstuds=document.getElementById("hstuds"); hsearch=document.getElementById("hsearch"); searchInput=document.getElementById("searchInput"); searchResults=document.getElementById("searchResults");
+  var so=document.getElementById("searchOpen"), sc=document.getElementById("searchClose");
+  if(so){
+    so.addEventListener("click", openSearch);
+    sc.addEventListener("click", closeSearch);
+    searchInput.addEventListener("input", function(){ clearTimeout(searchTimer); searchTimer=setTimeout(runSearch, 180); });
+    searchInput.addEventListener("keydown", function(e){ if(e.key==="Escape") closeSearch(); });
+  }
 
   document.getElementById("refClose").addEventListener("click", closeRef);
   refOverlay.addEventListener("click", function(e){ if(e.target===refOverlay) closeRef(); });

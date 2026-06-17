@@ -26,11 +26,25 @@ function studDisplay(s){
     default:           return s.value;
   }
 }
+function svgIcon(name){
+  var p = name==="search" ? '<circle cx="7" cy="7" r="4.3"/><line x1="10.4" y1="10.4" x2="14.5" y2="14.5"/>'
+        : name==="close"  ? '<line x1="3.5" y1="3.5" x2="12.5" y2="12.5"/><line x1="12.5" y1="3.5" x2="3.5" y2="12.5"/>'
+        : name==="sheet"  ? '<rect x="3" y="2" width="10" height="12" rx="1.5"/><line x1="5.5" y1="6" x2="10.5" y2="6"/><line x1="5.5" y1="8.5" x2="10.5" y2="8.5"/><line x1="5.5" y1="11" x2="8.5" y2="11"/>'
+        : '';
+  return '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true">'+p+'</svg>';
+}
 function renderHeaderHTML(){
   var studs = CHARACTER.studs.map(function(s){
     return '<button class="stud" data-ref="'+esc(s.ref)+'" type="button"><span class="sl">'+esc(s.label)+'</span><span class="sv"'+(s.id?' id="'+s.id+'"':'')+'>'+esc(studDisplay(s))+'</span></button>';
   }).join("");
-  return '<div class="who"><h1>'+esc(CHARACTER.name)+'</h1><div class="sub">'+esc(CHARACTER.subtitle)+'</div></div><div class="studs">'+studs+'</div>';
+  return '<div class="who"><h1>'+esc(CHARACTER.name)+'</h1><div class="sub">'+esc(CHARACTER.subtitle)+'</div></div>'+
+    '<div class="studs" id="hstuds">'+studs+'<button class="stud-search" id="searchOpen" type="button" aria-label="Search">'+svgIcon("search")+'</button></div>'+
+    '<div class="hsearch" id="hsearch" style="display:none">'+
+      '<span class="hsearch-ic">'+svgIcon("search")+'</span>'+
+      '<input id="searchInput" class="hsearch-input" type="text" autocomplete="off" placeholder="Search rules & sheet…" aria-label="Search rules and sheet">'+
+      '<button class="stud-search" id="searchClose" type="button" aria-label="Close search">'+svgIcon("close")+'</button>'+
+      '<div class="hsearch-results" id="searchResults" style="display:none"></div>'+
+    '</div>';
 }
 
 var CARD = {

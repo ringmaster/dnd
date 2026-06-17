@@ -51,6 +51,26 @@
   .sync .dot{width:8px;height:8px;border-radius:50%;background:var(--ash-dim);transition:background .2s}
   .sync.saved .dot{background:var(--crit)} .sync.saving .dot{background:var(--ember)} .sync.error .dot{background:var(--fumble)}
 
+  /* ---------- Header search ---------- */
+  .ic{width:16px;height:16px;display:block}
+  .ic *{stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .stud-search{display:flex;align-items:center;justify-content:center;align-self:stretch;background:linear-gradient(180deg,#222732,#181c24);border:1px solid var(--iron);border-radius:8px;box-shadow:var(--shadow-carve);color:var(--ash);cursor:pointer;width:40px;min-width:40px;min-height:40px;flex:0 0 auto}
+  .stud-search:hover{border-color:var(--ember);color:var(--ember-bright)} .stud-search:active{border-color:var(--ember)}
+  .hsearch{flex:1 1 auto;display:flex;align-items:center;gap:.45rem;position:relative;min-width:0}
+  .hsearch-ic{color:var(--ash-dim);flex:0 0 auto;display:flex}
+  .hsearch-input{flex:1 1 auto;min-width:0;background:#12151b;border:1px solid var(--iron);border-radius:8px;color:var(--bone);font-family:"Spectral",serif;font-size:16px;padding:.55rem .65rem;min-height:40px}
+  .hsearch-input:focus{outline:none;border-color:var(--ember)}
+  .hsearch-results{position:absolute;top:calc(100% + .45rem);left:0;right:0;background:linear-gradient(180deg,#242935,#181c24);border:1px solid var(--iron-light);border-radius:10px;box-shadow:0 14px 34px rgba(0,0,0,.6);max-height:62vh;overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:60;padding:.3rem}
+  .sr-row{display:flex;align-items:stretch;gap:.2rem;border-bottom:1px solid var(--iron)}
+  .sr-row:last-child{border-bottom:none}
+  .sr-main{flex:1 1 auto;min-width:0;display:flex;align-items:center;background:none;border:none;color:var(--bone);text-align:left;padding:.55rem .55rem;cursor:pointer;font-family:"Cinzel",serif;font-size:.86rem;border-radius:6px}
+  .sr-main:hover{background:#20252f} .sr-main:active{background:#262c38}
+  .sr-jump{flex:0 0 auto;width:42px;background:none;border:none;border-left:1px solid var(--iron);color:var(--storm);cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:0 6px 6px 0}
+  .sr-jump:hover{color:var(--ember-bright);background:#20252f}
+  .sr-empty{padding:.7rem;color:var(--ash);font-size:.84rem;text-align:center}
+  .card{scroll-margin-top:96px}
+  .search-flash{box-shadow:0 0 0 2px var(--ember), 0 0 14px rgba(217,133,63,.5) !important;transition:box-shadow .3s}
+
   /* ---------- Concentration bar (under the sticky header) ---------- */
   .conc-bar{display:block;width:100%;max-width:1240px;margin:.55rem auto 0;background:rgba(111,168,199,.13);border:1px solid var(--storm);border-radius:8px;color:var(--bone);font-family:"Spectral",serif;font-size:.82rem;text-align:left;padding:.42rem .75rem;cursor:pointer;box-shadow:var(--shadow-carve)}
   .conc-bar:hover{border-color:var(--ember)} .conc-bar:active{background:rgba(111,168,199,.2)}
