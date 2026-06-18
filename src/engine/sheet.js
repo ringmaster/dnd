@@ -579,7 +579,7 @@ function openAC(trigger){
   ARMORY.forEach(function(a){ refBody.appendChild(acToggleBtn(a.label, a.note, function(){ equipArmor(a.id); })); });
   if(SHIELD) refBody.appendChild(acToggleBtn(SHIELD.label, SHIELD.note||"+"+SHIELD.bonus+" AC", equipShield));
   if(AC_STYLE) refBody.appendChild(acToggleBtn(AC_STYLE.label, AC_STYLE.note||"+"+AC_STYLE.bonus+" AC", toggleStyle));
-  refFoot.innerHTML='<span class="uses-left" id="acBreak"></span>'; paintAC(); refOverlay.classList.add("show"); document.getElementById("refClose").focus();
+  refFoot.innerHTML='<span class="uses-left" id="acBreak"></span>'; refOverlay.classList.add("show"); paintAC(); document.getElementById("refClose").focus();
 }
 function paintAC(){
   if(!refOverlay.classList.contains("show")) return;
@@ -797,6 +797,7 @@ function wireSheet(){
   if(!Array.isArray(state.masteries)) state.masteries=defaults.masteries.slice();
   if(!Array.isArray(state.carried)) state.carried=defaults.carried.slice();
   else state.carried=state.carried.filter(function(id){ return OWNED.indexOf(id)>=0; });
+  while(handsUsed()>2 && state.carried.length){ state.carried.pop(); }   // trim an over-capacity loadout (e.g. migrated saves)
   if(CHARACTER.prepared && !Array.isArray(state.prepared)) state.prepared=defaults.prepared.slice();
   renderAbilities(); renderSkills();
   renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInventory();
