@@ -5,7 +5,7 @@
     "dmgDice": "1d8",
     "props": [
       "slashing",
-      "magical"
+      "versatile 1d10"
     ],
     "mastery": "Topple",
     "masteryEff": "On a hit, Con save (DC 14) or Prone."
@@ -39,7 +39,9 @@
     "ability": "STR",
     "dmgDice": "1d6",
     "props": [
-      "range 20/60"
+      "slashing",
+      "light",
+      "thrown 20/60"
     ],
     "mastery": "Vex",
     "masteryEff": "Hit + damage: Advantage on your next attack vs the target."
@@ -75,6 +77,9 @@
     "dmgDice": "1d8",
     "props": [
       "piercing",
+      "ammunition",
+      "heavy",
+      "two-handed",
       "range 150/600"
     ],
     "mastery": "Slow",
@@ -155,7 +160,8 @@
     "dmgDice": "1d6",
     "props": [
       "piercing",
-      "finesse"
+      "finesse",
+      "light"
     ],
     "mastery": "Vex",
     "masteryEff": "Hit + damage: Advantage on your next attack vs the target."

@@ -37,20 +37,24 @@ function weaponAbil(w){
 function weaponToHitNum(w){ return abilMod(weaponAbil(w)) + (w.proficient===false?0:PB) + (w.atkBonus||0); }
 function weaponDmgFlat(w){ return abilMod(weaponAbil(w)) + (w.dmgBonus||0); }
 function weaponToHit(w){ return fmt(weaponToHitNum(w)); }
-function weaponDmg(w){ return w.dmgDice + " " + fmt(weaponDmgFlat(w)); }
+/* damage dice — uses the versatile (two-handed) die when the weapon is wielded with both hands */
+function weaponDice(w){
+  if(typeof versatileActive==="function" && versatileActive(w)){ var m=(w.props||[]).join(" ").match(/versatile (\d+d\d+)/); if(m) return m[1]; }
+  return w.dmgDice;
+}
+function weaponDmg(w){ return weaponDice(w) + " " + fmt(weaponDmgFlat(w)); }
 function critDmg(w){
-  var m = (w.dmgDice||"").match(/^(\d+)d(\d+)$/); if(!m) return w.dmgDice;
+  var m = (weaponDice(w)||"").match(/^(\d+)d(\d+)$/); if(!m) return weaponDice(w);
   return (parseInt(m[1],10)*2)+"d"+m[2]+fmt(weaponDmgFlat(w));
 }
 
-function computeAC(acState){
-  var ac=CHARACTER.ac, dex=abilMod("DEX"), base;
-  if(acState.armor && ac.armor){
-    var dexAdd = ac.armor.addDex ? (ac.armor.dexCap!=null ? Math.min(dex, ac.armor.dexCap) : dex) : 0;
-    base = ac.armor.base + dexAdd;
-  } else { base = 10 + dex; }
-  base += (acState.shield && ac.shield ? ac.shield.bonus : 0);
-  if(acState.style && ac.style && acState.armor) base += ac.style.bonus;
+/* AC from the currently-equipped armor + shield + style (state-driven; see sheet.js equipment helpers) */
+function computeAC(){
+  var dex=abilMod("DEX"), arm=(typeof equippedArmor==="function"?equippedArmor():null), base;
+  if(arm){ var dexAdd = arm.addDex ? (arm.dexCap!=null ? Math.min(dex, arm.dexCap) : dex) : 0; base = arm.base + dexAdd; }
+  else base = 10 + dex;
+  if(state.shield && SHIELD) base += SHIELD.bonus;
+  if(state.style && AC_STYLE && arm) base += AC_STYLE.bonus;
   return base;
 }
 function passivePerception(){ var s=findSkill("Perception"); return 10 + (s ? skillMod(s) : abilMod("WIS")); }

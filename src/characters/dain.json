@@ -59,7 +59,10 @@
   "weapons": [
     {
       "id": "battleaxe",
-      "carried": true
+      "carried": true,
+      "addProps": [
+        "magical"
+      ]
     },
     {
       "id": "handaxe",

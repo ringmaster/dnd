@@ -212,6 +212,7 @@
   .inv-magic .mtag{font-family:"Spectral",serif;font-weight:600;font-size:.66rem;color:var(--ember);border:1px solid var(--ember);border-radius:5px;padding:.05rem .4rem;margin-left:.4rem;white-space:nowrap}
   .inv-magic span.desc{display:block;font-size:.78rem;color:var(--ash);margin-top:.2rem}
   .inv-sub{font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);margin:.2rem 0 .4rem}
+  .inv-hands{font-size:.74rem;color:var(--ash-dim);margin:.1rem 0 .7rem;font-family:"Cinzel",serif;letter-spacing:.04em}
   .inv-weap{display:flex;align-items:stretch;gap:.5rem;margin-bottom:.45rem}
   .iw-toggle{font-family:"Cinzel",serif;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;min-width:4.6rem;border:1px solid var(--iron-light);border-radius:8px;background:#12151b;color:var(--ash-dim);cursor:pointer;padding:.4rem;box-shadow:var(--shadow-carve)}
   .inv-weap.drawn .iw-toggle{border-color:var(--ember);color:var(--ember-bright);background:linear-gradient(180deg,#3a2e22,#2a2118)}

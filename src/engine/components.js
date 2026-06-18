@@ -18,11 +18,11 @@ function label(text, m){ return '<div class="hp-label" style="text-align:left;ma
 
 function studDisplay(s){
   switch(s.ref){
-    case "stat_ac":    return computeAC(defaults.ac);
+    case "stat_ac":    return computeAC();
     case "stat_init":  return fmt(initiative());
     case "stat_prof":  return fmt(PB);
     case "stat_pass":  return passivePerception();
-    case "stat_speed": return CHARACTER.speed;
+    case "stat_speed": return effSpeed();
     default:           return s.value;
   }
 }
@@ -104,6 +104,7 @@ var CARD = {
   inventory: function(card){
     var html='<h2>Inventory <span class="hint">gear &amp; carried items</span></h2>';
     if(card.magic){ html+='<button class="inv-magic" data-ref="'+esc(card.magic.ref)+'" type="button"><b>'+esc(card.magic.name)+'</b><span class="mtag">'+esc(card.magic.tag)+'</span><span class="desc">'+esc(card.magic.desc)+'</span></button>'; }
+    html+='<div id="invEquip"></div>';
     html+='<div class="inv-sub">Weapons · tap to draw or stow · ⓘ for rules</div><div id="invWeapons"></div>';
     html+=(card.items||[]).map(function(it){ return '<div class="inv-row"><span class="iname">'+esc(it.name)+'</span><span class="itag">'+esc(it.tag)+'</span></div>'; }).join("");
     return html;

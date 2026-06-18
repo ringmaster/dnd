@@ -1,9 +1,55 @@
 {
-  "studded": { "label": "Studded leather", "base": 12, "addDex": true, "note": "light armor · 12 + full Dex", "default": true },
-  "leather": { "label": "Leather", "base": 11, "addDex": true, "note": "light armor · 11 + full Dex", "default": true },
-  "hide": { "label": "Hide", "base": 12, "addDex": true, "dexCap": 2, "note": "medium armor · 12 + Dex (max 2)", "default": true },
-  "scalemail": { "label": "Scale mail", "base": 14, "addDex": true, "dexCap": 2, "note": "medium armor · 14 + Dex (max 2)", "default": true },
-  "chainmail": { "label": "Chain mail", "base": 16, "addDex": false, "note": "heavy armor · sets AC to 16", "default": true },
-  "plate": { "label": "Plate", "base": 18, "addDex": false, "note": "heavy armor · sets AC to 18", "default": true },
-  "magearmor": { "label": "Mage Armor", "base": 13, "addDex": true, "note": "1st-level spell · 13 + Dex (1 hour)", "default": false }
+  "studded": {
+    "label": "Studded leather",
+    "base": 12,
+    "addDex": true,
+    "note": "light armor · 12 + full Dex",
+    "default": true
+  },
+  "leather": {
+    "label": "Leather",
+    "base": 11,
+    "addDex": true,
+    "note": "light armor · 11 + full Dex",
+    "default": true
+  },
+  "hide": {
+    "label": "Hide",
+    "base": 12,
+    "addDex": true,
+    "dexCap": 2,
+    "note": "medium armor · 12 + Dex (max 2)",
+    "default": true
+  },
+  "scalemail": {
+    "label": "Scale mail",
+    "base": 14,
+    "addDex": true,
+    "dexCap": 2,
+    "note": "medium armor · 14 + Dex (max 2)",
+    "default": true
+  },
+  "chainmail": {
+    "label": "Chain mail",
+    "base": 16,
+    "addDex": false,
+    "note": "heavy armor · sets AC to 16",
+    "default": true,
+    "strReq": 13
+  },
+  "plate": {
+    "label": "Plate",
+    "base": 18,
+    "addDex": false,
+    "note": "heavy armor · sets AC to 18",
+    "default": true,
+    "strReq": 15
+  },
+  "magearmor": {
+    "label": "Mage Armor",
+    "base": 13,
+    "addDex": true,
+    "note": "1st-level spell · 13 + Dex (1 hour)",
+    "default": false
+  }
 }

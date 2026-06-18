@@ -1,5 +1,29 @@
 /* Shared: state, rendering orchestration, and interactions — all read from CHARACTER. */
 
+/* ----- equipment: armor / shield / hands (declared early; the stat refs read effSpeed) ----- */
+var ARMORY = (CHARACTER.ac && CHARACTER.ac.armory) ? CHARACTER.ac.armory.slice()
+           : (CHARACTER.ac && CHARACTER.ac.armor) ? [CHARACTER.ac.armor] : [];
+var SHIELD = (CHARACTER.ac && CHARACTER.ac.shield) || null;
+var AC_STYLE = (CHARACTER.ac && CHARACTER.ac.style) || null;
+function armorById(id){ for(var i=0;i<ARMORY.length;i++){ if(ARMORY[i].id===id) return ARMORY[i]; } return null; }
+function armorDefaultId(){ for(var i=0;i<ARMORY.length;i++){ if(ARMORY[i].default!==false) return ARMORY[i].id; } return ""; }
+function equippedArmor(){ var id = (typeof state==="object" && state) ? state.armorId : armorDefaultId(); return id ? armorById(id) : null; }
+function handCount(w){ return (w && (w.props||[]).indexOf("two-handed")>=0) ? 2 : 1; }
+function handsUsed(){ var n=0; (state.carried||[]).forEach(function(id){ var w=wById(id); if(w) n+=handCount(w); }); if(state.shield && SHIELD) n+=1; return n; }
+function handsFree(){ return 2 - handsUsed(); }
+function hasVersatile(w){ return /versatile \d+d\d+/.test(((w&&w.props)||[]).join(" ")); }
+/* a versatile weapon is wielded two-handed when it's in hand and nothing else occupies a hand */
+function versatileActive(w){ return hasVersatile(w) && state.carried.indexOf(w.id)>=0 && (handsUsed()-handCount(w))===0; }
+function effSpeed(){ var s=CHARACTER.speed, arm=equippedArmor(); if(arm && arm.strReq && CHARACTER.abilities.STR < arm.strReq) s-=10; return s; }
+function acBreakdown(){
+  var parts=[], dex=abilMod("DEX"), arm=equippedArmor();
+  if(arm){ parts.push(arm.label.toLowerCase()+" "+arm.base+(arm.addDex?(" + Dex "+fmt(arm.dexCap!=null?Math.min(dex,arm.dexCap):dex)):"")); }
+  else parts.push("10 + Dex "+fmt(dex));
+  if(state.shield && SHIELD) parts.push("shield "+fmt(SHIELD.bonus));
+  if(state.style && AC_STYLE && arm) parts.push(AC_STYLE.label+" "+fmt(AC_STYLE.bonus));
+  return parts.join(" + ")+" = "+computeAC();
+}
+
 /* ----- reference content: auto ability modals + character-specific entries ----- */
 var REF = {};
 ABIL_ORDER.forEach(function(k){
@@ -22,8 +46,9 @@ ABIL_ORDER.forEach(function(k){
   if(initB) initBody.push("Alert also lets you swap your Initiative result with a willing ally's right after rolling.");
   REF["stat_init"]={title:"Initiative", dice:"Initiative: d20 "+fmt(initiative()), chips:initChips, body:initBody};
 
-  REF["stat_speed"]={title:"Speed", dice:CHARACTER.speed+" feet", chips:[{t:"Base "+CHARACTER.speed}],
-    body:["Your walking speed is "+CHARACTER.speed+" feet — how far you can move on your turn.","Difficult terrain costs double, and the Dash action lets you move that far again."]};
+  var spd=effSpeed(), penal=spd<CHARACTER.speed;
+  REF["stat_speed"]={title:"Speed", dice:spd+" feet", chips:[{t:"Base "+CHARACTER.speed}].concat(penal?[{t:"−10 heavy armor",c:"ember"}]:[]),
+    body:["Your walking speed is "+spd+" feet — how far you can move on your turn."+(penal?" Your Strength is below your heavy armor's requirement, so it's reduced by 10.":""),"Difficult terrain costs double, and the Dash action lets you move that far again."]};
 
   REF["stat_prof"]={title:"Proficiency Bonus", dice:fmt(PB), chips:[{t:"Level "+CHARACTER.level,c:"storm"}],
     body:["Your Proficiency Bonus is "+fmt(PB)+", set by your character level (it rises as you advance).",
@@ -66,25 +91,6 @@ Object.keys(CHARACTER.pools).forEach(function(id){
   POOL_MAX[id]=p.max; POOL_REMINDER[id]=p.reminder||""; POOL_EL[id]=[id+"Rivets", !!p.storm];
 });
 
-/* ----- AC config ----- */
-var AC_PARTS=[];
-["armor","shield","style"].forEach(function(k){ if(CHARACTER.ac[k]) AC_PARTS.push({id:k,label:CHARACTER.ac[k].label,note:CHARACTER.ac[k].note,requiresArmor:!!CHARACTER.ac[k].requiresArmor}); });
-function acDefault(){
-  var ac=CHARACTER.ac, o={};
-  if(ac.armor) o.armor = ac.armor.default!==false;
-  if(ac.shield) o.shield = ac.shield.default===true;
-  if(ac.style) o.style = ac.style.default!==false;
-  return o;
-}
-function acBreakdown(a){
-  var parts=[], ac=CHARACTER.ac, dex=abilMod("DEX");
-  if(a.armor && ac.armor){ parts.push(ac.armor.label.toLowerCase()+" "+ac.armor.base+(ac.armor.addDex?(" + Dex "+fmt(dex)):"")); }
-  else parts.push("10 + Dex "+fmt(dex));
-  if(a.shield && ac.shield) parts.push("shield "+fmt(ac.shield.bonus));
-  if(a.style && ac.style && a.armor) parts.push(ac.style.label+" "+fmt(ac.style.bonus));
-  return parts.join(" + ")+" = "+computeAC(a);
-}
-
 /* ----- weapons / mastery ----- */
 var WEAPONS = CHARACTER.weapons;
 var MASTERY_MAX = CHARACTER.masteryMax;
@@ -92,6 +98,12 @@ function wById(id){ for(var i=0;i<WEAPONS.length;i++){ if(WEAPONS[i].id===id) re
 /* weapons in your kit (data `carried` flags the starting loadout); whether each
    is currently in-hand is live state (state.carried), toggled from Inventory. */
 var OWNED = WEAPONS.filter(function(w){ return w.carried===true; }).map(function(w){ return w.id; });
+/* a hand-valid starting loadout: reserve a hand for a default shield, then draw owned weapons that fit */
+function defaultCarried(){
+  var hands=(SHIELD && SHIELD.default===true)?1:0, out=[];
+  OWNED.forEach(function(id){ var hc=handCount(wById(id)); if(hands+hc<=2){ out.push(id); hands+=hc; } });
+  return out;
+}
 
 /* ----- prepared spells (optional) ----- */
 var PREPARED_MAX = CHARACTER.prepared ? CHARACTER.prepared.max : 0;
@@ -116,7 +128,8 @@ function spellSlotsAvail(level, freePool){
 
 /* ----- state ----- */
 var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0, view:"attacks", conc:"",
-                 ac:acDefault(), masteries:(CHARACTER.masteryDefault||[]).slice(), carried:OWNED.slice() };
+                 armorId:armorDefaultId(), shield:!!(SHIELD&&SHIELD.default===true), style:!!(AC_STYLE&&AC_STYLE.default!==false),
+                 masteries:(CHARACTER.masteryDefault||[]).slice(), carried:defaultCarried() };
 Object.keys(CHARACTER.pools).forEach(function(id){ defaults[id]=CHARACTER.pools[id].max; });
 if(CHARACTER.prepared) defaults.prepared = CHARACTER.prepared.default.slice();
 var state = JSON.parse(JSON.stringify(defaults));
@@ -200,7 +213,7 @@ function renderHP(){
   [tempWrap,hpAdjust,tempRow,hitDicePool].forEach(function(el){ if(el) el.style.display = atZero ? "none" : ""; });
   if(!atZero && (state.dsSucc||state.dsFail)){ state.dsSucc=0; state.dsFail=0; persist(); renderDeath(); }
 }
-function renderACStud(){ if(acVal) acVal.textContent=computeAC(state.ac); }
+function renderACStud(){ if(acVal) acVal.textContent=computeAC(); }
 function renderMasterySummary(){
   var span=document.getElementById("wmSummary"); if(!span) return;
   var parts=state.masteries.map(function(id){ var w=wById(id); return w?w.mastery+" ("+w.name.toLowerCase()+")":null; }).filter(Boolean);
@@ -212,7 +225,7 @@ function renderAttacks(){
     if(state.carried.indexOf(w.id)<0 || !w.dmgDice) return;
     shown++;
     var mastered = state.masteries.indexOf(w.id)>=0;
-    var tag = mastered ? ' <span class="mastery">'+esc(w.mastery)+'</span>' : '';
+    var tag = (mastered ? ' <span class="mastery">'+esc(w.mastery)+'</span>' : '') + (versatileActive(w) ? ' <span class="mastery">two-handed</span>' : '');
     var sub = (w.props||[]).join(" · ") + ((w.props&&w.props.length)?" · ":"") + "crit "+critDmg(w);
     var b=document.createElement("button"); b.type="button"; b.className="tap"; b.setAttribute("data-ref", w.id);
     b.innerHTML='<div class="tap-name">'+esc(w.name)+tag+'</div>'+
@@ -222,25 +235,47 @@ function renderAttacks(){
   });
   if(!shown){ var e=document.createElement("p"); e.className="muted"; e.textContent="No weapon drawn — draw one in Inventory."; attackList.appendChild(e); }
 }
-/* Inventory drives which owned weapons are in hand; Attacks shows the drawn ones. */
+/* Inventory equips armor + shield (drives AC) and draws/stows weapons (drives Attacks). */
+function invRow(toggleLabel, on, onToggle, nameHTML, ref){
+  var row=document.createElement("div"); row.className="inv-weap"+(on?" drawn":"");
+  var toggle=document.createElement("button"); toggle.type="button"; toggle.className="iw-toggle"; toggle.textContent=toggleLabel;
+  toggle.addEventListener("click", onToggle);
+  var name=document.createElement(ref?"button":"div"); name.className="iw-name"; if(ref){ name.type="button"; name.setAttribute("data-ref", ref); }
+  name.innerHTML=nameHTML;
+  row.appendChild(toggle); row.appendChild(name); return row;
+}
+function renderInvEquip(){
+  var el=document.getElementById("invEquip"); if(!el) return; el.innerHTML="";
+  if(ARMORY.length){
+    var h=document.createElement("div"); h.className="inv-sub"; h.textContent="Armor · tap to wear (one at a time)"; el.appendChild(h);
+    ARMORY.forEach(function(a){ var on=state.armorId===a.id;
+      el.appendChild(invRow(on?"Worn":"Wear", on, function(){ equipArmor(a.id); },
+        '<span class="iw-n">'+esc(a.label)+'</span><span class="iw-m">'+esc(a.note)+'</span>'));
+    });
+  }
+  if(SHIELD){
+    var on=!!state.shield;
+    el.appendChild(invRow(on?"Held":"Hold", on, equipShield,
+      '<span class="iw-n">'+esc(SHIELD.label)+'</span><span class="iw-m">+'+SHIELD.bonus+' AC · 1 hand</span>'));
+  }
+  var hf=document.createElement("div"); hf.className="inv-hands"; hf.textContent="Hands: "+handsUsed()+" / 2 used"; el.appendChild(hf);
+}
 function renderInvWeapons(){
   var el=document.getElementById("invWeapons"); if(!el) return; el.innerHTML="";
   OWNED.forEach(function(id){ var w=wById(id); if(!w) return;
-    var drawn=state.carried.indexOf(id)>=0;
-    var row=document.createElement("div"); row.className="inv-weap"+(drawn?" drawn":"");
-    var toggle=document.createElement("button"); toggle.type="button"; toggle.className="iw-toggle";
-    toggle.textContent=drawn?"Drawn":"Stowed";
-    toggle.addEventListener("click", function(){ toggleCarried(id); });
-    var name=document.createElement("button"); name.type="button"; name.className="iw-name"; name.setAttribute("data-ref", w.id);
-    name.innerHTML='<span class="iw-n">'+esc(w.name)+'</span>'+(w.mastery?'<span class="iw-m">'+esc(w.mastery)+'</span>':'')+'<span class="info-tag">ⓘ</span>';
-    row.appendChild(toggle); row.appendChild(name); el.appendChild(row);
+    var drawn=state.carried.indexOf(id)>=0, twoH=handCount(w)>1, vers=versatileActive(w);
+    var tag=(w.mastery?'<span class="iw-m">'+esc(w.mastery)+'</span>':'')+(twoH?'<span class="iw-m">2H</span>':(vers?'<span class="iw-m">2H · '+esc((w.props||[]).join(" ").match(/versatile (\d+d\d+)/)[1])+'</span>':''));
+    el.appendChild(invRow(drawn?"Drawn":"Draw", drawn, function(){ toggleCarried(id); },
+      '<span class="iw-n">'+esc(w.name)+'</span>'+tag+'<span class="info-tag">ⓘ</span>', w.id));
   });
 }
+function renderInventory(){ renderInvEquip(); renderInvWeapons(); }
 function toggleCarried(id){
   var i=state.carried.indexOf(id);
-  if(i>=0) state.carried.splice(i,1); else state.carried.push(id);
-  persist(); renderInvWeapons(); renderAttacks(); renderCombat();
-  if(refOverlay.classList.contains("show") && document.querySelector(".wm-row")) paintMastery();
+  if(i>=0){ state.carried.splice(i,1); }
+  else { var w=wById(id); if(handsUsed()+handCount(w)>2){ toast("No free hand — stow something first."); return; } state.carried.push(id); }
+  persist(); renderInventory(); renderAttacks(); renderCombat(); renderACStud();
+  if(refOverlay.classList.contains("show")){ if(document.querySelector(".wm-row")) paintMastery(); paintAC(); }
 }
 function moveTarget(mv){ return mv.gloss ? (' data-gloss="'+esc(mv.gloss)+'"') : ((mv.ref||mv.weapon) ? (' data-ref="'+esc(mv.ref||mv.weapon)+'"') : ''); }
 function meterText(id, asFree){ return '<span class="cm-left">'+state[id]+'/'+POOL_MAX[id]+(asFree?' free':' left')+'</span>'; }
@@ -526,25 +561,34 @@ function renderPrepared(){
 function commitHp(){ var c=parseInt(hpCur.value,10); if(isNaN(c)) c=state.hpCur; var m=parseInt(hpMax.value,10); if(isNaN(m)||m<1) m=state.hpMax; state.hpMax=m; state.hpCur=Math.max(0,Math.min(m,c)); persist(); renderHP(); }
 function spendPool(pool){ if(state[pool]<=0) return false; state[pool]--; persist(); renderPools(); refreshModalUses(pool); return true; }
 
-/* ----- ARMOR CLASS modal ----- */
+/* ----- ARMOR CLASS modal — equips the same gear the Inventory does ----- */
+function acToggleBtn(label, note, onClick){
+  var btn=document.createElement("button"); btn.type="button"; btn.className="ac-toggle";
+  btn.innerHTML='<span class="acbox">✓</span><span class="acname">'+esc(label)+'</span><span class="acnote">'+esc(note)+'</span>';
+  btn.addEventListener("click", onClick); return btn;
+}
+function equipArmor(id){ state.armorId = (state.armorId===id) ? "" : id; persist(); renderACStud(); paintAC(); renderInvEquip(); }
+function equipShield(){ if(!state.shield && handsFree()<1){ toast("No free hand for a shield — stow a weapon first."); return; } state.shield=!state.shield; persist(); renderACStud(); paintAC(); renderInvEquip(); renderAttacks(); }
+function toggleStyle(){ state.style=!state.style; persist(); renderACStud(); paintAC(); }
 function openAC(trigger){
   resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
   refTitle.textContent="Armor Class"; refChips.innerHTML=""; refChips.style.display="none"; refDice.style.display="block"; refBody.innerHTML="";
-  var intro=document.createElement("p"); intro.textContent="Armor Class is how hard you are to hit: an attacker's d20 roll plus its bonuses must equal or beat it to land. Toggle gear below to see how yours is built up."; refBody.appendChild(intro);
+  var intro=document.createElement("p"); intro.textContent="Armor Class is how hard you are to hit: an attacker's d20 roll plus its bonuses must equal or beat it to land. Equip gear here or from your Inventory."; refBody.appendChild(intro);
   linkifyTerms(intro);
-  AC_PARTS.forEach(function(p){
-    var btn=document.createElement("button"); btn.type="button"; btn.className="ac-toggle";
-    btn.innerHTML='<span class="acbox">✓</span><span class="acname">'+esc(p.label)+'</span><span class="acnote">'+esc(p.note)+'</span>';
-    btn.addEventListener("click", function(){ state.ac[p.id]=!state.ac[p.id]; persist(); renderACStud(); paintAC(); });
-    refBody.appendChild(btn);
-  });
+  if(ARMORY.length>1){ var h=document.createElement("div"); h.className="hp-label"; h.style.cssText="text-align:left;margin:.5rem 0 .3rem"; h.textContent="Armor · equip one"; refBody.appendChild(h); }
+  ARMORY.forEach(function(a){ refBody.appendChild(acToggleBtn(a.label, a.note, function(){ equipArmor(a.id); })); });
+  if(SHIELD) refBody.appendChild(acToggleBtn(SHIELD.label, SHIELD.note||"+"+SHIELD.bonus+" AC", equipShield));
+  if(AC_STYLE) refBody.appendChild(acToggleBtn(AC_STYLE.label, AC_STYLE.note||"+"+AC_STYLE.bonus+" AC", toggleStyle));
   refFoot.innerHTML='<span class="uses-left" id="acBreak"></span>'; paintAC(); refOverlay.classList.add("show"); document.getElementById("refClose").focus();
 }
 function paintAC(){
-  refDice.textContent="AC "+computeAC(state.ac);
-  var btns=refBody.querySelectorAll(".ac-toggle");
-  AC_PARTS.forEach(function(p,i){ var b=btns[i]; if(!b) return; b.classList.toggle("on", !!state.ac[p.id]); b.classList.toggle("inactive", p.requiresArmor && !state.ac.armor); });
-  var brk=document.getElementById("acBreak"); if(brk) brk.textContent=acBreakdown(state.ac);
+  if(!refOverlay.classList.contains("show")) return;
+  refDice.textContent="AC "+computeAC();
+  var btns=refBody.querySelectorAll(".ac-toggle"), i=0;
+  ARMORY.forEach(function(a){ var b=btns[i++]; if(b) b.classList.toggle("on", state.armorId===a.id); });
+  if(SHIELD){ var bs=btns[i++]; if(bs) bs.classList.toggle("on", !!state.shield); }
+  if(AC_STYLE){ var by=btns[i++]; if(by){ by.classList.toggle("on", !!state.style); by.classList.toggle("inactive", !equippedArmor()); } }
+  var brk=document.getElementById("acBreak"); if(brk) brk.textContent=acBreakdown();
 }
 
 /* ----- WEAPON MASTERY modal ----- */
@@ -738,7 +782,7 @@ function wireSheet(){
     if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
       state=JSON.parse(JSON.stringify(defaults));
       Promise.resolve(store.clear()).then(function(){ persist(); });
-      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInvWeapons(); if(CHARACTER.prepared) renderPrepared(); renderConc(); toast("Sheet reset.");
+      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInventory(); if(CHARACTER.prepared) renderPrepared(); renderConc(); toast("Sheet reset.");
     }
   });
 }
@@ -749,13 +793,13 @@ function wireSheet(){
   setStatus("loading");
   var loaded=null; try { loaded=await store.load(); } catch(e){}
   state=applyDefaults(loaded);
-  if(!state.ac || typeof state.ac!=="object") state.ac=JSON.parse(JSON.stringify(defaults.ac));
+  if(state.armorId && !armorById(state.armorId)) state.armorId=defaults.armorId;
   if(!Array.isArray(state.masteries)) state.masteries=defaults.masteries.slice();
   if(!Array.isArray(state.carried)) state.carried=defaults.carried.slice();
   else state.carried=state.carried.filter(function(id){ return OWNED.indexOf(id)>=0; });
   if(CHARACTER.prepared && !Array.isArray(state.prepared)) state.prepared=defaults.prepared.slice();
   renderAbilities(); renderSkills();
-  renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInvWeapons();
+  renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInventory();
   if(CHARACTER.prepared) renderPrepared();
   if(CHARACTER.combat) setView(state.view);
   renderConc();
