@@ -128,6 +128,7 @@ const CAT = {
   spells: readJson(path.join(CONTENT, "spells.json")),
   weapons: readJson(path.join(CONTENT, "weapons.json")),
   armor: readJson(path.join(CONTENT, "armor.json")),
+  classFeatures: readJson(path.join(CONTENT, "class-features.json")),
 };
 const uiJs = read(path.join(SRC, "builder", "ui.js"));
 const catJson = JSON.stringify(CAT).replace(/<\/script/gi, "<\\/script");

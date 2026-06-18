@@ -91,6 +91,27 @@
   }
   function backgroundFeat(){ var bg=CAT.backgrounds[state.background]; return bg && bg.grantsFeat; }
 
+  /* ----- spell slots by character level + class features ----- */
+  var HALF_SLOTS={1:[2],2:[2],3:[3],4:[3],5:[4,2],6:[4,2],7:[4,3],8:[4,3],9:[4,3,2],10:[4,3,2],11:[4,3,3],12:[4,3,3],13:[4,3,3,1],14:[4,3,3,1],15:[4,3,3,2],16:[4,3,3,2],17:[4,3,3,3,1],18:[4,3,3,3,1],19:[4,3,3,3,2],20:[4,3,3,3,2]};
+  var FULL_SLOTS={1:[2],2:[3],3:[4,2],4:[4,3],5:[4,3,2],6:[4,3,3],7:[4,3,3,1],8:[4,3,3,2],9:[4,3,3,3,1],10:[4,3,3,3,2],11:[4,3,3,3,2,1],12:[4,3,3,3,2,1],13:[4,3,3,3,2,1,1],14:[4,3,3,3,2,1,1],15:[4,3,3,3,2,1,1,1],16:[4,3,3,3,2,1,1,1],17:[4,3,3,3,2,1,1,1,1],18:[4,3,3,3,3,1,1,1,1],19:[4,3,3,3,3,2,1,1,1],20:[4,3,3,3,3,2,2,1,1]};
+  function ordinalB(n){ var s=["th","st","nd","rd"],v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
+  function spellSlotsFor(){
+    var cd=classData(); if(!cd.spellAbility) return null;
+    var table=cd.caster==="full"?FULL_SLOTS:cd.caster==="half"?HALF_SLOTS:null; if(!table) return null;
+    var counts=table[Math.min(state.level,20)]||[]; if(!counts.length) return null;
+    return counts.map(function(n,i){ var lvl=i+1; return {id:"slot"+lvl,label:"Level "+lvl+" Slots",max:n,rest:"long",ref:"spellslots"+lvl,storm:true,note:"long rest",use:"Spend a slot",reminder:"Spend a "+ordinalB(lvl)+"-level spell slot.",slotLevel:lvl}; });
+  }
+  function classFeatureSources(){
+    var cd=classData(), fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[state.cls]||{}, out=[];
+    for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(cf[name]) out.push({ id:cf[name].refId||name, name:(cd.name||"")+": "+name, include:"class:"+state.cls+":"+name }); });
+    return out;
+  }
+  function featureList(){
+    var cd=classData(), fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[state.cls]||{}, out=[];
+    for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(name==="Ability Score Improvement") return; out.push({ ref:(cf[name]&&cf[name].refId)||"", name:name, sub:"Level "+l }); });
+    return out;
+  }
+
   /* ----- build block + scaffold output ----- */
   function buildBlock(){
     var cd = classData();
@@ -99,6 +120,10 @@
     if(state.skills.length) sources.push({ id:state.cls+"-skills", name:(cd.name||state.cls)+" skills", effects:{ skills: state.skills.slice() } });
     var sp = CAT.species[state.species];
     if(sp) Object.keys(sp.traits).forEach(function(tr){ sources.push({ id:tr, name:(sp.name+": "+sp.traits[tr].name), include:"species:"+state.species+":"+tr }); });
+    // class spellcasting (slots scale with level) + class features up to level
+    var slots=spellSlotsFor();
+    if(slots) sources.push({ id:"spellcasting", name:"Spellcasting", effects:{ spellcasting:{ ability:cd.spellAbility, slots:slots } } });
+    classFeatureSources().forEach(function(s){ sources.push(s); });
     // level-1 origin feat (e.g. Human Versatile)
     if(state.originFeat) sources.push({ id:"feat-"+state.originFeat, name:"Origin feat: "+(CAT.feats[state.originFeat]||{}).name, grantsFeat:state.originFeat });
     // hit dice pool scales with level
@@ -121,25 +146,36 @@
   function genStuds(){ return [ {ref:"stat_ac",label:"AC",id:"acVal"},{ref:"stat_init",label:"Init"},{ref:"stat_speed",label:"Speed"},{ref:"stat_prof",label:"Prof"},{ref:"stat_pass",label:"Pass.Per"} ]; }
   function genBuildLog(){
     var cd=classData(), sp=CAT.species[state.species], bg=CAT.backgrounds[state.background], bgInc=abilityIncreases();
-    var L1=[];
-    if(sp) L1.push({html:"<b>Species: "+esc(sp.name)+"</b> — "+Object.keys(sp.traits).map(function(k){return esc(sp.traits[k].name);}).join(", ")+" · Speed "+derive().speed});
-    L1.push({html:"<b>Ability scores:</b> "+ABIL.map(function(a){return cap(a)+" "+((state.base[a]||10)+(bgInc[a]||0));}).join(", ")+(Object.keys(bgInc).length?" <span class=\"tag\">(background "+Object.keys(bgInc).map(function(k){return "+"+bgInc[k]+" "+k;}).join(" / ")+")</span>":"")});
-    if(bg) L1.push({cls:"choice", html:"<b>Background: "+esc(bg.name)+"</b>"+(bg.grantsFeat?(" — Origin feat "+esc(featName(bg.grantsFeat))):"")});
-    if(state.skills.length) L1.push({cls:"choice", html:"<b>Skills ("+esc(cd.name||"")+", choose "+((cd.skillChoices||{}).count||0)+"):</b> "+state.skills.map(esc).join(", ")});
-    if(state.originFeat) L1.push({cls:"choice", html:"<b>Origin feat:</b> "+esc(featName(state.originFeat))});
-    var levels=[{title:"Level 1", tag:cd.name||"", items:L1}];
-    if(state.level>=3 && state.subclass) levels.push({title:"Level 3", tag:cd.name||"", items:[{cls:"choice", html:"<b>Subclass:</b> "+esc((CAT.subclasses[state.subclass]||{}).name||titleCase(state.subclass))}]});
+    var cf=(CAT.classFeatures||{})[state.cls]||{}, fbl=cd.featuresByLevel||{}, byLevel={};
+    function add(l,it){ (byLevel[l]=byLevel[l]||[]).push(it); }
+    // class features by level (skip the choices handled explicitly below)
+    Object.keys(fbl).forEach(function(ls){ var l=+ls; if(l>state.level) return; fbl[ls].forEach(function(name){
+      if(name==="Ability Score Improvement" || /Subclass$/.test(name)) return;
+      add(l, {html:"<b>"+esc(name)+"</b>"+(cf[name]&&cf[name].ref&&cf[name].ref.body?(" — "+esc(cf[name].ref.body[0])):"")});
+    }); });
+    // level-1 specifics
+    if(sp) add(1,{html:"<b>Species: "+esc(sp.name)+"</b> — "+Object.keys(sp.traits).map(function(k){return esc(sp.traits[k].name);}).join(", ")+" · Speed "+derive().speed});
+    add(1,{html:"<b>Ability scores:</b> "+ABIL.map(function(a){return cap(a)+" "+((state.base[a]||10)+(bgInc[a]||0));}).join(", ")+(Object.keys(bgInc).length?" <span class=\"tag\">(background "+Object.keys(bgInc).map(function(k){return "+"+bgInc[k]+" "+k;}).join(" / ")+")</span>":"")});
+    if(bg) add(1,{cls:"choice", html:"<b>Background: "+esc(bg.name)+"</b>"+(bg.grantsFeat?(" — Origin feat "+esc(featName(bg.grantsFeat))):"")});
+    if(state.skills.length) add(1,{cls:"choice", html:"<b>Skills ("+esc(cd.name||"")+", choose "+((cd.skillChoices||{}).count||0)+"):</b> "+state.skills.map(esc).join(", ")});
+    if(state.originFeat) add(1,{cls:"choice", html:"<b>Origin feat:</b> "+esc(featName(state.originFeat))});
+    if(state.level>=3 && state.subclass) add(3,{cls:"choice", html:"<b>Subclass:</b> "+esc((CAT.subclasses[state.subclass]||{}).name||titleCase(state.subclass))});
     reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return; var h;
       if(a.mode==="feat") h="<b>Feat:</b> "+esc(featName(a.feat)||"(choose one)");
       else if(a.mode==="asi2") h="<b>Ability Score Improvement:</b> +2 "+esc(a.a||"?");
       else h="<b>Ability Score Improvement:</b> +1 "+esc(a.a||"?")+", +1 "+esc(a.b||"?");
-      levels.push({title:"Level "+l, tag:cd.name||"", items:[{cls:"choice", html:h}]});
+      add(l,{cls:"choice", html:h});
     });
-    return levels;
+    return Object.keys(byLevel).map(Number).sort(function(a,b){return a-b;}).map(function(l){ return {title:"Level "+l, tag:cd.name||"", items:byLevel[l]}; });
   }
   function genCards(){
-    return [ {type:"abilities"}, {type:"hitpoints"}, {type:"attacks"}, {type:"skills"},
-      {type:"pools", title:"Resources", pools:"*"}, {type:"buildlog", title:"Build Log", hint:"every choice, level by level", levels:genBuildLog()} ];
+    var cd=classData(), cards=[ {type:"abilities"}, {type:"hitpoints"}, {type:"attacks"} ];
+    if(cd.spellAbility) cards.push({type:"spellcasting"});
+    cards.push({type:"skills"});
+    cards.push({type:"pools", title:"Resources", pools:"*"});
+    var feats=featureList(); if(feats.length) cards.push({type:"features", title:"Features & Traits", list:feats});
+    cards.push({type:"buildlog", title:"Build Log", hint:"every choice, level by level", levels:genBuildLog()});
+    return cards;
   }
   function scaffold(){
     var d = derive(), cd = classData();

@@ -1,0 +1,51 @@
+{
+  "ranger": {
+    "Favored Enemy": {
+      "refId": "favoredenemy",
+      "effects": {
+        "alwaysPrepared": [{ "ref": "huntersmark", "name": "Hunter's Mark", "sub": "Favored Enemy · Concentration" }],
+        "grantsPool": {
+          "id": "hm",
+          "label": "Hunter's Mark — free casts",
+          "max": "prof",
+          "rest": "long",
+          "ref": "huntersmark",
+          "storm": true,
+          "note": "long rest",
+          "use": "Use free cast",
+          "reminder": "Favored Enemy: free cast of Hunter's Mark (no slot)."
+        }
+      },
+      "ref": {
+        "title": "Favored Enemy",
+        "chips": [{ "t": "Hunter's Mark", "c": "ember" }, { "t": "Free casts = Prof", "c": "storm" }],
+        "body": ["Hunter's Mark is always prepared, and you can cast it without a spell slot a number of times equal to your Proficiency Bonus per long rest."]
+      }
+    },
+    "Deft Explorer": {
+      "refId": "deftexplorer",
+      "effects": { "languages": 2 },
+      "ref": {
+        "title": "Deft Explorer",
+        "chips": [{ "t": "Expertise" }, { "t": "+2 languages" }],
+        "body": ["You gain Expertise in one skill you're proficient with, and you learn two additional languages."]
+      }
+    },
+    "Weapon Mastery": {
+      "refId": "weaponmastery",
+      "ref": {
+        "title": "Weapon Mastery",
+        "chips": [{ "t": "2 weapons", "c": "ember" }],
+        "body": ["You can use the mastery property of two kinds of weapons of your choice; you can change the choices after a long rest. Pick them in the Weapon Mastery panel."]
+      }
+    },
+    "Fighting Style": {
+      "refId": "fightingstyle",
+      "ref": {
+        "title": "Fighting Style",
+        "chips": [{ "t": "Combat feat" }],
+        "body": ["You gain a Fighting Style feat of your choice (Archery, Defense, Dueling, Two-Weapon Fighting, etc.) — record it on your sheet."]
+      }
+    }
+  }
+}

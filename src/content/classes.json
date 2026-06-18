@@ -3,53 +3,246 @@
     "name": "Ranger",
     "desc": "A wilderness warrior blending martial skill with primal magic, tracking, and favored prey.",
     "hitDie": "d10",
-    "saves": ["STR", "DEX"],
-    "primary": ["DEX", "WIS"],
-    "priority": ["DEX", "WIS", "CON", "STR", "CHA", "INT"],
+    "saves": [
+      "STR",
+      "DEX"
+    ],
+    "primary": [
+      "DEX",
+      "WIS"
+    ],
+    "priority": [
+      "DEX",
+      "WIS",
+      "CON",
+      "STR",
+      "CHA",
+      "INT"
+    ],
     "caster": "half",
     "spellAbility": "WIS",
-    "skillChoices": { "count": 3, "from": ["Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"] },
+    "skillChoices": {
+      "count": 3,
+      "from": [
+        "Animal Handling",
+        "Athletics",
+        "Insight",
+        "Investigation",
+        "Nature",
+        "Perception",
+        "Stealth",
+        "Survival"
+      ]
+    },
     "weaponMastery": 2,
     "subclassLevel": 3,
-    "subclasses": ["fey-wanderer", "hunter", "gloom-stalker", "beast-master"]
+    "subclasses": [
+      "fey-wanderer",
+      "hunter",
+      "gloom-stalker",
+      "beast-master"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Spellcasting",
+        "Favored Enemy",
+        "Weapon Mastery"
+      ],
+      "2": [
+        "Deft Explorer",
+        "Fighting Style"
+      ],
+      "3": [
+        "Ranger Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Extra Attack"
+      ]
+    }
   },
   "fighter": {
     "name": "Fighter",
     "desc": "A master of weapons and armor, defined by sheer combat versatility and staying power.",
     "hitDie": "d10",
-    "saves": ["STR", "CON"],
-    "primary": ["STR", "DEX"],
-    "priority": ["STR", "CON", "DEX", "WIS", "CHA", "INT"],
+    "saves": [
+      "STR",
+      "CON"
+    ],
+    "primary": [
+      "STR",
+      "DEX"
+    ],
+    "priority": [
+      "STR",
+      "CON",
+      "DEX",
+      "WIS",
+      "CHA",
+      "INT"
+    ],
     "caster": "none",
-    "skillChoices": { "count": 2, "from": ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Persuasion", "Survival"] },
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "Acrobatics",
+        "Animal Handling",
+        "Athletics",
+        "History",
+        "Insight",
+        "Intimidation",
+        "Perception",
+        "Persuasion",
+        "Survival"
+      ]
+    },
     "weaponMastery": 3,
     "subclassLevel": 3,
-    "subclasses": ["battle-master", "champion", "eldritch-knight", "psi-warrior"]
+    "subclasses": [
+      "battle-master",
+      "champion",
+      "eldritch-knight",
+      "psi-warrior"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Fighting Style",
+        "Second Wind",
+        "Weapon Mastery"
+      ],
+      "2": [
+        "Action Surge",
+        "Tactical Mind"
+      ],
+      "3": [
+        "Fighter Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Extra Attack",
+        "Tactical Shift"
+      ]
+    }
   },
   "wizard": {
     "name": "Wizard",
     "desc": "A scholar of arcane magic with the broadest spell list in the game, but fragile in a fight.",
     "hitDie": "d6",
-    "saves": ["INT", "WIS"],
-    "primary": ["INT"],
-    "priority": ["INT", "CON", "DEX", "WIS", "CHA", "STR"],
+    "saves": [
+      "INT",
+      "WIS"
+    ],
+    "primary": [
+      "INT"
+    ],
+    "priority": [
+      "INT",
+      "CON",
+      "DEX",
+      "WIS",
+      "CHA",
+      "STR"
+    ],
     "caster": "full",
     "spellAbility": "INT",
-    "skillChoices": { "count": 2, "from": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Nature", "Religion"] },
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "Arcana",
+        "History",
+        "Insight",
+        "Investigation",
+        "Medicine",
+        "Nature",
+        "Religion"
+      ]
+    },
     "subclassLevel": 3,
-    "subclasses": ["diviner", "evoker", "abjurer", "illusionist"]
+    "subclasses": [
+      "diviner",
+      "evoker",
+      "abjurer",
+      "illusionist"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Spellcasting",
+        "Arcane Recovery",
+        "Ritual Adept"
+      ],
+      "2": [
+        "Scholar"
+      ],
+      "3": [
+        "Wizard Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Memorize Spell"
+      ]
+    }
   },
   "cleric": {
     "name": "Cleric",
     "desc": "A divine caster channeling a deity's power to heal, smite, and protect allies.",
     "hitDie": "d8",
-    "saves": ["WIS", "CHA"],
-    "primary": ["WIS"],
-    "priority": ["WIS", "CON", "STR", "CHA", "DEX", "INT"],
+    "saves": [
+      "WIS",
+      "CHA"
+    ],
+    "primary": [
+      "WIS"
+    ],
+    "priority": [
+      "WIS",
+      "CON",
+      "STR",
+      "CHA",
+      "DEX",
+      "INT"
+    ],
     "caster": "full",
     "spellAbility": "WIS",
-    "skillChoices": { "count": 2, "from": ["History", "Insight", "Medicine", "Persuasion", "Religion"] },
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "History",
+        "Insight",
+        "Medicine",
+        "Persuasion",
+        "Religion"
+      ]
+    },
     "subclassLevel": 3,
-    "subclasses": ["life", "light", "trickery", "war"]
+    "subclasses": [
+      "life",
+      "light",
+      "trickery",
+      "war"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Spellcasting",
+        "Divine Order"
+      ],
+      "2": [
+        "Channel Divinity"
+      ],
+      "3": [
+        "Cleric Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Sear Undead"
+      ]
+    }
   }
 }

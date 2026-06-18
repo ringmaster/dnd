@@ -19,6 +19,10 @@ function resolveInclude(pathStr, cat){
     const b = cat.backgrounds[p[1]];
     return { effects: b.effects, grantsFeat: b.grantsFeat, ref: b.ref, refId: p[1] };
   }
+  if (p[0] === "class" && cat.classFeatures && cat.classFeatures[p[1]] && cat.classFeatures[p[1]][p[2]]){
+    const f = cat.classFeatures[p[1]][p[2]];
+    return { effects: f.effects, ref: f.ref, refId: f.refId || p[2] };
+  }
   return null;
 }
 function expandGrants(sources, cat){
@@ -72,7 +76,7 @@ function hadKey(eff, k){ return eff.some(e => e[k] != null); }
 
 export function compile(input, cat){
   cat = cat || {};
-  cat = { feats:cat.feats||{}, spells:cat.spells||{}, species:cat.species||{}, backgrounds:cat.backgrounds||{}, weapons:cat.weapons||{}, armor:cat.armor||{} };
+  cat = { feats:cat.feats||{}, spells:cat.spells||{}, species:cat.species||{}, backgrounds:cat.backgrounds||{}, weapons:cat.weapons||{}, armor:cat.armor||{}, classFeatures:cat.classFeatures||{} };
   const FEATS = cat.feats, SPELLS = cat.spells, ARMOR = cat.armor;
   const c = JSON.parse(JSON.stringify(input));
   if (Array.isArray(c.weapons)) c.weapons = c.weapons.map(w => mergeWeapon(w, cat));

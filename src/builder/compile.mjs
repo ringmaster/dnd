@@ -16,6 +16,7 @@ const CAT = {
   backgrounds: load(path.join(CONTENT, "backgrounds.json")),
   weapons: load(path.join(CONTENT, "weapons.json")),
   armor: load(path.join(CONTENT, "armor.json")),
+  classFeatures: load(path.join(CONTENT, "class-features.json")),
 };
 
 export function compile(input){ return core(input, CAT); }
