@@ -92,12 +92,18 @@ const indexHtml = `<!DOCTYPE html>
   .pc-sub{color:var(--ash);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}
   .pc-go{margin-top:.5rem;color:var(--ember-bright);font-family:"Cinzel",serif;font-size:.8rem;letter-spacing:.05em}
   footer{color:var(--ash-dim);font-size:.74rem;margin-top:2.5rem;text-align:center}
+  .build-cta{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;margin:0 0 1.6rem;
+    font-family:"Cinzel",serif;font-weight:700;font-size:.85rem;letter-spacing:.04em;color:var(--ember-bright);
+    background:linear-gradient(180deg,#3a2e22,#2a2118);border:1px solid var(--ember);border-radius:10px;
+    padding:.7rem 1.1rem;box-shadow:0 4px 12px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .15s, transform .08s}
+  .build-cta:hover{border-color:var(--ember-bright)} .build-cta:active{transform:translateY(1px)}
 </style>
 </head>
 <body>
   <div class="wrap">
     <h1>D&amp;D Characters</h1>
-    <p class="lede">Tap a character to open their sheet, or <a href="builder.html" style="color:var(--ember-bright)">build a new one →</a></p>
+    <p class="lede">Tap a character to open their sheet.</p>
+    <a class="build-cta" href="builder.html">⚒ Build a new character →</a>
     <div class="pcs">
 ${cards}
     </div>
