@@ -721,8 +721,8 @@
         }
       ],
       "body": [
-        "A Magic action fueling one of your divine options: Divine Spark, Turn Undead, or Preserve Life. You have two uses; regain one on a short rest and all on a long rest.",
-        "Tap Use to spend a use, then resolve the chosen option below."
+        "A Magic action that fuels one of your divine options — Divine Spark, Turn Undead, or Preserve Life — each listed under Channel Divinity in your Resources. You have two uses; regain one on a short rest and all on a long rest.",
+        "Tap one of those options to see how it works, then tap Use here to spend a use."
       ]
     },
     "divinespark": {

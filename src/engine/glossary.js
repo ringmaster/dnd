@@ -117,6 +117,9 @@
     "advantage":{term:"Advantage",def:"Roll two d20s and use the higher roll. Advantage doesn't stack — and if you have both Advantage and Disadvantage on the same roll, they cancel out and you roll a single d20."},
     "disadvantage":{term:"Disadvantage",def:"Roll two d20s and use the lower roll. If you have both Advantage and Disadvantage on a roll, they cancel and you roll one d20."},
     "bonus-action":{term:"Bonus Action",def:"A quick extra action you can take on your turn on top of your action and movement. You get only one Bonus Action per turn, and only when a feature specifically grants one."},
+    "magic-action":{term:"Magic action",def:"The action you take to cast a spell that has a casting time of an action, or to use a magic item or a feature that calls for a Magic action. It's one of the named actions you can take on your turn, in place of the Attack or another action."},
+    "short-rest":{term:"Short Rest",def:"A break of at least 1 hour spent doing light activity. You can spend Hit Dice to heal, and some features recharge on a short rest. You can take several in a day."},
+    "long-rest":{term:"Long Rest",def:"At least 8 hours of rest (up to 1 hour of light activity allowed). It restores all lost hit points, returns half your spent Hit Dice, and refreshes spell slots and most per-rest features. You benefit from only one Long Rest per 24 hours."},
     "prone":{term:"Prone",def:"A condition. A Prone creature can only crawl and attacks with Disadvantage. Attack rolls against it have Advantage if the attacker is within 5 feet, and Disadvantage otherwise. Standing up costs half your movement."},
     "saving-throw":{term:"Saving Throw",def:"A d20 roll to resist an effect, adding the relevant ability modifier plus your Proficiency Bonus if you're proficient. You succeed if the total meets or beats the effect's DC."},
     "ability-check":{term:"Ability Check",def:"A d20 roll plus an ability modifier (plus your Proficiency Bonus if proficient in a relevant skill) to attempt something uncertain, compared against a DC."},
@@ -182,6 +185,8 @@
   var ALIASES = {
     "advantage":"advantage","disadvantage":"disadvantage",
     "bonus action":"bonus-action",
+    "magic action":"magic-action",
+    "short rest":"short-rest","long rest":"long-rest",
     "prone":"prone","prone condition":"prone",
     "saving throw":"saving-throw","saving throws":"saving-throw","save":"saving-throw","saves":"saving-throw",
     "ability check":"ability-check","ability checks":"ability-check","check":"ability-check","checks":"ability-check",
