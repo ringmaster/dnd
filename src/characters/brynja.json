@@ -1299,5 +1299,124 @@
         ]
       }
     ]
+  },
+  "build": {
+    "sources": [
+      {
+        "id": "guide",
+        "name": "Background: Guide",
+        "effects": {
+          "skills": [
+            "Stealth",
+            "Survival"
+          ],
+          "tools": [
+            "Cartographer's Tools"
+          ],
+          "feat": "magicinitiate"
+        }
+      },
+      {
+        "id": "ranger-skills",
+        "name": "Ranger skills (choose 3)",
+        "effects": {
+          "skills": [
+            "Perception",
+            "Nature",
+            "Insight"
+          ]
+        }
+      },
+      {
+        "id": "skillful",
+        "name": "Human: Skillful",
+        "effects": {
+          "skills": [
+            "Animal Handling"
+          ]
+        }
+      },
+      {
+        "id": "glamour",
+        "name": "Otherworldly Glamour",
+        "effects": {
+          "skills": [
+            "Persuasion"
+          ],
+          "checkBonus": {
+            "CHA": "wisMod"
+          }
+        }
+      },
+      {
+        "id": "deftexplorer",
+        "name": "Deft Explorer",
+        "effects": {
+          "expertise": [
+            "Stealth"
+          ],
+          "languages": 2
+        }
+      },
+      {
+        "id": "favoredenemy",
+        "name": "Favored Enemy",
+        "effects": {
+          "pool": "hm",
+          "alwaysPrepared": [
+            "Hunter's Mark"
+          ]
+        }
+      },
+      {
+        "id": "feywanderer",
+        "name": "Fey Wanderer Magic",
+        "effects": {
+          "alwaysPrepared": [
+            "Charm Person"
+          ]
+        }
+      },
+      {
+        "id": "magicinitiate",
+        "name": "Magic Initiate (Druid)",
+        "effects": {
+          "pool": "mi",
+          "grantsSpells": [
+            "Guidance",
+            "Produce Flame",
+            "Faerie Fire"
+          ]
+        }
+      },
+      {
+        "id": "lucky",
+        "name": "Lucky",
+        "effects": {
+          "pool": "luck"
+        }
+      },
+      {
+        "id": "resourceful",
+        "name": "Human: Resourceful",
+        "effects": {
+          "pool": "insp"
+        }
+      },
+      {
+        "id": "ranger-spellcasting",
+        "name": "Spellcasting",
+        "effects": {
+          "pool": "slot1"
+        }
+      },
+      {
+        "id": "ranger-hitdice",
+        "name": "Hit Dice (d10)",
+        "effects": {
+          "pool": "hd"
+        }
+      }
+    ]
   }
 }

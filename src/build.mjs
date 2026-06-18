@@ -34,6 +34,9 @@ for (const cf of charFiles) {
   catch (e) { console.error("Bad JSON in " + cf + ": " + e.message); process.exit(1); }
   if (!data.out) { console.error(cf + " is missing an `out` filename"); process.exit(1); }
 
+  // `build` is authoring metadata (effect provenance) — keep it out of the shipped sheet
+  delete data.build;
+
   // inline data; guard against a literal </script> inside any string
   const dataJson = JSON.stringify(data).replace(/<\/script/gi, "<\\/script");
   const script = indent("var CHARACTER = " + dataJson + ";\n\n" + engineJs, "  ");

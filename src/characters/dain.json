@@ -976,5 +976,84 @@
         ]
       }
     ]
+  },
+  "build": {
+    "sources": [
+      {
+        "id": "guard",
+        "name": "Background: Guard",
+        "effects": {
+          "skills": [
+            "Athletics",
+            "Perception"
+          ],
+          "feat": "alert"
+        }
+      },
+      {
+        "id": "alert",
+        "name": "Alert",
+        "effects": {
+          "initiativeBonus": "prof"
+        }
+      },
+      {
+        "id": "fighter-skills",
+        "name": "Fighter skills (choose 2)",
+        "effects": {
+          "skills": [
+            "Intimidation",
+            "Survival"
+          ]
+        }
+      },
+      {
+        "id": "studentofwar",
+        "name": "Student of War",
+        "effects": {
+          "skills": [
+            "Insight"
+          ],
+          "tools": [
+            "Smith's Tools"
+          ]
+        }
+      },
+      {
+        "id": "combatsup",
+        "name": "Combat Superiority",
+        "effects": {
+          "pool": "sup"
+        }
+      },
+      {
+        "id": "secondwind",
+        "name": "Second Wind",
+        "effects": {
+          "pool": "sw"
+        }
+      },
+      {
+        "id": "actionsurge",
+        "name": "Action Surge",
+        "effects": {
+          "pool": "as"
+        }
+      },
+      {
+        "id": "stonecunning",
+        "name": "Stonecunning",
+        "effects": {
+          "pool": "sc"
+        }
+      },
+      {
+        "id": "fighter-hitdice",
+        "name": "Hit Dice (d10)",
+        "effects": {
+          "pool": "hd"
+        }
+      }
+    ]
   }
 }
