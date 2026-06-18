@@ -179,6 +179,9 @@
   .skill.prof .pip{background:var(--ember);border-color:var(--ember)}
   .skill.exp .pip{background:var(--storm);border-color:var(--storm);box-shadow:0 0 0 2px rgba(111,168,199,.35)}
   .exp-tag{font-family:"Cinzel",serif;font-size:.52rem;color:var(--storm);border:1px solid var(--storm);border-radius:4px;padding:0 .22rem;letter-spacing:.06em;vertical-align:middle;margin-left:.25rem}
+  .prof-foot{margin-top:.7rem;border-top:1px solid var(--iron);padding-top:.5rem;display:flex;flex-direction:column;gap:.25rem}
+  .prof-line{font-size:.8rem;color:var(--bone)}
+  .prof-line .prof-lbl{font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ash-dim);margin-right:.45rem}
   .count-tag{font-family:"Cinzel",serif;font-size:.6rem;color:var(--ember);border:1px solid var(--ember);border-radius:4px;padding:0 .3rem;letter-spacing:.04em;vertical-align:middle;margin-left:.3rem}
   .skill .sname{flex:1;color:var(--ash)} .skill.prof .sname{color:var(--bone)}
   .skill .smod{font-variant-numeric:tabular-nums;color:var(--bone);font-weight:600}

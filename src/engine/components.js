@@ -91,7 +91,13 @@ var CARD = {
     if(card.initiate && card.initiate.pool){ html+=poolBlock(card.initiate.pool); }
     return html;
   },
-  skills: function(){ return '<h2>Skills <span class="hint">tap a skill · ● proficient · roll d20 + value</span></h2><div class="skills" id="skills"></div>'; },
+  skills: function(){
+    var foot="";
+    var t=CHARACTER.tools||[], lang=CHARACTER.languages;
+    if(t.length) foot+='<div class="prof-line"><span class="prof-lbl">Tools</span>'+t.map(esc).join(" · ")+'</div>';
+    if(lang){ var parts=(lang.known||[]).slice(); if(lang.choices) parts.push(lang.choices+" of choice"); if(parts.length) foot+='<div class="prof-line"><span class="prof-lbl">Languages</span>'+parts.map(esc).join(" · ")+'</div>'; }
+    return '<h2>Skills <span class="hint">tap a skill · ● proficient · roll d20 + value</span></h2><div class="skills" id="skills"></div>'+(foot?'<div class="prof-foot">'+foot+'</div>':'');
+  },
   inventory: function(card){
     var html='<h2>Inventory <span class="hint">gear &amp; carried items</span></h2>';
     if(card.magic){ html+='<button class="inv-magic" data-ref="'+esc(card.magic.ref)+'" type="button"><b>'+esc(card.magic.name)+'</b><span class="mtag">'+esc(card.magic.tag)+'</span><span class="desc">'+esc(card.magic.desc)+'</span></button>'; }
