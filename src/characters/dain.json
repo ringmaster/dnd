@@ -918,19 +918,12 @@
             "Athletics",
             "Perception"
           ],
-          "feat": "alert",
           "abilityIncrease": {
             "STR": 2,
             "WIS": 1
           }
-        }
-      },
-      {
-        "id": "alert",
-        "name": "Alert",
-        "effects": {
-          "initiativeBonus": "prof"
-        }
+        },
+        "grantsFeat": "alert"
       },
       {
         "id": "fighter-skills",

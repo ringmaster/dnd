@@ -1,0 +1,61 @@
+{
+  "magicinitiate": {
+    "name": "Magic Initiate (Druid)",
+    "effects": {
+      "grantsSpells": [
+        "Guidance",
+        "Produce Flame",
+        "Faerie Fire"
+      ],
+      "grantsPool": {
+        "id": "mi",
+        "label": "Faerie Fire — free",
+        "max": 1,
+        "rest": "long",
+        "ref": "faeriefire",
+        "storm": true,
+        "note": "long rest",
+        "use": "Use free cast",
+        "reminder": "Magic Initiate: free cast of Faerie Fire (no slot)."
+      },
+      "initiate": {
+        "label": "Magic Initiate (Druid) · Wis",
+        "pool": "mi",
+        "spells": [
+          {
+            "ref": "guidance",
+            "name": "Guidance",
+            "sub": "cantrip · +1d4 to one ability check · Concentration"
+          },
+          {
+            "ref": "produceflame",
+            "name": "Produce Flame",
+            "sub": "cantrip · 1d8 fire ranged · sheds light"
+          }
+        ]
+      }
+    }
+  },
+  "lucky": {
+    "name": "Lucky",
+    "effects": {
+      "grantsPool": {
+        "id": "luck",
+        "label": "Luck Points",
+        "max": "prof",
+        "rest": "long",
+        "ref": "lucky",
+        "storm": false,
+        "note": "long rest",
+        "use": "Spend a Luck Point",
+        "reminder": "Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you."
+      }
+    }
+  },
+  "alert": {
+    "name": "Alert",
+    "effects": {
+      "initiativeBonus": "prof"
+    }
+  }
+}
