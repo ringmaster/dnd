@@ -103,6 +103,7 @@ var CARD = {
   inventory: function(card){
     var html='<h2>Inventory <span class="hint">gear &amp; carried items</span></h2>';
     if(card.magic){ html+='<button class="inv-magic" data-ref="'+esc(card.magic.ref)+'" type="button"><b>'+esc(card.magic.name)+'</b><span class="mtag">'+esc(card.magic.tag)+'</span><span class="desc">'+esc(card.magic.desc)+'</span></button>'; }
+    html+='<div class="inv-sub">Weapons · tap to draw or stow · ⓘ for rules</div><div id="invWeapons"></div>';
     html+=(card.items||[]).map(function(it){ return '<div class="inv-row"><span class="iname">'+esc(it.name)+'</span><span class="itag">'+esc(it.tag)+'</span></div>'; }).join("");
     return html;
   },

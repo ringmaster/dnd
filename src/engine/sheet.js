@@ -89,6 +89,9 @@ function acBreakdown(a){
 var WEAPONS = CHARACTER.weapons;
 var MASTERY_MAX = CHARACTER.masteryMax;
 function wById(id){ for(var i=0;i<WEAPONS.length;i++){ if(WEAPONS[i].id===id) return WEAPONS[i]; } return null; }
+/* weapons in your kit (data `carried` flags the starting loadout); whether each
+   is currently in-hand is live state (state.carried), toggled from Inventory. */
+var OWNED = WEAPONS.filter(function(w){ return w.carried===true; }).map(function(w){ return w.id; });
 
 /* ----- prepared spells (optional) ----- */
 var PREPARED_MAX = CHARACTER.prepared ? CHARACTER.prepared.max : 0;
@@ -113,7 +116,7 @@ function spellSlotsAvail(level, freePool){
 
 /* ----- state ----- */
 var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0, view:"attacks", conc:"",
-                 ac:acDefault(), masteries:(CHARACTER.masteryDefault||[]).slice() };
+                 ac:acDefault(), masteries:(CHARACTER.masteryDefault||[]).slice(), carried:OWNED.slice() };
 Object.keys(CHARACTER.pools).forEach(function(id){ defaults[id]=CHARACTER.pools[id].max; });
 if(CHARACTER.prepared) defaults.prepared = CHARACTER.prepared.default.slice();
 var state = JSON.parse(JSON.stringify(defaults));
@@ -204,9 +207,10 @@ function renderMasterySummary(){
   span.textContent=(parts.length?parts.join(" · ")+" · ":"")+state.masteries.length+" of "+MASTERY_MAX+" mastered";
 }
 function renderAttacks(){
-  if(!attackList) return; attackList.innerHTML="";
+  if(!attackList) return; attackList.innerHTML=""; var shown=0;
   WEAPONS.forEach(function(w){
-    if(w.carried!==true || !w.dmgDice) return;
+    if(state.carried.indexOf(w.id)<0 || !w.dmgDice) return;
+    shown++;
     var mastered = state.masteries.indexOf(w.id)>=0;
     var tag = mastered ? ' <span class="mastery">'+esc(w.mastery)+'</span>' : '';
     var sub = (w.props||[]).join(" · ") + ((w.props&&w.props.length)?" · ":"") + "crit "+critDmg(w);
@@ -216,12 +220,34 @@ function renderAttacks(){
       '<div class="tap-sub">'+esc(sub)+' · <span class="info-tag">tap for rules ⓘ</span></div>';
     attackList.appendChild(b);
   });
+  if(!shown){ var e=document.createElement("p"); e.className="muted"; e.textContent="No weapon drawn — draw one in Inventory."; attackList.appendChild(e); }
+}
+/* Inventory drives which owned weapons are in hand; Attacks shows the drawn ones. */
+function renderInvWeapons(){
+  var el=document.getElementById("invWeapons"); if(!el) return; el.innerHTML="";
+  OWNED.forEach(function(id){ var w=wById(id); if(!w) return;
+    var drawn=state.carried.indexOf(id)>=0;
+    var row=document.createElement("div"); row.className="inv-weap"+(drawn?" drawn":"");
+    var toggle=document.createElement("button"); toggle.type="button"; toggle.className="iw-toggle";
+    toggle.textContent=drawn?"Drawn":"Stowed";
+    toggle.addEventListener("click", function(){ toggleCarried(id); });
+    var name=document.createElement("button"); name.type="button"; name.className="iw-name"; name.setAttribute("data-ref", w.id);
+    name.innerHTML='<span class="iw-n">'+esc(w.name)+'</span>'+(w.mastery?'<span class="iw-m">'+esc(w.mastery)+'</span>':'')+'<span class="info-tag">ⓘ</span>';
+    row.appendChild(toggle); row.appendChild(name); el.appendChild(row);
+  });
+}
+function toggleCarried(id){
+  var i=state.carried.indexOf(id);
+  if(i>=0) state.carried.splice(i,1); else state.carried.push(id);
+  persist(); renderInvWeapons(); renderAttacks(); renderCombat();
+  if(refOverlay.classList.contains("show") && document.querySelector(".wm-row")) paintMastery();
 }
 function moveTarget(mv){ return mv.gloss ? (' data-gloss="'+esc(mv.gloss)+'"') : ((mv.ref||mv.weapon) ? (' data-ref="'+esc(mv.ref||mv.weapon)+'"') : ''); }
 function meterText(id, asFree){ return '<span class="cm-left">'+state[id]+'/'+POOL_MAX[id]+(asFree?' free':' left')+'</span>'; }
 function combatMove(mv){
   var bits=[], grey=false;
   if(mv.weapon){ var w=wById(mv.weapon); if(w){ var mastered=state.masteries.indexOf(w.id)>=0;
+    if(state.carried.indexOf(w.id)<0) grey=true;   // stowed weapon
     bits.push('<span class="cm-num">d20 '+weaponToHit(w)+' · '+weaponDmg(w)+'</span>'+(mastered?(' · '+esc(w.mastery)):'')); } }
   if(mv.detail) bits.push(esc(mv.detail));
   var sub=bits.join(' · ');
@@ -529,8 +555,10 @@ function openMastery(trigger){
   intro.textContent="Choose up to "+MASTERY_MAX+" weapons to master; you can change these after each long rest. Each weapon's mastery property is fixed to that weapon.";
   refBody.appendChild(intro);
   WEAPONS.forEach(function(w){
+    var owned=OWNED.indexOf(w.id)>=0, drawn=state.carried.indexOf(w.id)>=0;
+    var statusLbl = drawn ? '' : (owned ? ' <span class="own">(stowed)</span>' : ' <span class="own">(not in kit)</span>');
     var btn=document.createElement("button"); btn.type="button"; btn.className="wm-row";
-    btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+esc(w.name)+(w.carried?'':' <span class="own">(not carried)</span>')+' <span class="mastery">'+esc(w.mastery)+'</span></span><span class="wm-eff">'+esc(w.masteryEff||w.eff||"")+'</span></span>';
+    btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+esc(w.name)+statusLbl+' <span class="mastery">'+esc(w.mastery)+'</span></span><span class="wm-eff">'+esc(w.masteryEff||w.eff||"")+'</span></span>';
     btn.addEventListener("click", function(){ toggleMastery(w.id); });
     refBody.appendChild(btn);
   });
@@ -710,7 +738,7 @@ function wireSheet(){
     if(confirm("Reset the sheet to starting values? This clears HP and all trackers.")){
       state=JSON.parse(JSON.stringify(defaults));
       Promise.resolve(store.clear()).then(function(){ persist(); });
-      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); if(CHARACTER.prepared) renderPrepared(); renderConc(); toast("Sheet reset.");
+      renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInvWeapons(); if(CHARACTER.prepared) renderPrepared(); renderConc(); toast("Sheet reset.");
     }
   });
 }
@@ -723,9 +751,11 @@ function wireSheet(){
   state=applyDefaults(loaded);
   if(!state.ac || typeof state.ac!=="object") state.ac=JSON.parse(JSON.stringify(defaults.ac));
   if(!Array.isArray(state.masteries)) state.masteries=defaults.masteries.slice();
+  if(!Array.isArray(state.carried)) state.carried=defaults.carried.slice();
+  else state.carried=state.carried.filter(function(id){ return OWNED.indexOf(id)>=0; });
   if(CHARACTER.prepared && !Array.isArray(state.prepared)) state.prepared=defaults.prepared.slice();
   renderAbilities(); renderSkills();
-  renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks();
+  renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInvWeapons();
   if(CHARACTER.prepared) renderPrepared();
   if(CHARACTER.combat) setView(state.view);
   renderConc();
