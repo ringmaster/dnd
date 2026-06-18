@@ -65,23 +65,15 @@
     },
     {
       "id": "shortbow",
-      "carried": false
+      "carried": true
     },
     {
       "id": "scimitar",
-      "carried": false
-    },
-    {
-      "id": "handcrossbow",
-      "carried": false
+      "carried": true
     },
     {
       "id": "dagger",
-      "carried": false
-    },
-    {
-      "id": "spear",
-      "carried": false
+      "carried": true
     }
   ],
   "masteryMax": 2,
@@ -156,30 +148,44 @@
       "type": "inventory",
       "items": [
         {
-          "name": "Longbow",
-          "tag": "martial weapon · Slow · 150/600"
+          "name": "Sprig of Mistletoe",
+          "tag": "druidic focus"
         },
         {
-          "name": "Shortsword",
-          "tag": "martial weapon · Vex · finesse"
-        },
-        {
-          "name": "Arrows",
-          "tag": "ammunition · quiver"
-        },
-        {
-          "name": "Studded Leather",
-          "tag": "light armor · AC 12 + Dex"
-        },
-        {
-          "name": "Explorer's Pack",
-          "tag": "rope, rations, torches…"
+          "name": "Arrows (20) · Quiver",
+          "tag": "ammunition"
         },
         {
           "name": "Cartographer's Tools",
           "tag": "Guide background"
+        },
+        {
+          "name": "Backpack",
+          "tag": "gear"
+        },
+        {
+          "name": "Bedroll · Tent",
+          "tag": "camp"
+        },
+        {
+          "name": "Rations (10) · Waterskin",
+          "tag": "provisions"
+        },
+        {
+          "name": "Rope (50 ft) · Oil · Tinderbox · Torch",
+          "tag": "adventuring gear"
+        },
+        {
+          "name": "Traveler's Clothes",
+          "tag": "worn"
         }
-      ]
+      ],
+      "magic": {
+        "ref": "bootsofelvenkind",
+        "name": "Boots of Elvenkind",
+        "tag": "wondrous · no attunement",
+        "desc": "Silent steps; Advantage on Stealth to move quietly"
+      }
     },
     {
       "type": "features",
@@ -511,6 +517,26 @@
       "body": [
         "Whenever you make a Charisma check, add your Wisdom modifier (minimum +1) — here +2. You also gain proficiency in one of Deception, Performance, or Persuasion — taken in Persuasion.",
         "This makes a Charisma-12 ranger a strong talker: Persuasion is +5 (Cha +1, prof +2, glamour +2)."
+      ]
+    },
+    "bootsofelvenkind": {
+      "title": "Boots of Elvenkind",
+      "chips": [
+        {
+          "t": "Wondrous item"
+        },
+        {
+          "t": "No attunement",
+          "c": "storm"
+        },
+        {
+          "t": "Stealth",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "While you wear these boots, your steps make no sound, regardless of the surface you move across.",
+        "You also have Advantage on any Dexterity (Stealth) check you make that relies on moving silently."
       ]
     }
   },
