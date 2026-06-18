@@ -3,55 +3,141 @@
     "name": "Guide",
     "grantsFeat": "magicinitiate",
     "effects": {
-      "skills": ["Stealth", "Survival"],
-      "tools": ["Cartographer's Tools"],
-      "abilityIncrease": { "DEX": 2, "WIS": 1 }
+      "skills": [
+        "Stealth",
+        "Survival"
+      ],
+      "tools": [
+        "Cartographer's Tools"
+      ],
+      "abilityIncrease": {
+        "DEX": 2,
+        "WIS": 1
+      }
     },
     "ref": {
       "title": "Background: Guide",
-      "chips": [{ "t": "Magic Initiate (Druid)", "c": "ember" }, { "t": "Stealth · Survival", "c": "storm" }, { "t": "Cartographer's Tools" }],
-      "body": ["A life spent leading travelers through trackless wilds. Guide grants the Magic Initiate (Druid) Origin feat, proficiency in Stealth and Survival, proficiency with Cartographer's Tools, and a +2 / +1 ability boost."]
+      "chips": [
+        {
+          "t": "Magic Initiate (Druid)",
+          "c": "ember"
+        },
+        {
+          "t": "Stealth · Survival",
+          "c": "storm"
+        },
+        {
+          "t": "Cartographer's Tools"
+        }
+      ],
+      "body": [
+        "A life spent leading travelers through trackless wilds. Guide grants the Magic Initiate (Druid) Origin feat, proficiency in Stealth and Survival, proficiency with Cartographer's Tools, and a +2 / +1 ability boost."
+      ]
     }
   },
   "sage": {
     "name": "Sage",
     "grantsFeat": "magicinitiate-wiz",
     "effects": {
-      "skills": ["Arcana", "History"],
-      "tools": ["Calligrapher's Supplies"],
-      "abilityIncrease": { "INT": 2, "CON": 1 }
+      "skills": [
+        "Arcana",
+        "History"
+      ],
+      "tools": [
+        "Calligrapher's Supplies"
+      ],
+      "abilityIncrease": {
+        "INT": 2,
+        "CON": 1
+      }
     },
     "ref": {
       "title": "Background: Sage",
-      "chips": [{ "t": "Magic Initiate (Wizard)", "c": "ember" }, { "t": "Arcana · History", "c": "storm" }, { "t": "Calligrapher's Supplies" }],
-      "body": ["A life of study and research. Sage grants the Magic Initiate (Wizard) Origin feat, proficiency in Arcana and History, Calligrapher's Supplies, and a +2 / +1 ability boost."]
+      "chips": [
+        {
+          "t": "Magic Initiate (Wizard)",
+          "c": "ember"
+        },
+        {
+          "t": "Arcana · History",
+          "c": "storm"
+        },
+        {
+          "t": "Calligrapher's Supplies"
+        }
+      ],
+      "body": [
+        "A life of study and research. Sage grants the Magic Initiate (Wizard) Origin feat, proficiency in Arcana and History, Calligrapher's Supplies, and a +2 / +1 ability boost."
+      ]
     }
   },
   "acolyte": {
     "name": "Acolyte",
     "grantsFeat": "magicinitiate-cleric",
     "effects": {
-      "skills": ["Insight", "Religion"],
-      "tools": ["Calligrapher's Supplies"],
-      "abilityIncrease": { "WIS": 2, "CON": 1 }
+      "skills": [
+        "Insight",
+        "Religion"
+      ],
+      "tools": [
+        "Calligrapher's Supplies"
+      ],
+      "abilityIncrease": {
+        "WIS": 2,
+        "CON": 1
+      }
     },
     "ref": {
       "title": "Background: Acolyte",
-      "chips": [{ "t": "Magic Initiate (Cleric)", "c": "ember" }, { "t": "Insight · Religion", "c": "storm" }, { "t": "Calligrapher's Supplies" }],
-      "body": ["A life of temple service. Acolyte grants the Magic Initiate (Cleric) Origin feat, proficiency in Insight and Religion, Calligrapher's Supplies, and a +2 / +1 ability boost."]
+      "chips": [
+        {
+          "t": "Magic Initiate (Cleric)",
+          "c": "ember"
+        },
+        {
+          "t": "Insight · Religion",
+          "c": "storm"
+        },
+        {
+          "t": "Calligrapher's Supplies"
+        }
+      ],
+      "body": [
+        "A life of temple service. Acolyte grants the Magic Initiate (Cleric) Origin feat, proficiency in Insight and Religion, Calligrapher's Supplies, and a +2 / +1 ability boost."
+      ]
     }
   },
   "guard": {
     "name": "Guard",
     "grantsFeat": "alert",
     "effects": {
-      "skills": ["Athletics", "Perception"],
-      "abilityIncrease": { "STR": 2, "WIS": 1 }
+      "skills": [
+        "Athletics",
+        "Perception"
+      ],
+      "abilityIncrease": {
+        "STR": 2,
+        "WIS": 1
+      },
+      "tools": [
+        "Gaming Set"
+      ]
     },
     "ref": {
       "title": "Background: Guard",
-      "chips": [{ "t": "Alert", "c": "ember" }, { "t": "Athletics · Perception", "c": "storm" }],
-      "body": ["A life standing watch. Guard grants the Alert Origin feat, proficiency in Athletics and Perception, and a +2 / +1 ability boost."]
+      "chips": [
+        {
+          "t": "Alert",
+          "c": "ember"
+        },
+        {
+          "t": "Athletics · Perception",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "A life standing watch. Guard grants the Alert Origin feat, proficiency in Athletics and Perception, a Gaming Set tool proficiency, and a +2 / +1 ability boost."
+      ]
     }
   }
 }
