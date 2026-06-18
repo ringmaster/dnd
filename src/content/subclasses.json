@@ -2,21 +2,40 @@
   "fey-wanderer": {
     "name": "Fey Wanderer",
     "class": "ranger",
-    "features": ["Otherworldly Glamour", "Dreadful Strikes", "Fey Wanderer Magic"]
+    "features": [
+      "Otherworldly Glamour",
+      "Dreadful Strikes",
+      "Fey Wanderer Magic"
+    ],
+    "desc": "A ranger touched by the Feywild — charming, fey-stepping, and dealing psychic dread."
   },
   "battle-master": {
     "name": "Battle Master",
     "class": "fighter",
-    "features": ["Combat Superiority", "Student of War", "Maneuvers"]
+    "features": [
+      "Combat Superiority",
+      "Student of War",
+      "Maneuvers"
+    ],
+    "desc": "A fighter who spends superiority dice on tactical combat maneuvers."
   },
   "diviner": {
     "name": "Diviner",
     "class": "wizard",
-    "features": ["Divination Savant", "Portent"]
+    "features": [
+      "Divination Savant",
+      "Portent"
+    ],
+    "desc": "A wizard who glimpses the future and replaces rolls with foretold Portent dice."
   },
   "life": {
     "name": "Life Domain",
     "class": "cleric",
-    "features": ["Disciple of Life", "Life Domain Spells", "Channel Divinity: Preserve Life"]
+    "features": [
+      "Disciple of Life",
+      "Life Domain Spells",
+      "Channel Divinity: Preserve Life"
+    ],
+    "desc": "A cleric of the Life domain — the premier healer, bolstering allies' hit points."
   }
 }

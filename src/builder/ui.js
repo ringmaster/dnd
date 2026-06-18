@@ -113,25 +113,52 @@
     return ch;
   }
 
+  /* ----- help text for the current selection of each field ----- */
+  function traitBody(t){ return (t.ref && t.ref.body && t.ref.body[0]) || ""; }
+  function speciesHelp(){ var sp=CAT.species[state.species]; if(!sp) return ""; return ["Traits for "+sp.name+":"].concat(Object.keys(sp.traits).map(function(k){ return sp.traits[k].name+" — "+traitBody(sp.traits[k]); })); }
+  function classHelp(){ var cd=classData(); if(!cd.name) return ""; var caster=cd.caster==="full"?"full caster":cd.caster==="half"?"half caster":"non-caster"; return [cd.desc||"", "Hit die "+cd.hitDie+" · saves "+(cd.saves||[]).join("/")+" · "+caster+(cd.spellAbility?(" ("+cd.spellAbility+")"):"")+" · choose "+((cd.skillChoices||{}).count||0)+" skills."]; }
+  function subclassHelp(){ if(!state.subclass) return "Your subclass is chosen at level 3 and shapes your class's identity."; var s=CAT.subclasses[state.subclass]; if(!s) return ""; return [s.desc||"", "Features: "+(s.features||[]).join(", ")+"."]; }
+  function backgroundHelp(){ var b=CAT.backgrounds[state.background]; return b ? [(b.ref&&b.ref.body&&b.ref.body[0])||""] : ""; }
+  function featHelp(){ if(!state.extraFeat) return "An extra feat. Human Versatile grants an Origin feat at level 1; an Ability Score Improvement (levels 4/8/12/16/19) can instead be taken as a feat."; var f=CAT.feats[state.extraFeat]; return (f&&f.ref&&f.ref.body) ? f.ref.body : (f?[f.name]:""); }
+  function armorHelp(){ if(!state.armor) return "No armor: AC = 10 + your Dexterity modifier. A shield adds +2."; var a=CAT.armor[state.armor]; return a?[a.label+" — "+a.note]:""; }
+
+  /* ----- ability arrays ----- */
+  var STANDARD_ARRAY=[15,14,13,12,10,8];
+  var HEROIC_ARRAY=[17,15,14,12,10,8];
+  function setArray(vals){ ABIL.forEach(function(a,i){ state.base[a]=vals[i]; }); render(); }
+  function optimizeForClass(){
+    var pr=(classData().priority)||ABIL.slice();
+    var vals=ABIL.map(function(a){ return state.base[a]||10; }).sort(function(x,y){ return y-x; });
+    var out={}; pr.forEach(function(a,i){ out[a]=vals[i]; });
+    ABIL.forEach(function(a){ if(out[a]==null) out[a]=10; });
+    state.base=out; render();
+  }
+
   /* ----- rendering ----- */
   var root;
   /* a labelled control. NOTE: container is a <div>, not <label> — wrapping a
      <select> in a <label> makes the click forward and the dropdown reopen/close,
      which reads as "can't be changed". */
-  function field(label, control, hint){
-    return el("div",{class:"bf"},[ el("span",{class:"bf-l",text:label}), control, hint?el("span",{class:"bf-h",text:hint}):null ]);
+  function field(label, control, hint, help){
+    var lab=el("span",{class:"bf-l",text:label}), pop=null;
+    if(help){
+      pop=el("div",{class:"bf-pop"}, [].concat(help).map(function(p){ return el("p",{text:p}); }));
+      pop.style.display="none";
+      lab.appendChild(el("button",{class:"bf-q", type:"button", "aria-label":"What is this?", text:"?", onclick:function(){ pop.style.display = pop.style.display==="none"?"block":"none"; }}));
+    }
+    return el("div",{class:"bf"},[ lab, control, hint?el("span",{class:"bf-h",text:hint}):null, pop ].filter(Boolean));
   }
   function select(value, options, onchange){
     var s=el("select",{class:"bsel", onchange:function(e){ onchange(e.target.value); }});
     options.forEach(function(o){ s.appendChild(opt(o[0],o[1], o[0]===value, o[2])); }); return s;
   }
   /* a select field that explains itself when it can't be changed (≤1 selectable option) */
-  function selField(label, value, options, onchange, hint){
+  function selField(label, value, options, onchange, hint, help){
     var enabled=options.filter(function(o){ return !o[2]; });
     var s=select(value, options, onchange);
     var fixed = enabled.length<=1;
     if(fixed) s.disabled=true;
-    return field(label, s, fixed ? (hint || "Only one option available for this build.") : "");
+    return field(label, s, fixed ? (hint || "Only one option available for this build.") : "", help);
   }
   /* feat options: collapse the class-specific Magic Initiate variants to one
      undecorated "Magic Initiate", and disable feats restricted to other classes */
@@ -158,11 +185,11 @@
       el("h2",{text:"Identity"}),
       field("Name", el("input",{class:"binput", value:state.name, oninput:function(e){ state.name=e.target.value; refreshOut(); }})),
       el("div",{class:"bgrid"},[
-        selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; render(); }),
-        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.extraFeat=""; render(); }),
-        selField("Subclass", state.subclass, [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.subclass=v; render(); }, "Pick a class first."),
-        selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }),
-        selField("Level", String(state.level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.level=parseInt(v,10); render(); })
+        selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; render(); }, "", speciesHelp()),
+        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.extraFeat=""; render(); }, "", classHelp()),
+        selField("Subclass", state.subclass, [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.subclass=v; render(); }, "Pick a class first.", subclassHelp()),
+        selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp()),
+        selField("Level", String(state.level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.level=parseInt(v,10); render(); }, "", "Your character level (1–20). Higher levels raise Proficiency Bonus, HP, spell slots, and unlock features.")
       ])
     ]);
 
@@ -170,7 +197,7 @@
     var armorOpts=[["","No armor (10 + Dex)"]].concat(Object.keys(CAT.armor).filter(function(k){return k!=="magearmor";}).map(function(k){return [k,CAT.armor[k].label];}));
     var gearCard = el("div",{class:"bcard"},[ el("h2",{text:"Equipped"}),
       el("div",{class:"bsub",text:"Armor Class is built from what you have equipped."}),
-      selField("Armor", state.armor, armorOpts, function(v){ state.armor=v; render(); }),
+      selField("Armor", state.armor, armorOpts, function(v){ state.armor=v; render(); }, "", armorHelp()),
       el("label",{class:"bcheck"},[ el("input",{type:"checkbox", checked: state.shield?"checked":null, onchange:function(e){ state.shield=e.target.checked; render(); }}), el("span",{text:"Shield (+2 AC)"}) ])
     ]);
 
@@ -185,7 +212,14 @@
         el("span",{class:"bab-f",text:"= "+fin+" ("+fmt(mod(fin))+")"})
       ]);
     });
-    var abilCard = el("div",{class:"bcard"},[ el("h2",{text:"Ability Scores"}), el("div",{class:"bsub",text:"Background adds "+(Object.keys(inc).map(function(k){return fmt(inc[k])+" "+k;}).join(", ")||"nothing")+"."}) ].concat(abilRows));
+    var arrayRow = el("div",{class:"barrays"},[
+      el("button",{class:"bbtn tiny", type:"button", text:"Standard array", title:"15 14 13 12 10 8", onclick:function(){ setArray(STANDARD_ARRAY); }}),
+      el("button",{class:"bbtn tiny", type:"button", text:"Heroic array", title:"17 15 14 12 10 8", onclick:function(){ setArray(HEROIC_ARRAY); }}),
+      el("button",{class:"bbtn tiny ember", type:"button", text:"Optimize for "+(cd.name||"class"), onclick:optimizeForClass })
+    ]);
+    var abilCard = el("div",{class:"bcard"},[ el("h2",{text:"Ability Scores"}),
+      el("div",{class:"bsub",text:"Background adds "+(Object.keys(inc).map(function(k){return fmt(inc[k])+" "+k;}).join(", ")||"nothing")+". Optimize assigns your current values to the best stats for the class."}),
+      arrayRow ].concat(abilRows));
 
     // skills
     var skillCard = el("div",{class:"bcard"},[ el("h2",{text:"Skills"}) ]);
@@ -214,7 +248,7 @@
     var featCard = el("div",{class:"bcard"},[ el("h2",{text:"Feats"}) ]);
     var bgFeat = backgroundFeat();
     if(bgFeat) featCard.appendChild(el("div",{class:"bsub",text:"Origin feat from background: "+((CAT.feats[bgFeat]||{}).name||bgFeat).replace(/\s*\(.*\)$/,"")}));
-    featCard.appendChild(selField("Extra feat (ASI / Versatile)", state.extraFeat, featOptions(), function(v){ state.extraFeat=v; render(); }));
+    featCard.appendChild(selField("Extra feat (ASI / Versatile)", state.extraFeat, featOptions(), function(v){ state.extraFeat=v; render(); }, "", featHelp()));
 
     // derived panel
     var stat = function(l,v){ return el("div",{class:"bstat"},[ el("span",{class:"bs-l",text:l}), el("span",{class:"bs-v",text:String(v)}) ]); };

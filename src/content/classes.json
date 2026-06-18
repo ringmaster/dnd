@@ -1,9 +1,11 @@
 {
   "ranger": {
     "name": "Ranger",
+    "desc": "A wilderness warrior blending martial skill with primal magic, tracking, and favored prey.",
     "hitDie": "d10",
     "saves": ["STR", "DEX"],
     "primary": ["DEX", "WIS"],
+    "priority": ["DEX", "WIS", "CON", "STR", "CHA", "INT"],
     "caster": "half",
     "spellAbility": "WIS",
     "skillChoices": { "count": 3, "from": ["Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"] },
@@ -13,9 +15,11 @@
   },
   "fighter": {
     "name": "Fighter",
+    "desc": "A master of weapons and armor, defined by sheer combat versatility and staying power.",
     "hitDie": "d10",
     "saves": ["STR", "CON"],
     "primary": ["STR", "DEX"],
+    "priority": ["STR", "CON", "DEX", "WIS", "CHA", "INT"],
     "caster": "none",
     "skillChoices": { "count": 2, "from": ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Persuasion", "Survival"] },
     "weaponMastery": 3,
@@ -24,9 +28,11 @@
   },
   "wizard": {
     "name": "Wizard",
+    "desc": "A scholar of arcane magic with the broadest spell list in the game, but fragile in a fight.",
     "hitDie": "d6",
     "saves": ["INT", "WIS"],
     "primary": ["INT"],
+    "priority": ["INT", "CON", "DEX", "WIS", "CHA", "STR"],
     "caster": "full",
     "spellAbility": "INT",
     "skillChoices": { "count": 2, "from": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Nature", "Religion"] },
@@ -35,9 +41,11 @@
   },
   "cleric": {
     "name": "Cleric",
+    "desc": "A divine caster channeling a deity's power to heal, smite, and protect allies.",
     "hitDie": "d8",
     "saves": ["WIS", "CHA"],
     "primary": ["WIS"],
+    "priority": ["WIS", "CON", "STR", "CHA", "DEX", "INT"],
     "caster": "full",
     "spellAbility": "WIS",
     "skillChoices": { "count": 2, "from": ["History", "Insight", "Medicine", "Persuasion", "Religion"] },

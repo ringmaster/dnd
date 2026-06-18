@@ -155,7 +155,13 @@ ${styles}
   .bsub{color:var(--ash);font-size:.82rem;margin:.1rem 0 .6rem}
   .bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem}
   .bf{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.5rem}
-  .bf-l{font-family:"Cinzel",serif;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)}
+  .bf-l{font-family:"Cinzel",serif;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);display:flex;align-items:center;gap:.4rem}
+  .bf-q{flex:none;width:1.05rem;height:1.05rem;line-height:1;border-radius:50%;border:1px solid var(--iron-light);background:#12151b;color:var(--ash);font-family:"Cinzel",serif;font-size:.62rem;cursor:pointer;padding:0}
+  .bf-q:hover{border-color:var(--ember);color:var(--ember-bright)}
+  .bf-pop{margin-top:.35rem;background:#0e1014;border:1px solid var(--iron);border-left:2px solid var(--ember);border-radius:8px;padding:.5rem .65rem;font-size:.8rem;color:var(--ash);line-height:1.45}
+  .bf-pop p{margin:0 0 .4rem} .bf-pop p:last-child{margin:0}
+  .barrays{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .7rem}
+  .bbtn.tiny{padding:.4rem .7rem;font-size:.72rem;min-height:0}
   .bf-h{font-size:.74rem;color:var(--ash-dim)}
   .bcheck{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--bone);cursor:pointer;margin-top:.4rem}
   .bcheck input{width:1.05rem;height:1.05rem;accent-color:var(--ember)}
