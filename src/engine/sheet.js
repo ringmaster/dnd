@@ -725,6 +725,27 @@ function bodyParas(container, paras){
   linkifyTerms(container);
 }
 /* ----- REFERENCE MODAL ----- */
+/* On-a-hit damage riders (Dreadful Strikes, Hunter's Mark, …) shown at the
+   bottom of every weapon modal. A rider is "active" only when its condition
+   is met — e.g. Hunter's Mark needs you to be concentrating on it. */
+function hitRiderActive(rd){
+  if(rd.requiresConc) return state.conc===rd.requiresConc;
+  return true;
+}
+function appendHitRiders(container){
+  var riders=CHARACTER.hitRiders||[]; if(!riders.length) return;
+  var wrap=document.createElement("div"); wrap.className="hit-riders";
+  var head=document.createElement("div"); head.className="hr-head"; head.textContent="On a hit, you can add"; wrap.appendChild(head);
+  riders.forEach(function(rd){
+    var active=hitRiderActive(rd);
+    var b=document.createElement("button"); b.type="button"; b.className="hr-box"+(active?"":" hr-off");
+    if(rd.ref) b.setAttribute("data-ref", rd.ref);
+    var note=active ? (rd.note||"") : (rd.offNote || (rd.requiresConc?("needs Concentration on "+rd.requiresConc):"not available"));
+    b.innerHTML='<span class="hr-dmg">'+esc(rd.dmg)+'</span><span class="hr-text"><span class="hr-name">'+esc(rd.label)+'</span><span class="hr-note">'+esc(note)+'</span></span>';
+    wrap.appendChild(b);
+  });
+  container.appendChild(wrap);
+}
 function openRef(id, trigger){
   if(id==="stat_ac"){ openAC(trigger); return; }
   if(id==="weaponmastery"){ openMastery(trigger); return; }
@@ -745,6 +766,7 @@ function openRef(id, trigger){
   chips.forEach(function(c){ var s=document.createElement("span"); s.className="chip"+(c.c?(" "+c.c):""); s.textContent=c.t; refChips.appendChild(s); });
   refChips.style.display=chips.length?"flex":"none";
   refBody.innerHTML=""; bodyParas(refBody, r.body);
+  if(wpn && wpn.dmgDice) appendHitRiders(refBody);
   refFoot.innerHTML="";
   if(r.level!=null){
     renderCastFoot(r);

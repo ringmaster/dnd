@@ -967,5 +967,21 @@
       "WIS": 14,
       "CHA": 12
     }
-  }
+  },
+  "hitRiders": [
+    {
+      "ref": "dreadful",
+      "label": "Dreadful Strikes",
+      "dmg": "+1d4",
+      "note": "psychic · once per turn, no action"
+    },
+    {
+      "ref": "huntersmark",
+      "label": "Hunter's Mark",
+      "dmg": "+1d6",
+      "requiresConc": "Hunter's Mark",
+      "note": "force · on every hit",
+      "offNote": "force · cast Hunter's Mark first"
+    }
+  ]
 }

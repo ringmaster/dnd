@@ -180,7 +180,11 @@
     "sk-deception":{term:"Deception",def:"A Charisma skill for convincingly lying or hiding the truth."},
     "sk-intimidation":{term:"Intimidation",def:"A Charisma skill for influencing others through threats or a hostile presence."},
     "sk-performance":{term:"Performance",def:"A Charisma skill for entertaining an audience with music, acting, or storytelling."},
-    "sk-persuasion":{term:"Persuasion",def:"A Charisma skill for influencing others with tact, charm, or good-faith argument."}
+    "sk-persuasion":{term:"Persuasion",def:"A Charisma skill for influencing others with tact, charm, or good-faith argument."},
+    "tool-artisans":{term:"Artisan's Tools",def:"A set of specialized tools for a single craft. Proficiency lets you add your Proficiency Bonus to ability checks made to use them, and often to checks where that craft's knowledge applies. You also need the tools on hand to do the work."},
+    "tool-cartographers":{term:"Cartographer's Tools",def:"Quills, compasses, calipers, and rulers for making and reading maps. Proficiency adds your Proficiency Bonus to checks to draw an accurate map, determine where you are from one, or estimate distance, terrain, and travel time."},
+    "tool-smiths":{term:"Smith's Tools",def:"Hammers, tongs, and a portable forge for working metal. Proficiency adds your Proficiency Bonus to checks to forge or repair metal gear and weapons, pry or bend metal, and judge the quality of metalwork."},
+    "tool-calligraphers":{term:"Calligrapher's Supplies",def:"Inks, quills, and parchment for fine writing. Proficiency adds your Proficiency Bonus to checks to produce elegant documents, identify the hand behind a script, or detect a forgery."}
   };
   var ALIASES = {
     "advantage":"advantage","disadvantage":"disadvantage",
@@ -211,7 +215,11 @@
     "athletics":"sk-athletics","acrobatics":"sk-acrobatics","sleight of hand":"sk-sleight","stealth":"sk-stealth",
     "arcana":"sk-arcana","history":"sk-history","investigation":"sk-investigation","nature":"sk-nature","religion":"sk-religion",
     "animal handling":"sk-animal","insight":"sk-insight","medicine":"sk-medicine","perception":"sk-perception","survival":"sk-survival",
-    "deception":"sk-deception","intimidation":"sk-intimidation","performance":"sk-performance","persuasion":"sk-persuasion"
+    "deception":"sk-deception","intimidation":"sk-intimidation","performance":"sk-performance","persuasion":"sk-persuasion",
+    "artisan's tools":"tool-artisans","artisans tools":"tool-artisans","artisan's tool":"tool-artisans",
+    "cartographer's tools":"tool-cartographers","cartographers tools":"tool-cartographers",
+    "smith's tools":"tool-smiths","smiths tools":"tool-smiths",
+    "calligrapher's supplies":"tool-calligraphers","calligraphers supplies":"tool-calligraphers"
   };
   function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
   var aliasAlt = Object.keys(ALIASES).sort(function(a,b){return b.length-a.length;}).map(escapeRe).join("|");
