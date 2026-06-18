@@ -57,5 +57,29 @@
     "effects": {
       "initiativeBonus": "prof"
     }
+  },
+  "magicinitiate-wiz": {
+    "name": "Magic Initiate (Wizard)",
+    "effects": {
+      "grantsPool": {
+        "id": "mi",
+        "label": "Detect Magic — free",
+        "max": 1,
+        "rest": "long",
+        "ref": "detectmagic",
+        "storm": true,
+        "note": "long rest",
+        "use": "Use free cast",
+        "reminder": "Magic Initiate: free cast of Detect Magic (no slot)."
+      },
+      "initiate": {
+        "label": "Magic Initiate (Wizard) · Int",
+        "pool": "mi",
+        "spells": [
+          { "ref": "tollthedead", "name": "Toll the Dead", "sub": "cantrip · Wis save · 1d8/1d12 necrotic" },
+          { "ref": "prestidigitation", "name": "Prestidigitation", "sub": "cantrip · minor magical tricks" }
+        ]
+      }
+    }
   }
 }

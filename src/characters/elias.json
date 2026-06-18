@@ -1,0 +1,1266 @@
+{
+  "id": "elias_thorn",
+  "out": "elias_thorn.html",
+  "name": "Elias Thorn",
+  "subtitle": "Human · Diviner (Wizard) · Lvl 4",
+  "title": "Thorn — Divination Wizard Sheet",
+  "footer": "Thorn wizard sheet",
+  "storageKey": "thorn_sheet_v1",
+  "level": 4,
+  "proficiencyBonus": 2,
+  "saves": [
+    "INT",
+    "WIS"
+  ],
+  "speed": 30,
+  "ac": {
+    "armor": {
+      "label": "Mage Armor",
+      "base": 13,
+      "addDex": true,
+      "note": "1st-level spell · 13 + Dex (1 hour)",
+      "default": false
+    }
+  },
+  "hp": {
+    "max": 26
+  },
+  "studs": [
+    {
+      "ref": "stat_ac",
+      "label": "AC",
+      "id": "acVal"
+    },
+    {
+      "ref": "stat_init",
+      "label": "Init"
+    },
+    {
+      "ref": "stat_speed",
+      "label": "Speed"
+    },
+    {
+      "ref": "stat_prof",
+      "label": "Prof"
+    },
+    {
+      "ref": "stat_pass",
+      "label": "Pass.Per"
+    }
+  ],
+  "weapons": [
+    {
+      "id": "quarterstaff",
+      "name": "Quarterstaff",
+      "carried": true,
+      "ability": "STR",
+      "dmgDice": "1d6",
+      "props": [
+        "bludgeoning",
+        "versatile 1d8"
+      ]
+    },
+    {
+      "id": "dagger",
+      "name": "Dagger (thrown)",
+      "carried": true,
+      "ability": "FIN",
+      "dmgDice": "1d4",
+      "props": [
+        "piercing",
+        "finesse",
+        "range 20/60"
+      ]
+    }
+  ],
+  "masteryMax": 0,
+  "masteryDefault": [],
+  "rest": {
+    "short": [
+      "Spend Hit Dice to heal",
+      "Arcane Recovery: recover up to 2 levels of spell slots (1/day)"
+    ],
+    "long": [
+      "HP → maximum",
+      "All spell slots → full",
+      "Portent → reroll your two d20s",
+      "Arcane Recovery + Inspiration restored · Death saves cleared"
+    ],
+    "shortToast": "Short rest — spend Hit Dice; use Arcane Recovery to get slots back.",
+    "longToast": "Long rest — fully restored. Roll two new Portent dice."
+  },
+  "cards": [
+    {
+      "type": "abilities"
+    },
+    {
+      "type": "hitpoints"
+    },
+    {
+      "type": "attacks",
+      "extras": [
+        {
+          "ref": "firebolt",
+          "name": "Fire Bolt ⓘ",
+          "sub": "cantrip · d20 +6 · 1d10 fire · 120 ft"
+        }
+      ]
+    },
+    {
+      "type": "spellcasting"
+    },
+    {
+      "type": "pools",
+      "title": "Resources",
+      "pools": [
+        "arcrec",
+        "portent",
+        "insp"
+      ],
+      "extras": [
+        {
+          "ref": "ritualadept",
+          "name": "Ritual Adept ⓘ",
+          "sub": "cast ritual-tagged spells in your book without preparing them"
+        },
+        {
+          "ref": "diviner",
+          "name": "Divination Savant ⓘ",
+          "sub": "copy divination spells into your book at half cost & time"
+        }
+      ]
+    },
+    {
+      "type": "skills"
+    },
+    {
+      "type": "inventory",
+      "items": [
+        {
+          "name": "Quarterstaff",
+          "tag": "simple weapon"
+        },
+        {
+          "name": "Dagger",
+          "tag": "simple · finesse · thrown"
+        },
+        {
+          "name": "Spellbook",
+          "tag": "your prepared spells are drawn from this"
+        },
+        {
+          "name": "Calligrapher's Supplies",
+          "tag": "Sage background"
+        },
+        {
+          "name": "Scholar's Pack",
+          "tag": "books, ink, parchment…"
+        },
+        {
+          "name": "Component Pouch",
+          "tag": "spell materials"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "list": [
+        {
+          "ref": "asi",
+          "name": "Level 4: Ability Score Improvement",
+          "sub": "+2 Intelligence → 19"
+        },
+        {
+          "ref": "portent",
+          "name": "Portent",
+          "sub": "roll 2 d20 after a long rest · replace any d20 with one"
+        },
+        {
+          "ref": "diviner",
+          "name": "Divination Savant",
+          "sub": "copy divination spells at half cost & time"
+        },
+        {
+          "ref": "scholar",
+          "name": "Scholar",
+          "sub": "Expertise in Arcana"
+        },
+        {
+          "ref": "arcanerecovery",
+          "name": "Arcane Recovery",
+          "sub": "recover slots on a short rest · 1/day"
+        },
+        {
+          "ref": "ritualadept",
+          "name": "Ritual Adept",
+          "sub": "ritual-cast any ritual spell in your book"
+        },
+        {
+          "ref": "magicinitiate",
+          "name": "Magic Initiate (Wizard)",
+          "sub": "Sage feat · Toll the Dead, Prestidigitation · Detect Magic 1×/long rest"
+        },
+        {
+          "ref": "sage",
+          "name": "Background: Sage",
+          "sub": "Arcana · History · Calligrapher's Supplies · Magic Initiate (Wizard)"
+        },
+        {
+          "ref": "resourceful",
+          "name": "Human: Resourceful",
+          "sub": "Heroic Inspiration after each long rest"
+        },
+        {
+          "ref": "skillful",
+          "name": "Human: Skillful",
+          "sub": "extra skill — Perception"
+        },
+        {
+          "ref": "versatile",
+          "name": "Human: Versatile",
+          "sub": "a second Origin feat — to place"
+        }
+      ]
+    },
+    {
+      "type": "background",
+      "hint": "Human · Sage · Diviner",
+      "paras": [
+        "Elias Thorn is a scholar of the Valtaran academies — a researcher and student of hidden truths. Where other wizards chase power, he chases understanding: omens, patterns, dreams, and the signs that thread through them.",
+        "For years he bought rare herbs, fungi, and curious specimens from Elowen Raincaller. Their friendship was a quiet, occasional thing, but he respected her knowledge and the uncanny accuracy of her insight.",
+        "Lately his work has turned strange. The same symbols recur across unrelated divinations. Dreams repeat. Every reading bends toward the wilderness south of Thunderford, as if something there is pulling at the threads of fate.",
+        "When word comes that Elowen has vanished, the pattern snaps into focus. Elias closes his books, gathers his components, and decides it is time to stop studying mysteries and start investigating them."
+      ]
+    },
+    {
+      "type": "buildlog",
+      "levels": [
+        {
+          "title": "Level 1",
+          "tag": "Wizard",
+          "items": [
+            {
+              "html": "<b>Species: Human</b> — Resourceful, Skillful (+1 skill), Versatile (+1 Origin feat), Speed 30"
+            },
+            {
+              "html": "<b>Ability scores:</b> Str 8, Dex 13, Con 14, Int 15, Wis 12, Cha 10 <span class=\"tag\">(standard array; background +2 Int / +1 Con)</span>"
+            },
+            {
+              "html": "<b>Spellcasting</b> — Intelligence; spellbook, 3 cantrips + prepared spells; 2 first-level slots"
+            },
+            {
+              "html": "Ritual Adept"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Skills (Wizard, choose 2):</b> Investigation, Insight"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Background: Sage</b> — Origin feat <b>Magic Initiate (Wizard)</b>; skills Arcana &amp; History; Calligrapher's Supplies; +2 Int / +1 Con"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Human Skillful:</b> Perception"
+            }
+          ]
+        },
+        {
+          "title": "Level 2",
+          "tag": "Wizard",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Scholar:</b> Expertise in Arcana"
+            },
+            {
+              "html": "Arcane Recovery — recover slots on a short rest, 1/day"
+            }
+          ]
+        },
+        {
+          "title": "Level 3",
+          "tag": "Wizard · subclass",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Subclass: Diviner</b>"
+            },
+            {
+              "html": "Portent — roll 2 d20 after a long rest, replace any d20"
+            },
+            {
+              "html": "Divination Savant; spells → 3 first-level + 2 second-level slots"
+            }
+          ]
+        },
+        {
+          "title": "Level 4",
+          "tag": "Wizard",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Ability Score Improvement: +2 Intelligence</b> (17 → 19)"
+            },
+            {
+              "cls": "open",
+              "html": "<b>Human Versatile Origin feat — to place</b> (Alert, Lucky, Tough, or another Magic Initiate)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "combat": {
+    "note": "Your turn: <b>Move</b> up to your Speed, take <b>one Action</b>, and <b>one Bonus Action</b>. You also get one <button class=\"gloss-term\" data-gloss=\"reaction\" type=\"button\">Reaction</button>, used when its trigger happens (often on someone else's turn) — like a foe leaving your <button class=\"gloss-term\" data-gloss=\"reach\" type=\"button\">reach</button>.",
+    "groups": [
+      {
+        "cost": "Action",
+        "more": [
+          {
+            "label": "Dash",
+            "gloss": "dash"
+          },
+          {
+            "label": "Disengage",
+            "gloss": "disengage"
+          },
+          {
+            "label": "Dodge",
+            "gloss": "dodge"
+          },
+          {
+            "label": "Hide",
+            "gloss": "hide"
+          },
+          {
+            "label": "Help",
+            "gloss": "help"
+          },
+          {
+            "label": "Search",
+            "gloss": "search"
+          },
+          {
+            "label": "Ready",
+            "gloss": "ready-action"
+          }
+        ],
+        "moves": [
+          {
+            "label": "Cast Fire Bolt",
+            "ref": "firebolt",
+            "detail": "d20 +6 · 1d10 fire · 120 ft"
+          },
+          {
+            "label": "Cast a leveled spell",
+            "ref": "spellslots1",
+            "detail": "Magic Missile, Web, etc. · costs a slot",
+            "pool": "slot1"
+          },
+          {
+            "label": "Attack — Quarterstaff",
+            "weapon": "quarterstaff",
+            "detail": "melee backup"
+          }
+        ]
+      },
+      {
+        "cost": "Bonus Action",
+        "moves": [
+          {
+            "label": "Misty Step",
+            "ref": "mistystep",
+            "detail": "teleport 30 ft · costs a 2nd-level slot",
+            "pool": "slot2"
+          }
+        ]
+      },
+      {
+        "cost": "Reaction",
+        "reaction": true,
+        "moves": [
+          {
+            "label": "Shield",
+            "ref": "shield",
+            "detail": "+5 AC until your next turn · costs a 1st-level slot",
+            "pool": "slot1"
+          },
+          {
+            "label": "Opportunity Attack",
+            "gloss": "opportunity-attack",
+            "detail": "one melee attack when a foe leaves your reach"
+          }
+        ]
+      },
+      {
+        "cost": "Anytime (a d20 Test)",
+        "moves": [
+          {
+            "label": "Portent — replace a d20",
+            "ref": "portent",
+            "detail": "use a recorded Portent roll for any d20 you can see",
+            "pool": "portent"
+          },
+          {
+            "label": "Heroic Inspiration — reroll",
+            "ref": "inspiration",
+            "detail": "reroll any one d20",
+            "pool": "insp"
+          }
+        ]
+      },
+      {
+        "cost": "Movement",
+        "moves": [
+          {
+            "label": "Move",
+            "detail": "up to your Speed (30 ft)"
+          }
+        ]
+      }
+    ]
+  },
+  "build": {
+    "abilities": {
+      "STR": 8,
+      "DEX": 13,
+      "CON": 14,
+      "INT": 15,
+      "WIS": 12,
+      "CHA": 10
+    },
+    "sources": [
+      {
+        "id": "sage",
+        "name": "Background: Sage",
+        "grantsFeat": "magicinitiate-wiz",
+        "effects": {
+          "skills": [
+            "Arcana",
+            "History"
+          ],
+          "tools": [
+            "Calligrapher's Supplies"
+          ],
+          "abilityIncrease": {
+            "INT": 2,
+            "CON": 1
+          }
+        }
+      },
+      {
+        "id": "wizard-skills",
+        "name": "Wizard skills (choose 2)",
+        "effects": {
+          "skills": [
+            "Investigation",
+            "Insight"
+          ]
+        }
+      },
+      {
+        "id": "skillful",
+        "name": "Human: Skillful",
+        "effects": {
+          "skills": [
+            "Perception"
+          ]
+        }
+      },
+      {
+        "id": "scholar",
+        "name": "Scholar",
+        "effects": {
+          "expertise": [
+            "Arcana"
+          ]
+        }
+      },
+      {
+        "id": "wizard-spellcasting",
+        "name": "Spellcasting",
+        "effects": {
+          "spellcasting": {
+            "ability": "INT",
+            "slots": [
+              {
+                "id": "slot1",
+                "label": "Level 1 Slots",
+                "max": 4,
+                "rest": "long",
+                "ref": "spellslots1",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 1st-level spell slot."
+              },
+              {
+                "id": "slot2",
+                "label": "Level 2 Slots",
+                "max": 3,
+                "rest": "long",
+                "ref": "spellslots2",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 2nd-level spell slot."
+              }
+            ],
+            "cantrips": [
+              {
+                "ref": "firebolt",
+                "name": "Fire Bolt",
+                "sub": "1d10 fire · ranged spell attack · 120 ft"
+              },
+              {
+                "ref": "magehand",
+                "name": "Mage Hand",
+                "sub": "spectral hand · move 10 lb at 30 ft"
+              },
+              {
+                "ref": "minorillusion",
+                "name": "Minor Illusion",
+                "sub": "a sound or image"
+              },
+              {
+                "ref": "light",
+                "name": "Light",
+                "sub": "an object sheds bright light"
+              }
+            ],
+            "prepared": {
+              "max": 7,
+              "default": [
+                "shield",
+                "magearmor",
+                "magicmissile",
+                "sleep",
+                "mistystep",
+                "augury",
+                "web"
+              ],
+              "catalog": [
+                {
+                  "id": "shield",
+                  "name": "Shield",
+                  "note": "Reaction · +5 AC until your next turn"
+                },
+                {
+                  "id": "magearmor",
+                  "name": "Mage Armor",
+                  "note": "AC 13 + Dex for 8 hours"
+                },
+                {
+                  "id": "magicmissile",
+                  "name": "Magic Missile",
+                  "note": "three darts, 1d4+1 force each · auto-hit"
+                },
+                {
+                  "id": "sleep",
+                  "name": "Sleep",
+                  "note": "5d8 HP of creatures fall unconscious · Conc."
+                },
+                {
+                  "id": "featherfall",
+                  "name": "Feather Fall",
+                  "note": "Reaction · slow falling for up to 5 creatures"
+                },
+                {
+                  "id": "mistystep",
+                  "name": "Misty Step",
+                  "note": "Bonus Action · teleport 30 ft"
+                },
+                {
+                  "id": "augury",
+                  "name": "Augury",
+                  "note": "an omen for a plan within 30 min · ritual"
+                },
+                {
+                  "id": "web",
+                  "name": "Web",
+                  "note": "Restrain in a 20-ft cube · Concentration"
+                },
+                {
+                  "id": "mirrorimage",
+                  "name": "Mirror Image",
+                  "note": "three decoy duplicates"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "arcanerecovery",
+        "name": "Arcane Recovery",
+        "effects": {
+          "grantsPool": {
+            "id": "arcrec",
+            "label": "Arcane Recovery",
+            "max": 1,
+            "rest": "long",
+            "ref": "arcanerecovery",
+            "storm": false,
+            "note": "once per day",
+            "use": "Use",
+            "reminder": "Arcane Recovery: on a short rest, recover spell slots totaling up to 2 levels (none above 5th)."
+          }
+        }
+      },
+      {
+        "id": "diviner",
+        "name": "Diviner: Portent",
+        "effects": {
+          "grantsPool": {
+            "id": "portent",
+            "label": "Portent Dice",
+            "max": 2,
+            "rest": "long",
+            "ref": "portent",
+            "storm": false,
+            "note": "rolled after a long rest",
+            "use": "Use a Portent",
+            "reminder": "Portent: replace any d20 (yours or a creature you can see) with a recorded Portent roll."
+          }
+        }
+      },
+      {
+        "id": "ritualadept",
+        "name": "Ritual Adept",
+        "effects": {}
+      },
+      {
+        "id": "resourceful",
+        "name": "Human: Resourceful",
+        "effects": {
+          "grantsPool": {
+            "id": "insp",
+            "label": "Heroic Inspiration",
+            "max": 1,
+            "rest": "long",
+            "ref": "inspiration",
+            "storm": true,
+            "note": "after a long rest",
+            "use": "Spend Inspiration",
+            "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
+          }
+        }
+      },
+      {
+        "id": "versatile",
+        "name": "Human: Versatile",
+        "effects": {}
+      },
+      {
+        "id": "wizard-hitdice",
+        "name": "Hit Dice (d6)",
+        "effects": {
+          "grantsPool": {
+            "id": "hd",
+            "label": "Hit Dice",
+            "max": 4,
+            "rest": "long",
+            "ref": "hitdice",
+            "storm": false,
+            "note": "1d6+2 · short rest",
+            "use": "Use",
+            "reminder": "Hit Die: roll 1d6+2, then add it with Heal."
+          }
+        }
+      },
+      {
+        "id": "asi-4",
+        "name": "Level 4: Ability Score Improvement",
+        "effects": {
+          "abilityIncrease": {
+            "INT": 2
+          }
+        }
+      }
+    ]
+  },
+  "ref": {
+    "stat_init": {
+      "title": "Initiative",
+      "dice": "Initiative: d20 +1",
+      "chips": [
+        {
+          "t": "Dex +1"
+        }
+      ],
+      "body": [
+        "Initiative equals your Dexterity modifier (+1). Place the Alert feat via Human Versatile to add your Proficiency Bonus."
+      ]
+    },
+    "stat_speed": {
+      "title": "Speed",
+      "dice": "30 feet",
+      "chips": [
+        {
+          "t": "Human base 30"
+        }
+      ],
+      "body": [
+        "Your walking speed is 30 feet. You wear no armor, so nothing slows you."
+      ]
+    },
+    "stat_prof": {
+      "title": "Proficiency Bonus",
+      "dice": "+2",
+      "chips": [
+        {
+          "t": "Levels 1–4",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "+2 at levels 1–4 (rises to +3 at level 5). Added to attack rolls, saves and skills you're proficient with, your spell save DC, and your spell attack."
+      ]
+    },
+    "stat_pass": {
+      "title": "Passive Perception",
+      "dice": "13",
+      "chips": [
+        {
+          "t": "10 + Perception +3",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Passive Perception = 10 + your Perception modifier (Wis +1, proficiency +2) = 13."
+      ]
+    },
+    "asi": {
+      "title": "Level 4 — Ability Score Improvement",
+      "dice": null,
+      "chips": [
+        {
+          "t": "+2 Intelligence",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "You raised Intelligence from 17 to 19 (+4). That improved your spell save DC, spell attack, Arcana/History/Investigation, and Int saves.",
+        "A feat was the alternative; you also still have the Human Versatile Origin feat to place."
+      ]
+    },
+    "portent": {
+      "title": "Portent",
+      "dice": "2 dice, after a long rest",
+      "pool": "portent",
+      "chips": [
+        {
+          "t": "Roll 2 d20",
+          "c": "ember"
+        },
+        {
+          "t": "Replace any d20",
+          "c": "storm"
+        },
+        {
+          "t": "Long rest"
+        }
+      ],
+      "body": [
+        "When you finish a long rest, roll two d20s and record the numbers. You can replace any attack roll, saving throw, or ability check — made by you or a creature you can see — with one of these rolls (before the roll is made). Each recorded roll is used once.",
+        "Write the two values somewhere; tap Use to mark one spent."
+      ]
+    },
+    "diviner": {
+      "title": "Divination Savant",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Half cost & time",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "When you copy a Divination spell into your spellbook, it takes half the usual gold and time. You also gained Portent at this level."
+      ]
+    },
+    "scholar": {
+      "title": "Scholar",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Expertise: Arcana",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "You gain Expertise in one Intelligence-based skill — taken in Arcana, doubling your Proficiency Bonus there (Arcana +6)."
+      ]
+    },
+    "arcanerecovery": {
+      "title": "Arcane Recovery",
+      "dice": null,
+      "pool": "arcrec",
+      "chips": [
+        {
+          "t": "On a short rest",
+          "c": "storm"
+        },
+        {
+          "t": "1/day",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Once per day, when you finish a short rest, you can recover expended spell slots whose levels total no more than half your wizard level rounded up (2 at level 4), none of 6th level or higher.",
+        "Tap Use to mark it spent; it returns on a long rest."
+      ]
+    },
+    "ritualadept": {
+      "title": "Ritual Adept",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Ritual casting",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You can cast any spell with the Ritual tag as a ritual if it's in your spellbook, without preparing it — it just takes 10 minutes longer and uses no slot."
+      ]
+    },
+    "magicinitiate": {
+      "title": "Magic Initiate (Wizard)",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Sage feat",
+          "c": "ember"
+        },
+        {
+          "t": "Int casting",
+          "c": "storm"
+        },
+        {
+          "t": "DC 14 · atk +6"
+        }
+      ],
+      "body": [
+        "From the Wizard list you learn two cantrips (Toll the Dead and Prestidigitation) and one level-1 spell (Detect Magic). Intelligence is the spellcasting ability, matching your wizard numbers.",
+        "You can cast Detect Magic once per long rest without a slot, and also with your slots. Granted by the Sage background."
+      ]
+    },
+    "sage": {
+      "title": "Background: Sage",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Magic Initiate (Wizard)",
+          "c": "ember"
+        },
+        {
+          "t": "Arcana · History",
+          "c": "storm"
+        },
+        {
+          "t": "Calligrapher's Supplies"
+        }
+      ],
+      "body": [
+        "A life of study and research. Sage grants the Magic Initiate (Wizard) Origin feat, proficiency in Arcana and History, Calligrapher's Supplies, and the +2 Intelligence / +1 Constitution that shaped your scores."
+      ]
+    },
+    "resourceful": {
+      "title": "Human: Resourceful",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Heroic Inspiration",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "You gain Heroic Inspiration whenever you finish a long rest. Spend it to reroll a d20."
+      ]
+    },
+    "skillful": {
+      "title": "Human: Skillful",
+      "dice": null,
+      "chips": [
+        {
+          "t": "+1 skill"
+        }
+      ],
+      "body": [
+        "You gain proficiency in one additional skill — taken in Perception, fitting a watcher of omens and signs."
+      ]
+    },
+    "versatile": {
+      "title": "Human: Versatile",
+      "dice": null,
+      "chips": [
+        {
+          "t": "+1 Origin feat",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "You gain a second Origin feat of your choice, on top of Magic Initiate from Sage. Strong picks: Alert, Lucky, Tough, or another Magic Initiate. Not yet placed — choose one and it goes here."
+      ]
+    },
+    "spellslots1": {
+      "title": "Spell Slots (Level 1)",
+      "dice": "4 first-level slots",
+      "pool": "slot1",
+      "chips": [
+        {
+          "t": "Long rest",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Four 1st-level slots, regained on a long rest (some recoverable on a short rest via Arcane Recovery).",
+        "Spell save DC 14 (8 + Int +4 + prof +2); spell attack +6. Tap Use to spend a slot."
+      ]
+    },
+    "spellslots2": {
+      "title": "Spell Slots (Level 2)",
+      "dice": "3 second-level slots",
+      "pool": "slot2",
+      "chips": [
+        {
+          "t": "Long rest",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Three 2nd-level slots, regained on a long rest. Casting a spell at 2nd level uses one. Tap Use to spend a slot."
+      ]
+    },
+    "inspiration": {
+      "title": "Heroic Inspiration",
+      "dice": null,
+      "pool": "insp",
+      "chips": [
+        {
+          "t": "Reroll a d20",
+          "c": "ember"
+        },
+        {
+          "t": "After a long rest",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Expend it to reroll any d20 and use either roll; you can hold only one. Your Human Resourceful trait grants it after every long rest."
+      ]
+    },
+    "hitdice": {
+      "title": "Hit Dice",
+      "dice": "1d6 +2 healing each",
+      "pool": "hd",
+      "chips": [
+        {
+          "t": "4 dice at lvl 4"
+        },
+        {
+          "t": "Spent on a short rest",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "On a short rest you can spend Hit Dice to heal, rolling 1d6+2 each (1d6 + Constitution modifier). Regain spent Hit Dice on a long rest."
+      ]
+    },
+    "firebolt": {
+      "title": "Fire Bolt",
+      "dice": "To hit: d20 +6   ·   1d10 fire",
+      "chips": [
+        {
+          "t": "Cantrip"
+        },
+        {
+          "t": "120 ft"
+        },
+        {
+          "t": "Ranged spell attack",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Hurl a mote of fire at a target within 120 ft: ranged spell attack (+6), 1d10 fire on a hit. The die grows at higher levels (2d10 at character level 5).",
+        "A flammable object hit by it ignites if it isn't worn or carried."
+      ]
+    },
+    "magehand": {
+      "title": "Mage Hand",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Cantrip"
+        },
+        {
+          "t": "30 ft"
+        }
+      ],
+      "body": [
+        "A spectral hand you can use to manipulate objects, open doors, or carry up to 10 pounds, for 1 minute. It can't attack or carry more than 10 lb."
+      ]
+    },
+    "minorillusion": {
+      "title": "Minor Illusion",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Cantrip"
+        }
+      ],
+      "body": [
+        "Create a sound or a 5-ft image for 1 minute. Investigation (vs your DC 14) reveals an image as false."
+      ]
+    },
+    "light": {
+      "title": "Light",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Cantrip"
+        }
+      ],
+      "body": [
+        "Touch an object so it sheds Bright Light in a 20-ft radius and Dim Light for another 20 ft for 1 hour (Dex save to avoid if cast on a creature's gear)."
+      ]
+    },
+    "tollthedead": {
+      "title": "Toll the Dead",
+      "dice": "Wis save DC 14",
+      "chips": [
+        {
+          "t": "Cantrip"
+        },
+        {
+          "t": "60 ft"
+        }
+      ],
+      "body": [
+        "A target makes a Wisdom save (DC 14) or takes 1d8 necrotic — 1d12 if it's already missing hit points. From Magic Initiate."
+      ]
+    },
+    "prestidigitation": {
+      "title": "Prestidigitation",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Cantrip"
+        }
+      ],
+      "body": [
+        "A handful of minor magical tricks — clean or soil an object, light or snuff a small flame, chill/warm/flavor food, a harmless sensory effect. From Magic Initiate."
+      ]
+    },
+    "detectmagic": {
+      "title": "Detect Magic",
+      "dice": null,
+      "pool": "mi",
+      "concentration": "Detect Magic",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Ritual",
+          "c": "storm"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        },
+        {
+          "t": "Free 1×/long rest",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "For the duration you sense magic within 30 ft; as an action you see a faint aura around a visible magical thing and learn its school.",
+        "From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use below to spend the free cast."
+      ]
+    },
+    "shield": {
+      "title": "Shield",
+      "dice": null,
+      "pool": "slot1",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Reaction",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "As a Reaction when you're hit by an attack or targeted by Magic Missile, gain +5 AC until the start of your next turn (including against the triggering attack) and take no damage from Magic Missile."
+      ]
+    },
+    "magearmor": {
+      "title": "Mage Armor",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "8 hours"
+        }
+      ],
+      "body": [
+        "Touch a willing creature wearing no armor; its base AC becomes 13 + Dex for 8 hours. Toggle it in the Armor Class panel — it puts you at AC 14."
+      ]
+    },
+    "magicmissile": {
+      "title": "Magic Missile",
+      "dice": "3 × 1d4+1 force",
+      "pool": "slot1",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Auto-hit",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Three darts of force, each hitting automatically for 1d4+1 force; split them among targets you can see within 120 ft. A higher-level slot adds one dart per level."
+      ]
+    },
+    "sleep": {
+      "title": "Sleep",
+      "dice": "5d8 HP of creatures",
+      "pool": "slot1",
+      "concentration": "Sleep",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Creatures in a 5-ft sphere make a Wisdom save; on a failure they have the Incapacitated condition until the end of your next turn (or until they take damage / someone uses an action to wake them). Concentration, up to 1 minute."
+      ]
+    },
+    "featherfall": {
+      "title": "Feather Fall",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Reaction",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "As a Reaction when you or a creature within 60 ft falls, up to five falling creatures descend 60 ft/round and take no falling damage for 1 minute."
+      ]
+    },
+    "mistystep": {
+      "title": "Misty Step",
+      "dice": null,
+      "pool": "slot2",
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "Bonus action"
+        }
+      ],
+      "body": [
+        "As a Bonus Action, teleport up to 30 feet to an unoccupied space you can see, wreathed in silvery mist."
+      ]
+    },
+    "augury": {
+      "title": "Augury",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "Ritual",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Read an omen about a specific course of action you plan to take within 30 minutes: Weal, Woe, Weal and Woe, or Nothing. Very on-theme for a diviner."
+      ]
+    },
+    "web": {
+      "title": "Web",
+      "dice": "Dex save DC 14",
+      "pool": "slot2",
+      "concentration": "Web",
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Fill a 20-ft cube with sticky webs (Difficult Terrain). A creature entering or starting its turn there makes a Dexterity save or is Restrained; it can break free with a Strength check. Flammable."
+      ]
+    },
+    "mirrorimage": {
+      "title": "Mirror Image",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "3 duplicates"
+        }
+      ],
+      "body": [
+        "Three illusory duplicates appear around you. When an attack hits you, it may strike a duplicate instead (rolled randomly); each duplicate has AC 10 + your Dex and pops when hit."
+      ]
+    },
+    "quarterstaff": {
+      "title": "Quarterstaff",
+      "dice": "To hit: d20 +1   ·   Damage: 1d6 −1",
+      "chips": [
+        {
+          "t": "Bludgeoning"
+        },
+        {
+          "t": "Versatile 1d8"
+        }
+      ],
+      "body": [
+        "A simple melee backup (you're not a fighter). Two-handed it deals 1d8−1. Your real offense is your spells."
+      ]
+    },
+    "dagger": {
+      "title": "Dagger",
+      "dice": "To hit: d20 +3   ·   Damage: 1d4 +1",
+      "chips": [
+        {
+          "t": "Piercing"
+        },
+        {
+          "t": "Finesse"
+        },
+        {
+          "t": "Thrown 20/60"
+        }
+      ],
+      "body": [
+        "Finesse, so it uses your Dexterity (+1). Light and throwable — a last-ditch option."
+      ]
+    }
+  }
+}

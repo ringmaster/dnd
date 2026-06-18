@@ -76,9 +76,11 @@ var CARD = {
   },
   spellcasting: function(card){
     var html='<h2>Spellcasting <span class="hint">'+esc(ABIL_NAME[CHARACTER.spellcasting.ability])+' · save DC '+spellDC()+' · atk '+fmt(spellAtk())+'</span></h2>';
-    if(card.slotPool) html+=poolBlock(card.slotPool);
+    if(card.slotPools) card.slotPools.forEach(function(id){ html+=poolBlock(id); });
+    else if(card.slotPool) html+=poolBlock(card.slotPool);
     html+='<div style="margin-top:.6rem">';
-    if(card.always && card.always.length){ html+=label("Always prepared",".2rem 0 .35rem"); html+=card.always.map(function(f){return featBtn(f,false);}).join(""); }
+    if(card.cantrips && card.cantrips.length){ html+=label("Cantrips · at will",".2rem 0 .35rem"); html+=card.cantrips.map(function(f){return featBtn(f,false);}).join(""); }
+    if(card.always && card.always.length){ html+=label("Always prepared",".7rem 0 .35rem"); html+=card.always.map(function(f){return featBtn(f,false);}).join(""); }
     if(card.prepared){
       html+='<div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Prepared spells <span id="prepCount" class="count-tag">0/0</span></div><div id="preparedList"></div>'+
             '<div class="row" style="justify-content:flex-start;margin-top:.5rem"><button class="btn tiny" id="prepareBtn" type="button">Prepare spells…</button></div>';

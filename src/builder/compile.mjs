@@ -66,7 +66,7 @@ export function compile(input){
     if (e.initiativeBonus != null) init += resolveVal(e.initiativeBonus, ctx);
     if (e.grantsPool){ const p = Object.assign({}, e.grantsPool); const id = p.id; delete p.id; if (p.max != null) p.max = resolveVal(p.max, ctx); pools[id] = p; }
     (e.alwaysPrepared||[]).forEach(a => always.push(typeof a === "string" ? { name:a } : a));
-    if (e.spellcasting) spellcasting = e.spellcasting;
+    if (e.spellcasting){ spellcasting = e.spellcasting; (e.spellcasting.slots||[]).forEach(sp => { const p = Object.assign({}, sp); const id = p.id; delete p.id; if (p.max != null) p.max = resolveVal(p.max, ctx); pools[id] = p; }); }
     if (e.initiate) initiate = e.initiate;
   }
 
@@ -83,7 +83,12 @@ export function compile(input){
   if (spellcasting){
     c.spellcasting = { ability: spellcasting.ability };
     if (spellcasting.prepared) c.prepared = spellcasting.prepared;
-    if (sc){ sc.slotPool = spellcasting.slotPool; if (spellcasting.prepared) sc.prepared = true; }
+    if (sc){
+      if (spellcasting.slots) sc.slotPools = spellcasting.slots.map(s => s.id);
+      else if (spellcasting.slotPool) sc.slotPool = spellcasting.slotPool;
+      if (spellcasting.cantrips) sc.cantrips = spellcasting.cantrips;
+      if (spellcasting.prepared) sc.prepared = true;
+    }
   }
   if (sc && always.length) sc.always = always;
   if (sc && initiate) sc.initiate = initiate;

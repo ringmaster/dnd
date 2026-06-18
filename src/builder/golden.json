@@ -273,5 +273,212 @@
     "spellcasting": null,
     "prepared": null,
     "spellcastingCard": null
+  },
+  "Elias Thorn": {
+    "abilities": {
+      "STR": 8,
+      "DEX": 13,
+      "CON": 15,
+      "INT": 19,
+      "WIS": 12,
+      "CHA": 10
+    },
+    "skillProf": [
+      "Arcana",
+      "History",
+      "Insight",
+      "Investigation",
+      "Perception"
+    ],
+    "skillExp": [
+      "Arcana"
+    ],
+    "checkMods": {},
+    "initiativeBonus": 0,
+    "always": [],
+    "tools": [
+      "Calligrapher's Supplies"
+    ],
+    "languages": null,
+    "pools": {
+      "mi": {
+        "label": "Detect Magic — free",
+        "max": 1,
+        "rest": "long",
+        "ref": "detectmagic",
+        "storm": true,
+        "note": "long rest",
+        "use": "Use free cast",
+        "reminder": "Magic Initiate: free cast of Detect Magic (no slot)."
+      },
+      "slot1": {
+        "label": "Level 1 Slots",
+        "max": 4,
+        "rest": "long",
+        "ref": "spellslots1",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 1st-level spell slot."
+      },
+      "slot2": {
+        "label": "Level 2 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots2",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 2nd-level spell slot."
+      },
+      "arcrec": {
+        "label": "Arcane Recovery",
+        "max": 1,
+        "rest": "long",
+        "ref": "arcanerecovery",
+        "storm": false,
+        "note": "once per day",
+        "use": "Use",
+        "reminder": "Arcane Recovery: on a short rest, recover spell slots totaling up to 2 levels (none above 5th)."
+      },
+      "portent": {
+        "label": "Portent Dice",
+        "max": 2,
+        "rest": "long",
+        "ref": "portent",
+        "storm": false,
+        "note": "rolled after a long rest",
+        "use": "Use a Portent",
+        "reminder": "Portent: replace any d20 (yours or a creature you can see) with a recorded Portent roll."
+      },
+      "insp": {
+        "label": "Heroic Inspiration",
+        "max": 1,
+        "rest": "long",
+        "ref": "inspiration",
+        "storm": true,
+        "note": "after a long rest",
+        "use": "Spend Inspiration",
+        "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
+      },
+      "hd": {
+        "label": "Hit Dice",
+        "max": 4,
+        "rest": "long",
+        "ref": "hitdice",
+        "storm": false,
+        "note": "1d6+2 · short rest",
+        "use": "Use",
+        "reminder": "Hit Die: roll 1d6+2, then add it with Heal."
+      }
+    },
+    "spellcasting": {
+      "ability": "INT"
+    },
+    "prepared": {
+      "max": 7,
+      "default": [
+        "shield",
+        "magearmor",
+        "magicmissile",
+        "sleep",
+        "mistystep",
+        "augury",
+        "web"
+      ],
+      "catalog": [
+        {
+          "id": "shield",
+          "name": "Shield",
+          "note": "Reaction · +5 AC until your next turn"
+        },
+        {
+          "id": "magearmor",
+          "name": "Mage Armor",
+          "note": "AC 13 + Dex for 8 hours"
+        },
+        {
+          "id": "magicmissile",
+          "name": "Magic Missile",
+          "note": "three darts, 1d4+1 force each · auto-hit"
+        },
+        {
+          "id": "sleep",
+          "name": "Sleep",
+          "note": "5d8 HP of creatures fall unconscious · Conc."
+        },
+        {
+          "id": "featherfall",
+          "name": "Feather Fall",
+          "note": "Reaction · slow falling for up to 5 creatures"
+        },
+        {
+          "id": "mistystep",
+          "name": "Misty Step",
+          "note": "Bonus Action · teleport 30 ft"
+        },
+        {
+          "id": "augury",
+          "name": "Augury",
+          "note": "an omen for a plan within 30 min · ritual"
+        },
+        {
+          "id": "web",
+          "name": "Web",
+          "note": "Restrain in a 20-ft cube · Concentration"
+        },
+        {
+          "id": "mirrorimage",
+          "name": "Mirror Image",
+          "note": "three decoy duplicates"
+        }
+      ]
+    },
+    "spellcastingCard": {
+      "type": "spellcasting",
+      "slotPools": [
+        "slot1",
+        "slot2"
+      ],
+      "cantrips": [
+        {
+          "ref": "firebolt",
+          "name": "Fire Bolt",
+          "sub": "1d10 fire · ranged spell attack · 120 ft"
+        },
+        {
+          "ref": "magehand",
+          "name": "Mage Hand",
+          "sub": "spectral hand · move 10 lb at 30 ft"
+        },
+        {
+          "ref": "minorillusion",
+          "name": "Minor Illusion",
+          "sub": "a sound or image"
+        },
+        {
+          "ref": "light",
+          "name": "Light",
+          "sub": "an object sheds bright light"
+        }
+      ],
+      "prepared": true,
+      "initiate": {
+        "label": "Magic Initiate (Wizard) · Int",
+        "pool": "mi",
+        "spells": [
+          {
+            "ref": "tollthedead",
+            "name": "Toll the Dead",
+            "sub": "cantrip · Wis save · 1d8/1d12 necrotic"
+          },
+          {
+            "ref": "prestidigitation",
+            "name": "Prestidigitation",
+            "sub": "cantrip · minor magical tricks"
+          }
+        ]
+      }
+    }
   }
 }
