@@ -13,7 +13,7 @@
   var state = {
     name:"New Hero", species:"human", cls:"ranger", subclass:"", background:"guide", level:4,
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
-    skills:[], armor:"", shield:false, originFeat:"", asis:{}, weapons:[], masteries:[]
+    skills:[], armor:"", shield:false, originFeat:"", asis:{}, weapons:[], masteries:[], cantrips:[], prepared:[]
   };
   function reachedASIs(){ return ASI_LEVELS.filter(function(l){ return l<=state.level; }); }
   function asiDefault(){ return { mode:"asi2", a:(classData().priority||ABIL)[0], b:(classData().priority||ABIL)[1], feat:"" }; }
@@ -101,6 +101,25 @@
     var counts=table[Math.min(state.level,20)]||[]; if(!counts.length) return null;
     return counts.map(function(n,i){ var lvl=i+1; return {id:"slot"+lvl,label:"Level "+lvl+" Slots",max:n,rest:"long",ref:"spellslots"+lvl,storm:true,note:"long rest",use:"Spend a slot",reminder:"Spend a "+ordinalB(lvl)+"-level spell slot.",slotLevel:lvl}; });
   }
+  /* spells known/prepared by class + level */
+  var PREP_FULL=[0,4,5,6,7,9,10,11,12,14,15,16,16,17,18,19,21,22,23,24,25];
+  var PREP_HALF=[0,2,3,4,5,6,6,7,7,9,9,10,10,11,11,12,12,14,14,15,15];
+  function cantripsKnown(){ var c=state.cls; if(c==="wizard"||c==="cleric") return state.level<4?3:(state.level<10?4:5); return 0; }
+  function preparedCount(){ var cd=classData(); if(!cd.spellAbility) return 0; var t=cd.caster==="full"?PREP_FULL:(cd.caster==="half"?PREP_HALF:null); return t?t[Math.min(state.level,20)]:0; }
+  function maxSpellLevel(){ return (spellSlotsFor()||[]).length; }
+  function classCantrips(){ return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level===0 && (s.classes||[]).indexOf(state.cls)>=0; }).sort(); }
+  function classLeveledSpells(){ var mx=maxSpellLevel(); return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level>=1 && s.level<=mx && (s.classes||[]).indexOf(state.cls)>=0; }).sort(function(a,b){ var s=CAT.spells; return s[a].level-s[b].level || (s[a].name<s[b].name?-1:1); }); }
+  function spellSub(reg){ var d=derive(), ab=classData().spellAbility, mod=ab?d.mods[ab]:0; var sg=function(n){return (n>=0?"+":"")+n;};
+    var s=reg.dice?String(reg.dice).replace(/\{dc\}/g,d.spellDC).replace(/\{atk\}/g,sg(d.spellAtk)).replace(/\{mod\}/g,sg(mod)):"";
+    return (s || (reg.level===0?"cantrip":"level "+reg.level))+(reg.concentration?" · Conc.":""); }
+  function spellEntries(){
+    var sc={ ability:classData().spellAbility };
+    var slots=spellSlotsFor(); if(slots) sc.slots=slots;
+    if(state.cantrips.length) sc.cantrips=state.cantrips.map(function(id){ return { ref:id, name:CAT.spells[id].name, sub:spellSub(CAT.spells[id]) }; });
+    var pc=preparedCount();
+    if(pc) sc.prepared={ max:pc, default:state.prepared.slice(), catalog:classLeveledSpells().map(function(id){ return { id:id, name:CAT.spells[id].name, note:spellSub(CAT.spells[id]), level:CAT.spells[id].level }; }) };
+    return sc;
+  }
   function classFeatureSources(){
     var cd=classData(), fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[state.cls]||{}, out=[];
     for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(cf[name]) out.push({ id:cf[name].refId||name, name:(cd.name||"")+": "+name, include:"class:"+state.cls+":"+name }); });
@@ -139,9 +158,8 @@
     if(state.skills.length) sources.push({ id:state.cls+"-skills", name:(cd.name||state.cls)+" skills", effects:{ skills: state.skills.slice() } });
     var sp = CAT.species[state.species];
     if(sp) Object.keys(sp.traits).forEach(function(tr){ sources.push({ id:tr, name:(sp.name+": "+sp.traits[tr].name), include:"species:"+state.species+":"+tr }); });
-    // class spellcasting (slots scale with level) + class features up to level
-    var slots=spellSlotsFor();
-    if(slots) sources.push({ id:"spellcasting", name:"Spellcasting", effects:{ spellcasting:{ ability:cd.spellAbility, slots:slots } } });
+    // class spellcasting (slots + chosen cantrips/prepared) + class features up to level
+    if(cd.spellAbility && spellSlotsFor()) sources.push({ id:"spellcasting", name:"Spellcasting", effects:{ spellcasting:spellEntries() } });
     classFeatureSources().forEach(function(s){ sources.push(s); });
     classPoolSources().forEach(function(s){ sources.push(s); });
     // level-1 origin feat (e.g. Human Versatile)
@@ -284,6 +302,9 @@
     if(state.level<3) state.subclass="";                       // subclass is a level-3 choice
     var cd = classData(), sp = CAT.species[state.species], bg = CAT.backgrounds[state.background];
     var d = derive();
+    // drop spell picks no longer valid for the class/level
+    state.cantrips = state.cantrips.filter(function(id){ return classCantrips().indexOf(id)>=0; });
+    state.prepared = state.prepared.filter(function(id){ return classLeveledSpells().indexOf(id)>=0; });
 
     // identity + core selects
     var core = el("div",{class:"bcard"},[
@@ -291,7 +312,7 @@
       field("Name", el("input",{class:"binput", value:state.name, oninput:function(e){ state.name=e.target.value; refreshOut(); }})),
       el("div",{class:"bgrid"},[
         selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; render(); }, "", speciesHelp()),
-        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.extraFeat=""; render(); }, "", classHelp()),
+        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; render(); }, "", classHelp()),
         selField("Subclass", state.subclass, state.level<3 ? [["","— locked —"]] : [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.subclass=v; render(); }, state.level<3 ? "Subclass is gained at level 3." : "Pick a class first.", subclassHelp()),
         selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp()),
         selField("Level", String(state.level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.level=parseInt(v,10); render(); }, "", "Your character level (1–20). Higher levels raise Proficiency Bonus, HP, spell slots, and unlock features.")
@@ -305,6 +326,34 @@
       selField("Armor", state.armor, armorOpts, function(v){ state.armor=v; render(); }, "", armorHelp()),
       el("label",{class:"bcheck"},[ el("input",{type:"checkbox", checked: state.shield?"checked":null, onchange:function(e){ state.shield=e.target.checked; render(); }}), el("span",{text:"Shield (+2 AC)"}) ])
     ]);
+
+    // spells: cantrips + prepared from the class list (casters only)
+    var spellCard=null;
+    if(cd.spellAbility){
+      spellCard=el("div",{class:"bcard"},[ el("h2",{text:"Spells"}) ]);
+      var cKnown=cantripsKnown();
+      if(cKnown){
+        spellCard.appendChild(el("div",{class:"bsub",text:"Cantrips ("+state.cantrips.length+"/"+cKnown+"):"}));
+        var cw=el("div",{class:"bchips"});
+        classCantrips().forEach(function(id){ var on=state.cantrips.indexOf(id)>=0;
+          cw.appendChild(el("button",{class:"bchip"+(on?" on":""), type:"button", text:CAT.spells[id].name, onclick:function(){
+            var i=state.cantrips.indexOf(id); if(i>=0) state.cantrips.splice(i,1); else { if(state.cantrips.length>=cKnown) return; state.cantrips.push(id); } render();
+          }}));
+        });
+        spellCard.appendChild(cw);
+      }
+      var pc=preparedCount();
+      if(pc){
+        spellCard.appendChild(el("div",{class:"bsub",text:"Prepared spells ("+state.prepared.length+"/"+pc+") — up to spell level "+maxSpellLevel()+":"}));
+        var pw=el("div",{class:"bchips"});
+        classLeveledSpells().forEach(function(id){ var s=CAT.spells[id], on=state.prepared.indexOf(id)>=0;
+          pw.appendChild(el("button",{class:"bchip"+(on?" on":""), type:"button", text:s.name+" · L"+s.level, onclick:function(){
+            var i=state.prepared.indexOf(id); if(i>=0) state.prepared.splice(i,1); else { if(state.prepared.length>=pc) return; state.prepared.push(id); } render();
+          }}));
+        });
+        spellCard.appendChild(pw);
+      }
+    }
 
     // weapons: pick your kit + masteries
     var wpnCard = el("div",{class:"bcard"},[ el("h2",{text:"Weapons"}),
@@ -420,7 +469,7 @@
       outArea
     ]);
 
-    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, wpnCard, skillCard, featCard, advCard]));
+    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, advCard].filter(Boolean)));
     root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
     refreshOut();
   }
