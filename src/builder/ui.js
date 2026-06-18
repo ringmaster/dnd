@@ -19,7 +19,13 @@
   function fmt(n){ return (n>=0?"+":"")+n; }
   function pbForLevel(l){ return Math.floor((l-1)/4) + 2; }
   function el(tag, attrs, kids){ var e=document.createElement(tag); attrs=attrs||{};
-    for(var k in attrs){ if(k==="class") e.className=attrs[k]; else if(k==="html") e.innerHTML=attrs[k]; else if(k==="text") e.textContent=attrs[k]; else if(k.slice(0,2)==="on") e.addEventListener(k.slice(2), attrs[k]); else e.setAttribute(k, attrs[k]); }
+    for(var k in attrs){ var v=attrs[k];
+      if(v==null || v===false) continue;                                  // skip absent attrs (don't set disabled="null"!)
+      if(k==="class") e.className=v; else if(k==="html") e.innerHTML=v; else if(k==="text") e.textContent=v;
+      else if(k.slice(0,2)==="on") e.addEventListener(k.slice(2), v);
+      else if(v===true) e.setAttribute(k, "");                            // boolean attr
+      else e.setAttribute(k, v);
+    }
     (kids||[]).forEach(function(c){ if(c) e.appendChild(c); }); return e; }
   function opt(v, label, sel, dis){ return el("option", {value:v, text:label, selected: sel?"selected":null, disabled: dis?"disabled":null}); }
   function titleCase(s){ return String(s).split(/[-_ ]+/).map(function(w){ return w ? w.charAt(0).toUpperCase()+w.slice(1) : w; }).join(" "); }
@@ -163,7 +169,7 @@
     // equipped gear -> AC (Mage Armor is a spell, not armor, so it isn't here)
     var armorOpts=[["","No armor (10 + Dex)"]].concat(Object.keys(CAT.armor).filter(function(k){return k!=="magearmor";}).map(function(k){return [k,CAT.armor[k].label];}));
     var gearCard = el("div",{class:"bcard"},[ el("h2",{text:"Equipped"}),
-      el("div",{class:"bsub",text:"Armor Class is built from what you have equipped. Mage Armor is a spell — cast it from your spell list."}),
+      el("div",{class:"bsub",text:"Armor Class is built from what you have equipped."}),
       selField("Armor", state.armor, armorOpts, function(v){ state.armor=v; render(); }),
       el("label",{class:"bcheck"},[ el("input",{type:"checkbox", checked: state.shield?"checked":null, onchange:function(e){ state.shield=e.target.checked; render(); }}), el("span",{text:"Shield (+2 AC)"}) ])
     ]);
@@ -227,7 +233,8 @@
       el("div",{class:"bsub",text:"A starting scaffold — drop into src/characters/, then add weapons, cards, combat, and subclass features."}),
       el("div",{class:"brow2"},[
         el("button",{class:"bbtn", type:"button", text:"Copy", onclick:function(){ var t=document.getElementById("bOut"); t.select(); try{document.execCommand("copy");}catch(e){} }}),
-        el("button",{class:"bbtn ember", type:"button", text:"Download .json", onclick:downloadJson})
+        el("button",{class:"bbtn", type:"button", text:"Download .json", onclick:downloadJson}),
+        el("button",{class:"bbtn ember", type:"button", text:"Preview →", onclick:previewChar})
       ]),
       outArea
     ]);
@@ -237,6 +244,10 @@
     refreshOut();
   }
   function refreshOut(){ var t=document.getElementById("bOut"); if(t) t.value = JSON.stringify(scaffold(), null, 2); }
+  function previewChar(){
+    try { localStorage.setItem("dnd_preview", JSON.stringify(scaffold())); } catch(e){}
+    window.open("view.html?preview=1", "_blank");
+  }
   function downloadJson(){
     var ch=scaffold(), blob=new Blob([JSON.stringify(ch,null,2)], {type:"application/json"});
     var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=ch.id+".json"; document.body.appendChild(a); a.click(); a.remove();

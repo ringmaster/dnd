@@ -104,6 +104,7 @@ const indexHtml = `<!DOCTYPE html>
     <h1>D&amp;D Characters</h1>
     <p class="lede">Tap a character to open their sheet.</p>
     <a class="build-cta" href="builder.html">⚒ Build a new character →</a>
+    <p class="lede" style="margin-top:1rem">Have a character JSON? <a href="view.html" style="color:var(--ember-bright)">Render it in the viewer →</a></p>
     <div class="pcs">
 ${cards}
     </div>
@@ -192,4 +193,81 @@ ${styles}
 `;
 fs.writeFileSync(path.join(DOCS, "builder.html"), builderHtml);
 console.log("built docs/builder.html  (" + builderHtml.length + " bytes)");
+
+// ---- static viewer: compile + render any character JSON entirely client-side ----
+const coreSrc = read(path.join(SRC, "builder", "compile-core.mjs")).replace(/^export\s+/gm, "");
+const viewerBoot = `
+${coreSrc}
+var CAT = ${catJson};
+var ENGINE_SRC = ${JSON.stringify(engineJs)};
+
+function showError(msg){ var e=document.getElementById("vwErr"); if(e){ e.textContent=msg; e.style.display="block"; } }
+function hideLoader(){ var l=document.getElementById("vwLoader"); if(l) l.style.display="none"; }
+function renderCharacter(raw){
+  var compiled;
+  try { compiled = compile(raw, CAT); } catch(e){ showError("Could not compile: " + e.message); return; }
+  if (compiled.build) delete compiled.build;
+  var json = JSON.stringify(compiled).replace(/<\\/script/gi, "<\\\\/script");
+  var s = document.createElement("script");
+  s.text = '(function(){"use strict"; var CHARACTER = ' + json + ';\\n' + ENGINE_SRC + '\\n})();';
+  document.body.appendChild(s);
+  hideLoader();
+}
+function tryRaw(text){
+  var raw; try { raw = JSON.parse(text); } catch(e){ showError("That isn't valid JSON: " + e.message); return; }
+  renderCharacter(raw);
+}
+function fromParam(){
+  var m = location.search.match(/[?&]c=([^&]+)/); if(!m) return null;
+  try { return JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(m[1]))))); } catch(e){ return null; }
+}
+document.addEventListener("DOMContentLoaded", function(){
+  var p = fromParam(); if(p){ renderCharacter(p); return; }
+  var preview = /[?&]preview=1/.test(location.search);
+  if(preview){ try { var s=localStorage.getItem("dnd_preview"); if(s){ renderCharacter(JSON.parse(s)); return; } } catch(e){} }
+  // build loader UI
+  var L=document.getElementById("vwLoader");
+  document.getElementById("vwFile").addEventListener("change", function(e){
+    var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ tryRaw(String(r.result)); }; r.readAsText(f);
+  });
+  document.getElementById("vwRender").addEventListener("click", function(){ tryRaw(document.getElementById("vwText").value); });
+  var hadPreview=false; try { hadPreview=!!localStorage.getItem("dnd_preview"); } catch(e){}
+  if(hadPreview){ var b=document.getElementById("vwPreview"); b.style.display="inline-flex"; b.addEventListener("click", function(){ try{ renderCharacter(JSON.parse(localStorage.getItem("dnd_preview"))); }catch(e){ showError("No valid preview saved."); } }); }
+});
+`;
+const viewerStyles = styles + `
+  .vw-loader{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-start;justify-content:center;overflow:auto;background:var(--slate-deep);padding:3rem 1rem}
+  .vw-panel{max-width:620px;width:100%;background:linear-gradient(180deg,var(--slate-panel),#191d25);border:1px solid var(--iron);border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.5);padding:1.6rem 1.5rem}
+  .vw-panel h1{font-family:"Cinzel",serif;font-weight:900;letter-spacing:.04em;font-size:1.5rem;margin:0 0 .3rem}
+  .vw-panel p{color:var(--ash);font-size:.9rem;margin:0 0 1.2rem}
+  .vw-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+  .vw-btn{font-family:"Cinzel",serif;letter-spacing:.04em;background:linear-gradient(180deg,#2c333e,#222831);color:var(--bone);border:1px solid var(--iron-light);border-radius:9px;padding:.6rem 1rem;cursor:pointer;font-size:.82rem}
+  .vw-btn.ember{border-color:var(--ember);color:var(--ember-bright)}
+  .vw-file{color:var(--ash);font-size:.82rem}
+  .vw-text{width:100%;min-height:200px;font-family:ui-monospace,Menlo,monospace;font-size:.76rem;background:#0e1014;color:var(--bone);border:1px solid var(--iron);border-radius:9px;padding:.7rem;resize:vertical}
+  .vw-err{display:none;color:#e8896b;font-size:.82rem;margin:.6rem 0 0;border:1px solid #6b2f22;background:rgba(180,70,40,.1);border-radius:8px;padding:.5rem .7rem}
+  .vw-hint{color:var(--ash-dim);font-size:.74rem;margin-top:.8rem}`;
+const viewerBody = `
+<div class="vw-loader" id="vwLoader">
+  <div class="vw-panel">
+    <h1>Render a Character</h1>
+    <p>Paste or upload a character JSON (a source file from <code>src/characters/</code>, or one exported from the builder). It's compiled and rendered right here — no server.</p>
+    <div class="vw-row">
+      <label class="vw-btn">Choose file…<input type="file" id="vwFile" accept=".json,application/json" style="display:none"></label>
+      <button class="vw-btn ember" id="vwPreview" type="button" style="display:none">Load builder preview</button>
+      <a class="vw-btn" href="builder.html">Open builder →</a>
+    </div>
+    <textarea class="vw-text" id="vwText" placeholder="{ &quot;name&quot;: &quot;…&quot;, &quot;build&quot;: { … } }"></textarea>
+    <div class="vw-row" style="margin-top:.8rem"><button class="vw-btn ember" id="vwRender" type="button">Render →</button></div>
+    <div class="vw-err" id="vwErr"></div>
+    <div class="vw-hint">Tip: link a character with <code>?c=&lt;base64-json&gt;</code>, or come from the builder's Preview button.</div>
+  </div>
+</div>`;
+const viewerHtml = template
+  .replace("{{TITLE}}", "Character Viewer")
+  .replace("{{STYLES}}", viewerStyles)
+  .replace("{{SCRIPT}}", viewerBoot.replace(/<\/script/gi, "<\\/script"))   // escape only inlined script text
+  .replace('<header>', viewerBody + "\n<header>");
+fs.writeFileSync(path.join(DOCS, "view.html"), viewerHtml);
+console.log("built docs/view.html  (" + viewerHtml.length + " bytes)");
 console.log("done — " + built + " sheet(s).");
