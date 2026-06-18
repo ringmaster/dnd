@@ -24,7 +24,14 @@
       "base": 12,
       "addDex": true,
       "note": "light armor · 12 + full Dex",
-      "default": false
+      "default": true
+    },
+    "style": {
+      "label": "Defense",
+      "bonus": 1,
+      "note": "+1 AC while you wear armor",
+      "requiresArmor": true,
+      "default": true
     }
   },
   "hp": {
@@ -56,8 +63,7 @@
   "weapons": [
     {
       "id": "longbow",
-      "carried": true,
-      "atkBonus": 2
+      "carried": true
     },
     {
       "id": "shortsword",
@@ -201,9 +207,9 @@
           "sub": "Hunter's Mark always prepared · free 2×/long rest"
         },
         {
-          "ref": "archery",
-          "name": "Fighting Style: Archery",
-          "sub": "+2 to ranged weapon attack rolls"
+          "ref": "defense",
+          "name": "Fighting Style: Defense",
+          "sub": "+1 AC while wearing armor"
         },
         {
           "ref": "weaponmastery",
@@ -317,7 +323,7 @@
           "items": [
             {
               "cls": "choice",
-              "html": "<b>Fighting Style: Archery</b> (+2 ranged attack rolls)"
+              "html": "<b>Fighting Style: Defense</b> (+1 AC while wearing armor)"
             },
             {
               "cls": "choice",
@@ -388,7 +394,7 @@
         }
       ],
       "body": [
-        "One attack on your turn (Extra Attack arrives at level 5). +7 to hit = Dex +3, proficiency +2, and the Archery fighting style +2. Damage adds your Dexterity (+3).",
+        "One attack on your turn (Extra Attack arrives at level 5). +5 to hit = Dex +3 and proficiency +2. Damage adds your Dexterity (+3).",
         "Slow (mastery): when you hit and deal damage, the target's Speed drops by 10 feet until the start of your next turn.",
         "Needs ammunition and two free hands to fire."
       ]
@@ -470,19 +476,6 @@
         "This is your signature damage rider — turn it on as a Bonus Action at the start of a fight."
       ]
     },
-    "archery": {
-      "title": "Fighting Style: Archery",
-      "dice": null,
-      "chips": [
-        {
-          "t": "+2 ranged attacks",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "You gain a +2 bonus to attack rolls with ranged weapons. Already included in the longbow's +7 to hit."
-      ]
-    },
     "deftexplorer": {
       "title": "Deft Explorer",
       "dice": null,
@@ -537,6 +530,19 @@
       "body": [
         "While you wear these boots, your steps make no sound, regardless of the surface you move across.",
         "You also have Advantage on any Dexterity (Stealth) check you make that relies on moving silently."
+      ]
+    },
+    "defense": {
+      "title": "Fighting Style: Defense",
+      "dice": null,
+      "chips": [
+        {
+          "t": "+1 AC armored",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "While you are wearing armor, you gain a +1 bonus to AC. Brynja wears studded leather, so her AC is 16 (12 + Dex 3 + Defense 1)."
       ]
     }
   },
