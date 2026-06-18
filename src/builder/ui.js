@@ -13,7 +13,7 @@
   var state = {
     name:"New Hero", species:"human", cls:"ranger", subclass:"", background:"guide", level:4,
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
-    skills:[], armor:"", shield:false, originFeat:"", asis:{}
+    skills:[], armor:"", shield:false, originFeat:"", asis:{}, weapons:[], masteries:[]
   };
   function reachedASIs(){ return ASI_LEVELS.filter(function(l){ return l<=state.level; }); }
   function asiDefault(){ return { mode:"asi2", a:(classData().priority||ABIL)[0], b:(classData().priority||ABIL)[1], feat:"" }; }
@@ -193,6 +193,7 @@
     if(cd.spellAbility) cards.push({type:"spellcasting"});
     cards.push({type:"skills"});
     cards.push({type:"pools", title:"Resources", pools:"*"});
+    if(state.weapons.length) cards.push({type:"inventory", items:[]});
     var feats=featureList(); if(feats.length) cards.push({type:"features", title:"Features & Traits", list:feats});
     cards.push({type:"buildlog", title:"Build Log", hint:"every choice, level by level", levels:genBuildLog()});
     return cards;
@@ -208,9 +209,9 @@
       proficiencyBonus: d.pb, saves: d.saves, speed: d.speed,
       ac: (function(){ var ac={}; if(state.armor) ac.armor=state.armor; if(state.shield) ac.shield={label:"Shield",bonus:2,note:"+2 AC",default:true}; return ac; })(),
       hp: { max: d.hp },
-      masteryMax: cd.weaponMastery || 0, masteryDefault: [],
+      masteryMax: cd.weaponMastery || 0, masteryDefault: state.masteries.slice(),
       rest: { short:["Spend Hit Dice to heal","Recover short-rest features"], long:["HP → maximum","Spell slots → full","Hit Dice → half restored","All per-rest features reset"], shortToast:"Short rest taken.", longToast:"Long rest — fully restored." },
-      studs: genStuds(), weapons: [], cards: genCards(), combat: null,
+      studs: genStuds(), weapons: state.weapons.map(function(id){ return { id:id, carried:true }; }), cards: genCards(), combat: null,
       build: buildBlock()
     };
     return ch;
@@ -305,6 +306,34 @@
       el("label",{class:"bcheck"},[ el("input",{type:"checkbox", checked: state.shield?"checked":null, onchange:function(e){ state.shield=e.target.checked; render(); }}), el("span",{text:"Shield (+2 AC)"}) ])
     ]);
 
+    // weapons: pick your kit + masteries
+    var wpnCard = el("div",{class:"bcard"},[ el("h2",{text:"Weapons"}),
+      el("div",{class:"bsub",text:"Tap weapons to add them to your kit — they show in Attacks and Inventory."}) ]);
+    var wWrap=el("div",{class:"bchips"});
+    Object.keys(CAT.weapons).sort(function(a,b){ return CAT.weapons[a].name<CAT.weapons[b].name?-1:1; }).forEach(function(id){
+      var w=CAT.weapons[id], on=state.weapons.indexOf(id)>=0;
+      wWrap.appendChild(el("button",{class:"bchip"+(on?" on":""), type:"button", text:w.name, onclick:function(){
+        var i=state.weapons.indexOf(id);
+        if(i>=0){ state.weapons.splice(i,1); var mi=state.masteries.indexOf(id); if(mi>=0) state.masteries.splice(mi,1); }
+        else state.weapons.push(id);
+        render();
+      }}));
+    });
+    wpnCard.appendChild(wWrap);
+    if(cd.weaponMastery){
+      wpnCard.appendChild(el("div",{class:"bsub",text:"Weapon Mastery — choose up to "+cd.weaponMastery+" from your kit ("+state.masteries.length+"/"+cd.weaponMastery+"):"}));
+      var mWrap=el("div",{class:"bchips"});
+      state.weapons.forEach(function(id){ var w=CAT.weapons[id]; if(!w||!w.mastery) return; var on=state.masteries.indexOf(id)>=0;
+        mWrap.appendChild(el("button",{class:"bchip"+(on?" on":""), type:"button", text:w.name+" · "+w.mastery, onclick:function(){
+          var i=state.masteries.indexOf(id);
+          if(i>=0) state.masteries.splice(i,1); else { if(state.masteries.length>=cd.weaponMastery) return; state.masteries.push(id); }
+          render();
+        }}));
+      });
+      if(!state.weapons.length) mWrap.appendChild(el("span",{class:"bf-h",text:"Add weapons to your kit first."}));
+      wpnCard.appendChild(mWrap);
+    }
+
     // abilities
     var inc = abilityIncreases();
     var abilRows = ABIL.map(function(a){
@@ -391,7 +420,7 @@
       outArea
     ]);
 
-    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, skillCard, featCard, advCard]));
+    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, wpnCard, skillCard, featCard, advCard]));
     root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
     refreshOut();
   }
