@@ -47,5 +47,67 @@
         "body": ["You gain a Fighting Style feat of your choice (Archery, Defense, Dueling, Two-Weapon Fighting, etc.) — record it on your sheet."]
       }
     }
+  },
+  "fighter": {
+    "Fighting Style": {
+      "refId": "fightingstyle",
+      "ref": { "title": "Fighting Style", "chips": [{ "t": "Combat feat" }], "body": ["You gain a Fighting Style feat of your choice (Defense, Dueling, Archery, Great Weapon Fighting, etc.) — record it on your sheet."] }
+    },
+    "Second Wind": {
+      "refId": "secondwind",
+      "ref": { "title": "Second Wind", "chips": [{ "t": "Bonus action" }, { "t": "Short rest", "c": "storm" }], "body": ["As a Bonus Action, regain 1d10 + your fighter level hit points. Regain your uses on a short or long rest.", "Tap Use to spend a charge, then roll the d10 and apply it with the Heal control."] }
+    },
+    "Weapon Mastery": {
+      "refId": "weaponmastery",
+      "ref": { "title": "Weapon Mastery", "chips": [{ "t": "3 weapons", "c": "ember" }], "body": ["You can use the mastery property of three kinds of weapons of your choice; change the choices after a long rest. Pick them in the Weapon Mastery panel."] }
+    },
+    "Action Surge": {
+      "refId": "actionsurge",
+      "ref": { "title": "Action Surge", "chips": [{ "t": "Short rest", "c": "storm" }], "body": ["On your turn, take one additional action — most often a second Attack action. Regain it on a short or long rest."] }
+    },
+    "Tactical Mind": {
+      "refId": "tacticalmind",
+      "ref": { "title": "Tactical Mind", "chips": [{ "t": "+1d10 to a check" }], "body": ["When you fail an ability check, you can expend a use of Second Wind to add 1d10 to the check. If it still fails, you don't lose the Second Wind use."] }
+    },
+    "Extra Attack": {
+      "refId": "extraattack",
+      "ref": { "title": "Extra Attack", "chips": [{ "t": "2 attacks", "c": "ember" }], "body": ["You can attack twice, instead of once, whenever you take the Attack action on your turn."] }
+    },
+    "Tactical Shift": {
+      "refId": "tacticalshift",
+      "ref": { "title": "Tactical Shift", "chips": [{ "t": "Free movement" }], "body": ["Whenever you activate Second Wind, you can move up to half your Speed without provoking Opportunity Attacks."] }
+    }
+  },
+  "wizard": {
+    "Arcane Recovery": {
+      "refId": "arcanerecovery",
+      "ref": { "title": "Arcane Recovery", "chips": [{ "t": "Short rest", "c": "storm" }, { "t": "Once / day" }], "body": ["Once per day when you finish a short rest, recover expended spell slots whose levels total up to half your wizard level (rounded up), none of 6th level or higher.", "Tap Use to mark it spent; it returns on a long rest."] }
+    },
+    "Ritual Adept": {
+      "refId": "ritualadept",
+      "ref": { "title": "Ritual Adept", "chips": [{ "t": "Ritual casting", "c": "storm" }], "body": ["You can cast any spell with the Ritual tag as a ritual if it's in your spellbook, without preparing it — it just takes 10 minutes longer and uses no slot."] }
+    },
+    "Scholar": {
+      "refId": "scholar",
+      "ref": { "title": "Scholar", "chips": [{ "t": "Expertise" }], "body": ["You gain Expertise in one Intelligence-based skill you're proficient with: Arcana, History, Investigation, Medicine, Nature, or Religion."] }
+    },
+    "Memorize Spell": {
+      "refId": "memorizespell",
+      "ref": { "title": "Memorize Spell", "chips": [{ "t": "Swap on a rest" }], "body": ["Whenever you finish a short rest, you can swap one prepared wizard spell for a different spell from your spellbook."] }
+    }
+  },
+  "cleric": {
+    "Divine Order": {
+      "refId": "divineorder",
+      "ref": { "title": "Divine Order", "chips": [{ "t": "Protector / Thaumaturge" }], "body": ["Choose Protector — proficiency with martial weapons and heavy armor — or Thaumaturge — an extra cantrip and a bonus to your Intelligence (Arcana/Religion) checks. Record your choice."] }
+    },
+    "Channel Divinity": {
+      "refId": "channeldivinity",
+      "ref": { "title": "Channel Divinity", "chips": [{ "t": "Short rest", "c": "storm" }], "body": ["A Magic action that fuels a divine option — Divine Spark (heal or radiant/necrotic damage) or Turn Undead. You regain one use on a short rest and all on a long rest."] }
+    },
+    "Sear Undead": {
+      "refId": "searundead",
+      "ref": { "title": "Sear Undead", "chips": [{ "t": "Turn Undead boost" }], "body": ["Whenever you use Turn Undead, you also deal radiant damage to each affected undead equal to a roll of your Wisdom modifier in d8s."] }
+    }
   }
 }

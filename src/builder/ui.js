@@ -106,6 +106,25 @@
     for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(cf[name]) out.push({ id:cf[name].refId||name, name:(cd.name||"")+": "+name, include:"class:"+state.cls+":"+name }); });
     return out;
   }
+  /* class resource pools whose size scales with level (the ref comes from class-features) */
+  var CLASS_POOLS = {
+    fighter: [
+      { feature:"Second Wind", id:"sw", label:"Second Wind", ref:"secondwind", storm:true, rest:"short", note:"short rest", use:"Use Second Wind", max:function(l){return l>=10?4:(l>=4?3:2);}, reminder:"Second Wind: roll 1d10 + your fighter level, then add it with Heal." },
+      { feature:"Action Surge", id:"as", label:"Action Surge", ref:"actionsurge", storm:false, rest:"short", note:"short rest", use:"Use", max:function(l){return l>=17?2:1;}, reminder:"Action Surge — take one extra action this turn." }
+    ],
+    wizard: [
+      { feature:"Arcane Recovery", id:"arcrec", label:"Arcane Recovery", ref:"arcanerecovery", storm:false, rest:"long", note:"once per day", use:"Use", max:function(){return 1;}, reminder:"Arcane Recovery: on a short rest, recover slots totaling up to half your wizard level (round up), none above 5th." }
+    ],
+    cleric: [
+      { feature:"Channel Divinity", id:"cd", label:"Channel Divinity", ref:"channeldivinity", storm:false, rest:"short", note:"regain 1 on a short rest", use:"Use", max:function(l){return l>=18?4:(l>=6?3:2);}, reminder:"Channel Divinity: Divine Spark or Turn Undead." }
+    ]
+  };
+  function featureReached(name){ var fbl=classData().featuresByLevel||{}; for(var l=1;l<=state.level;l++){ if((fbl[String(l)]||[]).indexOf(name)>=0) return true; } return false; }
+  function classPoolSources(){
+    var out=[]; (CLASS_POOLS[state.cls]||[]).forEach(function(cp){ if(!featureReached(cp.feature)) return;
+      out.push({ id:cp.id, name:cp.feature, effects:{ grantsPool:{ id:cp.id, label:cp.label, max:cp.max(state.level), rest:cp.rest, ref:cp.ref, storm:cp.storm, note:cp.note, use:cp.use, reminder:cp.reminder } } }); });
+    return out;
+  }
   function featureList(){
     var cd=classData(), fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[state.cls]||{}, out=[];
     for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(name==="Ability Score Improvement") return; out.push({ ref:(cf[name]&&cf[name].refId)||"", name:name, sub:"Level "+l }); });
@@ -124,6 +143,7 @@
     var slots=spellSlotsFor();
     if(slots) sources.push({ id:"spellcasting", name:"Spellcasting", effects:{ spellcasting:{ ability:cd.spellAbility, slots:slots } } });
     classFeatureSources().forEach(function(s){ sources.push(s); });
+    classPoolSources().forEach(function(s){ sources.push(s); });
     // level-1 origin feat (e.g. Human Versatile)
     if(state.originFeat) sources.push({ id:"feat-"+state.originFeat, name:"Origin feat: "+(CAT.feats[state.originFeat]||{}).name, grantsFeat:state.originFeat });
     // hit dice pool scales with level
