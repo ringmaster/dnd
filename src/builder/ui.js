@@ -13,8 +13,20 @@
   var state = {
     name:"New Hero", species:"human", cls:"ranger", subclass:"", background:"guide", level:4,
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
-    skills:[], armor:"", shield:false, originFeat:"", asis:{}, weapons:[], masteries:[], cantrips:[], prepared:[]
+    skills:[], armor:"", shield:false, originFeat:"", asis:{}, weapons:[], masteries:[], cantrips:[], prepared:[],
+    choices:{ style:"", expertise:"", order:"" }
   };
+  var FIGHTING_STYLES=[
+    {id:"archery", name:"Archery", note:"+2 to ranged weapon attack rolls"},
+    {id:"defense", name:"Defense", note:"+1 AC while wearing armor"},
+    {id:"dueling", name:"Dueling", note:"+2 damage with a one-handed melee weapon"},
+    {id:"greatweapon", name:"Great Weapon Fighting", note:"reroll 1s and 2s on two-handed/versatile damage"},
+    {id:"twoweapon", name:"Two-Weapon Fighting", note:"add your ability modifier to the off-hand attack's damage"},
+    {id:"protection", name:"Protection", note:"Reaction: impose Disadvantage on an attack against a nearby ally"}
+  ];
+  function proficientSkills(){ var set={}, bg=CAT.backgrounds[state.background]; if(bg&&bg.effects&&bg.effects.skills) bg.effects.skills.forEach(function(s){set[s]=1;}); state.skills.forEach(function(s){set[s]=1;}); return Object.keys(set).sort(); }
+  function featureLevel(name){ var fbl=classData().featuresByLevel||{}; for(var l=1;l<=20;l++){ if((fbl[String(l)]||[]).indexOf(name)>=0) return l; } return 1; }
+  function needsExpertise(){ return featureReached("Deft Explorer")||featureReached("Scholar"); }
   function reachedASIs(){ return ASI_LEVELS.filter(function(l){ return l<=state.level; }); }
   function asiDefault(){ return { mode:"asi2", a:(classData().priority||ABIL)[0], b:(classData().priority||ABIL)[1], feat:"" }; }
 
@@ -104,7 +116,7 @@
   /* spells known/prepared by class + level */
   var PREP_FULL=[0,4,5,6,7,9,10,11,12,14,15,16,16,17,18,19,21,22,23,24,25];
   var PREP_HALF=[0,2,3,4,5,6,6,7,7,9,9,10,10,11,11,12,12,14,14,15,15];
-  function cantripsKnown(){ var c=state.cls; if(c==="wizard"||c==="cleric") return state.level<4?3:(state.level<10?4:5); return 0; }
+  function cantripsKnown(){ var c=state.cls, n=0; if(c==="wizard"||c==="cleric") n=state.level<4?3:(state.level<10?4:5); if(state.choices.order==="thaumaturge") n+=1; return n; }
   function preparedCount(){ var cd=classData(); if(!cd.spellAbility) return 0; var t=cd.caster==="full"?PREP_FULL:(cd.caster==="half"?PREP_HALF:null); return t?t[Math.min(state.level,20)]:0; }
   function maxSpellLevel(){ return (spellSlotsFor()||[]).length; }
   function classCantrips(){ return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level===0 && (s.classes||[]).indexOf(state.cls)>=0; }).sort(); }
@@ -162,6 +174,11 @@
     if(cd.spellAbility && spellSlotsFor()) sources.push({ id:"spellcasting", name:"Spellcasting", effects:{ spellcasting:spellEntries() } });
     classFeatureSources().forEach(function(s){ sources.push(s); });
     classPoolSources().forEach(function(s){ sources.push(s); });
+    // feature sub-choices that grant mechanics (override the generic class-feature ref)
+    var ch=state.choices;
+    if(featureReached("Fighting Style") && ch.style){ var st=FIGHTING_STYLES.filter(function(x){return x.id===ch.style;})[0]; if(st) sources.push({ id:"fighting-style", name:"Fighting Style: "+st.name, refId:"fightingstyle", ref:{ title:"Fighting Style: "+st.name, chips:[{t:"Combat feat"}], body:[st.note+"."] } }); }
+    if(needsExpertise() && ch.expertise) sources.push({ id:"expertise", name:"Expertise: "+ch.expertise, effects:{ expertise:[ch.expertise] } });
+    if(featureReached("Divine Order") && ch.order){ var od = ch.order==="thaumaturge" ? {t:"Thaumaturge", b:"You know an extra cleric cantrip and add your Wisdom modifier to Intelligence (Arcana or Religion) checks."} : {t:"Protector", b:"You gain proficiency with martial weapons and heavy armor."}; sources.push({ id:"divine-order", name:"Divine Order: "+od.t, refId:"divineorder", ref:{ title:"Divine Order: "+od.t, body:[od.b] } }); }
     // level-1 origin feat (e.g. Human Versatile)
     if(state.originFeat) sources.push({ id:"feat-"+state.originFeat, name:"Origin feat: "+(CAT.feats[state.originFeat]||{}).name, grantsFeat:state.originFeat });
     // hit dice pool scales with level
@@ -198,6 +215,10 @@
     if(state.skills.length) add(1,{cls:"choice", html:"<b>Skills ("+esc(cd.name||"")+", choose "+((cd.skillChoices||{}).count||0)+"):</b> "+state.skills.map(esc).join(", ")});
     if(state.originFeat) add(1,{cls:"choice", html:"<b>Origin feat:</b> "+esc(featName(state.originFeat))});
     if(state.level>=3 && state.subclass) add(3,{cls:"choice", html:"<b>Subclass:</b> "+esc((CAT.subclasses[state.subclass]||{}).name||titleCase(state.subclass))});
+    var ch=state.choices;
+    if(featureReached("Fighting Style")&&ch.style){ var st=FIGHTING_STYLES.filter(function(x){return x.id===ch.style;})[0]; add(featureLevel("Fighting Style"),{cls:"choice", html:"<b>Fighting Style:</b> "+esc(st?st.name:"")}); }
+    if(needsExpertise()&&ch.expertise) add(featureLevel(featureReached("Scholar")?"Scholar":"Deft Explorer"),{cls:"choice", html:"<b>Expertise:</b> "+esc(ch.expertise)});
+    if(featureReached("Divine Order")&&ch.order) add(featureLevel("Divine Order"),{cls:"choice", html:"<b>Divine Order:</b> "+esc(ch.order==="thaumaturge"?"Thaumaturge":"Protector")});
     reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return; var h;
       if(a.mode==="feat") h="<b>Feat:</b> "+esc(featName(a.feat)||"(choose one)");
       else if(a.mode==="asi2") h="<b>Ability Score Improvement:</b> +2 "+esc(a.a||"?");
@@ -225,11 +246,14 @@
       title: state.name, footer: "Built with the character builder",
       storageKey: "dnd_"+slug, level: state.level, hitDie: d.hitDie,
       proficiencyBonus: d.pb, saves: d.saves, speed: d.speed,
-      ac: (function(){ var ac={}; if(state.armor) ac.armor=state.armor; if(state.shield) ac.shield={label:"Shield",bonus:2,note:"+2 AC",default:true}; return ac; })(),
+      ac: (function(){ var ac={}; if(state.armor) ac.armor=state.armor; if(state.shield) ac.shield={label:"Shield",bonus:2,note:"+2 AC",default:true}; if(state.choices.style==="defense") ac.style={label:"Defense",bonus:1,note:"+1 AC while armored",requiresArmor:true,default:true}; return ac; })(),
       hp: { max: d.hp },
       masteryMax: cd.weaponMastery || 0, masteryDefault: state.masteries.slice(),
       rest: { short:["Spend Hit Dice to heal","Recover short-rest features"], long:["HP → maximum","Spell slots → full","Hit Dice → half restored","All per-rest features reset"], shortToast:"Short rest taken.", longToast:"Long rest — fully restored." },
-      studs: genStuds(), weapons: state.weapons.map(function(id){ return { id:id, carried:true }; }), cards: genCards(), combat: null,
+      studs: genStuds(), weapons: state.weapons.map(function(id){ var w={id:id,carried:true}, cat=CAT.weapons[id]||{}, ranged=(cat.props||[]).some(function(p){return /range|ammunition/.test(p);}), twoH=(cat.props||[]).indexOf("two-handed")>=0;
+        if(state.choices.style==="archery" && ranged) w.atkBonus=2;
+        if(state.choices.style==="dueling" && !ranged && !twoH) w.dmgBonus=2;
+        return w; }), cards: genCards(), combat: null,
       build: buildBlock()
     };
     return ch;
@@ -312,7 +336,7 @@
       field("Name", el("input",{class:"binput", value:state.name, oninput:function(e){ state.name=e.target.value; refreshOut(); }})),
       el("div",{class:"bgrid"},[
         selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; render(); }, "", speciesHelp()),
-        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; render(); }, "", classHelp()),
+        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:"",order:""}; render(); }, "", classHelp()),
         selField("Subclass", state.subclass, state.level<3 ? [["","— locked —"]] : [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.subclass=v; render(); }, state.level<3 ? "Subclass is gained at level 3." : "Pick a class first.", subclassHelp()),
         selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp()),
         selField("Level", String(state.level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.level=parseInt(v,10); render(); }, "", "Your character level (1–20). Higher levels raise Proficiency Bonus, HP, spell slots, and unlock features.")
@@ -469,7 +493,14 @@
       outArea
     ]);
 
-    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, advCard].filter(Boolean)));
+    // feature sub-choices (Fighting Style, Expertise, Divine Order)
+    var choiceCard=null, choiceFields=[];
+    if(featureReached("Fighting Style")) choiceFields.push(selField("Fighting Style", state.choices.style, [["","— choose —"]].concat(FIGHTING_STYLES.map(function(s){return [s.id,s.name];})), function(v){ state.choices.style=v; render(); }, "", FIGHTING_STYLES.map(function(s){return s.name+" — "+s.note;})));
+    if(needsExpertise()){ var ps=proficientSkills(); choiceFields.push(selField("Expertise", state.choices.expertise, [["","— choose a proficient skill —"]].concat(ps.map(function(s){return [s,s];})), function(v){ state.choices.expertise=v; render(); }, ps.length?"":"Pick class skills first.")); }
+    if(featureReached("Divine Order")) choiceFields.push(selField("Divine Order", state.choices.order, [["","— choose —"],["protector","Protector — martial weapons & heavy armor"],["thaumaturge","Thaumaturge — extra cantrip & Arcana bonus"]], function(v){ state.choices.order=v; render(); }));
+    if(choiceFields.length) choiceCard=el("div",{class:"bcard"},[el("h2",{text:"Feature Choices"})].concat(choiceFields));
+
+    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, choiceCard, advCard].filter(Boolean)));
     root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
     refreshOut();
   }
