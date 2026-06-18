@@ -203,8 +203,12 @@ function combatMove(mv){
 function renderCombat(){
   var el=document.getElementById("combatBody"); if(!el || !CHARACTER.combat) return;
   var note = CHARACTER.combat.note ? ('<p class="cm-banner">'+CHARACTER.combat.note+'</p>') : "";
+  var hasSpells = !!(CHARACTER.cards||[]).find(function(x){ return x.type==="spellcasting"; });
   var groups = CHARACTER.combat.groups.map(function(g){
-    var more = (g.more&&g.more.length) ? '<div class="cm-more">Also: '+g.more.map(function(m){ return '<button class="gloss-term" data-gloss="'+esc(m.gloss)+'" type="button">'+esc(m.label)+'</button>'; }).join(' · ')+'</div>' : "";
+    var items = (g.more||[]).map(function(m){ return '<button class="gloss-term" data-gloss="'+esc(m.gloss)+'" type="button">'+esc(m.label)+'</button>'; });
+    // "Cast a spell" is an Action; surface the rest of the spell list rather than listing every spell here.
+    if(hasSpells && g.cost==="Action") items.push('<button class="gloss-term cm-more-spells" data-scroll="[data-card=&quot;spellcasting&quot;]" type="button">Other spells ↓</button>');
+    var more = items.length ? '<div class="cm-more">Also: '+items.join(' · ')+'</div>' : "";
     return '<div class="cm-group'+(g.reaction?' cm-reaction':'')+'"><div class="cm-cost">'+esc(g.cost)+'</div>'+g.moves.map(combatMove).join("")+more+'</div>';
   }).join("");
   el.innerHTML = note + groups;
@@ -639,6 +643,7 @@ function wireSheet(){
 
   document.addEventListener("click", function(e){
     var gl=e.target.closest("[data-gloss]"); if(gl){ openGlossModal(gl.getAttribute("data-gloss"), gl); return; }
+    var sc=e.target.closest("[data-scroll]"); if(sc){ scrollToAnchor(sc.getAttribute("data-scroll")); return; }
     var sk=e.target.closest("[data-skill]"); if(sk){ openGlossModal(ALIASES[sk.getAttribute("data-skill").toLowerCase()], sk); return; }
     var t=e.target.closest("[data-ref]"); if(!t) return; openRef(t.getAttribute("data-ref"), t);
   });

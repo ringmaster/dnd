@@ -333,6 +333,7 @@
   .cm-rname{font-family:"Cinzel",serif;font-size:.8rem;color:var(--ember-bright)}
   .cm-rsub{font-size:.74rem;color:var(--ash)}
   .cm-more{font-size:.8rem;color:var(--ash-dim);margin:.1rem 0 .4rem;line-height:1.9}
+  .cm-more-spells{color:var(--ember-bright);text-decoration-color:var(--ember)}
 
   footer{max-width:1240px;margin:2rem auto 0;text-align:center;color:var(--ash-dim);font-size:.74rem}
   footer a{color:var(--ash);cursor:pointer;text-decoration:underline;text-underline-offset:2px}

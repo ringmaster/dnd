@@ -130,6 +130,6 @@ function renderGridHTML(){
     var fn=CARD[card.type]; if(!fn) return "";
     var full = (card.type==="background"||card.type==="buildlog"||card.full) ? ' style="grid-column:1 / -1"' : '';
     var cls = "card" + (card.type==="buildlog" ? " buildlog" : "");
-    return '<section class="'+cls+'"'+full+'>'+fn(card)+'</section>';
+    return '<section class="'+cls+'" data-card="'+esc(card.type)+'"'+full+'>'+fn(card)+'</section>';
   }).join("");
 }
