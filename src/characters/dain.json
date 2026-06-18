@@ -8,14 +8,6 @@
   "storageKey": "stonebreaker_sheet_v3",
   "level": 4,
   "proficiencyBonus": 2,
-  "abilities": {
-    "STR": 18,
-    "DEX": 12,
-    "CON": 15,
-    "INT": 10,
-    "WIS": 14,
-    "CHA": 8
-  },
   "saves": [
     "STR",
     "CON"
@@ -926,7 +918,11 @@
             "Athletics",
             "Perception"
           ],
-          "feat": "alert"
+          "feat": "alert",
+          "abilityIncrease": {
+            "STR": 2,
+            "WIS": 1
+          }
         }
       },
       {
@@ -1042,7 +1038,24 @@
             "reminder": "Hit Die: roll 1d10+2, then add it with Heal."
           }
         }
+      },
+      {
+        "id": "asi-4",
+        "name": "Level 4: Ability Score Improvement",
+        "effects": {
+          "abilityIncrease": {
+            "STR": 2
+          }
+        }
       }
-    ]
+    ],
+    "abilities": {
+      "STR": 14,
+      "DEX": 12,
+      "CON": 15,
+      "INT": 10,
+      "WIS": 13,
+      "CHA": 8
+    }
   }
 }

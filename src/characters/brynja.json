@@ -8,14 +8,6 @@
   "storageKey": "ashbow_sheet_v1",
   "level": 4,
   "proficiencyBonus": 2,
-  "abilities": {
-    "STR": 8,
-    "DEX": 19,
-    "CON": 13,
-    "INT": 10,
-    "WIS": 15,
-    "CHA": 12
-  },
   "saves": [
     "STR",
     "DEX"
@@ -1223,7 +1215,11 @@
           "tools": [
             "Cartographer's Tools"
           ],
-          "feat": "magicinitiate"
+          "feat": "magicinitiate",
+          "abilityIncrease": {
+            "DEX": 2,
+            "WIS": 1
+          }
         }
       },
       {
@@ -1394,7 +1390,24 @@
             "reminder": "Hit Die: roll 1d10+1, then add it with Heal."
           }
         }
+      },
+      {
+        "id": "asi-4",
+        "name": "Level 4: Ability Score Improvement",
+        "effects": {
+          "abilityIncrease": {
+            "DEX": 2
+          }
+        }
       }
-    ]
+    ],
+    "abilities": {
+      "STR": 8,
+      "DEX": 15,
+      "CON": 13,
+      "INT": 10,
+      "WIS": 14,
+      "CHA": 12
+    }
   }
 }

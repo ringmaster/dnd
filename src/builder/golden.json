@@ -89,7 +89,15 @@
         "name": "Charm Person",
         "sub": "Fey Wanderer · Wis save DC 12"
       }
-    ]
+    ],
+    "abilities": {
+      "STR": 8,
+      "DEX": 19,
+      "CON": 13,
+      "INT": 10,
+      "WIS": 15,
+      "CHA": 12
+    }
   },
   "Dain Stonebreaker": {
     "skillProf": [
@@ -154,6 +162,14 @@
         "reminder": "Hit Die: roll 1d10+2, then add it with Heal."
       }
     },
-    "always": []
+    "always": [],
+    "abilities": {
+      "STR": 18,
+      "DEX": 12,
+      "CON": 15,
+      "INT": 10,
+      "WIS": 14,
+      "CHA": 8
+    }
   }
 }
