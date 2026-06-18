@@ -69,7 +69,8 @@ var CARD = {
            (CHARACTER.combat ? '<div id="combatView" style="display:none"><div id="combatBody"></div></div>' : '');
   },
   pools: function(card){
-    var pools=(card.pools||[]).map(poolBlock).join("");
+    var ids = card.pools==="*" ? Object.keys(CHARACTER.pools||{}).filter(function(id){ return id!=="hd"; }) : (card.pools||[]);
+    var pools=ids.map(poolBlock).join("");
     var extras=(card.extras||[]).map(function(f,i){ return featBtn(f, i===0); }).join("");
     var hint=card.hint?' <span class="hint">'+esc(card.hint)+'</span>':'';
     return '<h2>'+esc(card.title||"Resources")+hint+'</h2>'+pools+extras;

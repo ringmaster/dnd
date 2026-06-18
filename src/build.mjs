@@ -160,6 +160,10 @@ ${styles}
   .bf-q:hover{border-color:var(--ember);color:var(--ember-bright)}
   .bf-pop{margin-top:.35rem;background:#0e1014;border:1px solid var(--iron);border-left:2px solid var(--ember);border-radius:8px;padding:.5rem .65rem;font-size:.8rem;color:var(--ash);line-height:1.45}
   .bf-pop p{margin:0 0 .4rem} .bf-pop p:last-child{margin:0}
+  .adv-row{display:flex;align-items:center;gap:.5rem;margin:.4rem 0}
+  .adv-lvl{font-family:"Cinzel",serif;font-size:.72rem;color:var(--ember-bright);min-width:1.8rem}
+  .adv-row .bsel{flex:1;min-width:0}
+  .adv-two{display:flex;gap:.4rem;flex:1}
   .barrays{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .7rem}
   .bbtn.tiny{padding:.4rem .7rem;font-size:.72rem;min-height:0}
   .bf-h{font-size:.74rem;color:var(--ash-dim)}

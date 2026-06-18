@@ -9,11 +9,14 @@
   var DIE_MAX = {d6:6, d8:8, d10:10, d12:12};
   var SPEED = {human:30, dwarf:30, halfling:30, elf:30};
 
+  var ASI_LEVELS = [4,8,12,16,19];
   var state = {
     name:"New Hero", species:"human", cls:"ranger", subclass:"", background:"guide", level:4,
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
-    skills:[], armor:"", shield:false, extraFeat:""
+    skills:[], armor:"", shield:false, originFeat:"", asis:{}
   };
+  function reachedASIs(){ return ASI_LEVELS.filter(function(l){ return l<=state.level; }); }
+  function asiDefault(){ return { mode:"asi2", a:(classData().priority||ABIL)[0], b:(classData().priority||ABIL)[1], feat:"" }; }
 
   function mod(s){ return Math.floor((s-10)/2); }
   function fmt(n){ return (n>=0?"+":"")+n; }
@@ -37,8 +40,17 @@
     if(bg && bg.effects && bg.effects.abilityIncrease) for(var k in bg.effects.abilityIncrease) inc[k]=(inc[k]||0)+bg.effects.abilityIncrease[k];
     return inc;
   }
+  function asiIncreases(){
+    var inc={};
+    reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return;
+      if(a.mode==="asi2" && a.a){ inc[a.a]=(inc[a.a]||0)+2; }
+      else if(a.mode==="asi11"){ if(a.a) inc[a.a]=(inc[a.a]||0)+1; if(a.b) inc[a.b]=(inc[a.b]||0)+1; }
+    });
+    return inc;
+  }
+  function totalIncreases(){ var bg=abilityIncreases(), asi=asiIncreases(), out={}; ABIL.forEach(function(k){ var v=(bg[k]||0)+(asi[k]||0); if(v) out[k]=v; }); return out; }
   function finalScores(){
-    var inc = abilityIncreases(), out={};
+    var inc = totalIncreases(), out={};
     ABIL.forEach(function(a){ out[a] = (state.base[a]||10) + (inc[a]||0); });
     return out;
   }
@@ -73,27 +85,61 @@
   }
   function hasFeat(id){
     var bg = CAT.backgrounds[state.background];
-    return (bg && bg.grantsFeat===id) || state.extraFeat===id;
+    if(bg && bg.grantsFeat===id) return true;
+    if(state.originFeat===id) return true;
+    return reachedASIs().some(function(l){ var a=state.asis[l]; return a && a.mode==="feat" && a.feat===id; });
   }
   function backgroundFeat(){ var bg=CAT.backgrounds[state.background]; return bg && bg.grantsFeat; }
 
   /* ----- build block + scaffold output ----- */
   function buildBlock(){
-    var cd = classData(), inc = abilityIncreases();
+    var cd = classData();
     var sources = [];
     sources.push({ id:state.background, name:"Background: "+(CAT.backgrounds[state.background]||{}).name, include:"background:"+state.background });
-    // class skill choices
     if(state.skills.length) sources.push({ id:state.cls+"-skills", name:(cd.name||state.cls)+" skills", effects:{ skills: state.skills.slice() } });
-    // species traits (all of the chosen species)
     var sp = CAT.species[state.species];
     if(sp) Object.keys(sp.traits).forEach(function(tr){ sources.push({ id:tr, name:(sp.name+": "+sp.traits[tr].name), include:"species:"+state.species+":"+tr }); });
-    // extra (origin/ASI) feat
-    if(state.extraFeat) sources.push({ id:"feat-"+state.extraFeat, name:"Feat: "+(CAT.feats[state.extraFeat]||{}).name, grantsFeat:state.extraFeat });
+    // level-1 origin feat (e.g. Human Versatile)
+    if(state.originFeat) sources.push({ id:"feat-"+state.originFeat, name:"Origin feat: "+(CAT.feats[state.originFeat]||{}).name, grantsFeat:state.originFeat });
+    // hit dice pool scales with level
+    sources.push({ id:"hitdice", name:"Hit Dice ("+(cd.hitDie||"d8")+")", effects:{ grantsPool:{ id:"hd", label:"Hit Dice", max:state.level, rest:"long", ref:"hitdice", storm:false, note:"long rest", use:"Spend Hit Die", reminder:"Spend a Hit Die on a short rest to heal." } } });
+    // ASIs at 4/8/12/16/19 (cumulative ability increases or feats)
+    reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return;
+      if(a.mode==="feat" && a.feat) sources.push({ id:"asi-"+l, name:"Level "+l+" feat: "+(CAT.feats[a.feat]||{}).name, grantsFeat:a.feat });
+      else { var inc={}; if(a.mode==="asi2"&&a.a) inc[a.a]=2; else if(a.mode==="asi11"){ if(a.a)inc[a.a]=(inc[a.a]||0)+1; if(a.b)inc[a.b]=(inc[a.b]||0)+1; }
+        if(Object.keys(inc).length) sources.push({ id:"asi-"+l, name:"Level "+l+": Ability Score Improvement", effects:{ abilityIncrease:inc } }); }
+    });
     return {
       species:state.species, class:state.cls, subclass:state.subclass||undefined, background:state.background,
       abilities: Object.assign({}, state.base),
       sources: sources
     };
+  }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function cap(a){ return a.charAt(0)+a.slice(1).toLowerCase(); }
+  function featName(id){ return ((CAT.feats[id]||{}).name||"").replace(/\s*\(.*\)$/,""); }
+  function genStuds(){ return [ {ref:"stat_ac",label:"AC",id:"acVal"},{ref:"stat_init",label:"Init"},{ref:"stat_speed",label:"Speed"},{ref:"stat_prof",label:"Prof"},{ref:"stat_pass",label:"Pass.Per"} ]; }
+  function genBuildLog(){
+    var cd=classData(), sp=CAT.species[state.species], bg=CAT.backgrounds[state.background], bgInc=abilityIncreases();
+    var L1=[];
+    if(sp) L1.push({html:"<b>Species: "+esc(sp.name)+"</b> — "+Object.keys(sp.traits).map(function(k){return esc(sp.traits[k].name);}).join(", ")+" · Speed "+derive().speed});
+    L1.push({html:"<b>Ability scores:</b> "+ABIL.map(function(a){return cap(a)+" "+((state.base[a]||10)+(bgInc[a]||0));}).join(", ")+(Object.keys(bgInc).length?" <span class=\"tag\">(background "+Object.keys(bgInc).map(function(k){return "+"+bgInc[k]+" "+k;}).join(" / ")+")</span>":"")});
+    if(bg) L1.push({cls:"choice", html:"<b>Background: "+esc(bg.name)+"</b>"+(bg.grantsFeat?(" — Origin feat "+esc(featName(bg.grantsFeat))):"")});
+    if(state.skills.length) L1.push({cls:"choice", html:"<b>Skills ("+esc(cd.name||"")+", choose "+((cd.skillChoices||{}).count||0)+"):</b> "+state.skills.map(esc).join(", ")});
+    if(state.originFeat) L1.push({cls:"choice", html:"<b>Origin feat:</b> "+esc(featName(state.originFeat))});
+    var levels=[{title:"Level 1", tag:cd.name||"", items:L1}];
+    if(state.level>=3 && state.subclass) levels.push({title:"Level 3", tag:cd.name||"", items:[{cls:"choice", html:"<b>Subclass:</b> "+esc((CAT.subclasses[state.subclass]||{}).name||titleCase(state.subclass))}]});
+    reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return; var h;
+      if(a.mode==="feat") h="<b>Feat:</b> "+esc(featName(a.feat)||"(choose one)");
+      else if(a.mode==="asi2") h="<b>Ability Score Improvement:</b> +2 "+esc(a.a||"?");
+      else h="<b>Ability Score Improvement:</b> +1 "+esc(a.a||"?")+", +1 "+esc(a.b||"?");
+      levels.push({title:"Level "+l, tag:cd.name||"", items:[{cls:"choice", html:h}]});
+    });
+    return levels;
+  }
+  function genCards(){
+    return [ {type:"abilities"}, {type:"hitpoints"}, {type:"attacks"}, {type:"skills"},
+      {type:"pools", title:"Resources", pools:"*"}, {type:"buildlog", title:"Build Log", hint:"every choice, level by level", levels:genBuildLog()} ];
   }
   function scaffold(){
     var d = derive(), cd = classData();
@@ -107,7 +153,8 @@
       ac: (function(){ var ac={}; if(state.armor) ac.armor=state.armor; if(state.shield) ac.shield={label:"Shield",bonus:2,note:"+2 AC",default:true}; return ac; })(),
       hp: { max: d.hp },
       masteryMax: cd.weaponMastery || 0, masteryDefault: [],
-      weapons: [], cards: [], combat: null,
+      rest: { short:["Spend Hit Dice to heal","Recover short-rest features"], long:["HP → maximum","Spell slots → full","Hit Dice → half restored","All per-rest features reset"], shortToast:"Short rest taken.", longToast:"Long rest — fully restored." },
+      studs: genStuds(), weapons: [], cards: genCards(), combat: null,
       build: buildBlock()
     };
     return ch;
@@ -119,7 +166,7 @@
   function classHelp(){ var cd=classData(); if(!cd.name) return ""; var caster=cd.caster==="full"?"full caster":cd.caster==="half"?"half caster":"non-caster"; return [cd.desc||"", "Hit die "+cd.hitDie+" · saves "+(cd.saves||[]).join("/")+" · "+caster+(cd.spellAbility?(" ("+cd.spellAbility+")"):"")+" · choose "+((cd.skillChoices||{}).count||0)+" skills."]; }
   function subclassHelp(){ if(!state.subclass) return "Your subclass is chosen at level 3 and shapes your class's identity."; var s=CAT.subclasses[state.subclass]; if(!s) return ""; return [s.desc||"", "Features: "+(s.features||[]).join(", ")+"."]; }
   function backgroundHelp(){ var b=CAT.backgrounds[state.background]; return b ? [(b.ref&&b.ref.body&&b.ref.body[0])||""] : ""; }
-  function featHelp(){ if(!state.extraFeat) return "An extra feat. Human Versatile grants an Origin feat at level 1; an Ability Score Improvement (levels 4/8/12/16/19) can instead be taken as a feat."; var f=CAT.feats[state.extraFeat]; return (f&&f.ref&&f.ref.body) ? f.ref.body : (f?[f.name]:""); }
+  function featHelp(){ if(!state.originFeat) return "A level-1 Origin feat. Human Versatile grants one; other species don't. (ASI feats at 4/8/12/16/19 are chosen under Advancement.)"; var f=CAT.feats[state.originFeat]; return (f&&f.ref&&f.ref.body) ? f.ref.body : (f?[f.name]:""); }
   function armorHelp(){ if(!state.armor) return "No armor: AC = 10 + your Dexterity modifier. A shield adds +2."; var a=CAT.armor[state.armor]; return a?[a.label+" — "+a.note]:""; }
 
   /* ----- ability arrays ----- */
@@ -177,6 +224,7 @@
   }
   function render(){
     root.innerHTML="";
+    if(state.level<3) state.subclass="";                       // subclass is a level-3 choice
     var cd = classData(), sp = CAT.species[state.species], bg = CAT.backgrounds[state.background];
     var d = derive();
 
@@ -187,7 +235,7 @@
       el("div",{class:"bgrid"},[
         selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; render(); }, "", speciesHelp()),
         selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.extraFeat=""; render(); }, "", classHelp()),
-        selField("Subclass", state.subclass, [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.subclass=v; render(); }, "Pick a class first.", subclassHelp()),
+        selField("Subclass", state.subclass, state.level<3 ? [["","— locked —"]] : [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.subclass=v; render(); }, state.level<3 ? "Subclass is gained at level 3." : "Pick a class first.", subclassHelp()),
         selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp()),
         selField("Level", String(state.level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.level=parseInt(v,10); render(); }, "", "Your character level (1–20). Higher levels raise Proficiency Bonus, HP, spell slots, and unlock features.")
       ])
@@ -244,11 +292,25 @@
       skillCard.appendChild(wrap);
     }
 
-    // feats
-    var featCard = el("div",{class:"bcard"},[ el("h2",{text:"Feats"}) ]);
+    // origin feat (level 1)
+    var featCard = el("div",{class:"bcard"},[ el("h2",{text:"Origin Feat"}) ]);
     var bgFeat = backgroundFeat();
-    if(bgFeat) featCard.appendChild(el("div",{class:"bsub",text:"Origin feat from background: "+((CAT.feats[bgFeat]||{}).name||bgFeat).replace(/\s*\(.*\)$/,"")}));
-    featCard.appendChild(selField("Extra feat (ASI / Versatile)", state.extraFeat, featOptions(), function(v){ state.extraFeat=v; render(); }, "", featHelp()));
+    if(bgFeat) featCard.appendChild(el("div",{class:"bsub",text:"From background: "+((CAT.feats[bgFeat]||{}).name||bgFeat).replace(/\s*\(.*\)$/,"")}));
+    featCard.appendChild(selField("Extra origin feat (e.g. Human Versatile)", state.originFeat, featOptions(), function(v){ state.originFeat=v; render(); }, "", featHelp()));
+
+    // advancement: subclass (L3) + ASIs (4/8/12/16/19)
+    var advCard = el("div",{class:"bcard"},[ el("h2",{text:"Advancement"}) ]);
+    var reached = reachedASIs();
+    advCard.appendChild(el("div",{class:"bsub",text: state.level<3 ? "Subclass unlocks at level 3." : (reached.length ? "Each ASI: +2 to one ability, +1 to two, or a feat." : "First Ability Score Improvement comes at level 4.")}));
+    reached.forEach(function(l){
+      if(!state.asis[l]) state.asis[l]=asiDefault();
+      var a=state.asis[l], detail;
+      var modeSel=select(a.mode, [["asi2","+2 one"],["asi11","+1 / +1"],["feat","Feat"]], function(v){ a.mode=v; render(); });
+      if(a.mode==="feat") detail=select(a.feat, featOptions(), function(v){ a.feat=v; render(); });
+      else if(a.mode==="asi2") detail=select(a.a, ABIL.map(function(k){return [k,ABIL_NAME[k]];}), function(v){ a.a=v; render(); });
+      else detail=el("span",{class:"adv-two"},[ select(a.a, ABIL.map(function(k){return [k,k];}), function(v){a.a=v;render();}), select(a.b, ABIL.map(function(k){return [k,k];}), function(v){a.b=v;render();}) ]);
+      advCard.appendChild(el("div",{class:"adv-row"},[ el("span",{class:"adv-lvl",text:"L"+l}), modeSel, detail ]));
+    });
 
     // derived panel
     var stat = function(l,v){ return el("div",{class:"bstat"},[ el("span",{class:"bs-l",text:l}), el("span",{class:"bs-v",text:String(v)}) ]); };
@@ -273,7 +335,7 @@
       outArea
     ]);
 
-    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, skillCard, featCard]));
+    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, skillCard, featCard, advCard]));
     root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
     refreshOut();
   }
