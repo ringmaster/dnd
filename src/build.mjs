@@ -156,6 +156,9 @@ ${styles}
   .bf{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.5rem}
   .bf-l{font-family:"Cinzel",serif;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)}
   .bf-h{font-size:.74rem;color:var(--ash-dim)}
+  .bcheck{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--bone);cursor:pointer;margin-top:.4rem}
+  .bcheck input{width:1.05rem;height:1.05rem;accent-color:var(--ember)}
+  .bsel:disabled{opacity:.6;cursor:not-allowed}
   .binput,.bsel,.babil{font-family:"Spectral",serif;background:#12151b;color:var(--bone);border:1px solid var(--iron-light);border-radius:8px;padding:.55rem .6rem;font-size:.9rem;width:100%}
   .bsel{cursor:pointer}
   .brow{display:flex;align-items:center;gap:.6rem;margin:.3rem 0}
