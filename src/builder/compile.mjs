@@ -17,8 +17,24 @@ import path from "path";
 import url from "url";
 
 const HERE = path.dirname(url.fileURLToPath(import.meta.url));
-let FEATS = {};
+const CONTENT = path.join(HERE, "..", "content");
+let FEATS = {}, SPELLS = {};
 try { FEATS = JSON.parse(fs.readFileSync(path.join(HERE, "feats.json"), "utf8")); } catch (e) { FEATS = {}; }
+try { SPELLS = JSON.parse(fs.readFileSync(path.join(CONTENT, "spells.json"), "utf8")); } catch (e) { SPELLS = {}; }
+
+const sg = n => (n >= 0 ? "+" : "") + n;
+function subst(s, t){ return s == null ? s : String(s).replace(/\{dc\}/g, t.dc).replace(/\{atk\}/g, t.atk).replace(/\{mod\}/g, t.mod); }
+/* materialize a registry spell into a ref entry, substituting per-character numbers */
+function spellRef(reg, t){
+  const chips = [{ t: reg.level === 0 ? "Cantrip" : "Level " + reg.level }];
+  if (reg.concentration) chips.push({ t: "Concentration", c: "storm" });
+  (reg.chips || []).forEach(c => chips.push(c));
+  const ref = { title: reg.title || reg.name, chips, body: (reg.body || []).map(b => subst(b, t)) };
+  if (reg.level >= 1) ref.level = reg.level;          // cantrips stay info-only (no slot picker)
+  if (reg.dice) ref.dice = subst(reg.dice, t);
+  if (reg.concentration) ref.concentration = reg.name;
+  return ref;
+}
 
 const AB = { str:"STR", dex:"DEX", con:"CON", int:"INT", wis:"WIS", cha:"CHA" };
 const abilMod = (scores, k) => Math.floor((scores[k] - 10) / 2);
@@ -92,6 +108,28 @@ export function compile(input){
   }
   if (sc && always.length) sc.always = always;
   if (sc && initiate) sc.initiate = initiate;
+
+  // inject shared spell refs (the per-character ref keeps any overlay like freePool)
+  if (c.spellcasting){
+    const sm = abilMod(c.abilities, c.spellcasting.ability);
+    const t = { dc: c.proficiencyBonus + sm + 8, atk: sg(c.proficiencyBonus + sm), mod: sg(sm) };
+    const ids = new Set();
+    if (sc){
+      (sc.cantrips || []).forEach(s => s.ref && ids.add(s.ref));
+      (sc.initiate && sc.initiate.spells || []).forEach(s => s.ref && ids.add(s.ref));
+      (sc.always || []).forEach(s => s.ref && ids.add(s.ref));
+    }
+    if (c.prepared && c.prepared.catalog) c.prepared.catalog.forEach(s => ids.add(s.id));
+    const poolOf = {};
+    for (const id in pools) if (pools[id].ref){ ids.add(pools[id].ref); poolOf[pools[id].ref] = id; }   // free-cast pool spells
+    c.ref = c.ref || {};
+    for (const id of ids){
+      const reg = SPELLS[id]; if (!reg) continue;
+      const ref = spellRef(reg, t);
+      if (poolOf[id]) ref.freePool = poolOf[id];   // spell castable free from its pool
+      c.ref[id] = Object.assign(ref, c.ref[id] || {});
+    }
+  }
 
   return c;
 }
