@@ -11,7 +11,7 @@ A collection of characters and other D&D material for games I'm playing in (not 
 | Elias Thorn — Divination Wizard Sheet | [View](https://ringmaster.github.io/dnd/elias_thorn.html) |
 | Tobin Bramblefoot — Life Cleric Sheet | [View](https://ringmaster.github.io/dnd/tobin_bramblefoot.html) |
 
-> An index of all sheets is at [`https://ringmaster.github.io/dnd/`](https://ringmaster.github.io/dnd/).
+> An index of all sheets is at [`https://ringmaster.github.io/dnd/`](https://ringmaster.github.io/dnd/), and a **[character builder](https://ringmaster.github.io/dnd/builder.html)** scaffolds a new character from the content catalogs (species, class, subclass, background, feats) with live derived stats.
 
 > The links above point to the **rendered** pages served by GitHub Pages. The source lives in [`src/`](src/).
 

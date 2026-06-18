@@ -97,7 +97,7 @@ const indexHtml = `<!DOCTYPE html>
 <body>
   <div class="wrap">
     <h1>D&amp;D Characters</h1>
-    <p class="lede">Tap a character to open their sheet.</p>
+    <p class="lede">Tap a character to open their sheet, or <a href="builder.html" style="color:var(--ember-bright)">build a new one →</a></p>
     <div class="pcs">
 ${cards}
     </div>
@@ -108,4 +108,79 @@ ${cards}
 `;
 fs.writeFileSync(path.join(DOCS, "index.html"), indexHtml);
 console.log("built docs/index.html  (" + index.length + " character" + (index.length === 1 ? "" : "s") + ")");
+
+// ---- builder page: inline every content catalog + the builder UI ----
+const CONTENT = path.join(SRC, "content");
+const readJson = (p) => JSON.parse(read(p));
+const CAT = {
+  species: readJson(path.join(CONTENT, "species.json")),
+  classes: readJson(path.join(CONTENT, "classes.json")),
+  subclasses: readJson(path.join(CONTENT, "subclasses.json")),
+  backgrounds: readJson(path.join(CONTENT, "backgrounds.json")),
+  feats: readJson(path.join(SRC, "builder", "feats.json")),
+  spells: readJson(path.join(CONTENT, "spells.json")),
+  weapons: readJson(path.join(CONTENT, "weapons.json")),
+  armor: readJson(path.join(CONTENT, "armor.json")),
+};
+const uiJs = read(path.join(SRC, "builder", "ui.js"));
+const catJson = JSON.stringify(CAT).replace(/<\/script/gi, "<\\/script");
+const builderHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Character Builder · D&D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+${styles}
+  .bwrap{max-width:1100px;margin:0 auto;padding:2rem 1rem 4rem}
+  .btop{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem}
+  .btop h1{font-family:"Cinzel",serif;font-weight:900;letter-spacing:.04em;font-size:1.7rem;margin:0}
+  .btop a{color:var(--ember-bright);font-family:"Cinzel",serif;font-size:.8rem;text-decoration:none}
+  #builder{display:grid;grid-template-columns:1fr;gap:1.2rem}
+  @media(min-width:860px){ #builder{grid-template-columns:1.3fr 1fr;align-items:start} }
+  .bcol{display:flex;flex-direction:column;gap:1.2rem;min-width:0}
+  .bcard{background:linear-gradient(180deg,var(--slate-panel),#191d25);border:1px solid var(--iron);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);padding:1.1rem 1.2rem}
+  .bcard h2{font-family:"Cinzel",serif;font-weight:700;font-size:1rem;letter-spacing:.05em;margin:0 0 .8rem;color:var(--bone)}
+  .bderived{position:sticky;top:1rem}
+  .bsub{color:var(--ash);font-size:.82rem;margin:.1rem 0 .6rem}
+  .bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem}
+  .bf{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.5rem}
+  .bf-l{font-family:"Cinzel",serif;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)}
+  .bf-h{font-size:.74rem;color:var(--ash-dim)}
+  .binput,.bsel,.babil{font-family:"Spectral",serif;background:#12151b;color:var(--bone);border:1px solid var(--iron-light);border-radius:8px;padding:.55rem .6rem;font-size:.9rem;width:100%}
+  .bsel{cursor:pointer}
+  .brow{display:flex;align-items:center;gap:.6rem;margin:.3rem 0}
+  .bab-n{font-family:"Cinzel",serif;font-size:.8rem;width:2.4rem;color:var(--ember-bright)}
+  .babil{width:4.2rem;text-align:center}
+  .bab-i{font-size:.74rem;color:var(--ash-dim);width:3.5rem}
+  .bab-f{font-size:.85rem;color:var(--bone)}
+  .bchips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem}
+  .bchip{font-family:"Spectral",serif;background:#12151b;color:var(--ash);border:1px solid var(--iron-light);border-radius:999px;padding:.35rem .7rem;font-size:.78rem;cursor:pointer}
+  .bchip.on{background:linear-gradient(180deg,#3a2e22,#2a2118);border-color:var(--ember);color:var(--ember-bright)}
+  .bchip.dim{opacity:.55;cursor:not-allowed;border-style:dashed}
+  .bstats{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem}
+  .bstat{display:flex;justify-content:space-between;align-items:baseline;background:#12151b;border:1px solid var(--iron);border-radius:8px;padding:.5rem .7rem}
+  .bs-l{font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ash)}
+  .bs-v{font-size:1.05rem;color:var(--ember-bright);font-family:"Cinzel",serif}
+  .brow2{display:flex;gap:.5rem;margin-bottom:.6rem}
+  .bbtn{font-family:"Cinzel",serif;background:linear-gradient(180deg,#2c333e,#222831);color:var(--bone);border:1px solid var(--iron-light);border-radius:8px;padding:.55rem .9rem;cursor:pointer;font-size:.8rem}
+  .bbtn.ember{border-color:var(--ember);color:var(--ember-bright)}
+  .bout{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:.74rem;background:#0e1014;color:var(--bone);border:1px solid var(--iron);border-radius:8px;padding:.7rem;resize:vertical}
+</style>
+</head>
+<body>
+  <div class="bwrap">
+    <div class="btop"><h1>Character Builder</h1><a href="index.html">← All characters</a></div>
+    <div id="builder"></div>
+  </div>
+  <script>var CAT = ${catJson};</script>
+  <script>${uiJs.replace(/<\/script/gi, "<\\/script")}</script>
+</body>
+</html>
+`;
+fs.writeFileSync(path.join(DOCS, "builder.html"), builderHtml);
+console.log("built docs/builder.html  (" + builderHtml.length + " bytes)");
 console.log("done — " + built + " sheet(s).");
