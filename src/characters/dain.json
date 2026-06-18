@@ -714,65 +714,6 @@
         "During a short rest you can spend Hit Dice to heal, rolling 1d10+2 each (1d10 + your Constitution modifier). You regain spent Hit Dice on a long rest.",
         "Tap Spend Hit Die to mark one used, then roll and apply it with Heal."
       ]
-    },
-    "stat_init": {
-      "title": "Initiative",
-      "dice": "Initiative: d20 +3",
-      "chips": [
-        {
-          "t": "Dex +1"
-        },
-        {
-          "t": "Prof +2 (Alert)",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "Initiative is normally just your Dexterity modifier (+1).",
-        "The Alert feat (from your Guard background) adds your proficiency bonus, so +1 + 2 = +3.",
-        "Alert also lets you swap your initiative result with a willing ally's right after rolling."
-      ]
-    },
-    "stat_speed": {
-      "title": "Speed",
-      "dice": "30 feet",
-      "chips": [
-        {
-          "t": "Dwarf base 30"
-        }
-      ],
-      "body": [
-        "Your walking speed is 30 feet, the standard for a Dwarf in the 2024 rules.",
-        "Heavy armor does not slow you because your Strength (15+) meets the chain mail requirement."
-      ]
-    },
-    "stat_prof": {
-      "title": "Proficiency Bonus",
-      "dice": "+2",
-      "chips": [
-        {
-          "t": "Levels 1–4",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Your proficiency bonus is +2 at character levels 1–4. It rises to +3 at level 5.",
-        "It is added to attack rolls, saves, and skills you are proficient in, and feeds your maneuver save DC (8 + 2 + Str)."
-      ]
-    },
-    "stat_pass": {
-      "title": "Passive Perception",
-      "dice": "14",
-      "chips": [
-        {
-          "t": "10 + Perception +4",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "Passive Perception = 10 + your Perception check modifier.",
-        "Perception is +4 (Wis +2, proficiency +2), so 10 + 4 = 14. It is the DC enemies must beat to hide or sneak past you when you are not actively searching."
-      ]
     }
   },
   "combat": {

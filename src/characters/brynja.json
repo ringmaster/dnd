@@ -917,60 +917,6 @@
         "Tap Spend Hit Die to mark one used, then roll and apply it with Heal."
       ]
     },
-    "stat_init": {
-      "title": "Initiative",
-      "dice": "Initiative: d20 +4",
-      "chips": [
-        {
-          "t": "Dex +4"
-        }
-      ],
-      "body": [
-        "Initiative equals your Dexterity modifier (+4).",
-        "If you place the Alert Origin feat from Human Versatile, you would add your Proficiency Bonus too (+6)."
-      ]
-    },
-    "stat_speed": {
-      "title": "Speed",
-      "dice": "30 feet",
-      "chips": [
-        {
-          "t": "Human base 30"
-        }
-      ],
-      "body": [
-        "Your walking speed is 30 feet. Studded leather is light armor, so it doesn't slow you.",
-        "Longstrider can add 10 feet for an hour."
-      ]
-    },
-    "stat_prof": {
-      "title": "Proficiency Bonus",
-      "dice": "+2",
-      "chips": [
-        {
-          "t": "Levels 1–4",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Your proficiency bonus is +2 at character levels 1–4. It rises to +3 at level 5.",
-        "It is added to attack rolls, saves, skills you're proficient in, your spell save DC, and your spell attack bonus."
-      ]
-    },
-    "stat_pass": {
-      "title": "Passive Perception",
-      "dice": "14",
-      "chips": [
-        {
-          "t": "10 + Perception +4",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "Passive Perception = 10 + your Perception check modifier.",
-        "Perception is +4 (Wis +2, proficiency +2), so 14. If you moved your Deft Explorer Expertise onto Perception, this would be 16."
-      ]
-    },
     "guide": {
       "title": "Background: Guide",
       "dice": null,

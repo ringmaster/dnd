@@ -672,56 +672,6 @@
     ]
   },
   "ref": {
-    "stat_init": {
-      "title": "Initiative",
-      "dice": "Initiative: d20 +1",
-      "chips": [
-        {
-          "t": "Dex +1"
-        }
-      ],
-      "body": [
-        "Initiative equals your Dexterity modifier (+1)."
-      ]
-    },
-    "stat_speed": {
-      "title": "Speed",
-      "dice": "30 feet",
-      "chips": [
-        {
-          "t": "Halfling base 30"
-        }
-      ],
-      "body": [
-        "Your walking speed is 30 feet. Heavy armor doesn't slow you — your Strength (13) meets the chain mail requirement."
-      ]
-    },
-    "stat_prof": {
-      "title": "Proficiency Bonus",
-      "dice": "+2",
-      "chips": [
-        {
-          "t": "Levels 1–4",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "+2 at levels 1–4. Added to attack rolls, saves and skills you're proficient with, your spell save DC, and your spell attack."
-      ]
-    },
-    "stat_pass": {
-      "title": "Passive Perception",
-      "dice": "14",
-      "chips": [
-        {
-          "t": "10 + Perception +4",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "Passive Perception = 10 + your Perception modifier. You aren't proficient in Perception, so it's just Wisdom +4 → 14."
-      ]
-    },
     "asi": {
       "title": "Level 4 — Ability Score Improvement",
       "dice": null,

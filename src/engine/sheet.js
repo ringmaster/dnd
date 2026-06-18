@@ -12,6 +12,32 @@ ABIL_ORDER.forEach(function(k){
   }
   REF["abil_"+k]={ title:ABIL_NAME[k], dice:"Check: d20 "+fmt(chk)+"   ·   Save: d20 "+fmt(sv), chips:chips, body:body };
 });
+/* generic derived stat modals — computed, not hand-authored (a character may still override) */
+(function(){
+  var initB=CHARACTER.initiativeBonus||0, dex=abilMod("DEX");
+  var initChips=[{t:"Dex "+fmt(dex)}]; if(initB) initChips.push({t:"Prof "+fmt(initB)+" (Alert)",c:"ember"});
+  var initBody=[initB
+    ? "Initiative is your Dexterity modifier ("+fmt(dex)+") plus your Proficiency Bonus from Alert ("+fmt(initB)+"), for d20 "+fmt(initiative())+"."
+    : "Initiative equals your Dexterity modifier ("+fmt(dex)+"), rolled on a d20 at the start of combat to set turn order."];
+  if(initB) initBody.push("Alert also lets you swap your Initiative result with a willing ally's right after rolling.");
+  REF["stat_init"]={title:"Initiative", dice:"Initiative: d20 "+fmt(initiative()), chips:initChips, body:initBody};
+
+  REF["stat_speed"]={title:"Speed", dice:CHARACTER.speed+" feet", chips:[{t:"Base "+CHARACTER.speed}],
+    body:["Your walking speed is "+CHARACTER.speed+" feet — how far you can move on your turn.","Difficult terrain costs double, and the Dash action lets you move that far again."]};
+
+  REF["stat_prof"]={title:"Proficiency Bonus", dice:fmt(PB), chips:[{t:"Level "+CHARACTER.level,c:"storm"}],
+    body:["Your Proficiency Bonus is "+fmt(PB)+", set by your character level (it rises as you advance).",
+      "It's added to attack rolls, saving throws, and ability checks you're proficient with"+(hasSpellcasting()?", and to your spell save DC and spell attack bonus.":".")]};
+
+  var per=findSkill("Perception"), pm=per?skillMod(per):abilMod("WIS");
+  var passBody=["Passive Perception = 10 + your Perception modifier ("+fmt(pm)+"), so "+passivePerception()+"."];
+  passBody.push(per&&per.prof
+    ? "You're proficient in Perception (Wis "+fmt(abilMod("WIS"))+" + proficiency "+fmt(PB)+(per.exp?" + expertise "+fmt(PB):"")+")."
+    : "You aren't proficient in Perception, so it's just your Wisdom modifier ("+fmt(abilMod("WIS"))+").");
+  passBody.push("It's the DC enemies must beat to sneak past you when you aren't actively searching.");
+  REF["stat_pass"]={title:"Passive Perception", dice:String(passivePerception()), chips:[{t:"10 + Perception "+fmt(pm),c:"ember"}], body:passBody};
+})();
+
 Object.keys(CHARACTER.ref||{}).forEach(function(k){ REF[k]=CHARACTER.ref[k]; });
 
 /* ----- pools derived from data ----- */

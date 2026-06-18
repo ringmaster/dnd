@@ -698,56 +698,6 @@
     ]
   },
   "ref": {
-    "stat_init": {
-      "title": "Initiative",
-      "dice": "Initiative: d20 +1",
-      "chips": [
-        {
-          "t": "Dex +1"
-        }
-      ],
-      "body": [
-        "Initiative equals your Dexterity modifier (+1). Place the Alert feat via Human Versatile to add your Proficiency Bonus."
-      ]
-    },
-    "stat_speed": {
-      "title": "Speed",
-      "dice": "30 feet",
-      "chips": [
-        {
-          "t": "Human base 30"
-        }
-      ],
-      "body": [
-        "Your walking speed is 30 feet. You wear no armor, so nothing slows you."
-      ]
-    },
-    "stat_prof": {
-      "title": "Proficiency Bonus",
-      "dice": "+2",
-      "chips": [
-        {
-          "t": "Levels 1–4",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "+2 at levels 1–4 (rises to +3 at level 5). Added to attack rolls, saves and skills you're proficient with, your spell save DC, and your spell attack."
-      ]
-    },
-    "stat_pass": {
-      "title": "Passive Perception",
-      "dice": "13",
-      "chips": [
-        {
-          "t": "10 + Perception +3",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "Passive Perception = 10 + your Perception modifier (Wis +1, proficiency +2) = 13."
-      ]
-    },
     "asi": {
       "title": "Level 4 — Ability Score Improvement",
       "dice": null,
