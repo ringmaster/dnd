@@ -64,11 +64,37 @@ function resolveVal(v, ctx){
   if (m && AB[m[1]]) return abilMod(ctx.scores, AB[m[1]]);
   return v;
 }
+/* ----- Magic Initiate: derive effects + description from a {list, ability, cantrips, spell} block ----- */
+function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1).toLowerCase() : s; }
+function spName(id, cat){ return (cat.spells[id] || {}).name || id; }
+function miSub(reg){ if (!reg) return "cantrip"; const bits=["cantrip"]; if (reg.concentration) bits.push("Concentration");
+  (reg.chips||[]).forEach(ch => { if (!/^(Cantrip|Level|Concentration|Ritual)/.test(ch.t)) bits.push(ch.t); }); return bits.join(" · "); }
+function miEffects(mi, feat, cat){
+  const sname = spName(mi.spell, cat);
+  return {
+    grantsSpells: mi.cantrips.map(id => spName(id, cat)).concat([sname]),
+    grantsPool: { id:"mi", label: sname+" — free", max:1, rest:"long", ref:mi.spell, storm:true, note:"long rest", use:"Use free cast", reminder:"Magic Initiate: free cast of "+sname+" (no slot)." },
+    initiate: { label: feat.name+" · "+cap(mi.ability), pool:"mi", spells: mi.cantrips.map(id => ({ ref:id, name:spName(id, cat), sub:miSub(cat.spells[id]) })) }
+  };
+}
+function miRef(feat, mi, cat, dc, atk){
+  const cnames = mi.cantrips.map(id => spName(id, cat)), sname = spName(mi.spell, cat), ab = cap(mi.ability);
+  return {
+    title: feat.name,
+    chips: [{ t: ab+" casting", c:"storm" }, { t:"DC "+dc+" · atk "+atk }],
+    body: [
+      "From the "+mi.list+" spell list you know the cantrips "+cnames.join(" and ")+", and the level-1 spell "+sname+". "+ab+" is this feat's spellcasting ability, so your save DC is "+dc+" and your spell attack is "+atk+".",
+      "You always have "+sname+" prepared and can cast it once per long rest without a spell slot (or with any slot you have); cantrips are at will. When you gain a level you may swap any of these for another "+mi.list+" spell of the same level."
+    ]
+  };
+}
+function featEffects(fe, cat){ return fe ? (fe.magicInitiate ? miEffects(fe.magicInitiate, fe, cat) : fe.effects) : null; }
+
 function effectsOf(sources, cat){
   const out = [];
   for (const s of sources){
     if (s.effects) out.push(s.effects);
-    if (s.grantsFeat && cat.feats[s.grantsFeat] && cat.feats[s.grantsFeat].effects) out.push(cat.feats[s.grantsFeat].effects);
+    if (s.grantsFeat && cat.feats[s.grantsFeat]){ const e = featEffects(cat.feats[s.grantsFeat], cat); if (e) out.push(e); }
   }
   return out;
 }
@@ -140,7 +166,11 @@ export function compile(input, cat){
 
   for (const s of sources){
     const f = s.grantsFeat && FEATS[s.grantsFeat];
-    if (f && f.ref){ const rid = f.refId || s.grantsFeat; c.ref[rid] = Object.assign(matRef(f.ref, t), c.ref[rid] || {}); }
+    if (f){
+      let fref = f.ref;
+      if (f.magicInitiate){ const fsm = abilMod(c.abilities, f.magicInitiate.ability); fref = miRef(f, f.magicInitiate, cat, c.proficiencyBonus + fsm + 8, sg(c.proficiencyBonus + fsm)); }
+      if (fref){ const rid = f.refId || s.grantsFeat; c.ref[rid] = Object.assign(matRef(fref, t), c.ref[rid] || {}); }
+    }
     if (s.ref && s.refId){ c.ref[s.refId] = Object.assign(matRef(s.ref, t), c.ref[s.refId] || {}); }
   }
 

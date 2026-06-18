@@ -192,12 +192,12 @@
           {
             "ref": "guidance",
             "name": "Guidance",
-            "sub": "cantrip · +1d4 to one ability check · Concentration"
+            "sub": "cantrip · Concentration"
           },
           {
             "ref": "message",
             "name": "Message",
-            "sub": "cantrip · whisper a creature at 120 ft"
+            "sub": "cantrip · 120 ft"
           }
         ]
       }
@@ -490,12 +490,12 @@
           {
             "ref": "tollthedead",
             "name": "Toll the Dead",
-            "sub": "cantrip · Wis save · 1d8/1d12 necrotic"
+            "sub": "cantrip · 60 ft"
           },
           {
             "ref": "prestidigitation",
             "name": "Prestidigitation",
-            "sub": "cantrip · minor magical tricks"
+            "sub": "cantrip"
           }
         ]
       }
@@ -722,12 +722,12 @@
           {
             "ref": "light",
             "name": "Light",
-            "sub": "cantrip · an object sheds bright light"
+            "sub": "cantrip"
           },
           {
             "ref": "resistance",
             "name": "Resistance",
-            "sub": "cantrip · +1d4 to one save · Concentration"
+            "sub": "cantrip · Concentration"
           }
         ]
       }

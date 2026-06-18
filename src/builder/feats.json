@@ -1,48 +1,8 @@
 {
   "magicinitiate": {
     "name": "Magic Initiate (Druid)",
-    "ref": {
-      "title": "Magic Initiate (Druid)",
-      "chips": [{ "t": "Wis casting", "c": "storm" }, { "t": "DC {dc} · atk {atk}" }],
-      "body": [
-        "From the Druid list you learn two cantrips (Guidance and Message) and one level-1 spell (Speak with Animals). Wisdom is the spellcasting ability, so the numbers match your class casting: save DC {dc}, spell attack {atk}.",
-        "You can cast Speak with Animals once per long rest without a slot, and also with your spell slots. Cantrips are at-will."
-      ]
-    },
-    "effects": {
-      "grantsSpells": [
-        "Guidance",
-        "Message",
-        "Speak with Animals"
-      ],
-      "grantsPool": {
-        "id": "mi",
-        "label": "Speak with Animals — free",
-        "max": 1,
-        "rest": "long",
-        "ref": "speakwithanimals",
-        "storm": true,
-        "note": "long rest",
-        "use": "Use free cast",
-        "reminder": "Magic Initiate: free cast of Speak with Animals (no slot)."
-      },
-      "initiate": {
-        "label": "Magic Initiate (Druid) · Wis",
-        "pool": "mi",
-        "spells": [
-          {
-            "ref": "guidance",
-            "name": "Guidance",
-            "sub": "cantrip · +1d4 to one ability check · Concentration"
-          },
-          {
-            "ref": "message",
-            "name": "Message",
-            "sub": "cantrip · whisper a creature at 120 ft"
-          }
-        ]
-      }
-    }
+    "refId": "magicinitiate",
+    "magicInitiate": { "list": "Druid", "ability": "WIS", "cantrips": ["guidance", "message"], "spell": "speakwithanimals" }
   },
   "lucky": {
     "name": "Lucky",
@@ -89,67 +49,11 @@
   "magicinitiate-wiz": {
     "name": "Magic Initiate (Wizard)",
     "refId": "magicinitiate",
-    "ref": {
-      "title": "Magic Initiate (Wizard)",
-      "chips": [{ "t": "Int casting", "c": "storm" }, { "t": "DC {dc} · atk {atk}" }],
-      "body": [
-        "From the Wizard list you learn two cantrips (Toll the Dead and Prestidigitation) and one level-1 spell (Detect Magic). Intelligence is the spellcasting ability: save DC {dc}, spell attack {atk}.",
-        "You can cast Detect Magic once per long rest without a slot, and also with your spell slots. Cantrips are at-will."
-      ]
-    },
-    "effects": {
-      "grantsPool": {
-        "id": "mi",
-        "label": "Detect Magic — free",
-        "max": 1,
-        "rest": "long",
-        "ref": "detectmagic",
-        "storm": true,
-        "note": "long rest",
-        "use": "Use free cast",
-        "reminder": "Magic Initiate: free cast of Detect Magic (no slot)."
-      },
-      "initiate": {
-        "label": "Magic Initiate (Wizard) · Int",
-        "pool": "mi",
-        "spells": [
-          { "ref": "tollthedead", "name": "Toll the Dead", "sub": "cantrip · Wis save · 1d8/1d12 necrotic" },
-          { "ref": "prestidigitation", "name": "Prestidigitation", "sub": "cantrip · minor magical tricks" }
-        ]
-      }
-    }
+    "magicInitiate": { "list": "Wizard", "ability": "INT", "cantrips": ["tollthedead", "prestidigitation"], "spell": "detectmagic" }
   },
   "magicinitiate-cleric": {
     "name": "Magic Initiate (Cleric)",
     "refId": "magicinitiate",
-    "ref": {
-      "title": "Magic Initiate (Cleric)",
-      "chips": [{ "t": "Wis casting", "c": "storm" }, { "t": "DC {dc} · atk {atk}" }],
-      "body": [
-        "From the Cleric list you learn two cantrips (Light and Resistance) and one level-1 spell (Healing Word). Wisdom is the spellcasting ability: save DC {dc}, spell attack {atk}.",
-        "You can cast Healing Word once per long rest without a slot, and also with your spell slots. Cantrips are at-will."
-      ]
-    },
-    "effects": {
-      "grantsPool": {
-        "id": "mi",
-        "label": "Healing Word — free",
-        "max": 1,
-        "rest": "long",
-        "ref": "healingword",
-        "storm": true,
-        "note": "long rest",
-        "use": "Use free cast",
-        "reminder": "Magic Initiate: free cast of Healing Word (no slot)."
-      },
-      "initiate": {
-        "label": "Magic Initiate (Cleric) · Wis",
-        "pool": "mi",
-        "spells": [
-          { "ref": "light", "name": "Light", "sub": "cantrip · an object sheds bright light" },
-          { "ref": "resistance", "name": "Resistance", "sub": "cantrip · +1d4 to one save · Concentration" }
-        ]
-      }
-    }
+    "magicInitiate": { "list": "Cleric", "ability": "WIS", "cantrips": ["light", "resistance"], "spell": "healingword" }
   }
 }
