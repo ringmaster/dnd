@@ -81,5 +81,29 @@
         ]
       }
     }
+  },
+  "magicinitiate-cleric": {
+    "name": "Magic Initiate (Cleric)",
+    "effects": {
+      "grantsPool": {
+        "id": "mi",
+        "label": "Healing Word — free",
+        "max": 1,
+        "rest": "long",
+        "ref": "healingword",
+        "storm": true,
+        "note": "long rest",
+        "use": "Use free cast",
+        "reminder": "Magic Initiate: free cast of Healing Word (no slot)."
+      },
+      "initiate": {
+        "label": "Magic Initiate (Cleric) · Wis",
+        "pool": "mi",
+        "spells": [
+          { "ref": "light", "name": "Light", "sub": "cantrip · an object sheds bright light" },
+          { "ref": "resistance", "name": "Resistance", "sub": "cantrip · +1d4 to one save · Concentration" }
+        ]
+      }
+    }
   }
 }

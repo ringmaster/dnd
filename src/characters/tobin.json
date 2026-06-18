@@ -1,0 +1,1342 @@
+{
+  "id": "tobin_bramblefoot",
+  "out": "tobin_bramblefoot.html",
+  "name": "Tobin Bramblefoot",
+  "subtitle": "Halfling · Life Cleric · Lvl 4",
+  "title": "Bramblefoot — Life Cleric Sheet",
+  "footer": "Bramblefoot cleric sheet",
+  "storageKey": "bramblefoot_sheet_v1",
+  "level": 4,
+  "proficiencyBonus": 2,
+  "saves": [
+    "WIS",
+    "CHA"
+  ],
+  "speed": 30,
+  "ac": {
+    "armor": {
+      "label": "Chain mail",
+      "base": 16,
+      "addDex": false,
+      "note": "heavy armor · sets AC to 16",
+      "default": true
+    },
+    "shield": {
+      "label": "Shield",
+      "bonus": 2,
+      "note": "+2 AC",
+      "default": true
+    }
+  },
+  "hp": {
+    "max": 31
+  },
+  "studs": [
+    {
+      "ref": "stat_ac",
+      "label": "AC",
+      "id": "acVal"
+    },
+    {
+      "ref": "stat_init",
+      "label": "Init"
+    },
+    {
+      "ref": "stat_speed",
+      "label": "Speed"
+    },
+    {
+      "ref": "stat_prof",
+      "label": "Prof"
+    },
+    {
+      "ref": "stat_pass",
+      "label": "Pass.Per"
+    }
+  ],
+  "weapons": [
+    {
+      "id": "mace",
+      "name": "Mace",
+      "carried": true,
+      "ability": "STR",
+      "dmgDice": "1d6",
+      "props": [
+        "bludgeoning"
+      ]
+    },
+    {
+      "id": "warhammer",
+      "name": "Warhammer",
+      "carried": true,
+      "ability": "STR",
+      "dmgDice": "1d8",
+      "props": [
+        "bludgeoning",
+        "versatile 1d10"
+      ]
+    }
+  ],
+  "masteryMax": 0,
+  "masteryDefault": [],
+  "rest": {
+    "short": [
+      "Spend Hit Dice to heal",
+      "Regain 1 use of Channel Divinity"
+    ],
+    "long": [
+      "HP → maximum",
+      "All spell slots → full",
+      "Channel Divinity + Hit Dice → full",
+      "Death saves cleared"
+    ],
+    "shortToast": "Short rest — spend Hit Dice; regain a Channel Divinity use.",
+    "longToast": "Long rest — fully restored."
+  },
+  "cards": [
+    {
+      "type": "abilities"
+    },
+    {
+      "type": "hitpoints"
+    },
+    {
+      "type": "attacks",
+      "extras": [
+        {
+          "ref": "sacredflame",
+          "name": "Sacred Flame ⓘ",
+          "sub": "cantrip · Dex save DC 14 · 1d8 radiant · ignores cover"
+        }
+      ]
+    },
+    {
+      "type": "spellcasting"
+    },
+    {
+      "type": "pools",
+      "title": "Resources",
+      "pools": [
+        "cd"
+      ],
+      "extras": [
+        {
+          "ref": "divinespark",
+          "name": "Divine Spark ⓘ",
+          "sub": "Channel Divinity · 1d8 + Wis heal, or radiant/necrotic (Con save)"
+        },
+        {
+          "ref": "turnundead",
+          "name": "Turn Undead ⓘ",
+          "sub": "Channel Divinity · Wis save or Frightened + Incapacitated"
+        },
+        {
+          "ref": "preservelife",
+          "name": "Preserve Life ⓘ",
+          "sub": "Channel Divinity · heal 5×level among bloodied allies"
+        },
+        {
+          "ref": "discipleoflife",
+          "name": "Disciple of Life ⓘ",
+          "sub": "your healing spells restore extra HP (2 + spell level)"
+        }
+      ]
+    },
+    {
+      "type": "skills"
+    },
+    {
+      "type": "inventory",
+      "items": [
+        {
+          "name": "Mace",
+          "tag": "simple weapon"
+        },
+        {
+          "name": "Warhammer",
+          "tag": "martial · Protector"
+        },
+        {
+          "name": "Chain Mail",
+          "tag": "heavy armor · AC 16"
+        },
+        {
+          "name": "Shield",
+          "tag": "+2 AC · holy symbol emblem"
+        },
+        {
+          "name": "Holy Symbol",
+          "tag": "spellcasting focus · Vestacia"
+        },
+        {
+          "name": "Priest's Pack",
+          "tag": "vestments, incense, rations…"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "list": [
+        {
+          "ref": "asi",
+          "name": "Level 4: Ability Score Improvement",
+          "sub": "+2 Wisdom → 19"
+        },
+        {
+          "ref": "lifedomain",
+          "name": "Life Domain",
+          "sub": "domain spells · Disciple of Life · Preserve Life"
+        },
+        {
+          "ref": "discipleoflife",
+          "name": "Disciple of Life",
+          "sub": "healing spells restore extra HP"
+        },
+        {
+          "ref": "channeldivinity",
+          "name": "Channel Divinity",
+          "sub": "2/rest · Divine Spark, Turn Undead, Preserve Life"
+        },
+        {
+          "ref": "divineorder",
+          "name": "Divine Order: Protector",
+          "sub": "martial weapons & heavy armor proficiency"
+        },
+        {
+          "ref": "magicinitiate",
+          "name": "Magic Initiate (Cleric)",
+          "sub": "Acolyte feat · Light, Resistance · Healing Word 1×/long rest"
+        },
+        {
+          "ref": "acolyte",
+          "name": "Background: Acolyte",
+          "sub": "Insight · Religion · Calligrapher's Supplies · Magic Initiate (Cleric)"
+        },
+        {
+          "ref": "brave",
+          "name": "Halfling: Brave",
+          "sub": "Advantage on saves vs the Frightened condition"
+        },
+        {
+          "ref": "luck",
+          "name": "Halfling: Luck",
+          "sub": "reroll a natural 1 on a d20 (attack, check, or save)"
+        },
+        {
+          "ref": "nimbleness",
+          "name": "Halfling: Nimbleness",
+          "sub": "move through the space of larger creatures"
+        }
+      ]
+    },
+    {
+      "type": "background",
+      "hint": "Halfling · Acolyte · Life Domain",
+      "paras": [
+        "Tobin Bramblefoot serves Vestacia, the Earthmother, whose blessings sustain life and nurture the wild places. He is no warrior by nature — a halfling more at home in a garden than a battle line — but he believes that protecting others is among the highest callings, and he will plant himself between the helpless and the dark.",
+        "Several years ago he worked beside Elowen Raincaller, tending isolated settlements through the long recovery after a devastating flood. He has counted her a friend and an inspiration ever since — her patience with growing things mirrored his own faith.",
+        "When word arrives that Elowen has vanished, Tobin does not hesitate. If she is alive, she must be found. If harm has come to her, the truth must be uncovered — and someone must carry Vestacia's mercy into whatever waits south of Thunderford."
+      ]
+    },
+    {
+      "type": "buildlog",
+      "levels": [
+        {
+          "title": "Level 1",
+          "tag": "Cleric",
+          "items": [
+            {
+              "html": "<b>Species: Halfling</b> — Brave, Halfling Nimbleness, Luck, Speed 30"
+            },
+            {
+              "html": "<b>Ability scores:</b> Str 13, Dex 12, Con 14, Int 8, Wis 15, Cha 10 <span class=\"tag\">(standard array; background +2 Wis / +1 Con)</span>"
+            },
+            {
+              "html": "<b>Spellcasting</b> — Wisdom; prepares from the whole cleric list; 2 first-level slots"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Divine Order: Protector</b> (martial weapons &amp; heavy armor)"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Skills (Cleric, choose 2):</b> Medicine, Persuasion"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Background: Acolyte</b> — Origin feat <b>Magic Initiate (Cleric)</b>; skills Insight &amp; Religion; Calligrapher's Supplies; +2 Wis / +1 Con"
+            }
+          ]
+        },
+        {
+          "title": "Level 2",
+          "tag": "Cleric",
+          "items": [
+            {
+              "html": "<b>Channel Divinity</b> — Divine Spark &amp; Turn Undead (2 uses)"
+            }
+          ]
+        },
+        {
+          "title": "Level 3",
+          "tag": "Cleric · subclass",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Subclass: Life Domain</b>"
+            },
+            {
+              "html": "Domain spells (always prepared): Bless, Cure Wounds, Aid, Lesser Restoration"
+            },
+            {
+              "html": "Disciple of Life; Preserve Life (Channel Divinity); spells → 3 first-level + 2 second-level slots"
+            }
+          ]
+        },
+        {
+          "title": "Level 4",
+          "tag": "Cleric",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Ability Score Improvement: +2 Wisdom</b> (17 → 19)"
+            },
+            {
+              "cls": "note",
+              "html": "Took the ASI rather than a feat"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "combat": {
+    "note": "Your turn: <b>Move</b> up to your Speed, take <b>one Action</b>, and <b>one Bonus Action</b>. You also get one <button class=\"gloss-term\" data-gloss=\"reaction\" type=\"button\">Reaction</button>, used when its trigger happens (often on someone else's turn) — like a foe leaving your <button class=\"gloss-term\" data-gloss=\"reach\" type=\"button\">reach</button>.",
+    "groups": [
+      {
+        "cost": "Action",
+        "more": [
+          {
+            "label": "Dash",
+            "gloss": "dash"
+          },
+          {
+            "label": "Disengage",
+            "gloss": "disengage"
+          },
+          {
+            "label": "Dodge",
+            "gloss": "dodge"
+          },
+          {
+            "label": "Hide",
+            "gloss": "hide"
+          },
+          {
+            "label": "Help",
+            "gloss": "help"
+          },
+          {
+            "label": "Search",
+            "gloss": "search"
+          },
+          {
+            "label": "Ready",
+            "gloss": "ready-action"
+          }
+        ],
+        "moves": [
+          {
+            "label": "Cast Sacred Flame",
+            "ref": "sacredflame",
+            "detail": "Dex save DC 14 · 1d8 radiant · 60 ft"
+          },
+          {
+            "label": "Channel Divinity",
+            "ref": "channeldivinity",
+            "detail": "Divine Spark / Turn Undead / Preserve Life",
+            "pool": "cd"
+          },
+          {
+            "label": "Cast a leveled spell",
+            "ref": "spellslots1",
+            "detail": "Guiding Bolt, Hold Person, etc. · costs a slot",
+            "pool": "slot1"
+          },
+          {
+            "label": "Attack — Warhammer",
+            "weapon": "warhammer",
+            "detail": "melee"
+          }
+        ]
+      },
+      {
+        "cost": "Bonus Action",
+        "moves": [
+          {
+            "label": "Healing Word",
+            "ref": "healingword",
+            "detail": "heal 2d4 + Wis at 60 ft · free 1×/long rest",
+            "show": "mi"
+          },
+          {
+            "label": "Spiritual Weapon",
+            "ref": "spiritualweapon",
+            "detail": "spectral weapon · 1d8 + Wis force · costs a 2nd-level slot",
+            "pool": "slot2"
+          }
+        ]
+      },
+      {
+        "cost": "Reaction",
+        "reaction": true,
+        "moves": [
+          {
+            "label": "Opportunity Attack",
+            "gloss": "opportunity-attack",
+            "detail": "one melee attack when a foe leaves your reach"
+          }
+        ]
+      },
+      {
+        "cost": "Movement",
+        "moves": [
+          {
+            "label": "Move",
+            "detail": "up to your Speed (30 ft)"
+          }
+        ]
+      }
+    ]
+  },
+  "build": {
+    "abilities": {
+      "STR": 13,
+      "DEX": 12,
+      "CON": 14,
+      "INT": 8,
+      "WIS": 15,
+      "CHA": 10
+    },
+    "sources": [
+      {
+        "id": "acolyte",
+        "name": "Background: Acolyte",
+        "grantsFeat": "magicinitiate-cleric",
+        "effects": {
+          "skills": [
+            "Insight",
+            "Religion"
+          ],
+          "tools": [
+            "Calligrapher's Supplies"
+          ],
+          "abilityIncrease": {
+            "WIS": 2,
+            "CON": 1
+          }
+        }
+      },
+      {
+        "id": "cleric-skills",
+        "name": "Cleric skills (choose 2)",
+        "effects": {
+          "skills": [
+            "Medicine",
+            "Persuasion"
+          ]
+        }
+      },
+      {
+        "id": "cleric-spellcasting",
+        "name": "Spellcasting",
+        "effects": {
+          "spellcasting": {
+            "ability": "WIS",
+            "slots": [
+              {
+                "id": "slot1",
+                "label": "Level 1 Slots",
+                "max": 4,
+                "rest": "long",
+                "ref": "spellslots1",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 1st-level spell slot."
+              },
+              {
+                "id": "slot2",
+                "label": "Level 2 Slots",
+                "max": 3,
+                "rest": "long",
+                "ref": "spellslots2",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 2nd-level spell slot."
+              }
+            ],
+            "cantrips": [
+              {
+                "ref": "sacredflame",
+                "name": "Sacred Flame",
+                "sub": "Dex save · 1d8 radiant · ignores cover"
+              },
+              {
+                "ref": "guidance",
+                "name": "Guidance",
+                "sub": "+1d4 to one ability check · Concentration"
+              },
+              {
+                "ref": "sparethedying",
+                "name": "Spare the Dying",
+                "sub": "stabilize a dying creature at 30 ft"
+              },
+              {
+                "ref": "tollthedead",
+                "name": "Toll the Dead",
+                "sub": "Wis save · 1d8/1d12 necrotic"
+              }
+            ],
+            "prepared": {
+              "max": 7,
+              "default": [
+                "guidingbolt",
+                "shieldoffaith",
+                "sanctuary",
+                "spiritualweapon",
+                "prayerofhealing",
+                "holdperson",
+                "silence"
+              ],
+              "catalog": [
+                {
+                  "id": "guidingbolt",
+                  "name": "Guiding Bolt",
+                  "note": "ranged spell atk · 4d6 radiant · next attacker has Advantage"
+                },
+                {
+                  "id": "shieldoffaith",
+                  "name": "Shield of Faith",
+                  "note": "Bonus Action · +2 AC · Concentration"
+                },
+                {
+                  "id": "sanctuary",
+                  "name": "Sanctuary",
+                  "note": "Bonus Action · attackers must pass a Wis save to target the warded creature"
+                },
+                {
+                  "id": "spiritualweapon",
+                  "name": "Spiritual Weapon",
+                  "note": "Bonus Action · 1d8 + Wis force · 2nd level"
+                },
+                {
+                  "id": "prayerofhealing",
+                  "name": "Prayer of Healing",
+                  "note": "heal 2d8 + Wis to up to 5 (10-min cast) · 2nd level"
+                },
+                {
+                  "id": "holdperson",
+                  "name": "Hold Person",
+                  "note": "Paralyze a humanoid · Wis save · Concentration · 2nd level"
+                },
+                {
+                  "id": "detectmagic",
+                  "name": "Detect Magic",
+                  "note": "sense magic within 30 ft · Concentration"
+                },
+                {
+                  "id": "silence",
+                  "name": "Silence",
+                  "note": "no sound in a 20-ft sphere · 2nd level · Concentration"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "lifedomain",
+        "name": "Life Domain",
+        "effects": {
+          "alwaysPrepared": [
+            {
+              "name": "Bless",
+              "ref": "bless",
+              "sub": "+1d4 to attacks & saves for 3 allies · Conc."
+            },
+            {
+              "name": "Cure Wounds",
+              "ref": "curewounds",
+              "sub": "heal 2d8 + Wis · touch"
+            },
+            {
+              "name": "Aid",
+              "ref": "aid",
+              "sub": "+5 max & current HP to 3 allies · 2nd level"
+            },
+            {
+              "name": "Lesser Restoration",
+              "ref": "lesserrestoration",
+              "sub": "end a disease or a condition · 2nd level"
+            }
+          ]
+        }
+      },
+      {
+        "id": "divineorder",
+        "name": "Divine Order: Protector",
+        "effects": {}
+      },
+      {
+        "id": "channeldivinity",
+        "name": "Channel Divinity",
+        "effects": {
+          "grantsPool": {
+            "id": "cd",
+            "label": "Channel Divinity",
+            "max": 2,
+            "rest": "short",
+            "ref": "channeldivinity",
+            "storm": false,
+            "note": "regain 1 on a short rest",
+            "use": "Use",
+            "reminder": "Channel Divinity: Divine Spark, Turn Undead, or Preserve Life."
+          }
+        }
+      },
+      {
+        "id": "discipleoflife",
+        "name": "Disciple of Life",
+        "effects": {}
+      },
+      {
+        "id": "brave",
+        "name": "Halfling: Brave",
+        "effects": {}
+      },
+      {
+        "id": "luck",
+        "name": "Halfling: Luck",
+        "effects": {}
+      },
+      {
+        "id": "nimbleness",
+        "name": "Halfling: Nimbleness",
+        "effects": {}
+      },
+      {
+        "id": "cleric-hitdice",
+        "name": "Hit Dice (d8)",
+        "effects": {
+          "grantsPool": {
+            "id": "hd",
+            "label": "Hit Dice",
+            "max": 4,
+            "rest": "long",
+            "ref": "hitdice",
+            "storm": false,
+            "note": "1d8+2 · short rest",
+            "use": "Use",
+            "reminder": "Hit Die: roll 1d8+2, then add it with Heal."
+          }
+        }
+      },
+      {
+        "id": "asi-4",
+        "name": "Level 4: Ability Score Improvement",
+        "effects": {
+          "abilityIncrease": {
+            "WIS": 2
+          }
+        }
+      }
+    ]
+  },
+  "ref": {
+    "stat_init": {
+      "title": "Initiative",
+      "dice": "Initiative: d20 +1",
+      "chips": [
+        {
+          "t": "Dex +1"
+        }
+      ],
+      "body": [
+        "Initiative equals your Dexterity modifier (+1)."
+      ]
+    },
+    "stat_speed": {
+      "title": "Speed",
+      "dice": "30 feet",
+      "chips": [
+        {
+          "t": "Halfling base 30"
+        }
+      ],
+      "body": [
+        "Your walking speed is 30 feet. Heavy armor doesn't slow you — your Strength (13) meets the chain mail requirement."
+      ]
+    },
+    "stat_prof": {
+      "title": "Proficiency Bonus",
+      "dice": "+2",
+      "chips": [
+        {
+          "t": "Levels 1–4",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "+2 at levels 1–4. Added to attack rolls, saves and skills you're proficient with, your spell save DC, and your spell attack."
+      ]
+    },
+    "stat_pass": {
+      "title": "Passive Perception",
+      "dice": "14",
+      "chips": [
+        {
+          "t": "10 + Perception +4",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Passive Perception = 10 + your Perception modifier. You aren't proficient in Perception, so it's just Wisdom +4 → 14."
+      ]
+    },
+    "asi": {
+      "title": "Level 4 — Ability Score Improvement",
+      "dice": null,
+      "chips": [
+        {
+          "t": "+2 Wisdom",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "You raised Wisdom from 17 to 19 (+4). That improved your spell save DC, spell attack, healing, Wisdom saves, and Insight/Medicine/Perception."
+      ]
+    },
+    "lifedomain": {
+      "title": "Life Domain",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Domain spells",
+          "c": "storm"
+        },
+        {
+          "t": "Disciple of Life",
+          "c": "ember"
+        },
+        {
+          "t": "Preserve Life"
+        }
+      ],
+      "body": [
+        "Vestacia's domain of life and renewal. You always have Bless, Cure Wounds, Aid, and Lesser Restoration prepared, gain the Preserve Life Channel Divinity option, and your healing spells restore extra hit points (Disciple of Life)."
+      ]
+    },
+    "discipleoflife": {
+      "title": "Disciple of Life",
+      "dice": "+ (2 + spell level) HP",
+      "chips": [
+        {
+          "t": "On a healing spell",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Whenever you restore hit points to a creature with a level 1+ spell, on the turn you cast it the creature regains additional hit points equal to 2 + the spell's level."
+      ]
+    },
+    "channeldivinity": {
+      "title": "Channel Divinity",
+      "dice": null,
+      "pool": "cd",
+      "chips": [
+        {
+          "t": "2 uses",
+          "c": "ember"
+        },
+        {
+          "t": "Short or long rest",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "A Magic action fueling one of your divine options: Divine Spark, Turn Undead, or Preserve Life. You have two uses; regain one on a short rest and all on a long rest.",
+        "Tap Use to spend a use, then resolve the chosen option below."
+      ]
+    },
+    "divinespark": {
+      "title": "Divine Spark",
+      "dice": "1d8 + Wis (+4)",
+      "chips": [
+        {
+          "t": "Channel Divinity",
+          "c": "ember"
+        },
+        {
+          "t": "30 ft"
+        }
+      ],
+      "body": [
+        "Point your holy symbol at a creature within 30 ft and roll 1d8 + Wis. Either heal it that much, or force a Constitution save for Radiant or Necrotic damage (half on a success). Costs a Channel Divinity use."
+      ]
+    },
+    "turnundead": {
+      "title": "Turn Undead",
+      "dice": "Wis save DC 14",
+      "chips": [
+        {
+          "t": "Channel Divinity",
+          "c": "ember"
+        },
+        {
+          "t": "30 ft"
+        }
+      ],
+      "body": [
+        "Each Undead of your choice within 30 ft makes a Wisdom save or is Frightened and Incapacitated for 1 minute, fleeing from you. Costs a Channel Divinity use."
+      ]
+    },
+    "preservelife": {
+      "title": "Preserve Life",
+      "dice": "heal 5 × level (20)",
+      "chips": [
+        {
+          "t": "Channel Divinity",
+          "c": "ember"
+        },
+        {
+          "t": "Life Domain"
+        }
+      ],
+      "body": [
+        "Restore hit points equal to five times your cleric level (20 at level 4), divided among Bloodied creatures within 30 ft (can include you). It can't raise a creature above half its hit point maximum. Costs a Channel Divinity use."
+      ]
+    },
+    "divineorder": {
+      "title": "Divine Order: Protector",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Martial weapons",
+          "c": "storm"
+        },
+        {
+          "t": "Heavy armor",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You trained as a warrior-priest: you gain proficiency with martial weapons and heavy armor — which is why you can wear chain mail and swing a warhammer."
+      ]
+    },
+    "magicinitiate": {
+      "title": "Magic Initiate (Cleric)",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Acolyte feat",
+          "c": "ember"
+        },
+        {
+          "t": "Wis casting",
+          "c": "storm"
+        },
+        {
+          "t": "DC 14 · atk +6"
+        }
+      ],
+      "body": [
+        "From the Cleric list you learn two cantrips (Light and Resistance) and one level-1 spell (Healing Word), cast with Wisdom. You can cast Healing Word once per long rest without a slot, and also with your slots. Granted by the Acolyte background."
+      ]
+    },
+    "acolyte": {
+      "title": "Background: Acolyte",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Magic Initiate (Cleric)",
+          "c": "ember"
+        },
+        {
+          "t": "Insight · Religion",
+          "c": "storm"
+        },
+        {
+          "t": "Calligrapher's Supplies"
+        }
+      ],
+      "body": [
+        "A life of temple service. Acolyte grants the Magic Initiate (Cleric) Origin feat, proficiency in Insight and Religion, Calligrapher's Supplies, and the +2 Wisdom / +1 Constitution that shaped your scores."
+      ]
+    },
+    "brave": {
+      "title": "Halfling: Brave",
+      "dice": null,
+      "chips": [
+        {
+          "t": "vs Frightened",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You have Advantage on saving throws you make to avoid or end the Frightened condition."
+      ]
+    },
+    "luck": {
+      "title": "Halfling: Luck",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Reroll a natural 1",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "When you roll a 1 on the d20 of a D20 Test (an attack roll, ability check, or saving throw), you can reroll the die and must use the new roll."
+      ]
+    },
+    "nimbleness": {
+      "title": "Halfling: Nimbleness",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Move through bigger creatures"
+        }
+      ],
+      "body": [
+        "You can move through the space of any creature that is a size larger than you, though it isn't difficult terrain for you."
+      ]
+    },
+    "spellslots1": {
+      "title": "Spell Slots (Level 1)",
+      "dice": "4 first-level slots",
+      "pool": "slot1",
+      "chips": [
+        {
+          "t": "Long rest",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Four 1st-level slots, regained on a long rest. Spell save DC 14 (8 + Wis +4 + prof +2); spell attack +6. Tap Use to spend a slot."
+      ]
+    },
+    "spellslots2": {
+      "title": "Spell Slots (Level 2)",
+      "dice": "3 second-level slots",
+      "pool": "slot2",
+      "chips": [
+        {
+          "t": "Long rest",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Three 2nd-level slots, regained on a long rest. Casting at 2nd level uses one. Tap Use to spend a slot."
+      ]
+    },
+    "hitdice": {
+      "title": "Hit Dice",
+      "dice": "1d8 +2 healing each",
+      "pool": "hd",
+      "chips": [
+        {
+          "t": "4 dice at lvl 4"
+        },
+        {
+          "t": "Spent on a short rest",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "On a short rest you can spend Hit Dice to heal, rolling 1d8+2 each (1d8 + Constitution modifier). Regain spent Hit Dice on a long rest."
+      ]
+    },
+    "sacredflame": {
+      "title": "Sacred Flame",
+      "dice": "Dex save DC 14 · 1d8 radiant",
+      "chips": [
+        {
+          "t": "Cantrip"
+        },
+        {
+          "t": "60 ft"
+        },
+        {
+          "t": "Ignores cover",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Flame-like radiance descends on a creature within 60 ft: Dexterity save (DC 14) or 1d8 radiant. The target gains no benefit from cover. The die grows at higher levels."
+      ]
+    },
+    "guidance": {
+      "title": "Guidance",
+      "dice": "+1d4 to a check",
+      "pool": null,
+      "concentration": "Guidance",
+      "chips": [
+        {
+          "t": "Cantrip"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Touch a willing creature; once before the spell ends it adds 1d4 to one ability check. Requires Concentration."
+      ]
+    },
+    "sparethedying": {
+      "title": "Spare the Dying",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Cantrip"
+        },
+        {
+          "t": "30 ft"
+        }
+      ],
+      "body": [
+        "Stabilize a creature that has 0 hit points within 30 ft without needing an action to make death saves."
+      ]
+    },
+    "tollthedead": {
+      "title": "Toll the Dead",
+      "dice": "Wis save DC 14",
+      "chips": [
+        {
+          "t": "Cantrip"
+        },
+        {
+          "t": "60 ft"
+        }
+      ],
+      "body": [
+        "A target makes a Wisdom save or takes 1d8 necrotic — 1d12 if it's already missing hit points."
+      ]
+    },
+    "light": {
+      "title": "Light",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Cantrip"
+        }
+      ],
+      "body": [
+        "An object sheds Bright Light (20 ft) and Dim Light (another 20 ft) for 1 hour. From Magic Initiate."
+      ]
+    },
+    "resistance": {
+      "title": "Resistance",
+      "dice": "+1d4 to a save",
+      "concentration": "Resistance",
+      "chips": [
+        {
+          "t": "Cantrip"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Touch a willing creature; once before the spell ends it adds 1d4 to one saving throw. Concentration. From Magic Initiate."
+      ]
+    },
+    "healingword": {
+      "title": "Healing Word",
+      "dice": "heal 2d4 + Wis",
+      "pool": "mi",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Bonus action"
+        },
+        {
+          "t": "60 ft"
+        },
+        {
+          "t": "Free 1×/long rest",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "As a Bonus Action, a creature within 60 ft regains 2d4 + your Wisdom modifier hit points (plus Disciple of Life). From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use to spend the free cast."
+      ]
+    },
+    "bless": {
+      "title": "Bless",
+      "dice": null,
+      "concentration": "Bless",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        },
+        {
+          "t": "Domain"
+        }
+      ],
+      "body": [
+        "Up to three creatures add 1d4 to their attack rolls and saving throws for the duration. Concentration, up to 1 minute. Always prepared (Life Domain)."
+      ]
+    },
+    "curewounds": {
+      "title": "Cure Wounds",
+      "dice": "heal 2d8 + Wis",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Touch"
+        },
+        {
+          "t": "Domain"
+        }
+      ],
+      "body": [
+        "Touch a creature to restore 2d8 + Wisdom hit points (plus Disciple of Life: +3 at 1st level). No effect on Undead or Constructs. Always prepared (Life Domain)."
+      ]
+    },
+    "aid": {
+      "title": "Aid",
+      "dice": "+5 max & current HP",
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "8 hours"
+        },
+        {
+          "t": "Domain"
+        }
+      ],
+      "body": [
+        "Up to three creatures each gain +5 to their hit point maximum and current hit points for 8 hours (more at higher levels). Always prepared (Life Domain)."
+      ]
+    },
+    "lesserrestoration": {
+      "title": "Lesser Restoration",
+      "dice": null,
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "Touch"
+        },
+        {
+          "t": "Domain"
+        }
+      ],
+      "body": [
+        "End one disease or the Blinded, Deafened, Paralyzed, or Poisoned condition on a creature you touch. Always prepared (Life Domain)."
+      ]
+    },
+    "guidingbolt": {
+      "title": "Guiding Bolt",
+      "dice": "To hit: d20 +6 · 4d6 radiant",
+      "pool": "slot1",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "120 ft"
+        },
+        {
+          "t": "Grants Advantage",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "A ranged spell attack (+6); on a hit, 4d6 radiant and the next attack roll against the target before the end of your next turn has Advantage."
+      ]
+    },
+    "shieldoffaith": {
+      "title": "Shield of Faith",
+      "dice": "+2 AC",
+      "pool": "slot1",
+      "concentration": "Shield of Faith",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Bonus action"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "As a Bonus Action, a creature within 60 ft gains +2 AC for the duration. Concentration, up to 10 minutes."
+      ]
+    },
+    "sanctuary": {
+      "title": "Sanctuary",
+      "dice": "Wis save DC 14",
+      "pool": "slot1",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Bonus action"
+        }
+      ],
+      "body": [
+        "Ward a creature within 30 ft; until the spell ends, anyone targeting it with an attack or harmful spell must first pass a Wisdom save or choose a new target. Ends if the warded creature attacks or casts a harmful spell."
+      ]
+    },
+    "spiritualweapon": {
+      "title": "Spiritual Weapon",
+      "dice": "1d8 + Wis force",
+      "pool": "slot2",
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "Bonus action"
+        },
+        {
+          "t": "Force"
+        }
+      ],
+      "body": [
+        "Create a floating spectral weapon for 1 minute. On casting and as a Bonus Action each turn, move it 20 ft and make a melee spell attack (+6) for 1d8 + Wis force. No Concentration in the 2024 rules."
+      ]
+    },
+    "prayerofhealing": {
+      "title": "Prayer of Healing",
+      "dice": "heal 2d8 + Wis ×5",
+      "pool": "slot2",
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "10-min cast"
+        }
+      ],
+      "body": [
+        "Up to five creatures you can see regain 2d8 + your Wisdom modifier hit points (plus Disciple of Life). A 10-minute casting — out of combat healing."
+      ]
+    },
+    "holdperson": {
+      "title": "Hold Person",
+      "dice": "Wis save DC 14",
+      "pool": "slot2",
+      "concentration": "Hold Person",
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "A humanoid makes a Wisdom save or is Paralyzed for the duration, repeating the save at the end of each of its turns. Concentration, up to 1 minute."
+      ]
+    },
+    "detectmagic": {
+      "title": "Detect Magic",
+      "dice": null,
+      "concentration": "Detect Magic",
+      "chips": [
+        {
+          "t": "Level 1"
+        },
+        {
+          "t": "Ritual",
+          "c": "storm"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Sense magic within 30 ft for the duration; as an action, see a visible magical thing's aura and learn its school."
+      ]
+    },
+    "silence": {
+      "title": "Silence",
+      "dice": null,
+      "pool": "slot2",
+      "concentration": "Silence",
+      "chips": [
+        {
+          "t": "Level 2"
+        },
+        {
+          "t": "Ritual",
+          "c": "storm"
+        },
+        {
+          "t": "Concentration",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "No sound can be created within or pass through a 20-ft-radius sphere for the duration — blocks verbal spellcasting and thunder damage. Concentration, up to 10 minutes."
+      ]
+    },
+    "mace": {
+      "title": "Mace",
+      "dice": "To hit: d20 +3 · Damage: 1d6 +1",
+      "chips": [
+        {
+          "t": "Bludgeoning"
+        },
+        {
+          "t": "Simple"
+        }
+      ],
+      "body": [
+        "A simple bludgeon, +3 to hit (Str +1, proficiency +2), 1d6+1. Your spells do the heavy lifting."
+      ]
+    },
+    "warhammer": {
+      "title": "Warhammer",
+      "dice": "To hit: d20 +3 · Damage: 1d8 +1",
+      "chips": [
+        {
+          "t": "Bludgeoning"
+        },
+        {
+          "t": "Versatile 1d10"
+        },
+        {
+          "t": "Martial · Protector",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "A martial weapon you can use thanks to Divine Order: Protector. Two-handed it deals 1d10+1."
+      ]
+    }
+  }
+}

@@ -480,5 +480,227 @@
         ]
       }
     }
+  },
+  "Tobin Bramblefoot": {
+    "abilities": {
+      "STR": 13,
+      "DEX": 12,
+      "CON": 15,
+      "INT": 8,
+      "WIS": 19,
+      "CHA": 10
+    },
+    "skillProf": [
+      "Insight",
+      "Medicine",
+      "Persuasion",
+      "Religion"
+    ],
+    "skillExp": [],
+    "checkMods": {},
+    "initiativeBonus": 0,
+    "always": [
+      {
+        "name": "Bless",
+        "ref": "bless",
+        "sub": "+1d4 to attacks & saves for 3 allies · Conc."
+      },
+      {
+        "name": "Cure Wounds",
+        "ref": "curewounds",
+        "sub": "heal 2d8 + Wis · touch"
+      },
+      {
+        "name": "Aid",
+        "ref": "aid",
+        "sub": "+5 max & current HP to 3 allies · 2nd level"
+      },
+      {
+        "name": "Lesser Restoration",
+        "ref": "lesserrestoration",
+        "sub": "end a disease or a condition · 2nd level"
+      }
+    ],
+    "tools": [
+      "Calligrapher's Supplies"
+    ],
+    "languages": null,
+    "pools": {
+      "mi": {
+        "label": "Healing Word — free",
+        "max": 1,
+        "rest": "long",
+        "ref": "healingword",
+        "storm": true,
+        "note": "long rest",
+        "use": "Use free cast",
+        "reminder": "Magic Initiate: free cast of Healing Word (no slot)."
+      },
+      "slot1": {
+        "label": "Level 1 Slots",
+        "max": 4,
+        "rest": "long",
+        "ref": "spellslots1",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 1st-level spell slot."
+      },
+      "slot2": {
+        "label": "Level 2 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots2",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 2nd-level spell slot."
+      },
+      "cd": {
+        "label": "Channel Divinity",
+        "max": 2,
+        "rest": "short",
+        "ref": "channeldivinity",
+        "storm": false,
+        "note": "regain 1 on a short rest",
+        "use": "Use",
+        "reminder": "Channel Divinity: Divine Spark, Turn Undead, or Preserve Life."
+      },
+      "hd": {
+        "label": "Hit Dice",
+        "max": 4,
+        "rest": "long",
+        "ref": "hitdice",
+        "storm": false,
+        "note": "1d8+2 · short rest",
+        "use": "Use",
+        "reminder": "Hit Die: roll 1d8+2, then add it with Heal."
+      }
+    },
+    "spellcasting": {
+      "ability": "WIS"
+    },
+    "prepared": {
+      "max": 7,
+      "default": [
+        "guidingbolt",
+        "shieldoffaith",
+        "sanctuary",
+        "spiritualweapon",
+        "prayerofhealing",
+        "holdperson",
+        "silence"
+      ],
+      "catalog": [
+        {
+          "id": "guidingbolt",
+          "name": "Guiding Bolt",
+          "note": "ranged spell atk · 4d6 radiant · next attacker has Advantage"
+        },
+        {
+          "id": "shieldoffaith",
+          "name": "Shield of Faith",
+          "note": "Bonus Action · +2 AC · Concentration"
+        },
+        {
+          "id": "sanctuary",
+          "name": "Sanctuary",
+          "note": "Bonus Action · attackers must pass a Wis save to target the warded creature"
+        },
+        {
+          "id": "spiritualweapon",
+          "name": "Spiritual Weapon",
+          "note": "Bonus Action · 1d8 + Wis force · 2nd level"
+        },
+        {
+          "id": "prayerofhealing",
+          "name": "Prayer of Healing",
+          "note": "heal 2d8 + Wis to up to 5 (10-min cast) · 2nd level"
+        },
+        {
+          "id": "holdperson",
+          "name": "Hold Person",
+          "note": "Paralyze a humanoid · Wis save · Concentration · 2nd level"
+        },
+        {
+          "id": "detectmagic",
+          "name": "Detect Magic",
+          "note": "sense magic within 30 ft · Concentration"
+        },
+        {
+          "id": "silence",
+          "name": "Silence",
+          "note": "no sound in a 20-ft sphere · 2nd level · Concentration"
+        }
+      ]
+    },
+    "spellcastingCard": {
+      "type": "spellcasting",
+      "slotPools": [
+        "slot1",
+        "slot2"
+      ],
+      "cantrips": [
+        {
+          "ref": "sacredflame",
+          "name": "Sacred Flame",
+          "sub": "Dex save · 1d8 radiant · ignores cover"
+        },
+        {
+          "ref": "guidance",
+          "name": "Guidance",
+          "sub": "+1d4 to one ability check · Concentration"
+        },
+        {
+          "ref": "sparethedying",
+          "name": "Spare the Dying",
+          "sub": "stabilize a dying creature at 30 ft"
+        },
+        {
+          "ref": "tollthedead",
+          "name": "Toll the Dead",
+          "sub": "Wis save · 1d8/1d12 necrotic"
+        }
+      ],
+      "prepared": true,
+      "always": [
+        {
+          "name": "Bless",
+          "ref": "bless",
+          "sub": "+1d4 to attacks & saves for 3 allies · Conc."
+        },
+        {
+          "name": "Cure Wounds",
+          "ref": "curewounds",
+          "sub": "heal 2d8 + Wis · touch"
+        },
+        {
+          "name": "Aid",
+          "ref": "aid",
+          "sub": "+5 max & current HP to 3 allies · 2nd level"
+        },
+        {
+          "name": "Lesser Restoration",
+          "ref": "lesserrestoration",
+          "sub": "end a disease or a condition · 2nd level"
+        }
+      ],
+      "initiate": {
+        "label": "Magic Initiate (Cleric) · Wis",
+        "pool": "mi",
+        "spells": [
+          {
+            "ref": "light",
+            "name": "Light",
+            "sub": "cantrip · an object sheds bright light"
+          },
+          {
+            "ref": "resistance",
+            "name": "Resistance",
+            "sub": "cantrip · +1d4 to one save · Concentration"
+          }
+        ]
+      }
+    }
   }
 }
