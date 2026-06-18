@@ -151,6 +151,7 @@
     ]
   };
   function featureReached(name){ var fbl=classData().featuresByLevel||{}; for(var l=1;l<=state.level;l++){ if((fbl[String(l)]||[]).indexOf(name)>=0) return true; } return false; }
+  function subclassGrants(){ if(state.level<3 || !state.subclass) return []; return ((CAT.subclasses[state.subclass]||{}).grants)||[]; }
   function classPoolSources(){
     var out=[]; (CLASS_POOLS[state.cls]||[]).forEach(function(cp){ if(!featureReached(cp.feature)) return;
       out.push({ id:cp.id, name:cp.feature, effects:{ grantsPool:{ id:cp.id, label:cp.label, max:cp.max(state.level), rest:cp.rest, ref:cp.ref, storm:cp.storm, note:cp.note, use:cp.use, reminder:cp.reminder } } }); });
@@ -158,7 +159,9 @@
   }
   function featureList(){
     var cd=classData(), fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[state.cls]||{}, out=[];
-    for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(name==="Ability Score Improvement") return; out.push({ ref:(cf[name]&&cf[name].refId)||"", name:name, sub:"Level "+l }); });
+    for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(name==="Ability Score Improvement"||/Subclass$/.test(name)) return; out.push({ ref:(cf[name]&&cf[name].refId)||"", name:name, sub:"Level "+l }); });
+    var scName=(CAT.subclasses[state.subclass]||{}).name||"";
+    subclassGrants().forEach(function(g){ out.push({ ref:g.id, name:g.name, sub:scName }); });
     return out;
   }
 
@@ -179,6 +182,9 @@
     if(featureReached("Fighting Style") && ch.style){ var st=FIGHTING_STYLES.filter(function(x){return x.id===ch.style;})[0]; if(st) sources.push({ id:"fighting-style", name:"Fighting Style: "+st.name, refId:"fightingstyle", ref:{ title:"Fighting Style: "+st.name, chips:[{t:"Combat feat"}], body:[st.note+"."] } }); }
     if(needsExpertise() && ch.expertise) sources.push({ id:"expertise", name:"Expertise: "+ch.expertise, effects:{ expertise:[ch.expertise] } });
     if(featureReached("Divine Order") && ch.order){ var od = ch.order==="thaumaturge" ? {t:"Thaumaturge", b:"You know an extra cleric cantrip and add your Wisdom modifier to Intelligence (Arcana or Religion) checks."} : {t:"Protector", b:"You gain proficiency with martial weapons and heavy armor."}; sources.push({ id:"divine-order", name:"Divine Order: "+od.t, refId:"divineorder", ref:{ title:"Divine Order: "+od.t, body:[od.b] } }); }
+    // subclass features (gained at level 3+)
+    var scName=(CAT.subclasses[state.subclass]||{}).name||"";
+    subclassGrants().forEach(function(g){ sources.push({ id:g.id, name:scName+": "+g.name, effects:g.effects, ref:g.ref, refId:g.id }); });
     // level-1 origin feat (e.g. Human Versatile)
     if(state.originFeat) sources.push({ id:"feat-"+state.originFeat, name:"Origin feat: "+(CAT.feats[state.originFeat]||{}).name, grantsFeat:state.originFeat });
     // hit dice pool scales with level
@@ -214,7 +220,8 @@
     if(bg) add(1,{cls:"choice", html:"<b>Background: "+esc(bg.name)+"</b>"+(bg.grantsFeat?(" — Origin feat "+esc(featName(bg.grantsFeat))):"")});
     if(state.skills.length) add(1,{cls:"choice", html:"<b>Skills ("+esc(cd.name||"")+", choose "+((cd.skillChoices||{}).count||0)+"):</b> "+state.skills.map(esc).join(", ")});
     if(state.originFeat) add(1,{cls:"choice", html:"<b>Origin feat:</b> "+esc(featName(state.originFeat))});
-    if(state.level>=3 && state.subclass) add(3,{cls:"choice", html:"<b>Subclass:</b> "+esc((CAT.subclasses[state.subclass]||{}).name||titleCase(state.subclass))});
+    if(state.level>=3 && state.subclass){ add(3,{cls:"choice", html:"<b>Subclass:</b> "+esc((CAT.subclasses[state.subclass]||{}).name||titleCase(state.subclass))});
+      subclassGrants().forEach(function(g){ add(3,{html:"<b>"+esc(g.name)+"</b>"+(g.ref&&g.ref.body?(" — "+esc(g.ref.body[0])):"")}); }); }
     var ch=state.choices;
     if(featureReached("Fighting Style")&&ch.style){ var st=FIGHTING_STYLES.filter(function(x){return x.id===ch.style;})[0]; add(featureLevel("Fighting Style"),{cls:"choice", html:"<b>Fighting Style:</b> "+esc(st?st.name:"")}); }
     if(needsExpertise()&&ch.expertise) add(featureLevel(featureReached("Scholar")?"Scholar":"Deft Explorer"),{cls:"choice", html:"<b>Expertise:</b> "+esc(ch.expertise)});
