@@ -358,10 +358,16 @@
             "pool": "cd"
           },
           {
-            "label": "Cast a leveled spell",
-            "ref": "spellslots1",
-            "detail": "Guiding Bolt, Hold Person, etc. · costs a slot",
-            "pool": "slot1"
+            "label": "Cast Guiding Bolt",
+            "ref": "guidingbolt",
+            "spellLevel": 1,
+            "detail": "ranged spell atk · 4d6 radiant · next attacker has Advantage"
+          },
+          {
+            "label": "Cast Hold Person",
+            "ref": "holdperson",
+            "spellLevel": 2,
+            "detail": "Paralyze a humanoid · Wis save · Conc."
           },
           {
             "label": "Attack — Warhammer",
@@ -377,13 +383,14 @@
             "label": "Healing Word",
             "ref": "healingword",
             "detail": "heal 2d4 + Wis at 60 ft · free 1×/long rest",
-            "show": "mi"
+            "spellLevel": 1,
+            "freePool": "mi"
           },
           {
             "label": "Spiritual Weapon",
             "ref": "spiritualweapon",
             "detail": "spectral weapon · 1d8 + Wis force · costs a 2nd-level slot",
-            "pool": "slot2"
+            "spellLevel": 2
           }
         ]
       },
@@ -463,7 +470,8 @@
                 "storm": true,
                 "note": "long rest",
                 "use": "Spend a slot",
-                "reminder": "Spend a 1st-level spell slot."
+                "reminder": "Spend a 1st-level spell slot.",
+                "slotLevel": 1
               },
               {
                 "id": "slot2",
@@ -474,7 +482,8 @@
                 "storm": true,
                 "note": "long rest",
                 "use": "Spend a slot",
-                "reminder": "Spend a 2nd-level spell slot."
+                "reminder": "Spend a 2nd-level spell slot.",
+                "slotLevel": 2
               }
             ],
             "cantrips": [
@@ -514,42 +523,50 @@
                 {
                   "id": "guidingbolt",
                   "name": "Guiding Bolt",
-                  "note": "ranged spell atk · 4d6 radiant · next attacker has Advantage"
+                  "note": "ranged spell atk · 4d6 radiant · next attacker has Advantage",
+                  "level": 1
                 },
                 {
                   "id": "shieldoffaith",
                   "name": "Shield of Faith",
-                  "note": "Bonus Action · +2 AC · Concentration"
+                  "note": "Bonus Action · +2 AC · Concentration",
+                  "level": 1
                 },
                 {
                   "id": "sanctuary",
                   "name": "Sanctuary",
-                  "note": "Bonus Action · attackers must pass a Wis save to target the warded creature"
+                  "note": "Bonus Action · attackers must pass a Wis save to target the warded creature",
+                  "level": 1
                 },
                 {
                   "id": "spiritualweapon",
                   "name": "Spiritual Weapon",
-                  "note": "Bonus Action · 1d8 + Wis force · 2nd level"
+                  "note": "Bonus Action · 1d8 + Wis force · 2nd level",
+                  "level": 2
                 },
                 {
                   "id": "prayerofhealing",
                   "name": "Prayer of Healing",
-                  "note": "heal 2d8 + Wis to up to 5 (10-min cast) · 2nd level"
+                  "note": "heal 2d8 + Wis to up to 5 (10-min cast) · 2nd level",
+                  "level": 2
                 },
                 {
                   "id": "holdperson",
                   "name": "Hold Person",
-                  "note": "Paralyze a humanoid · Wis save · Concentration · 2nd level"
+                  "note": "Paralyze a humanoid · Wis save · Concentration · 2nd level",
+                  "level": 2
                 },
                 {
                   "id": "detectmagic",
                   "name": "Detect Magic",
-                  "note": "sense magic within 30 ft · Concentration"
+                  "note": "sense magic within 30 ft · Concentration",
+                  "level": 1
                 },
                 {
                   "id": "silence",
                   "name": "Silence",
-                  "note": "no sound in a 20-ft sphere · 2nd level · Concentration"
+                  "note": "no sound in a 20-ft sphere · 2nd level · Concentration",
+                  "level": 2
                 }
               ]
             }
@@ -1057,7 +1074,6 @@
     "healingword": {
       "title": "Healing Word",
       "dice": "heal 2d4 + Wis",
-      "pool": "mi",
       "chips": [
         {
           "t": "Level 1"
@@ -1075,7 +1091,9 @@
       ],
       "body": [
         "As a Bonus Action, a creature within 60 ft regains 2d4 + your Wisdom modifier hit points (plus Disciple of Life). From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use to spend the free cast."
-      ]
+      ],
+      "level": 1,
+      "freePool": "mi"
     },
     "bless": {
       "title": "Bless",
@@ -1095,7 +1113,8 @@
       ],
       "body": [
         "Up to three creatures add 1d4 to their attack rolls and saving throws for the duration. Concentration, up to 1 minute. Always prepared (Life Domain)."
-      ]
+      ],
+      "level": 1
     },
     "curewounds": {
       "title": "Cure Wounds",
@@ -1113,7 +1132,8 @@
       ],
       "body": [
         "Touch a creature to restore 2d8 + Wisdom hit points (plus Disciple of Life: +3 at 1st level). No effect on Undead or Constructs. Always prepared (Life Domain)."
-      ]
+      ],
+      "level": 1
     },
     "aid": {
       "title": "Aid",
@@ -1131,7 +1151,8 @@
       ],
       "body": [
         "Up to three creatures each gain +5 to their hit point maximum and current hit points for 8 hours (more at higher levels). Always prepared (Life Domain)."
-      ]
+      ],
+      "level": 2
     },
     "lesserrestoration": {
       "title": "Lesser Restoration",
@@ -1149,12 +1170,12 @@
       ],
       "body": [
         "End one disease or the Blinded, Deafened, Paralyzed, or Poisoned condition on a creature you touch. Always prepared (Life Domain)."
-      ]
+      ],
+      "level": 2
     },
     "guidingbolt": {
       "title": "Guiding Bolt",
       "dice": "To hit: d20 +6 · 4d6 radiant",
-      "pool": "slot1",
       "chips": [
         {
           "t": "Level 1"
@@ -1169,12 +1190,12 @@
       ],
       "body": [
         "A ranged spell attack (+6); on a hit, 4d6 radiant and the next attack roll against the target before the end of your next turn has Advantage."
-      ]
+      ],
+      "level": 1
     },
     "shieldoffaith": {
       "title": "Shield of Faith",
       "dice": "+2 AC",
-      "pool": "slot1",
       "concentration": "Shield of Faith",
       "chips": [
         {
@@ -1190,12 +1211,12 @@
       ],
       "body": [
         "As a Bonus Action, a creature within 60 ft gains +2 AC for the duration. Concentration, up to 10 minutes."
-      ]
+      ],
+      "level": 1
     },
     "sanctuary": {
       "title": "Sanctuary",
       "dice": "Wis save DC 14",
-      "pool": "slot1",
       "chips": [
         {
           "t": "Level 1"
@@ -1206,12 +1227,12 @@
       ],
       "body": [
         "Ward a creature within 30 ft; until the spell ends, anyone targeting it with an attack or harmful spell must first pass a Wisdom save or choose a new target. Ends if the warded creature attacks or casts a harmful spell."
-      ]
+      ],
+      "level": 1
     },
     "spiritualweapon": {
       "title": "Spiritual Weapon",
       "dice": "1d8 + Wis force",
-      "pool": "slot2",
       "chips": [
         {
           "t": "Level 2"
@@ -1225,12 +1246,12 @@
       ],
       "body": [
         "Create a floating spectral weapon for 1 minute. On casting and as a Bonus Action each turn, move it 20 ft and make a melee spell attack (+6) for 1d8 + Wis force. No Concentration in the 2024 rules."
-      ]
+      ],
+      "level": 2
     },
     "prayerofhealing": {
       "title": "Prayer of Healing",
       "dice": "heal 2d8 + Wis ×5",
-      "pool": "slot2",
       "chips": [
         {
           "t": "Level 2"
@@ -1241,12 +1262,12 @@
       ],
       "body": [
         "Up to five creatures you can see regain 2d8 + your Wisdom modifier hit points (plus Disciple of Life). A 10-minute casting — out of combat healing."
-      ]
+      ],
+      "level": 2
     },
     "holdperson": {
       "title": "Hold Person",
       "dice": "Wis save DC 14",
-      "pool": "slot2",
       "concentration": "Hold Person",
       "chips": [
         {
@@ -1259,7 +1280,8 @@
       ],
       "body": [
         "A humanoid makes a Wisdom save or is Paralyzed for the duration, repeating the save at the end of each of its turns. Concentration, up to 1 minute."
-      ]
+      ],
+      "level": 2
     },
     "detectmagic": {
       "title": "Detect Magic",
@@ -1280,12 +1302,12 @@
       ],
       "body": [
         "Sense magic within 30 ft for the duration; as an action, see a visible magical thing's aura and learn its school."
-      ]
+      ],
+      "level": 1
     },
     "silence": {
       "title": "Silence",
       "dice": null,
-      "pool": "slot2",
       "concentration": "Silence",
       "chips": [
         {
@@ -1302,7 +1324,8 @@
       ],
       "body": [
         "No sound can be created within or pass through a 20-ft-radius sphere for the duration — blocks verbal spellcasting and thunder damage. Concentration, up to 10 minutes."
-      ]
+      ],
+      "level": 2
     },
     "mace": {
       "title": "Mace",

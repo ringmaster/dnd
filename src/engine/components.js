@@ -79,7 +79,7 @@ var CARD = {
     if(card.slotPools) card.slotPools.forEach(function(id){ html+=poolBlock(id); });
     else if(card.slotPool) html+=poolBlock(card.slotPool);
     html+='<div style="margin-top:.6rem">';
-    if(card.cantrips && card.cantrips.length){ html+=label("Cantrips · at will",".2rem 0 .35rem"); html+=card.cantrips.map(function(f){return featBtn(f,false);}).join(""); }
+    if(card.cantrips && card.cantrips.length){ html+='<div class="spell-level-head" style="margin-top:.1rem">Cantrips · at will</div>'; html+=card.cantrips.map(function(f){return featBtn(f,false);}).join(""); }
     if(card.always && card.always.length){ html+=label("Always prepared",".7rem 0 .35rem"); html+=card.always.map(function(f){return featBtn(f,false);}).join(""); }
     if(card.prepared){
       html+='<div class="hp-label" style="text-align:left;margin:.7rem 0 .35rem">Prepared spells <span id="prepCount" class="count-tag">0/0</span></div><div id="preparedList"></div>'+

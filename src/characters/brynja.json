@@ -477,7 +477,6 @@
     "huntersmark": {
       "title": "Hunter's Mark",
       "dice": "+1d6 force on each hit",
-      "pool": "hm",
       "chips": [
         {
           "t": "Bonus action"
@@ -496,7 +495,9 @@
         "When the target drops, move the mark to a new creature as a Bonus Action.",
         "Favored Enemy keeps it always prepared and lets you cast it free (no slot) twice per long rest (your Proficiency Bonus); after that, cast it with a slot. Tap Use below to spend a free cast."
       ],
-      "concentration": "Hunter's Mark"
+      "concentration": "Hunter's Mark",
+      "level": 1,
+      "freePool": "hm"
     },
     "spellslots": {
       "title": "Spell Slots (Level 1)",
@@ -562,7 +563,8 @@
       ],
       "body": [
         "Touch a creature to restore 2d8 + your spellcasting modifier (Wis +2) hit points. A higher-level slot heals an extra 2d8 per level. No effect on Undead or Constructs."
-      ]
+      ],
+      "level": 1
     },
     "goodberry": {
       "title": "Goodberry",
@@ -575,7 +577,8 @@
       "body": [
         "Create up to ten berries. Eating one (a Bonus Action) restores 1 hit point, and a berry feeds a creature for a day. They lose potency after 24 hours.",
         "Ten guaranteed HP in one-point bites — best out of combat."
-      ]
+      ],
+      "level": 1
     },
     "longstrider": {
       "title": "Longstrider",
@@ -590,7 +593,8 @@
       ],
       "body": [
         "Touch a creature; its Speed increases by 10 feet for 1 hour. A higher-level slot affects one extra creature per level."
-      ]
+      ],
+      "level": 1
     },
     "ensnaringstrike": {
       "title": "Ensnaring Strike",
@@ -611,7 +615,8 @@
         "As a Bonus Action, the next time you hit with a weapon this turn the target makes a Strength save (DC 12) or is Restrained by magical vines, taking 1d6 piercing at the start of each of its turns. It can repeat the save to break free.",
         "Requires Concentration, so it competes with Hunter's Mark."
       ],
-      "concentration": "Ensnaring Strike"
+      "concentration": "Ensnaring Strike",
+      "level": 1
     },
     "speakwithanimals": {
       "title": "Speak with Animals",
@@ -631,7 +636,8 @@
       "body": [
         "You can comprehend and verbally communicate with Beasts for 10 minutes. As a ritual you can cast it without a slot if you spend 10 extra minutes.",
         "Pairs naturally with Animal Handling for a fey-touched tracker."
-      ]
+      ],
+      "level": 1
     },
     "fogcloud": {
       "title": "Fog Cloud",
@@ -649,7 +655,8 @@
         "Create a 20-foot-radius sphere of fog within 120 ft; the area is Heavily Obscured. Wind disperses it, and a higher-level slot makes it larger.",
         "A getaway or reposition tool — it blocks line of sight for everyone."
       ],
-      "concentration": "Fog Cloud"
+      "concentration": "Fog Cloud",
+      "level": 1
     },
     "entangle": {
       "title": "Entangle",
@@ -667,7 +674,8 @@
         "Grasping weeds and vines sprout in a 20-foot square within 90 ft. Each creature there makes a Strength save (DC 12) or is Restrained for the duration; the area is also Difficult Terrain.",
         "A Restrained creature can use its action to make a Strength check to free itself. Concentration, so it competes with Hunter's Mark."
       ],
-      "concentration": "Entangle"
+      "concentration": "Entangle",
+      "level": 1
     },
     "detectmagic": {
       "title": "Detect Magic",
@@ -689,7 +697,8 @@
         "For the duration you sense the presence of magic within 30 ft. As an action you can see a faint aura around any visible magical creature or object and learn its school of magic.",
         "Has the Ritual tag, but rangers lack a Ritual Casting feature, so cast it with a slot (or your free prepared casting)."
       ],
-      "concentration": "Detect Magic"
+      "concentration": "Detect Magic",
+      "level": 1
     },
     "asi": {
       "title": "Level 4 — Ability Score Improvement",
@@ -855,7 +864,6 @@
     "faeriefire": {
       "title": "Faerie Fire",
       "dice": "Dex save DC 12",
-      "pool": "mi",
       "chips": [
         {
           "t": "Level 1"
@@ -873,7 +881,9 @@
         "Each creature in a 20-foot cube must succeed on a Dexterity save (DC 12) or be outlined in light for 1 minute. Attack rolls against an outlined creature have Advantage, and it can't benefit from being Invisible.",
         "Concentration, so it competes with Hunter's Mark. From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use below to spend the free cast."
       ],
-      "concentration": "Faerie Fire"
+      "concentration": "Faerie Fire",
+      "level": 1,
+      "freePool": "mi"
     },
     "versatile": {
       "title": "Human: Versatile",
@@ -1057,13 +1067,14 @@
             "label": "Cast Faerie Fire",
             "ref": "faeriefire",
             "detail": "Dex save DC 12 · Adv. to hit them",
-            "show": "mi"
+            "spellLevel": 1,
+            "freePool": "mi"
           },
           {
-            "label": "Cast Fog Cloud / Entangle / Cure Wounds",
-            "ref": "spellslots",
-            "detail": "costs a 1st-level slot",
-            "pool": "slot1"
+            "label": "Cast Entangle",
+            "ref": "entangle",
+            "spellLevel": 1,
+            "detail": "Restrain in a 20-ft square · Str save · Conc."
           }
         ]
       },
@@ -1074,13 +1085,14 @@
             "label": "Hunter’s Mark",
             "ref": "huntersmark",
             "detail": "+1d6 force/hit · move it on a kill",
-            "show": "hm"
+            "spellLevel": 1,
+            "freePool": "hm"
           },
           {
             "label": "Ensnaring Strike",
             "ref": "ensnaringstrike",
             "detail": "next hit: Str save DC 12 or Restrained",
-            "pool": "slot1"
+            "spellLevel": 1
           }
         ]
       },
@@ -1258,7 +1270,8 @@
             "storm": true,
             "note": "long rest",
             "use": "Spend a slot",
-            "reminder": "Spend a 1st-level spell slot."
+            "reminder": "Spend a 1st-level spell slot.",
+            "slotLevel": 1
           },
           "spellcasting": {
             "ability": "WIS",
@@ -1276,42 +1289,50 @@
                 {
                   "id": "curewounds",
                   "name": "Cure Wounds",
-                  "note": "heal 2d8 +2 · touch"
+                  "note": "heal 2d8 +2 · touch",
+                  "level": 1
                 },
                 {
                   "id": "goodberry",
                   "name": "Goodberry",
-                  "note": "10 berries, 1 HP each"
+                  "note": "10 berries, 1 HP each",
+                  "level": 1
                 },
                 {
                   "id": "longstrider",
                   "name": "Longstrider",
-                  "note": "+10 ft Speed for 1 hour"
+                  "note": "+10 ft Speed for 1 hour",
+                  "level": 1
                 },
                 {
                   "id": "ensnaringstrike",
                   "name": "Ensnaring Strike",
-                  "note": "Restrained on hit · Concentration"
+                  "note": "Restrained on hit · Concentration",
+                  "level": 1
                 },
                 {
                   "id": "fogcloud",
                   "name": "Fog Cloud",
-                  "note": "20-ft Heavily Obscured · Concentration"
+                  "note": "20-ft Heavily Obscured · Concentration",
+                  "level": 1
                 },
                 {
                   "id": "speakwithanimals",
                   "name": "Speak with Animals",
-                  "note": "talk to Beasts · 10 min"
+                  "note": "talk to Beasts · 10 min",
+                  "level": 1
                 },
                 {
                   "id": "entangle",
                   "name": "Entangle",
-                  "note": "Restrain in a 20-ft square · Concentration"
+                  "note": "Restrain in a 20-ft square · Concentration",
+                  "level": 1
                 },
                 {
                   "id": "detectmagic",
                   "name": "Detect Magic",
-                  "note": "sense magic within 30 ft · Concentration"
+                  "note": "sense magic within 30 ft · Concentration",
+                  "level": 1
                 }
               ]
             }

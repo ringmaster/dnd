@@ -50,6 +50,22 @@ var PREPARED_MAX = CHARACTER.prepared ? CHARACTER.prepared.max : 0;
 var SPELL_CATALOG = CHARACTER.prepared ? CHARACTER.prepared.catalog : [];
 function spById(id){ for(var i=0;i<SPELL_CATALOG.length;i++){ if(SPELL_CATALOG[i].id===id) return SPELL_CATALOG[i]; } return null; }
 
+/* ----- spell slots (pools tagged with a slotLevel) ----- */
+function slotPoolsList(){
+  var out=[];
+  Object.keys(CHARACTER.pools).forEach(function(id){ var p=CHARACTER.pools[id]; if(p.slotLevel) out.push({id:id, level:p.slotLevel, max:POOL_MAX[id]}); });
+  out.sort(function(a,b){ return a.level-b.level; });
+  return out;
+}
+function ordinal(n){ var s=["th","st","nd","rd"], v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
+/* how many ways you could cast a spell of the given minimum level right now */
+function spellSlotsAvail(level, freePool){
+  var n=0;
+  if(freePool && state[freePool]>0) n+=state[freePool];
+  slotPoolsList().forEach(function(sp){ if(sp.level>=level) n+=state[sp.id]; });
+  return n;
+}
+
 /* ----- state ----- */
 var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0, view:"attacks", conc:"",
                  ac:acDefault(), masteries:(CHARACTER.masteryDefault||[]).slice() };
@@ -164,6 +180,11 @@ function combatMove(mv){
     bits.push('<span class="cm-num">d20 '+weaponToHit(w)+' · '+weaponDmg(w)+'</span>'+(mastered?(' · '+esc(w.mastery)):'')); } }
   if(mv.detail) bits.push(esc(mv.detail));
   var sub=bits.join(' · ');
+  if(mv.spellLevel!=null){
+    var avail=spellSlotsAvail(mv.spellLevel, mv.freePool);
+    if(avail<=0) grey=true;
+    sub+=(sub?' · ':'')+'<span class="cm-left">'+avail+' slot'+(avail===1?'':'s')+'</span>';
+  }
   var meter = mv.pool || mv.show;
   if(meter){ if(mv.pool && state[mv.pool]<=0) grey=true; sub+=(sub?' · ':'')+meterText(meter, !!mv.show); }
   var html='<button class="cm-move'+(grey?' spent':'')+'"'+moveTarget(mv)+' type="button"><span class="cm-name">'+esc(mv.label)+'</span><span class="cm-sub">'+sub+'</span></button>';
@@ -331,6 +352,47 @@ function concCastConfirm(newName, onYes){
   refFoot.appendChild(yes); refFoot.appendChild(no);
   refOverlay.classList.add("show"); document.getElementById("refClose").focus();
 }
+/* ----- Casting a leveled spell: choose which slot (or a free cast) to spend ----- */
+function castOptions(r){
+  var opts=[];
+  if(r.freePool && POOL_MAX[r.freePool]!=null){
+    opts.push({ pool:r.freePool, free:true, label:"Free cast — no slot", n:state[r.freePool], max:POOL_MAX[r.freePool] });
+  }
+  slotPoolsList().forEach(function(sp){
+    if(sp.level < (r.level||1)) return;
+    opts.push({ pool:sp.id, level:sp.level, label:ordinal(sp.level)+"-level slot", n:state[sp.id], max:sp.max });
+  });
+  return opts;
+}
+function renderCastFoot(r){
+  refFoot.innerHTML="";
+  var opts=castOptions(r), any=opts.some(function(o){ return o.n>0; });
+  if(r.concentration && state.conc && state.conc!==r.concentration){
+    var note=document.createElement("span"); note.className="uses-left cast-conc";
+    note.textContent="Casting ends concentration on "+state.conc+".";
+    refFoot.appendChild(note);
+  }
+  if(!opts.length){ var s=document.createElement("span"); s.className="uses-left"; s.textContent="No spell slots."; refFoot.appendChild(s); return; }
+  opts.forEach(function(o){
+    var b=document.createElement("button"); b.type="button"; b.className="btn cast-opt"+(o.n>0?" ember":"");
+    b.disabled=o.n<=0; b.style.opacity=o.n<=0?".5":"1";
+    b.innerHTML='<span class="cast-lbl">'+esc(o.label)+'</span><span class="cast-n">'+o.n+"/"+o.max+'</span>';
+    b.addEventListener("click", function(){ if(o.n>0) doCast(r, o.pool); });
+    refFoot.appendChild(b);
+  });
+  if(!any){ var w=document.createElement("span"); w.className="uses-left"; w.textContent="None left — take a rest."; refFoot.appendChild(w); }
+}
+function doCast(r, poolId){
+  var fire=function(){
+    if(!spendPool(poolId)){ toast("None left — rest to recover."); return; }
+    if(r.concentration) setConc(r.concentration);
+    var p=CHARACTER.pools[poolId], how = p && p.slotLevel ? (" · "+ordinal(p.slotLevel)+"-level slot") : (p && !p.slotLevel ? " · free" : "");
+    toast("Cast "+r.title+how+(r.concentration?" — concentrating.":"."));
+    closeRef();
+  };
+  if(r.concentration && state.conc && state.conc!==r.concentration){ concCastConfirm(r.concentration, fire); }
+  else fire();
+}
 function concDamageModal(dmg){
   var dc=Math.max(10, Math.floor(dmg/2)), con=saveMod("CON");
   resetGlossary(); currentRefPool=null; lastTrigger=null;
@@ -365,11 +427,22 @@ function openConcManage(){
   refFoot.appendChild(stop); refFoot.appendChild(keep);
   refOverlay.classList.add("show"); document.getElementById("refClose").focus();
 }
+function spLevelOf(sp){ return sp && sp.level!=null ? sp.level : 1; }
+function levelLabel(l){ return l===0 ? "Cantrips" : "Level "+l; }
+function groupByLevel(list){
+  var by={}; list.forEach(function(sp){ var l=spLevelOf(sp); (by[l]=by[l]||[]).push(sp); });
+  return Object.keys(by).map(Number).sort(function(a,b){return a-b;}).map(function(l){ return {level:l, spells:by[l]}; });
+}
+function levelHead(l){ var h=document.createElement("div"); h.className="spell-level-head"; h.textContent=levelLabel(l); return h; }
 function renderPrepared(){
   if(!preparedList) return; preparedList.innerHTML="";
-  state.prepared.forEach(function(id){ var sp=spById(id); if(!sp) return;
-    var b=document.createElement("button"); b.type="button"; b.className="feat"; b.setAttribute("data-ref", id);
-    b.innerHTML='<b>'+esc(sp.name)+'</b><span>'+esc(sp.note)+'</span>'; preparedList.appendChild(b);
+  var prepared=state.prepared.map(spById).filter(Boolean);
+  groupByLevel(prepared).forEach(function(grp){
+    preparedList.appendChild(levelHead(grp.level));
+    grp.spells.forEach(function(sp){
+      var b=document.createElement("button"); b.type="button"; b.className="feat"; b.setAttribute("data-ref", sp.id);
+      b.innerHTML='<b>'+esc(sp.name)+'</b><span>'+esc(sp.note)+'</span>'; preparedList.appendChild(b);
+    });
   });
   var c=document.getElementById("prepCount"); if(c) c.textContent=state.prepared.length+"/"+PREPARED_MAX;
 }
@@ -382,7 +455,8 @@ function spendPool(pool){ if(state[pool]<=0) return false; state[pool]--; persis
 function openAC(trigger){
   resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
   refTitle.textContent="Armor Class"; refChips.innerHTML=""; refChips.style.display="none"; refDice.style.display="block"; refBody.innerHTML="";
-  var intro=document.createElement("p"); intro.className="muted"; intro.textContent="Toggle gear to see how your AC changes."; refBody.appendChild(intro);
+  var intro=document.createElement("p"); intro.textContent="Armor Class is how hard you are to hit: an attacker's d20 roll plus its bonuses must equal or beat it to land. Toggle gear below to see how yours is built up."; refBody.appendChild(intro);
+  linkifyTerms(intro);
   AC_PARTS.forEach(function(p){
     var btn=document.createElement("button"); btn.type="button"; btn.className="ac-toggle";
     btn.innerHTML='<span class="acbox">✓</span><span class="acname">'+esc(p.label)+'</span><span class="acnote">'+esc(p.note)+'</span>';
@@ -431,13 +505,16 @@ function openPrepare(trigger){
   resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
   refTitle.textContent="Prepare Spells"; refChips.innerHTML=""; refChips.style.display="none"; refDice.style.display="block"; refBody.innerHTML="";
   var intro=document.createElement("p"); intro.className="muted";
-  intro.textContent="Choose up to "+PREPARED_MAX+" spells to prepare; you can change these after a long rest. Always-prepared spells don't count.";
+  intro.textContent="Choose up to "+PREPARED_MAX+" spells to prepare; you can change these after a long rest. You prepare a single pool of spells of any level you have slots for — there's no per-level cap. Cantrips and always-prepared spells don't count.";
   refBody.appendChild(intro);
-  SPELL_CATALOG.forEach(function(sp){
-    var btn=document.createElement("button"); btn.type="button"; btn.className="wm-row";
-    btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+esc(sp.name)+'</span><span class="wm-eff">'+esc(sp.note)+'</span></span>';
-    btn.addEventListener("click", function(){ togglePrepare(sp.id); });
-    refBody.appendChild(btn);
+  groupByLevel(SPELL_CATALOG).forEach(function(grp){
+    refBody.appendChild(levelHead(grp.level));
+    grp.spells.forEach(function(sp){
+      var btn=document.createElement("button"); btn.type="button"; btn.className="wm-row"; btn.setAttribute("data-id", sp.id);
+      btn.innerHTML='<span class="acbox">✓</span><span class="wm-main"><span class="wm-name">'+esc(sp.name)+'</span><span class="wm-eff">'+esc(sp.note)+'</span></span>';
+      btn.addEventListener("click", function(){ togglePrepare(sp.id); });
+      refBody.appendChild(btn);
+    });
   });
   refFoot.innerHTML='<span class="uses-left" id="prepFoot"></span>'; paintPrepare(); refOverlay.classList.add("show"); document.getElementById("refClose").focus();
 }
@@ -449,8 +526,9 @@ function togglePrepare(id){
 }
 function paintPrepare(){
   refDice.textContent="Prepared: "+state.prepared.length+" / "+PREPARED_MAX;
-  var rows=refBody.querySelectorAll(".wm-row");
-  SPELL_CATALOG.forEach(function(sp,i){ if(rows[i]) rows[i].classList.toggle("on", state.prepared.indexOf(sp.id)>=0); });
+  refBody.querySelectorAll(".wm-row").forEach(function(row){
+    var id=row.getAttribute("data-id"); row.classList.toggle("on", state.prepared.indexOf(id)>=0);
+  });
   var f=document.getElementById("prepFoot"); if(f) f.textContent="Swap after a long rest.";
 }
 
@@ -468,7 +546,9 @@ function openRef(id, trigger){
   refBody.innerHTML=""; (r.body||[]).forEach(function(p){ var el=document.createElement("p"); el.textContent=p; refBody.appendChild(el); });
   linkifyTerms(refBody);
   refFoot.innerHTML="";
-  if(r.pool){
+  if(r.level!=null){
+    renderCastFoot(r);
+  } else if(r.pool){
     var btn=document.createElement("button"); btn.type="button"; btn.className="btn ember"; btn.id="refUseBtn";
     btn.addEventListener("click", function(){
       if(r.concentration){ castSpell(r); }

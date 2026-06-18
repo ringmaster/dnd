@@ -353,10 +353,16 @@
             "detail": "d20 +6 · 1d10 fire · 120 ft"
           },
           {
-            "label": "Cast a leveled spell",
-            "ref": "spellslots1",
-            "detail": "Magic Missile, Web, etc. · costs a slot",
-            "pool": "slot1"
+            "label": "Cast Magic Missile",
+            "ref": "magicmissile",
+            "spellLevel": 1,
+            "detail": "three darts, 1d4+1 force · +1 dart per slot level above 1st"
+          },
+          {
+            "label": "Cast Web",
+            "ref": "web",
+            "spellLevel": 2,
+            "detail": "Restrain in a 20-ft cube · Dex save · Conc."
           },
           {
             "label": "Attack — Quarterstaff",
@@ -372,7 +378,7 @@
             "label": "Misty Step",
             "ref": "mistystep",
             "detail": "teleport 30 ft · costs a 2nd-level slot",
-            "pool": "slot2"
+            "spellLevel": 2
           }
         ]
       },
@@ -384,7 +390,7 @@
             "label": "Shield",
             "ref": "shield",
             "detail": "+5 AC until your next turn · costs a 1st-level slot",
-            "pool": "slot1"
+            "spellLevel": 1
           },
           {
             "label": "Opportunity Attack",
@@ -493,7 +499,8 @@
                 "storm": true,
                 "note": "long rest",
                 "use": "Spend a slot",
-                "reminder": "Spend a 1st-level spell slot."
+                "reminder": "Spend a 1st-level spell slot.",
+                "slotLevel": 1
               },
               {
                 "id": "slot2",
@@ -504,7 +511,8 @@
                 "storm": true,
                 "note": "long rest",
                 "use": "Spend a slot",
-                "reminder": "Spend a 2nd-level spell slot."
+                "reminder": "Spend a 2nd-level spell slot.",
+                "slotLevel": 2
               }
             ],
             "cantrips": [
@@ -544,47 +552,56 @@
                 {
                   "id": "shield",
                   "name": "Shield",
-                  "note": "Reaction · +5 AC until your next turn"
+                  "note": "Reaction · +5 AC until your next turn",
+                  "level": 1
                 },
                 {
                   "id": "magearmor",
                   "name": "Mage Armor",
-                  "note": "AC 13 + Dex for 8 hours"
+                  "note": "AC 13 + Dex for 8 hours",
+                  "level": 1
                 },
                 {
                   "id": "magicmissile",
                   "name": "Magic Missile",
-                  "note": "three darts, 1d4+1 force each · auto-hit"
+                  "note": "three darts, 1d4+1 force each · auto-hit",
+                  "level": 1
                 },
                 {
                   "id": "sleep",
                   "name": "Sleep",
-                  "note": "5d8 HP of creatures fall unconscious · Conc."
+                  "note": "5d8 HP of creatures fall unconscious · Conc.",
+                  "level": 1
                 },
                 {
                   "id": "featherfall",
                   "name": "Feather Fall",
-                  "note": "Reaction · slow falling for up to 5 creatures"
+                  "note": "Reaction · slow falling for up to 5 creatures",
+                  "level": 1
                 },
                 {
                   "id": "mistystep",
                   "name": "Misty Step",
-                  "note": "Bonus Action · teleport 30 ft"
+                  "note": "Bonus Action · teleport 30 ft",
+                  "level": 2
                 },
                 {
                   "id": "augury",
                   "name": "Augury",
-                  "note": "an omen for a plan within 30 min · ritual"
+                  "note": "an omen for a plan within 30 min · ritual",
+                  "level": 2
                 },
                 {
                   "id": "web",
                   "name": "Web",
-                  "note": "Restrain in a 20-ft cube · Concentration"
+                  "note": "Restrain in a 20-ft cube · Concentration",
+                  "level": 2
                 },
                 {
                   "id": "mirrorimage",
                   "name": "Mirror Image",
-                  "note": "three decoy duplicates"
+                  "note": "three decoy duplicates",
+                  "level": 2
                 }
               ]
             }
@@ -1057,7 +1074,6 @@
     "detectmagic": {
       "title": "Detect Magic",
       "dice": null,
-      "pool": "mi",
       "concentration": "Detect Magic",
       "chips": [
         {
@@ -1079,12 +1095,13 @@
       "body": [
         "For the duration you sense magic within 30 ft; as an action you see a faint aura around a visible magical thing and learn its school.",
         "From Magic Initiate you can cast it free once per long rest, or with a slot. Tap Use below to spend the free cast."
-      ]
+      ],
+      "level": 1,
+      "freePool": "mi"
     },
     "shield": {
       "title": "Shield",
       "dice": null,
-      "pool": "slot1",
       "chips": [
         {
           "t": "Level 1"
@@ -1096,7 +1113,8 @@
       ],
       "body": [
         "As a Reaction when you're hit by an attack or targeted by Magic Missile, gain +5 AC until the start of your next turn (including against the triggering attack) and take no damage from Magic Missile."
-      ]
+      ],
+      "level": 1
     },
     "magearmor": {
       "title": "Mage Armor",
@@ -1111,12 +1129,12 @@
       ],
       "body": [
         "Touch a willing creature wearing no armor; its base AC becomes 13 + Dex for 8 hours. Toggle it in the Armor Class panel — it puts you at AC 14."
-      ]
+      ],
+      "level": 1
     },
     "magicmissile": {
       "title": "Magic Missile",
       "dice": "3 × 1d4+1 force",
-      "pool": "slot1",
       "chips": [
         {
           "t": "Level 1"
@@ -1128,12 +1146,12 @@
       ],
       "body": [
         "Three darts of force, each hitting automatically for 1d4+1 force; split them among targets you can see within 120 ft. A higher-level slot adds one dart per level."
-      ]
+      ],
+      "level": 1
     },
     "sleep": {
       "title": "Sleep",
       "dice": "5d8 HP of creatures",
-      "pool": "slot1",
       "concentration": "Sleep",
       "chips": [
         {
@@ -1146,7 +1164,8 @@
       ],
       "body": [
         "Creatures in a 5-ft sphere make a Wisdom save; on a failure they have the Incapacitated condition until the end of your next turn (or until they take damage / someone uses an action to wake them). Concentration, up to 1 minute."
-      ]
+      ],
+      "level": 1
     },
     "featherfall": {
       "title": "Feather Fall",
@@ -1162,12 +1181,12 @@
       ],
       "body": [
         "As a Reaction when you or a creature within 60 ft falls, up to five falling creatures descend 60 ft/round and take no falling damage for 1 minute."
-      ]
+      ],
+      "level": 1
     },
     "mistystep": {
       "title": "Misty Step",
       "dice": null,
-      "pool": "slot2",
       "chips": [
         {
           "t": "Level 2"
@@ -1178,7 +1197,8 @@
       ],
       "body": [
         "As a Bonus Action, teleport up to 30 feet to an unoccupied space you can see, wreathed in silvery mist."
-      ]
+      ],
+      "level": 2
     },
     "augury": {
       "title": "Augury",
@@ -1194,12 +1214,12 @@
       ],
       "body": [
         "Read an omen about a specific course of action you plan to take within 30 minutes: Weal, Woe, Weal and Woe, or Nothing. Very on-theme for a diviner."
-      ]
+      ],
+      "level": 2
     },
     "web": {
       "title": "Web",
       "dice": "Dex save DC 14",
-      "pool": "slot2",
       "concentration": "Web",
       "chips": [
         {
@@ -1212,7 +1232,8 @@
       ],
       "body": [
         "Fill a 20-ft cube with sticky webs (Difficult Terrain). A creature entering or starting its turn there makes a Dexterity save or is Restrained; it can break free with a Strength check. Flammable."
-      ]
+      ],
+      "level": 2
     },
     "mirrorimage": {
       "title": "Mirror Image",
@@ -1227,7 +1248,8 @@
       ],
       "body": [
         "Three illusory duplicates appear around you. When an attack hits you, it may strike a duplicate instead (rolled randomly); each duplicate has AC 10 + your Dex and pops when hit."
-      ]
+      ],
+      "level": 2
     },
     "quarterstaff": {
       "title": "Quarterstaff",

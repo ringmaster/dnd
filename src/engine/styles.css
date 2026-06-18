@@ -94,6 +94,10 @@
   .btn:active{background:linear-gradient(180deg,#3a2e22,#2a2118);border-color:var(--ember)}
   .btn.ember{border-color:var(--ember);color:var(--ember-bright)}
   .btn.tiny{padding:.5rem .7rem;font-size:.74rem;min-height:40px}
+  .btn.cast-opt{display:flex;align-items:center;justify-content:space-between;gap:.8rem;min-width:9rem}
+  .btn.cast-opt .cast-n{font-size:.72rem;color:var(--ash);font-variant-numeric:tabular-nums}
+  .btn.cast-opt.ember .cast-n{color:var(--ember)}
+  .cast-conc{flex-basis:100%;color:var(--ember)}
   .btn:focus-visible, .ability:focus-visible, .tap:focus-visible, .rivet:focus-visible, .pip:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
 
   /* ---------- Grid / cards ---------- */
@@ -130,6 +134,8 @@
   .hp-max{font-family:"Cinzel",serif;font-size:1.5rem;color:var(--ash);flex:0 0 auto;width:4.4ch;background:transparent;border:none;border-bottom:2px solid transparent;padding-bottom:.25rem}
   .hp-max:focus{outline:none;border-bottom-color:var(--storm);color:var(--storm)}
   .hp-label{text-align:center;font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.14em;color:var(--ash);text-transform:uppercase;margin-bottom:.5rem}
+  .spell-level-head{font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.14em;color:var(--ember);text-transform:uppercase;margin:.6rem 0 .3rem;padding-bottom:.2rem;border-bottom:1px solid var(--iron-light)}
+  .spell-level-head:first-child{margin-top:.1rem}
   .temp-badge{display:inline-flex;align-items:center;gap:.3rem;background:rgba(111,168,199,.14);border:1px solid var(--storm);border-radius:20px;padding:.15rem .6rem;color:var(--storm);font-size:.8rem}
   .num{width:4.8rem;background:#12151b;border:1px solid var(--iron);border-radius:7px;color:var(--bone);font-family:"Spectral",serif;font-size:16px;padding:.55rem .5rem;text-align:center;min-height:44px}
   .num:focus{outline:none;border-color:var(--ember)}
