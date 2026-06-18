@@ -281,6 +281,7 @@
   refOverlay.addEventListener("click", function(e){
     var t=e.target.closest(".gloss-term"); if(!t) return;
     e.stopPropagation();
+    if(t.hasAttribute("data-ref")){ openRef(t.getAttribute("data-ref"), t); return; }   // inline ref-link: open that entry
     expandTerm(t.getAttribute("data-term"));
   });
 

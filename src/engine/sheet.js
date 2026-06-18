@@ -581,6 +581,20 @@ function paintPrepare(){
   var f=document.getElementById("prepFoot"); if(f) f.textContent="Swap after a long rest.";
 }
 
+/* render body paragraphs, turning [[refId|Text]] markup into tappable ref-links,
+   then glossary-linkifying the remaining prose */
+function bodyParas(container, paras){
+  (paras||[]).forEach(function(p){
+    var el=document.createElement("p");
+    String(p).split(/(\[\[[^\]]+\]\])/).forEach(function(seg){
+      var m=seg.match(/^\[\[([^|\]]+)\|([^\]]+)\]\]$/);
+      if(m){ var b=document.createElement("button"); b.type="button"; b.className="gloss-term ref-link"; b.setAttribute("data-ref", m[1]); b.textContent=m[2]; el.appendChild(b); }
+      else if(seg){ el.appendChild(document.createTextNode(seg)); }
+    });
+    container.appendChild(el);
+  });
+  linkifyTerms(container);
+}
 /* ----- REFERENCE MODAL ----- */
 function openRef(id, trigger){
   if(id==="stat_ac"){ openAC(trigger); return; }
@@ -592,8 +606,7 @@ function openRef(id, trigger){
   refChips.innerHTML="";
   (r.chips||[]).forEach(function(c){ var s=document.createElement("span"); s.className="chip"+(c.c?(" "+c.c):""); s.textContent=c.t; refChips.appendChild(s); });
   refChips.style.display=(r.chips&&r.chips.length)?"flex":"none";
-  refBody.innerHTML=""; (r.body||[]).forEach(function(p){ var el=document.createElement("p"); el.textContent=p; refBody.appendChild(el); });
-  linkifyTerms(refBody);
+  refBody.innerHTML=""; bodyParas(refBody, r.body);
   refFoot.innerHTML="";
   if(r.level!=null){
     renderCastFoot(r);
