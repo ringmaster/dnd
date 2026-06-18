@@ -317,16 +317,44 @@ function combatMove(mv){
   }
   return html;
 }
+function weaponDetail(w){
+  var ranged=(w.props||[]).some(function(p){ return /range|ammunition/.test(p); });
+  var bits=[ranged?"ranged":"melee"];
+  if(state.masteries.indexOf(w.id)>=0 && w.mastery) bits.push(w.mastery);
+  return bits.join(" · ");
+}
+/* every spell you can actually cast right now: prepared + always-prepared + cantrips + free-cast pools */
+function castableSpellIds(){
+  var set={}; (state.prepared||[]).forEach(function(id){ set[id]=1; });
+  var sc=(CHARACTER.cards||[]).find(function(x){ return x.type==="spellcasting"; });
+  if(sc){ (sc.always||[]).forEach(function(a){ if(a.ref) set[a.ref]=1; });
+    (sc.cantrips||[]).forEach(function(c){ if(c.ref) set[c.ref]=1; });
+    (sc.initiate&&sc.initiate.spells||[]).forEach(function(c){ if(c.ref) set[c.ref]=1; }); }
+  Object.keys(CHARACTER.pools||{}).forEach(function(id){ var p=CHARACTER.pools[id]; if(p.ref) set[p.ref]=1; });
+  return set;
+}
 function renderCombat(){
   var el=document.getElementById("combatBody"); if(!el || !CHARACTER.combat) return;
   var note = CHARACTER.combat.note ? ('<p class="cm-banner">'+CHARACTER.combat.note+'</p>') : "";
   var hasSpells = !!(CHARACTER.cards||[]).find(function(x){ return x.type==="spellcasting"; });
+  var castable = castableSpellIds();
   var groups = CHARACTER.combat.groups.map(function(g){
+    var moves = g.moves, weaponGroup = g.moves.some(function(m){ return m.weapon; });
+    // weapon attacks reflect what's currently drawn (authored move if there is one, else a generated one)
+    if(weaponGroup){
+      var byWeapon={}; g.moves.forEach(function(m){ if(m.weapon) byWeapon[m.weapon]=m; });
+      var nonWeapon = g.moves.filter(function(m){ return !m.weapon; });
+      var drawn = state.carried.map(function(id){ var w=wById(id); if(!w||!w.dmgDice) return null;
+        return byWeapon[id] || { label:"Attack — "+w.name, weapon:id, detail:weaponDetail(w) }; }).filter(Boolean);
+      moves = drawn.concat(nonWeapon);
+    }
+    // a leveled-spell move only shows if that spell is actually prepared/known right now
+    moves = moves.filter(function(m){ return m.spellLevel==null || castable[m.ref]; });
     var items = (g.more||[]).map(function(m){ return '<button class="gloss-term" data-gloss="'+esc(m.gloss)+'" type="button">'+esc(m.label)+'</button>'; });
-    // "Cast a spell" is an Action; surface the rest of the spell list rather than listing every spell here.
+    if(weaponGroup) items.push('<button class="gloss-term cm-more-spells" data-scroll="[data-card=&quot;inventory&quot;]" type="button">Other weapons ↓</button>');
     if(hasSpells && g.cost==="Action") items.push('<button class="gloss-term cm-more-spells" data-scroll="[data-card=&quot;spellcasting&quot;]" type="button">Other spells ↓</button>');
     var more = items.length ? '<div class="cm-more">Also: '+items.join(' · ')+'</div>' : "";
-    return '<div class="cm-group'+(g.reaction?' cm-reaction':'')+'"><div class="cm-cost">'+esc(g.cost)+'</div>'+g.moves.map(combatMove).join("")+more+'</div>';
+    return '<div class="cm-group'+(g.reaction?' cm-reaction':'')+'"><div class="cm-cost">'+esc(g.cost)+'</div>'+moves.map(combatMove).join("")+more+'</div>';
   }).join("");
   el.innerHTML = note + groups;
 }
@@ -654,7 +682,7 @@ function togglePrepare(id){
   var i=state.prepared.indexOf(id);
   if(i>=0){ state.prepared.splice(i,1); }
   else { if(state.prepared.length>=PREPARED_MAX){ toast("You can prepare "+PREPARED_MAX+" — unprepare one first."); return; } state.prepared.push(id); }
-  persist(); paintPrepare(); renderPrepared();
+  persist(); paintPrepare(); renderPrepared(); renderCombat();
 }
 function paintPrepare(){
   refDice.textContent="Prepared: "+state.prepared.length+" / "+PREPARED_MAX;
