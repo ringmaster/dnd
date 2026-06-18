@@ -7,6 +7,7 @@
   "footer": "Stonebreaker combat sheet",
   "storageKey": "stonebreaker_sheet_v3",
   "level": 4,
+  "hitDie": "d10",
   "proficiencyBonus": 2,
   "saves": [
     "STR",
@@ -569,27 +570,6 @@
         "Once per short or long rest, take one additional action on your turn. At level 4 that most often means a second Attack action — your burst round."
       ]
     },
-    "stonecunning": {
-      "title": "Stonecunning",
-      "dice": null,
-      "pool": "sc",
-      "chips": [
-        {
-          "t": "Bonus action"
-        },
-        {
-          "t": "Tremorsense 60 ft",
-          "c": "storm"
-        },
-        {
-          "t": "Long rest"
-        }
-      ],
-      "body": [
-        "As a Bonus Action, gain Tremorsense out to 60 ft for 10 minutes while you are in contact with stone or a stone surface.",
-        "Uses equal to your proficiency bonus (2), regained on a long rest. Built for canyon roads and cave fights."
-      ]
-    },
     "tacticalmind": {
       "title": "Tactical Mind",
       "dice": "+1d10 to a failed check",
@@ -617,25 +597,6 @@
         "You raised Strength from 16 to 18 (+4). That improved your attack and damage bonuses, maneuver save DC, Athletics, and Strength saves."
       ]
     },
-    "alert": {
-      "title": "Alert (Origin Feat)",
-      "dice": "Initiative: d20 +3",
-      "chips": [
-        {
-          "t": "+Prof to initiative",
-          "c": "ember"
-        },
-        {
-          "t": "Initiative swap",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Initiative Proficiency: you add your proficiency bonus (+2) to Initiative, so you roll d20 +3 (Dex +1, prof +2).",
-        "Initiative Swap: right after rolling Initiative, you may trade your result with a willing ally's. Use it to push the right teammate to the top of the order, or to drop your control maneuvers before the enemy acts.",
-        "Granted by the Guard background."
-      ]
-    },
     "fightingstyle": {
       "title": "Fighting Style: Defense",
       "dice": null,
@@ -647,39 +608,6 @@
       ],
       "body": [
         "While you are wearing armor, you gain a +1 bonus to AC. Already included in your AC of 19 (chain mail 16 + shield 2 + 1)."
-      ]
-    },
-    "dwarven": {
-      "title": "Dwarven Resilience",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Resist poison",
-          "c": "storm"
-        },
-        {
-          "t": "Adv on poison saves",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "You have Resistance to poison damage and Advantage on saving throws you make to avoid or end the Poisoned condition."
-      ]
-    },
-    "darkvision": {
-      "title": "Darkvision & Dwarven Toughness",
-      "dice": null,
-      "chips": [
-        {
-          "t": "120 ft"
-        },
-        {
-          "t": "+1 HP / level",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "Darkvision out to 120 ft. Dwarven Toughness raises your hit point maximum by 1 per level (already counted in your 40 HP)."
       ]
     },
     "studentofwar": {
@@ -695,24 +623,6 @@
       ],
       "body": [
         "You gain proficiency with one type of artisan's tools (Smith's tools fits the name) and one skill from the fighter list."
-      ]
-    },
-    "hitdice": {
-      "title": "Hit Dice",
-      "dice": "1d10 +2 healing each",
-      "pool": "hd",
-      "chips": [
-        {
-          "t": "4 dice at lvl 4"
-        },
-        {
-          "t": "Spent on a short rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "During a short rest you can spend Hit Dice to heal, rolling 1d10+2 each (1d10 + your Constitution modifier). You regain spent Hit Dice on a long rest.",
-        "Tap Spend Hit Die to mark one used, then roll and apply it with Heal."
       ]
     }
   },
@@ -850,21 +760,15 @@
     ]
   },
   "build": {
+    "species": "dwarf",
+    "class": "fighter",
+    "subclass": "battle-master",
+    "background": "guard",
     "sources": [
       {
         "id": "guard",
         "name": "Background: Guard",
-        "effects": {
-          "skills": [
-            "Athletics",
-            "Perception"
-          ],
-          "abilityIncrease": {
-            "STR": 2,
-            "WIS": 1
-          }
-        },
-        "grantsFeat": "alert"
+        "include": "background:guard"
       },
       {
         "id": "fighter-skills",
@@ -942,19 +846,7 @@
       {
         "id": "stonecunning",
         "name": "Stonecunning",
-        "effects": {
-          "grantsPool": {
-            "id": "sc",
-            "label": "Stonecunning",
-            "max": "prof",
-            "rest": "long",
-            "ref": "stonecunning",
-            "storm": false,
-            "note": "long rest",
-            "use": "Use",
-            "reminder": "Stonecunning — tremorsense 60 ft for 10 minutes."
-          }
-        }
+        "include": "species:dwarf:stonecunning"
       },
       {
         "id": "fighter-hitdice",
@@ -981,6 +873,16 @@
             "STR": 2
           }
         }
+      },
+      {
+        "id": "darkvision",
+        "name": "Dwarf: Darkvision",
+        "include": "species:dwarf:darkvision"
+      },
+      {
+        "id": "dwarven",
+        "name": "Dwarf: Resilience",
+        "include": "species:dwarf:dwarven"
       }
     ],
     "abilities": {

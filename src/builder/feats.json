@@ -1,6 +1,14 @@
 {
   "magicinitiate": {
     "name": "Magic Initiate (Druid)",
+    "ref": {
+      "title": "Magic Initiate (Druid)",
+      "chips": [{ "t": "Wis casting", "c": "storm" }, { "t": "DC {dc} · atk {atk}" }],
+      "body": [
+        "From the Druid list you learn two cantrips (Guidance and Produce Flame) and one level-1 spell (Faerie Fire). Wisdom is the spellcasting ability, so the numbers match your class casting: save DC {dc}, spell attack {atk}.",
+        "You can cast Faerie Fire once per long rest without a slot, and also with your spell slots. Cantrips are at-will."
+      ]
+    },
     "effects": {
       "grantsSpells": [
         "Guidance",
@@ -38,6 +46,17 @@
   },
   "lucky": {
     "name": "Lucky",
+    "refId": "lucky",
+    "ref": {
+      "title": "Lucky (Origin Feat)",
+      "pool": "luck",
+      "chips": [{ "t": "Luck Points = Prof", "c": "ember" }, { "t": "Long rest", "c": "storm" }],
+      "body": [
+        "You have Luck Points equal to your Proficiency Bonus, regained on a long rest.",
+        "Advantage: when you roll a d20 for a d20 Test (attack roll, ability check, or saving throw), you can spend 1 Luck Point to give yourself Advantage.",
+        "Disadvantage: when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll."
+      ]
+    },
     "effects": {
       "grantsPool": {
         "id": "luck",
@@ -54,12 +73,30 @@
   },
   "alert": {
     "name": "Alert",
+    "refId": "alert",
+    "ref": {
+      "title": "Alert (Origin Feat)",
+      "chips": [{ "t": "+Prof to Initiative", "c": "ember" }, { "t": "Initiative swap", "c": "storm" }],
+      "body": [
+        "Initiative Proficiency: you add your Proficiency Bonus to Initiative.",
+        "Initiative Swap: right after rolling Initiative, you may trade your result with a willing ally's — push the right teammate to the top of the order, or drop your control before the enemy acts."
+      ]
+    },
     "effects": {
       "initiativeBonus": "prof"
     }
   },
   "magicinitiate-wiz": {
     "name": "Magic Initiate (Wizard)",
+    "refId": "magicinitiate",
+    "ref": {
+      "title": "Magic Initiate (Wizard)",
+      "chips": [{ "t": "Int casting", "c": "storm" }, { "t": "DC {dc} · atk {atk}" }],
+      "body": [
+        "From the Wizard list you learn two cantrips (Toll the Dead and Prestidigitation) and one level-1 spell (Detect Magic). Intelligence is the spellcasting ability: save DC {dc}, spell attack {atk}.",
+        "You can cast Detect Magic once per long rest without a slot, and also with your spell slots. Cantrips are at-will."
+      ]
+    },
     "effects": {
       "grantsPool": {
         "id": "mi",
@@ -84,6 +121,15 @@
   },
   "magicinitiate-cleric": {
     "name": "Magic Initiate (Cleric)",
+    "refId": "magicinitiate",
+    "ref": {
+      "title": "Magic Initiate (Cleric)",
+      "chips": [{ "t": "Wis casting", "c": "storm" }, { "t": "DC {dc} · atk {atk}" }],
+      "body": [
+        "From the Cleric list you learn two cantrips (Light and Resistance) and one level-1 spell (Healing Word). Wisdom is the spellcasting ability: save DC {dc}, spell attack {atk}.",
+        "You can cast Healing Word once per long rest without a slot, and also with your spell slots. Cantrips are at-will."
+      ]
+    },
     "effects": {
       "grantsPool": {
         "id": "mi",

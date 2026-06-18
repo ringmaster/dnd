@@ -1,0 +1,22 @@
+{
+  "fey-wanderer": {
+    "name": "Fey Wanderer",
+    "class": "ranger",
+    "features": ["Otherworldly Glamour", "Dreadful Strikes", "Fey Wanderer Magic"]
+  },
+  "battle-master": {
+    "name": "Battle Master",
+    "class": "fighter",
+    "features": ["Combat Superiority", "Student of War", "Maneuvers"]
+  },
+  "diviner": {
+    "name": "Diviner",
+    "class": "wizard",
+    "features": ["Divination Savant", "Portent"]
+  },
+  "life": {
+    "name": "Life Domain",
+    "class": "cleric",
+    "features": ["Disciple of Life", "Life Domain Spells", "Channel Divinity: Preserve Life"]
+  }
+}

@@ -7,6 +7,7 @@
   "footer": "Thorn wizard sheet",
   "storageKey": "thorn_sheet_v1",
   "level": 4,
+  "hitDie": "d6",
   "proficiencyBonus": 2,
   "saves": [
     "INT",
@@ -428,6 +429,10 @@
     ]
   },
   "build": {
+    "species": "human",
+    "class": "wizard",
+    "subclass": "diviner",
+    "background": "sage",
     "abilities": {
       "STR": 8,
       "DEX": 13,
@@ -440,20 +445,7 @@
       {
         "id": "sage",
         "name": "Background: Sage",
-        "grantsFeat": "magicinitiate-wiz",
-        "effects": {
-          "skills": [
-            "Arcana",
-            "History"
-          ],
-          "tools": [
-            "Calligrapher's Supplies"
-          ],
-          "abilityIncrease": {
-            "INT": 2,
-            "CON": 1
-          }
-        }
+        "include": "background:sage"
       },
       {
         "id": "wizard-skills",
@@ -472,7 +464,8 @@
           "skills": [
             "Perception"
           ]
-        }
+        },
+        "include": "species:human:skillful"
       },
       {
         "id": "scholar",
@@ -650,24 +643,13 @@
       {
         "id": "resourceful",
         "name": "Human: Resourceful",
-        "effects": {
-          "grantsPool": {
-            "id": "insp",
-            "label": "Heroic Inspiration",
-            "max": 1,
-            "rest": "long",
-            "ref": "inspiration",
-            "storm": true,
-            "note": "after a long rest",
-            "use": "Spend Inspiration",
-            "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
-          }
-        }
+        "include": "species:human:resourceful"
       },
       {
         "id": "versatile",
         "name": "Human: Versatile",
-        "effects": {}
+        "effects": {},
+        "include": "species:human:versatile"
       },
       {
         "id": "wizard-hitdice",
@@ -790,149 +772,6 @@
       ],
       "body": [
         "You can cast any spell with the Ritual tag as a ritual if it's in your spellbook, without preparing it — it just takes 10 minutes longer and uses no slot."
-      ]
-    },
-    "magicinitiate": {
-      "title": "Magic Initiate (Wizard)",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Sage feat",
-          "c": "ember"
-        },
-        {
-          "t": "Int casting",
-          "c": "storm"
-        },
-        {
-          "t": "DC 14 · atk +6"
-        }
-      ],
-      "body": [
-        "From the Wizard list you learn two cantrips (Toll the Dead and Prestidigitation) and one level-1 spell (Detect Magic). Intelligence is the spellcasting ability, matching your wizard numbers.",
-        "You can cast Detect Magic once per long rest without a slot, and also with your slots. Granted by the Sage background."
-      ]
-    },
-    "sage": {
-      "title": "Background: Sage",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Magic Initiate (Wizard)",
-          "c": "ember"
-        },
-        {
-          "t": "Arcana · History",
-          "c": "storm"
-        },
-        {
-          "t": "Calligrapher's Supplies"
-        }
-      ],
-      "body": [
-        "A life of study and research. Sage grants the Magic Initiate (Wizard) Origin feat, proficiency in Arcana and History, Calligrapher's Supplies, and the +2 Intelligence / +1 Constitution that shaped your scores."
-      ]
-    },
-    "resourceful": {
-      "title": "Human: Resourceful",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Heroic Inspiration",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "You gain Heroic Inspiration whenever you finish a long rest. Spend it to reroll a d20."
-      ]
-    },
-    "skillful": {
-      "title": "Human: Skillful",
-      "dice": null,
-      "chips": [
-        {
-          "t": "+1 skill"
-        }
-      ],
-      "body": [
-        "You gain proficiency in one additional skill — taken in Perception, fitting a watcher of omens and signs."
-      ]
-    },
-    "versatile": {
-      "title": "Human: Versatile",
-      "dice": null,
-      "chips": [
-        {
-          "t": "+1 Origin feat",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "You gain a second Origin feat of your choice, on top of Magic Initiate from Sage. Strong picks: Alert, Lucky, Tough, or another Magic Initiate. Not yet placed — choose one and it goes here."
-      ]
-    },
-    "spellslots1": {
-      "title": "Spell Slots (Level 1)",
-      "dice": "4 first-level slots",
-      "pool": "slot1",
-      "chips": [
-        {
-          "t": "Long rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Four 1st-level slots, regained on a long rest (some recoverable on a short rest via Arcane Recovery).",
-        "Spell save DC 14 (8 + Int +4 + prof +2); spell attack +6. Tap Use to spend a slot."
-      ]
-    },
-    "spellslots2": {
-      "title": "Spell Slots (Level 2)",
-      "dice": "3 second-level slots",
-      "pool": "slot2",
-      "chips": [
-        {
-          "t": "Long rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Three 2nd-level slots, regained on a long rest. Casting a spell at 2nd level uses one. Tap Use to spend a slot."
-      ]
-    },
-    "inspiration": {
-      "title": "Heroic Inspiration",
-      "dice": null,
-      "pool": "insp",
-      "chips": [
-        {
-          "t": "Reroll a d20",
-          "c": "ember"
-        },
-        {
-          "t": "After a long rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Expend it to reroll any d20 and use either roll; you can hold only one. Your Human Resourceful trait grants it after every long rest."
-      ]
-    },
-    "hitdice": {
-      "title": "Hit Dice",
-      "dice": "1d6 +2 healing each",
-      "pool": "hd",
-      "chips": [
-        {
-          "t": "4 dice at lvl 4"
-        },
-        {
-          "t": "Spent on a short rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "On a short rest you can spend Hit Dice to heal, rolling 1d6+2 each (1d6 + Constitution modifier). Regain spent Hit Dice on a long rest."
       ]
     },
     "quarterstaff": {

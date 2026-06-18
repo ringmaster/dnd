@@ -7,6 +7,7 @@
   "footer": "Ashbow ranger sheet",
   "storageKey": "ashbow_sheet_v1",
   "level": 4,
+  "hitDie": "d10",
   "proficiencyBonus": 2,
   "saves": [
     "STR",
@@ -474,40 +475,6 @@
         "It isn't magical and needs no Concentration — it simply rides your hits."
       ]
     },
-    "spellslots": {
-      "title": "Spell Slots (Level 1)",
-      "dice": "3 first-level slots",
-      "pool": "slot1",
-      "chips": [
-        {
-          "t": "Long rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "You have three 1st-level spell slots, regained on a long rest. As a half-caster you only have 1st-level slots at level 4 — 2nd-level slots arrive at level 5.",
-        "Spell save DC 12 (8 + Wis +2 + prof +2); spell attack +4. Tap Use below to spend a slot."
-      ]
-    },
-    "inspiration": {
-      "title": "Heroic Inspiration",
-      "dice": null,
-      "pool": "insp",
-      "chips": [
-        {
-          "t": "Reroll a d20",
-          "c": "ember"
-        },
-        {
-          "t": "After a long rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "When you have Heroic Inspiration you can expend it to reroll any d20 and use either roll. You can hold only one at a time.",
-        "Your Human Resourceful trait grants it after every long rest; the GM may also award it for great play."
-      ]
-    },
     "asi": {
       "title": "Level 4 — Ability Score Improvement",
       "dice": null,
@@ -587,130 +554,6 @@
       "body": [
         "Whenever you make a Charisma check, add your Wisdom modifier (minimum +1) — here +2. You also gain proficiency in one of Deception, Performance, or Persuasion — taken in Persuasion.",
         "This makes a Charisma-12 ranger a strong talker: Persuasion is +5 (Cha +1, prof +2, glamour +2)."
-      ]
-    },
-    "resourceful": {
-      "title": "Human: Resourceful",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Heroic Inspiration",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "You gain Heroic Inspiration whenever you finish a long rest, if you don't already have it. Spend it to reroll a d20."
-      ]
-    },
-    "skillful": {
-      "title": "Human: Skillful",
-      "dice": null,
-      "chips": [
-        {
-          "t": "+1 skill"
-        }
-      ],
-      "body": [
-        "You gain proficiency in one additional skill from any list. Taken in Animal Handling (Stealth and Survival come from the Guide background; Insight is one of your Ranger skill picks)."
-      ]
-    },
-    "magicinitiate": {
-      "title": "Magic Initiate (Druid)",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Guide feat",
-          "c": "ember"
-        },
-        {
-          "t": "Wis casting",
-          "c": "storm"
-        },
-        {
-          "t": "DC 12 · atk +4"
-        }
-      ],
-      "body": [
-        "From the Druid list you learn two cantrips (Guidance and Produce Flame) and one level-1 spell (Faerie Fire). Wisdom is the spellcasting ability, so the numbers match your ranger casting: save DC 12, spell attack +4.",
-        "You can cast Faerie Fire once per long rest without a slot, and also with your ranger spell slots. Cantrips are at-will.",
-        "Granted by the Guide background — confirm the cantrip and spell picks with your table."
-      ]
-    },
-    "versatile": {
-      "title": "Human: Versatile",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Lucky",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "You gain one Origin feat of your choice, on top of the Magic Initiate (Druid) feat from your Guide background. Placed in Lucky — see that entry for how Luck Points work.",
-        "Swap it for another feat (Alert, Tough, Savage Attacker…) any time before play if you'd rather."
-      ]
-    },
-    "hitdice": {
-      "title": "Hit Dice",
-      "dice": "1d10 +1 healing each",
-      "pool": "hd",
-      "chips": [
-        {
-          "t": "4 dice at lvl 4"
-        },
-        {
-          "t": "Spent on a short rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "During a short rest you can spend Hit Dice to heal, rolling 1d10+1 each (1d10 + your Constitution modifier). You regain spent Hit Dice on a long rest.",
-        "Tap Spend Hit Die to mark one used, then roll and apply it with Heal."
-      ]
-    },
-    "guide": {
-      "title": "Background: Guide",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Magic Initiate (Druid)",
-          "c": "ember"
-        },
-        {
-          "t": "Stealth · Survival",
-          "c": "storm"
-        },
-        {
-          "t": "Cartographer's Tools"
-        }
-      ],
-      "body": [
-        "A life spent leading travelers through trackless wilds. Guide grants the Magic Initiate (Druid) Origin feat, proficiency in Stealth and Survival, proficiency with Cartographer's Tools, and the +2 Dexterity / +1 Wisdom that shaped your scores."
-      ]
-    },
-    "lucky": {
-      "title": "Lucky (Origin Feat)",
-      "dice": null,
-      "pool": "luck",
-      "chips": [
-        {
-          "t": "2 Luck Points",
-          "c": "ember"
-        },
-        {
-          "t": "Long rest",
-          "c": "storm"
-        },
-        {
-          "t": "From Versatile",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "You have Luck Points equal to your Proficiency Bonus (2), regained on a long rest.",
-        "Advantage: when you roll a d20 for a d20 Test (an attack roll, ability check, or saving throw), you can spend 1 Luck Point to give yourself Advantage on the roll.",
-        "Disadvantage: when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll.",
-        "Taken with the Human Versatile Origin feat. Tap Use below to spend a Luck Point."
       ]
     }
   },
@@ -839,24 +682,15 @@
     ]
   },
   "build": {
+    "species": "human",
+    "class": "ranger",
+    "subclass": "fey-wanderer",
+    "background": "guide",
     "sources": [
       {
         "id": "guide",
         "name": "Background: Guide",
-        "effects": {
-          "skills": [
-            "Stealth",
-            "Survival"
-          ],
-          "tools": [
-            "Cartographer's Tools"
-          ],
-          "abilityIncrease": {
-            "DEX": 2,
-            "WIS": 1
-          }
-        },
-        "grantsFeat": "magicinitiate"
+        "include": "background:guide"
       },
       {
         "id": "ranger-skills",
@@ -876,7 +710,8 @@
           "skills": [
             "Animal Handling"
           ]
-        }
+        },
+        "include": "species:human:skillful"
       },
       {
         "id": "glamour",
@@ -940,19 +775,7 @@
       {
         "id": "resourceful",
         "name": "Human: Resourceful",
-        "effects": {
-          "grantsPool": {
-            "id": "insp",
-            "label": "Heroic Inspiration",
-            "max": 1,
-            "rest": "long",
-            "ref": "inspiration",
-            "storm": true,
-            "note": "after a long rest",
-            "use": "Spend Inspiration",
-            "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
-          }
-        }
+        "include": "species:human:resourceful"
       },
       {
         "id": "ranger-spellcasting",
@@ -1065,7 +888,8 @@
       {
         "id": "versatile",
         "name": "Human: Versatile",
-        "grantsFeat": "lucky"
+        "grantsFeat": "lucky",
+        "include": "species:human:versatile"
       }
     ],
     "abilities": {

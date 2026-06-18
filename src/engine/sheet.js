@@ -38,6 +38,25 @@ ABIL_ORDER.forEach(function(k){
   REF["stat_pass"]={title:"Passive Perception", dice:String(passivePerception()), chips:[{t:"10 + Perception "+fmt(pm),c:"ember"}], body:passBody};
 })();
 
+/* derivable resource modals — generated from pools/abilities (a character may still override) */
+(function(){
+  var P=CHARACTER.pools||{};
+  if(P.hd){ var die=CHARACTER.hitDie||"d8", con=abilMod("CON");
+    REF[P.hd.ref||"hitdice"]={title:"Hit Dice", dice:"1"+die+(con?" "+fmt(con):"")+" healing each",
+      chips:[{t:P.hd.max+" dice at lvl "+CHARACTER.level},{t:"Spent on a short rest",c:"storm"}],
+      body:["During a short rest you can spend Hit Dice to heal, rolling 1"+die+(con?" "+fmt(con):"")+" each (1"+die+" + your Constitution modifier). You regain spent Hit Dice on a long rest.","Tap Spend Hit Die to mark one used, then roll and apply it with Heal."]};
+  }
+  if(P.insp){ REF[P.insp.ref||"inspiration"]={title:"Heroic Inspiration", pool:"insp",
+    chips:[{t:"Reroll a d20",c:"ember"},{t:"After a long rest",c:"storm"}],
+    body:["When you have Heroic Inspiration you can expend it to reroll any d20 and use either roll. You can hold only one at a time.","The GM may also award it for great play."]};
+  }
+  Object.keys(P).forEach(function(id){ var p=P[id]; if(!p.slotLevel) return;
+    REF[p.ref||("spellslots"+p.slotLevel)]={title:"Spell Slots (Level "+p.slotLevel+")", dice:p.max+" level-"+p.slotLevel+" slot"+(p.max===1?"":"s"), pool:id,
+      chips:[{t:"Long rest",c:"storm"}],
+      body:[p.max+" level-"+p.slotLevel+" slot"+(p.max===1?"":"s")+", regained on a long rest."].concat(hasSpellcasting()?["Spell save DC "+spellDC()+"; spell attack "+fmt(spellAtk())+". Tap Use to spend a slot."]:["Tap Use to spend a slot."])};
+  });
+})();
+
 Object.keys(CHARACTER.ref||{}).forEach(function(k){ REF[k]=CHARACTER.ref[k]; });
 
 /* ----- pools derived from data ----- */

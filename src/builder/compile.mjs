@@ -18,9 +18,34 @@ import url from "url";
 
 const HERE = path.dirname(url.fileURLToPath(import.meta.url));
 const CONTENT = path.join(HERE, "..", "content");
-let FEATS = {}, SPELLS = {};
+let FEATS = {}, SPELLS = {}, SPECIES = {}, BACKGROUNDS = {};
 try { FEATS = JSON.parse(fs.readFileSync(path.join(HERE, "feats.json"), "utf8")); } catch (e) { FEATS = {}; }
 try { SPELLS = JSON.parse(fs.readFileSync(path.join(CONTENT, "spells.json"), "utf8")); } catch (e) { SPELLS = {}; }
+try { SPECIES = JSON.parse(fs.readFileSync(path.join(CONTENT, "species.json"), "utf8")); } catch (e) { SPECIES = {}; }
+try { BACKGROUNDS = JSON.parse(fs.readFileSync(path.join(CONTENT, "backgrounds.json"), "utf8")); } catch (e) { BACKGROUNDS = {}; }
+
+/* resolve an include path ("species:human:resourceful", "background:guide") to a grant */
+function resolveInclude(pathStr){
+  const p = String(pathStr).split(":");
+  if (p[0] === "species" && SPECIES[p[1]] && SPECIES[p[1]].traits && SPECIES[p[1]].traits[p[2]]){
+    const tr = SPECIES[p[1]].traits[p[2]];
+    return { effects: tr.effects, ref: tr.ref, refId: p[2] };
+  }
+  if (p[0] === "background" && BACKGROUNDS[p[1]]){
+    const b = BACKGROUNDS[p[1]];
+    return { effects: b.effects, grantsFeat: b.grantsFeat, ref: b.ref, refId: p[1] };
+  }
+  return null;
+}
+/* expand sources into grants, pulling in any include:"..." catalog entries */
+function expandGrants(sources){
+  const grants = [];
+  for (const s of sources){
+    grants.push(s);
+    for (const inc of [].concat(s.include || [])){ const g = resolveInclude(inc); if (g) grants.push(g); }
+  }
+  return grants;
+}
 
 const sg = n => (n >= 0 ? "+" : "") + n;
 function subst(s, t){ return s == null ? s : String(s).replace(/\{dc\}/g, t.dc).replace(/\{atk\}/g, t.atk).replace(/\{mod\}/g, t.mod); }
@@ -34,6 +59,17 @@ function spellRef(reg, t){
   if (reg.dice) ref.dice = subst(reg.dice, t);
   if (reg.concentration) ref.concentration = reg.name;
   return ref;
+}
+/* materialize a generic feature/feat ref (token substitution, no auto chips) */
+function matRef(r, t){
+  const o = {};
+  for (const k in r){
+    if (k === "body") o.body = (r.body || []).map(b => subst(b, t));
+    else if (k === "dice") o.dice = subst(r.dice, t);
+    else if (k === "chips") o.chips = (r.chips || []).map(c => Object.assign({}, c, { t: subst(c.t, t) }));
+    else o[k] = r[k];
+  }
+  return o;
 }
 
 const AB = { str:"STR", dex:"DEX", con:"CON", int:"INT", wis:"WIS", cha:"CHA" };
@@ -56,7 +92,7 @@ function effectsOf(sources){            // flatten a source's own effects + any 
 
 export function compile(input){
   const c = JSON.parse(JSON.stringify(input));
-  const sources = (c.build && c.build.sources) || [];
+  const sources = expandGrants((c.build && c.build.sources) || []);
   if (!sources.length) return c;
   const eff = effectsOf(sources);
 
@@ -109,10 +145,22 @@ export function compile(input){
   if (sc && always.length) sc.always = always;
   if (sc && initiate) sc.initiate = initiate;
 
-  // inject shared spell refs (the per-character ref keeps any overlay like freePool)
+  // ---- inject shared content refs (per-character ref still overrides) ----
+  const sm = c.spellcasting ? abilMod(c.abilities, c.spellcasting.ability) : 0;
+  const t = c.spellcasting
+    ? { dc: c.proficiencyBonus + sm + 8, atk: sg(c.proficiencyBonus + sm), mod: sg(sm) }
+    : { dc: "", atk: "", mod: "" };
+  c.ref = c.ref || {};
+
+  // feat refs (via grantsFeat) + included catalog refs (species traits, backgrounds)
+  for (const s of sources){
+    const f = s.grantsFeat && FEATS[s.grantsFeat];
+    if (f && f.ref){ const rid = f.refId || s.grantsFeat; c.ref[rid] = Object.assign(matRef(f.ref, t), c.ref[rid] || {}); }
+    if (s.ref && s.refId){ c.ref[s.refId] = Object.assign(matRef(s.ref, t), c.ref[s.refId] || {}); }
+  }
+
+  // spell refs (the per-character ref keeps any overlay like freePool)
   if (c.spellcasting){
-    const sm = abilMod(c.abilities, c.spellcasting.ability);
-    const t = { dc: c.proficiencyBonus + sm + 8, atk: sg(c.proficiencyBonus + sm), mod: sg(sm) };
     const ids = new Set();
     if (sc){
       (sc.cantrips || []).forEach(s => s.ref && ids.add(s.ref));

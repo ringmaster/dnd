@@ -1,0 +1,47 @@
+{
+  "ranger": {
+    "name": "Ranger",
+    "hitDie": "d10",
+    "saves": ["STR", "DEX"],
+    "primary": ["DEX", "WIS"],
+    "caster": "half",
+    "spellAbility": "WIS",
+    "skillChoices": { "count": 3, "from": ["Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"] },
+    "weaponMastery": 2,
+    "subclassLevel": 3,
+    "subclasses": ["fey-wanderer", "hunter", "gloom-stalker", "beast-master"]
+  },
+  "fighter": {
+    "name": "Fighter",
+    "hitDie": "d10",
+    "saves": ["STR", "CON"],
+    "primary": ["STR", "DEX"],
+    "caster": "none",
+    "skillChoices": { "count": 2, "from": ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Persuasion", "Survival"] },
+    "weaponMastery": 3,
+    "subclassLevel": 3,
+    "subclasses": ["battle-master", "champion", "eldritch-knight", "psi-warrior"]
+  },
+  "wizard": {
+    "name": "Wizard",
+    "hitDie": "d6",
+    "saves": ["INT", "WIS"],
+    "primary": ["INT"],
+    "caster": "full",
+    "spellAbility": "INT",
+    "skillChoices": { "count": 2, "from": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Nature", "Religion"] },
+    "subclassLevel": 3,
+    "subclasses": ["diviner", "evoker", "abjurer", "illusionist"]
+  },
+  "cleric": {
+    "name": "Cleric",
+    "hitDie": "d8",
+    "saves": ["WIS", "CHA"],
+    "primary": ["WIS"],
+    "caster": "full",
+    "spellAbility": "WIS",
+    "skillChoices": { "count": 2, "from": ["History", "Insight", "Medicine", "Persuasion", "Religion"] },
+    "subclassLevel": 3,
+    "subclasses": ["life", "light", "trickery", "war"]
+  }
+}

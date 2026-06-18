@@ -7,6 +7,7 @@
   "footer": "Bramblefoot cleric sheet",
   "storageKey": "bramblefoot_sheet_v1",
   "level": 4,
+  "hitDie": "d8",
   "proficiencyBonus": 2,
   "saves": [
     "WIS",
@@ -417,6 +418,10 @@
     ]
   },
   "build": {
+    "species": "halfling",
+    "class": "cleric",
+    "subclass": "life",
+    "background": "acolyte",
     "abilities": {
       "STR": 13,
       "DEX": 12,
@@ -429,20 +434,7 @@
       {
         "id": "acolyte",
         "name": "Background: Acolyte",
-        "grantsFeat": "magicinitiate-cleric",
-        "effects": {
-          "skills": [
-            "Insight",
-            "Religion"
-          ],
-          "tools": [
-            "Calligrapher's Supplies"
-          ],
-          "abilityIncrease": {
-            "WIS": 2,
-            "CON": 1
-          }
-        }
+        "include": "background:acolyte"
       },
       {
         "id": "cleric-skills",
@@ -668,6 +660,21 @@
             "WIS": 2
           }
         }
+      },
+      {
+        "id": "brave",
+        "name": "Halfling: Brave",
+        "include": "species:halfling:brave"
+      },
+      {
+        "id": "luck",
+        "name": "Halfling: Luck",
+        "include": "species:halfling:luck"
+      },
+      {
+        "id": "nimbleness",
+        "name": "Halfling: Nimbleness",
+        "include": "species:halfling:nimbleness"
       }
     ]
   },
@@ -800,129 +807,6 @@
       ],
       "body": [
         "You trained as a warrior-priest: you gain proficiency with martial weapons and heavy armor — which is why you can wear chain mail and swing a warhammer."
-      ]
-    },
-    "magicinitiate": {
-      "title": "Magic Initiate (Cleric)",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Acolyte feat",
-          "c": "ember"
-        },
-        {
-          "t": "Wis casting",
-          "c": "storm"
-        },
-        {
-          "t": "DC 14 · atk +6"
-        }
-      ],
-      "body": [
-        "From the Cleric list you learn two cantrips (Light and Resistance) and one level-1 spell (Healing Word), cast with Wisdom. You can cast Healing Word once per long rest without a slot, and also with your slots. Granted by the Acolyte background."
-      ]
-    },
-    "acolyte": {
-      "title": "Background: Acolyte",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Magic Initiate (Cleric)",
-          "c": "ember"
-        },
-        {
-          "t": "Insight · Religion",
-          "c": "storm"
-        },
-        {
-          "t": "Calligrapher's Supplies"
-        }
-      ],
-      "body": [
-        "A life of temple service. Acolyte grants the Magic Initiate (Cleric) Origin feat, proficiency in Insight and Religion, Calligrapher's Supplies, and the +2 Wisdom / +1 Constitution that shaped your scores."
-      ]
-    },
-    "brave": {
-      "title": "Halfling: Brave",
-      "dice": null,
-      "chips": [
-        {
-          "t": "vs Frightened",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "You have Advantage on saving throws you make to avoid or end the Frightened condition."
-      ]
-    },
-    "luck": {
-      "title": "Halfling: Luck",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Reroll a natural 1",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "When you roll a 1 on the d20 of a D20 Test (an attack roll, ability check, or saving throw), you can reroll the die and must use the new roll."
-      ]
-    },
-    "nimbleness": {
-      "title": "Halfling: Nimbleness",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Move through bigger creatures"
-        }
-      ],
-      "body": [
-        "You can move through the space of any creature that is a size larger than you, though it isn't difficult terrain for you."
-      ]
-    },
-    "spellslots1": {
-      "title": "Spell Slots (Level 1)",
-      "dice": "4 first-level slots",
-      "pool": "slot1",
-      "chips": [
-        {
-          "t": "Long rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Four 1st-level slots, regained on a long rest. Spell save DC 14 (8 + Wis +4 + prof +2); spell attack +6. Tap Use to spend a slot."
-      ]
-    },
-    "spellslots2": {
-      "title": "Spell Slots (Level 2)",
-      "dice": "3 second-level slots",
-      "pool": "slot2",
-      "chips": [
-        {
-          "t": "Long rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Three 2nd-level slots, regained on a long rest. Casting at 2nd level uses one. Tap Use to spend a slot."
-      ]
-    },
-    "hitdice": {
-      "title": "Hit Dice",
-      "dice": "1d8 +2 healing each",
-      "pool": "hd",
-      "chips": [
-        {
-          "t": "4 dice at lvl 4"
-        },
-        {
-          "t": "Spent on a short rest",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "On a short rest you can spend Hit Dice to heal, rolling 1d8+2 each (1d8 + Constitution modifier). Regain spent Hit Dice on a long rest."
       ]
     },
     "mace": {
