@@ -2,6 +2,9 @@
 # GitHub Pages is published from the build artifact by .github/workflows/pages.yml.
 /docs/
 
+# npm — only the OG-image generator needs deps; the core build stays zero-dependency
+/node_modules/
+
 # macOS
 .DS_Store
 

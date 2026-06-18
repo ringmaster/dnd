@@ -1,0 +1,14 @@
+{
+  "name": "dnd-sheets",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Single-file offline D&D 2024 character sheets, built from src/.",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "og": "node src/builder/og-images.mjs",
+    "check": "node src/builder/compile.mjs --check src/builder/golden.json src/characters/*.json"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}

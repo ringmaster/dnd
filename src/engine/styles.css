@@ -297,6 +297,16 @@
   .bg-text{column-count:1}
   .bg-text p{margin:.55rem 0;font-size:.95rem;color:var(--bone);line-height:1.62}
   @media (min-width:760px){ .bg-text{column-count:2;column-gap:2.4rem} .bg-text p{break-inside:avoid} }
+  .bg-body{display:block}
+  .bg-portrait{margin:0 0 .9rem;float:none}
+  .bg-portrait img{display:block;width:100%;max-width:320px;margin:0 auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:3px solid var(--ember);box-shadow:0 6px 22px rgba(0,0,0,.5)}
+  @media (min-width:760px){
+    .bg-portrait{float:left;width:200px;margin:.2rem 1.4rem .7rem 0}
+    .bg-portrait img{max-width:none}
+    .bg-body{display:block}
+    .bg-body .bg-text{column-count:1}
+  }
+  @media (min-width:1100px){ .bg-portrait{width:230px} }
 
   /* ---------- Build log ---------- */
   .buildlog{grid-column:1 / -1}

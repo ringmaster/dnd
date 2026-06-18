@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import url from "url";
 import { compile } from "./builder/compile.mjs";
+import { portraitDataUri, ogTitle, ogDesc, ogImageUrl, ogPageUrl } from "./builder/share.mjs";
 
 const SRC = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SRC, "..");
@@ -40,12 +41,20 @@ for (const cf of charFiles) {
   // `build` is authoring metadata (effect provenance) — keep it out of the shipped sheet
   delete data.build;
 
+  // embed the portrait (if any) so the single-file sheet stays offline-capable
+  const portrait = portraitDataUri(data);
+  if (portrait) data.portrait = portrait;
+
   // inline data; guard against a literal </script> inside any string
   const dataJson = JSON.stringify(data).replace(/<\/script/gi, "<\\/script");
   const script = indent("var CHARACTER = " + dataJson + ";\n\n" + engineJs, "  ");
 
   const html = template
     .replace("{{TITLE}}", (data.title || data.name || "Character Sheet"))
+    .replace(/\{\{OG_TITLE\}\}/g, esc(ogTitle(data)))
+    .replace(/\{\{OG_DESC\}\}/g, esc(ogDesc(data)))
+    .replace(/\{\{OG_URL\}\}/g, esc(ogPageUrl(data)))
+    .replace(/\{\{OG_IMAGE\}\}/g, esc(ogImageUrl(data)))
     .replace("{{STYLES}}", styles)
     .replace("{{SCRIPT}}", script);
 

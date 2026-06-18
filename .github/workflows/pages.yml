@@ -33,6 +33,10 @@ jobs:
         run: node src/builder/compile.mjs --check src/builder/golden.json src/characters/*.json
       - name: Build character sheets
         run: node src/build.mjs
+      - name: Install image-generation deps
+        run: npm ci
+      - name: Generate Open Graph share images
+        run: node src/builder/og-images.mjs
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

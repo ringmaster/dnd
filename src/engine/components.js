@@ -114,7 +114,8 @@ var CARD = {
   },
   background: function(card){
     var paras=(card.paras||[]).map(function(p){return '<p>'+esc(p)+'</p>';}).join("");
-    return '<h2>Background <span class="hint">'+esc(card.hint||"")+'</span></h2><div class="bg-text">'+paras+'</div>';
+    var portrait = CHARACTER.portrait ? '<figure class="bg-portrait"><img src="'+CHARACTER.portrait+'" alt="Portrait of '+esc(CHARACTER.name||"this character")+'"></figure>' : '';
+    return '<h2>Background <span class="hint">'+esc(card.hint||"")+'</span></h2><div class="bg-body">'+portrait+'<div class="bg-text">'+paras+'</div></div>';
   },
   buildlog: function(card){
     var lvls=(card.levels||[]).map(function(lv){
