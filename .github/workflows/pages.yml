@@ -29,6 +29,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - name: Check effects compile to golden
+        run: node src/builder/compile.mjs --check src/builder/golden.json src/characters/*.json
       - name: Build character sheets
         run: node src/build.mjs
       - name: Upload Pages artifact

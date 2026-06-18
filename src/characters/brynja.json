@@ -20,26 +20,10 @@
     "STR",
     "DEX"
   ],
-  "checkMods": {
-    "CHA": 2
-  },
   "checkModNote": {
     "CHA": "Otherworldly Glamour adds your Wisdom modifier (+2) to every Charisma check"
   },
-  "skillProf": [
-    "Animal Handling",
-    "Insight",
-    "Nature",
-    "Perception",
-    "Persuasion",
-    "Stealth",
-    "Survival"
-  ],
-  "skillExp": [
-    "Stealth"
-  ],
   "speed": 30,
-  "initiativeBonus": 0,
   "ac": {
     "armor": {
       "label": "Studded leather",
@@ -153,68 +137,6 @@
     "longbow",
     "shortsword"
   ],
-  "pools": {
-    "slot1": {
-      "label": "Level 1 Slots",
-      "max": 3,
-      "rest": "long",
-      "ref": "spellslots",
-      "storm": true,
-      "note": "long rest",
-      "use": "Spend a slot",
-      "reminder": "Spend a 1st-level spell slot."
-    },
-    "hm": {
-      "label": "Hunter's Mark — free casts",
-      "max": 2,
-      "rest": "long",
-      "ref": "huntersmark",
-      "storm": false,
-      "note": "long rest",
-      "use": "Use a free cast",
-      "reminder": "Hunter's Mark: free cast (no slot). Bonus Action; +1d6 force on each hit."
-    },
-    "insp": {
-      "label": "Heroic Inspiration",
-      "max": 1,
-      "rest": "long",
-      "ref": "inspiration",
-      "storm": true,
-      "note": "after a long rest",
-      "use": "Spend Inspiration",
-      "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
-    },
-    "mi": {
-      "label": "Faerie Fire — free",
-      "max": 1,
-      "rest": "long",
-      "ref": "faeriefire",
-      "storm": true,
-      "note": "long rest",
-      "use": "Use free cast",
-      "reminder": "Magic Initiate: free cast of Faerie Fire (no slot)."
-    },
-    "hd": {
-      "label": "Hit Dice",
-      "max": 4,
-      "rest": "long",
-      "ref": "hitdice",
-      "storm": false,
-      "note": "1d10+1 · short rest",
-      "use": "Use",
-      "reminder": "Hit Die: roll 1d10+1, then add it with Heal."
-    },
-    "luck": {
-      "label": "Luck Points",
-      "max": 2,
-      "rest": "long",
-      "ref": "lucky",
-      "storm": false,
-      "note": "long rest",
-      "use": "Spend a Luck Point",
-      "reminder": "Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you."
-    }
-  },
   "prepared": {
     "max": 5,
     "default": [
@@ -306,18 +228,6 @@
     {
       "type": "spellcasting",
       "slotPool": "slot1",
-      "always": [
-        {
-          "ref": "huntersmark",
-          "name": "Hunter's Mark",
-          "sub": "Favored Enemy · Concentration"
-        },
-        {
-          "ref": "charmperson",
-          "name": "Charm Person",
-          "sub": "Fey Wanderer · Wis save DC 12"
-        }
-      ],
       "prepared": true,
       "initiate": {
         "label": "Magic Initiate (Druid) · Wis",
@@ -1362,10 +1272,24 @@
         "id": "favoredenemy",
         "name": "Favored Enemy",
         "effects": {
-          "pool": "hm",
           "alwaysPrepared": [
-            "Hunter's Mark"
-          ]
+            {
+              "ref": "huntersmark",
+              "name": "Hunter's Mark",
+              "sub": "Favored Enemy · Concentration"
+            }
+          ],
+          "grantsPool": {
+            "id": "hm",
+            "label": "Hunter's Mark — free casts",
+            "max": "prof",
+            "rest": "long",
+            "ref": "huntersmark",
+            "storm": false,
+            "note": "long rest",
+            "use": "Use a free cast",
+            "reminder": "Hunter's Mark: free cast (no slot). Bonus Action; +1d6 force on each hit."
+          }
         }
       },
       {
@@ -1373,7 +1297,11 @@
         "name": "Fey Wanderer Magic",
         "effects": {
           "alwaysPrepared": [
-            "Charm Person"
+            {
+              "ref": "charmperson",
+              "name": "Charm Person",
+              "sub": "Fey Wanderer · Wis save DC 12"
+            }
           ]
         }
       },
@@ -1381,40 +1309,90 @@
         "id": "magicinitiate",
         "name": "Magic Initiate (Druid)",
         "effects": {
-          "pool": "mi",
           "grantsSpells": [
             "Guidance",
             "Produce Flame",
             "Faerie Fire"
-          ]
+          ],
+          "grantsPool": {
+            "id": "mi",
+            "label": "Faerie Fire — free",
+            "max": 1,
+            "rest": "long",
+            "ref": "faeriefire",
+            "storm": true,
+            "note": "long rest",
+            "use": "Use free cast",
+            "reminder": "Magic Initiate: free cast of Faerie Fire (no slot)."
+          }
         }
       },
       {
         "id": "lucky",
         "name": "Lucky",
         "effects": {
-          "pool": "luck"
+          "grantsPool": {
+            "id": "luck",
+            "label": "Luck Points",
+            "max": "prof",
+            "rest": "long",
+            "ref": "lucky",
+            "storm": false,
+            "note": "long rest",
+            "use": "Spend a Luck Point",
+            "reminder": "Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you."
+          }
         }
       },
       {
         "id": "resourceful",
         "name": "Human: Resourceful",
         "effects": {
-          "pool": "insp"
+          "grantsPool": {
+            "id": "insp",
+            "label": "Heroic Inspiration",
+            "max": 1,
+            "rest": "long",
+            "ref": "inspiration",
+            "storm": true,
+            "note": "after a long rest",
+            "use": "Spend Inspiration",
+            "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
+          }
         }
       },
       {
         "id": "ranger-spellcasting",
         "name": "Spellcasting",
         "effects": {
-          "pool": "slot1"
+          "grantsPool": {
+            "id": "slot1",
+            "label": "Level 1 Slots",
+            "max": 3,
+            "rest": "long",
+            "ref": "spellslots",
+            "storm": true,
+            "note": "long rest",
+            "use": "Spend a slot",
+            "reminder": "Spend a 1st-level spell slot."
+          }
         }
       },
       {
         "id": "ranger-hitdice",
         "name": "Hit Dice (d10)",
         "effects": {
-          "pool": "hd"
+          "grantsPool": {
+            "id": "hd",
+            "label": "Hit Dice",
+            "max": 4,
+            "rest": "long",
+            "ref": "hitdice",
+            "storm": false,
+            "note": "1d10+1 · short rest",
+            "use": "Use",
+            "reminder": "Hit Die: roll 1d10+1, then add it with Heal."
+          }
         }
       }
     ]

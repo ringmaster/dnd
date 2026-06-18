@@ -1,0 +1,159 @@
+{
+  "Brynja Ashbow": {
+    "skillProf": [
+      "Animal Handling",
+      "Insight",
+      "Nature",
+      "Perception",
+      "Persuasion",
+      "Stealth",
+      "Survival"
+    ],
+    "skillExp": [
+      "Stealth"
+    ],
+    "checkMods": {
+      "CHA": 2
+    },
+    "initiativeBonus": 0,
+    "pools": {
+      "slot1": {
+        "label": "Level 1 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 1st-level spell slot."
+      },
+      "hm": {
+        "label": "Hunter's Mark — free casts",
+        "max": 2,
+        "rest": "long",
+        "ref": "huntersmark",
+        "storm": false,
+        "note": "long rest",
+        "use": "Use a free cast",
+        "reminder": "Hunter's Mark: free cast (no slot). Bonus Action; +1d6 force on each hit."
+      },
+      "insp": {
+        "label": "Heroic Inspiration",
+        "max": 1,
+        "rest": "long",
+        "ref": "inspiration",
+        "storm": true,
+        "note": "after a long rest",
+        "use": "Spend Inspiration",
+        "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
+      },
+      "mi": {
+        "label": "Faerie Fire — free",
+        "max": 1,
+        "rest": "long",
+        "ref": "faeriefire",
+        "storm": true,
+        "note": "long rest",
+        "use": "Use free cast",
+        "reminder": "Magic Initiate: free cast of Faerie Fire (no slot)."
+      },
+      "hd": {
+        "label": "Hit Dice",
+        "max": 4,
+        "rest": "long",
+        "ref": "hitdice",
+        "storm": false,
+        "note": "1d10+1 · short rest",
+        "use": "Use",
+        "reminder": "Hit Die: roll 1d10+1, then add it with Heal."
+      },
+      "luck": {
+        "label": "Luck Points",
+        "max": 2,
+        "rest": "long",
+        "ref": "lucky",
+        "storm": false,
+        "note": "long rest",
+        "use": "Spend a Luck Point",
+        "reminder": "Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you."
+      }
+    },
+    "always": [
+      {
+        "ref": "huntersmark",
+        "name": "Hunter's Mark",
+        "sub": "Favored Enemy · Concentration"
+      },
+      {
+        "ref": "charmperson",
+        "name": "Charm Person",
+        "sub": "Fey Wanderer · Wis save DC 12"
+      }
+    ]
+  },
+  "Dain Stonebreaker": {
+    "skillProf": [
+      "Athletics",
+      "Insight",
+      "Intimidation",
+      "Perception",
+      "Survival"
+    ],
+    "skillExp": [],
+    "checkMods": {},
+    "initiativeBonus": 2,
+    "pools": {
+      "sup": {
+        "label": "Superiority Dice",
+        "max": 4,
+        "rest": "short",
+        "ref": "combatsup",
+        "storm": false,
+        "note": "short rest",
+        "use": "Spend a die",
+        "reminder": "Spend a superiority die — roll the maneuver's 1d8."
+      },
+      "sw": {
+        "label": "Second Wind",
+        "max": 3,
+        "rest": "short",
+        "ref": "secondwind",
+        "storm": true,
+        "note": "1d10+4 · short rest",
+        "use": "Use Second Wind",
+        "reminder": "Second Wind: roll 1d10+4, then add it with Heal."
+      },
+      "as": {
+        "label": "Action Surge",
+        "max": 1,
+        "rest": "short",
+        "ref": "actionsurge",
+        "storm": false,
+        "note": "short rest",
+        "use": "Use",
+        "reminder": "Action Surge — take one extra action this turn."
+      },
+      "sc": {
+        "label": "Stonecunning",
+        "max": 2,
+        "rest": "long",
+        "ref": "stonecunning",
+        "storm": false,
+        "note": "long rest",
+        "use": "Use",
+        "reminder": "Stonecunning — tremorsense 60 ft for 10 minutes."
+      },
+      "hd": {
+        "label": "Hit Dice",
+        "max": 4,
+        "rest": "long",
+        "ref": "hitdice",
+        "storm": false,
+        "note": "1d10+2 · short rest",
+        "use": "Use",
+        "reminder": "Hit Die: roll 1d10+2, then add it with Heal."
+      }
+    },
+    "always": []
+  }
+}

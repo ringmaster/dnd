@@ -3,6 +3,7 @@
 import fs from "fs";
 import path from "path";
 import url from "url";
+import { compile } from "./builder/compile.mjs";
 
 const SRC = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SRC, "..");
@@ -34,6 +35,8 @@ for (const cf of charFiles) {
   catch (e) { console.error("Bad JSON in " + cf + ": " + e.message); process.exit(1); }
   if (!data.out) { console.error(cf + " is missing an `out` filename"); process.exit(1); }
 
+  // expand declarative effects (build.sources) into materialized fields the engine reads
+  data = compile(data);
   // `build` is authoring metadata (effect provenance) — keep it out of the shipped sheet
   delete data.build;
 

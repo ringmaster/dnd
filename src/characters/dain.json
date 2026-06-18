@@ -20,16 +20,7 @@
     "STR",
     "CON"
   ],
-  "skillProf": [
-    "Athletics",
-    "Insight",
-    "Intimidation",
-    "Perception",
-    "Survival"
-  ],
-  "skillExp": [],
   "speed": 30,
-  "initiativeBonus": 2,
   "ac": {
     "armor": {
       "label": "Chain mail",
@@ -152,58 +143,6 @@
     "battleaxe",
     "handaxe"
   ],
-  "pools": {
-    "sup": {
-      "label": "Superiority Dice",
-      "max": 4,
-      "rest": "short",
-      "ref": "combatsup",
-      "storm": false,
-      "note": "short rest",
-      "use": "Spend a die",
-      "reminder": "Spend a superiority die — roll the maneuver's 1d8."
-    },
-    "sw": {
-      "label": "Second Wind",
-      "max": 3,
-      "rest": "short",
-      "ref": "secondwind",
-      "storm": true,
-      "note": "1d10+4 · short rest",
-      "use": "Use Second Wind",
-      "reminder": "Second Wind: roll 1d10+4, then add it with Heal."
-    },
-    "as": {
-      "label": "Action Surge",
-      "max": 1,
-      "rest": "short",
-      "ref": "actionsurge",
-      "storm": false,
-      "note": "short rest",
-      "use": "Use",
-      "reminder": "Action Surge — take one extra action this turn."
-    },
-    "sc": {
-      "label": "Stonecunning",
-      "max": 2,
-      "rest": "long",
-      "ref": "stonecunning",
-      "storm": false,
-      "note": "long rest",
-      "use": "Use",
-      "reminder": "Stonecunning — tremorsense 60 ft for 10 minutes."
-    },
-    "hd": {
-      "label": "Hit Dice",
-      "max": 4,
-      "rest": "long",
-      "ref": "hitdice",
-      "storm": false,
-      "note": "1d10+2 · short rest",
-      "use": "Use",
-      "reminder": "Hit Die: roll 1d10+2, then add it with Heal."
-    }
-  },
   "rest": {
     "short": [
       "Superiority dice → full",
@@ -1023,35 +962,85 @@
         "id": "combatsup",
         "name": "Combat Superiority",
         "effects": {
-          "pool": "sup"
+          "grantsPool": {
+            "id": "sup",
+            "label": "Superiority Dice",
+            "max": 4,
+            "rest": "short",
+            "ref": "combatsup",
+            "storm": false,
+            "note": "short rest",
+            "use": "Spend a die",
+            "reminder": "Spend a superiority die — roll the maneuver's 1d8."
+          }
         }
       },
       {
         "id": "secondwind",
         "name": "Second Wind",
         "effects": {
-          "pool": "sw"
+          "grantsPool": {
+            "id": "sw",
+            "label": "Second Wind",
+            "max": 3,
+            "rest": "short",
+            "ref": "secondwind",
+            "storm": true,
+            "note": "1d10+4 · short rest",
+            "use": "Use Second Wind",
+            "reminder": "Second Wind: roll 1d10+4, then add it with Heal."
+          }
         }
       },
       {
         "id": "actionsurge",
         "name": "Action Surge",
         "effects": {
-          "pool": "as"
+          "grantsPool": {
+            "id": "as",
+            "label": "Action Surge",
+            "max": 1,
+            "rest": "short",
+            "ref": "actionsurge",
+            "storm": false,
+            "note": "short rest",
+            "use": "Use",
+            "reminder": "Action Surge — take one extra action this turn."
+          }
         }
       },
       {
         "id": "stonecunning",
         "name": "Stonecunning",
         "effects": {
-          "pool": "sc"
+          "grantsPool": {
+            "id": "sc",
+            "label": "Stonecunning",
+            "max": "prof",
+            "rest": "long",
+            "ref": "stonecunning",
+            "storm": false,
+            "note": "long rest",
+            "use": "Use",
+            "reminder": "Stonecunning — tremorsense 60 ft for 10 minutes."
+          }
         }
       },
       {
         "id": "fighter-hitdice",
         "name": "Hit Dice (d10)",
         "effects": {
-          "pool": "hd"
+          "grantsPool": {
+            "id": "hd",
+            "label": "Hit Dice",
+            "max": 4,
+            "rest": "long",
+            "ref": "hitdice",
+            "storm": false,
+            "note": "1d10+2 · short rest",
+            "use": "Use",
+            "reminder": "Hit Die: roll 1d10+2, then add it with Heal."
+          }
         }
       }
     ]
