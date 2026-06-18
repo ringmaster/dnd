@@ -25,12 +25,6 @@
       "addDex": true,
       "note": "light armor · 12 + full Dex",
       "default": false
-    },
-    "shield": {
-      "label": "Shield",
-      "bonus": 2,
-      "note": "+2 AC (not normally carried)",
-      "default": false
     }
   },
   "hp": {
