@@ -40,8 +40,14 @@
       "Cartographer's Tools"
     ],
     "languages": {
-      "known": [],
-      "choices": 2
+      "known": [
+        "Common",
+        "Dwarvish",
+        "Elvish",
+        "Goblin",
+        "Undercommon"
+      ],
+      "choices": 0
     },
     "pools": {
       "mi": {

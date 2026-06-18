@@ -199,7 +199,17 @@
         {
           "ref": "asi",
           "name": "Level 4: Ability Score Improvement",
-          "sub": "taken as a feat (Lucky) — scores unchanged"
+          "sub": "not allocated — scores stay at base + Guide background"
+        },
+        {
+          "ref": "coreranger",
+          "name": "Core Ranger Traits",
+          "sub": "d10 Hit Die · martial & simple weapons · light/medium armor & shields · Str/Dex saves"
+        },
+        {
+          "ref": "rangerspell",
+          "name": "Spellcasting",
+          "sub": "Wisdom half-caster · DC 12 · spell attack +4 · 3 first-level slots"
         },
         {
           "ref": "favoredenemy",
@@ -223,6 +233,11 @@
           "sub": "Expertise (Insight) · two extra languages"
         },
         {
+          "ref": "feywanderer",
+          "name": "Subclass: Fey Wanderer",
+          "sub": "a ranger touched by the Feywild"
+        },
+        {
           "ref": "dreadful",
           "name": "Dreadful Strikes",
           "sub": "+1d4 psychic on a weapon hit"
@@ -231,6 +246,11 @@
           "ref": "glamour",
           "name": "Otherworldly Glamour",
           "sub": "+Wis to all Charisma checks · Persuasion proficiency"
+        },
+        {
+          "ref": "feywanderspells",
+          "name": "Fey Wanderer Spells",
+          "sub": "Charm Person always prepared · a Feywild fey blessing"
         },
         {
           "ref": "lucky",
@@ -449,13 +469,13 @@
       "dice": null,
       "chips": [
         {
-          "t": "Taken as a feat",
-          "c": "ember"
+          "t": "Not yet allocated",
+          "c": "storm"
         }
       ],
       "body": [
-        "At level 4 the Ability Score Improvement was taken as a feat (Lucky) rather than a +2/+1+1 to ability scores, so your scores stay at the base array plus the Guide background's +2 Dexterity / +1 Wisdom.",
-        "If you'd rather have the boost, swap this for +2 Dexterity (raising it to 19): +1 to your attack and damage, AC, Initiative, and Dexterity saves."
+        "At level 4 the Ranger gains an Ability Score Improvement. On the official sheet it hasn't been spent — Brynja's scores are the base array plus the Guide background's +2 Dexterity / +1 Wisdom, with no further bump.",
+        "Spend it for +2 to one ability (e.g. Dexterity → 19), +1 to two, or another feat."
       ]
     },
     "favoredenemy": {
@@ -490,7 +510,7 @@
         }
       ],
       "body": [
-        "You gain Expertise in one skill — taken in Insight, doubling your Proficiency Bonus there (Insight +6). You also learn two additional languages (Common plus Dwarvish, Elvish, Goblin, and Undercommon).",
+        "You gain Expertise in one skill — taken in Insight, doubling your Proficiency Bonus there (Insight +6). You also learn two additional languages (Goblin and Undercommon).",
         "Move the Expertise onto another proficient skill if your table prefers."
       ]
     },
@@ -543,6 +563,60 @@
       ],
       "body": [
         "While you are wearing armor, you gain a +1 bonus to AC. Brynja wears studded leather, so her AC is 16 (12 + Dex 3 + Defense 1)."
+      ]
+    },
+    "coreranger": {
+      "title": "Core Ranger Traits",
+      "chips": [
+        {
+          "t": "d10 Hit Die"
+        },
+        {
+          "t": "Martial weapons",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You have a d10 Hit Die, proficiency with simple and martial weapons, light and medium armor and shields, and Strength and Dexterity saving throws. You also choose your Ranger skills from the class list."
+      ]
+    },
+    "rangerspell": {
+      "title": "Spellcasting",
+      "chips": [
+        {
+          "t": "Wis half-caster",
+          "c": "storm"
+        },
+        {
+          "t": "DC 12 · atk +4"
+        }
+      ],
+      "body": [
+        "You cast Ranger spells using Wisdom: spell save DC 12, spell attack +4. At level 4 you have three 1st-level spell slots, regained on a long rest. Prepare Ranger spells after a long rest; always-prepared spells (Hunter's Mark, Charm Person) don't count against the limit."
+      ]
+    },
+    "feywanderer": {
+      "title": "Fey Wanderer",
+      "chips": [
+        {
+          "t": "Ranger subclass",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "A ranger whose travels brushed the Feywild. You gain Otherworldly Glamour, Dreadful Strikes, and always-prepared Fey Wanderer spells, plus a fey blessing from the Feywild Gifts table."
+      ]
+    },
+    "feywanderspells": {
+      "title": "Fey Wanderer Spells",
+      "chips": [
+        {
+          "t": "Always prepared",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You always have Charm Person prepared (it doesn't count against your prepared total); more Fey spells are added as you level. You also possess a fey blessing — choose it from the Feywild Gifts table or roll for it."
       ]
     }
   },
@@ -713,8 +787,20 @@
         "effects": {
           "expertise": [
             "Insight"
-          ],
-          "languages": 2
+          ]
+        }
+      },
+      {
+        "id": "languages",
+        "name": "Languages",
+        "effects": {
+          "language": [
+            "Common",
+            "Dwarvish",
+            "Elvish",
+            "Goblin",
+            "Undercommon"
+          ]
         }
       },
       {
