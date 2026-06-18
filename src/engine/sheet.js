@@ -730,17 +730,19 @@ function bodyParas(container, paras){
    is met — e.g. Hunter's Mark needs you to be concentrating on it. */
 function hitRiderActive(rd){
   if(rd.requiresConc) return state.conc===rd.requiresConc;
+  if(rd.pool) return state[rd.pool]>0;
   return true;
 }
 function appendHitRiders(container){
   var riders=CHARACTER.hitRiders||[]; if(!riders.length) return;
   var wrap=document.createElement("div"); wrap.className="hit-riders";
-  var head=document.createElement("div"); head.className="hr-head"; head.textContent="On a hit, you can add"; wrap.appendChild(head);
+  var head=document.createElement("div"); head.className="hr-head"; head.textContent=CHARACTER.riderHead||"On a hit, you can add"; wrap.appendChild(head);
   riders.forEach(function(rd){
     var active=hitRiderActive(rd);
     var b=document.createElement("button"); b.type="button"; b.className="hr-box"+(active?"":" hr-off");
     if(rd.ref) b.setAttribute("data-ref", rd.ref);
-    var note=active ? (rd.note||"") : (rd.offNote || (rd.requiresConc?("needs Concentration on "+rd.requiresConc):"not available"));
+    var note=active ? (rd.note||"") : (rd.offNote || (rd.requiresConc?("needs Concentration on "+rd.requiresConc):(rd.pool?"none left — rest to recover":"not available")));
+    if(rd.pool){ note=(note?note+" · ":"")+state[rd.pool]+"/"+POOL_MAX[rd.pool]+" left"; }
     b.innerHTML='<span class="hr-dmg">'+esc(rd.dmg)+'</span><span class="hr-text"><span class="hr-name">'+esc(rd.label)+'</span><span class="hr-note">'+esc(note)+'</span></span>';
     wrap.appendChild(b);
   });

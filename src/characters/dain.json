@@ -628,52 +628,12 @@
           {
             "label": "Attack — Battleaxe",
             "weapon": "battleaxe",
-            "detail": "Con save DC 14 or Prone",
-            "riders": [
-              {
-                "ref": "trip",
-                "label": "Trip Attack",
-                "detail": "+1d8 dmg · Str save DC 14 or Prone",
-                "pool": "sup"
-              },
-              {
-                "ref": "goad",
-                "label": "Goading Attack",
-                "detail": "+1d8 · Wis save DC 14 or disadv vs others",
-                "pool": "sup"
-              },
-              {
-                "ref": "precision",
-                "label": "Precision Attack",
-                "detail": "add 1d8 to the attack roll",
-                "pool": "sup"
-              }
-            ]
+            "detail": "Con save DC 14 or Prone"
           },
           {
             "label": "Attack — Handaxe (thrown)",
             "weapon": "handaxe",
-            "detail": "Adv. on next hit",
-            "riders": [
-              {
-                "ref": "trip",
-                "label": "Trip Attack",
-                "detail": "+1d8 dmg · Str save DC 14 or Prone",
-                "pool": "sup"
-              },
-              {
-                "ref": "goad",
-                "label": "Goading Attack",
-                "detail": "+1d8 · Wis save DC 14 or disadv vs others",
-                "pool": "sup"
-              },
-              {
-                "ref": "precision",
-                "label": "Precision Attack",
-                "detail": "add 1d8 to the attack roll",
-                "pool": "sup"
-              }
-            ]
+            "detail": "Adv. on next hit"
           },
           {
             "label": "Action Surge",
@@ -856,5 +816,29 @@
       "WIS": 13,
       "CHA": 8
     }
-  }
+  },
+  "riderHead": "Spend a Superiority Die",
+  "hitRiders": [
+    {
+      "ref": "trip",
+      "label": "Trip Attack",
+      "dmg": "+1d8",
+      "pool": "sup",
+      "note": "Str save DC 14 or knocked Prone"
+    },
+    {
+      "ref": "goad",
+      "label": "Goading Attack",
+      "dmg": "+1d8",
+      "pool": "sup",
+      "note": "Wis save DC 14 or Disadv. attacking others"
+    },
+    {
+      "ref": "precision",
+      "label": "Precision Attack",
+      "dmg": "+1d8",
+      "pool": "sup",
+      "note": "add to the attack roll instead"
+    }
+  ]
 }
