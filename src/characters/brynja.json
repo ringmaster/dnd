@@ -18,7 +18,14 @@
   },
   "speed": 30,
   "ac": {
-    "armor": "studded",
+    "armor": {
+      "id": "studded",
+      "label": "Studded leather",
+      "base": 12,
+      "addDex": true,
+      "note": "light armor · 12 + full Dex",
+      "default": false
+    },
     "shield": {
       "label": "Shield",
       "bonus": 2,
@@ -27,7 +34,7 @@
     }
   },
   "hp": {
-    "max": 32
+    "max": 46
   },
   "studs": [
     {
@@ -86,7 +93,7 @@
   "masteryMax": 2,
   "masteryDefault": [
     "longbow",
-    "shortsword"
+    "dagger"
   ],
   "rest": {
     "short": [
@@ -186,7 +193,7 @@
         {
           "ref": "asi",
           "name": "Level 4: Ability Score Improvement",
-          "sub": "+2 Dexterity → 19"
+          "sub": "taken as a feat (Lucky) — scores unchanged"
         },
         {
           "ref": "favoredenemy",
@@ -201,13 +208,13 @@
         {
           "ref": "weaponmastery",
           "name": "Weapon Mastery",
-          "sub": "Slow (longbow) · Vex (shortsword) · 2 of 2 mastered",
+          "sub": "Slow (longbow) · Nick (dagger) · 2 of 2 mastered",
           "spanId": "wmSummary"
         },
         {
           "ref": "deftexplorer",
           "name": "Deft Explorer",
-          "sub": "Expertise (Stealth) · two extra languages"
+          "sub": "Expertise (Insight) · two extra languages"
         },
         {
           "ref": "dreadful",
@@ -242,7 +249,7 @@
         {
           "ref": "magicinitiate",
           "name": "Magic Initiate (Druid)",
-          "sub": "Guide feat · Guidance, Produce Flame · Faerie Fire 1×/long rest"
+          "sub": "Guide feat · Guidance, Message · Speak with Animals 1×/long rest"
         },
         {
           "ref": "versatile",
@@ -284,11 +291,11 @@
             },
             {
               "cls": "choice",
-              "html": "<b>Weapon Mastery: Slow</b> (longbow) · <b>Vex</b> (shortsword)"
+              "html": "<b>Weapon Mastery: Slow</b> (longbow) · <b>Nick</b> (dagger)"
             },
             {
               "cls": "choice",
-              "html": "<b>Skills (Ranger, choose 3):</b> Perception, Nature, Insight"
+              "html": "<b>Skills (Ranger, choose 3):</b> Athletics, Insight, Perception"
             },
             {
               "cls": "choice",
@@ -296,7 +303,7 @@
             },
             {
               "cls": "choice",
-              "html": "<b>Magic Initiate (Druid):</b> Guidance &amp; Produce Flame cantrips, Faerie Fire (Wis casting)"
+              "html": "<b>Magic Initiate (Druid):</b> Guidance &amp; Message cantrips, Speak with Animals (Wis casting)"
             },
             {
               "cls": "choice",
@@ -314,7 +321,7 @@
             },
             {
               "cls": "choice",
-              "html": "<b>Deft Explorer:</b> Expertise (Stealth) · two extra languages"
+              "html": "<b>Deft Explorer:</b> Expertise (Insight) · two extra languages"
             }
           ]
         },
@@ -347,15 +354,10 @@
           "items": [
             {
               "cls": "choice",
-              "html": "<b>Ability Score Improvement: +2 Dexterity</b> (17 → 19)"
+              "html": "<b>Ability Score Improvement → feat (Lucky)</b> — taken as a feat, so ability scores stay at base + background"
             },
             {
-              "cls": "choice",
-              "html": "<b>Human Versatile Origin feat: Lucky</b> — 2 Luck Points (Advantage, or impose Disadvantage on an attacker)"
-            },
-            {
-              "cls": "note",
-              "html": "Took the ASI rather than a feat for the level-4 slot"
+              "html": "<b>Lucky</b> — 2 Luck Points (spend for Advantage, or impose Disadvantage on an attacker); regained on a long rest"
             }
           ]
         }
@@ -386,7 +388,7 @@
         }
       ],
       "body": [
-        "One attack on your turn (Extra Attack arrives at level 5). +8 to hit = Dex +4, proficiency +2, and the Archery fighting style +2. Damage adds your Dexterity (+4).",
+        "One attack on your turn (Extra Attack arrives at level 5). +7 to hit = Dex +3, proficiency +2, and the Archery fighting style +2. Damage adds your Dexterity (+3).",
         "Slow (mastery): when you hit and deal damage, the target's Speed drops by 10 feet until the start of your next turn.",
         "Needs ammunition and two free hands to fire."
       ]
@@ -414,7 +416,7 @@
         }
       ],
       "body": [
-        "Your melee sidearm. Finesse lets you use Dexterity for attack and damage, so +6 to hit (Dex +4, proficiency +2) and 1d6+4.",
+        "Your melee sidearm. Finesse lets you use Dexterity for attack and damage, so +5 to hit (Dex +3, proficiency +2) and 1d6+3.",
         "Vex (mastery): when you hit and deal damage, you have Advantage on your next attack roll against that target, until the end of your next turn."
       ]
     },
@@ -441,13 +443,13 @@
       "dice": null,
       "chips": [
         {
-          "t": "+2 Dexterity",
+          "t": "Taken as a feat",
           "c": "ember"
         }
       ],
       "body": [
-        "You raised Dexterity from 17 to 19 (+4). That sharpened your attack and damage bonuses, AC, Initiative, and Dexterity saves.",
-        "A feat was the alternative; you also still have the Human Versatile Origin feat to place."
+        "At level 4 the Ability Score Improvement was taken as a feat (Lucky) rather than a +2/+1+1 to ability scores, so your scores stay at the base array plus the Guide background's +2 Dexterity / +1 Wisdom.",
+        "If you'd rather have the boost, swap this for +2 Dexterity (raising it to 19): +1 to your attack and damage, AC, Initiative, and Dexterity saves."
       ]
     },
     "favoredenemy": {
@@ -478,7 +480,7 @@
         }
       ],
       "body": [
-        "You gain a +2 bonus to attack rolls with ranged weapons. Already included in the longbow's +8 to hit."
+        "You gain a +2 bonus to attack rolls with ranged weapons. Already included in the longbow's +7 to hit."
       ]
     },
     "deftexplorer": {
@@ -486,7 +488,7 @@
       "dice": null,
       "chips": [
         {
-          "t": "Expertise (Stealth)",
+          "t": "Expertise (Insight)",
           "c": "ember"
         },
         {
@@ -495,8 +497,8 @@
         }
       ],
       "body": [
-        "You gain Expertise in one skill — taken in Stealth, doubling your Proficiency Bonus there (Stealth +8). You also learn two additional languages.",
-        "Move the Expertise onto Perception instead if you'd rather have Passive Perception 16."
+        "You gain Expertise in one skill — taken in Insight, doubling your Proficiency Bonus there (Insight +6). You also learn two additional languages (Common plus Dwarvish, Elvish, Goblin, and Undercommon).",
+        "Move the Expertise onto another proficient skill if your table prefers."
       ]
     },
     "glamour": {
@@ -563,13 +565,6 @@
             "label": "Attack — Shortsword",
             "weapon": "shortsword",
             "detail": "melee · Adv. on next hit"
-          },
-          {
-            "label": "Cast Faerie Fire",
-            "ref": "faeriefire",
-            "detail": "Dex save DC 12 · Adv. to hit them",
-            "spellLevel": 1,
-            "freePool": "mi"
           },
           {
             "label": "Cast Entangle",
@@ -658,9 +653,9 @@
         "name": "Ranger skills (choose 3)",
         "effects": {
           "skills": [
-            "Perception",
-            "Nature",
-            "Insight"
+            "Athletics",
+            "Insight",
+            "Perception"
           ]
         }
       },
@@ -691,7 +686,7 @@
         "name": "Deft Explorer",
         "effects": {
           "expertise": [
-            "Stealth"
+            "Insight"
           ],
           "languages": 2
         }
@@ -834,15 +829,6 @@
             "note": "1d10+1 · short rest",
             "use": "Use",
             "reminder": "Hit Die: roll 1d10+1, then add it with Heal."
-          }
-        }
-      },
-      {
-        "id": "asi-4",
-        "name": "Level 4: Ability Score Improvement",
-        "effects": {
-          "abilityIncrease": {
-            "DEX": 2
           }
         }
       },

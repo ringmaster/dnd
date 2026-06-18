@@ -380,6 +380,13 @@
       "wizard"
     ]
   },
+  "message": {
+    "name": "Message",
+    "level": 0,
+    "chips": [{ "t": "120 ft" }],
+    "body": ["You point toward a creature within range and whisper a message. The target (and only the target) hears it and can whisper a reply that only you hear. You can extend the spell around corners and through openings."],
+    "classes": ["wizard", "druid", "bard"]
+  },
   "minorillusion": {
     "name": "Minor Illusion",
     "level": 0,

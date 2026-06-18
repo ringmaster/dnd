@@ -5,26 +5,26 @@
       "title": "Magic Initiate (Druid)",
       "chips": [{ "t": "Wis casting", "c": "storm" }, { "t": "DC {dc} · atk {atk}" }],
       "body": [
-        "From the Druid list you learn two cantrips (Guidance and Produce Flame) and one level-1 spell (Faerie Fire). Wisdom is the spellcasting ability, so the numbers match your class casting: save DC {dc}, spell attack {atk}.",
-        "You can cast Faerie Fire once per long rest without a slot, and also with your spell slots. Cantrips are at-will."
+        "From the Druid list you learn two cantrips (Guidance and Message) and one level-1 spell (Speak with Animals). Wisdom is the spellcasting ability, so the numbers match your class casting: save DC {dc}, spell attack {atk}.",
+        "You can cast Speak with Animals once per long rest without a slot, and also with your spell slots. Cantrips are at-will."
       ]
     },
     "effects": {
       "grantsSpells": [
         "Guidance",
-        "Produce Flame",
-        "Faerie Fire"
+        "Message",
+        "Speak with Animals"
       ],
       "grantsPool": {
         "id": "mi",
-        "label": "Faerie Fire — free",
+        "label": "Speak with Animals — free",
         "max": 1,
         "rest": "long",
-        "ref": "faeriefire",
+        "ref": "speakwithanimals",
         "storm": true,
         "note": "long rest",
         "use": "Use free cast",
-        "reminder": "Magic Initiate: free cast of Faerie Fire (no slot)."
+        "reminder": "Magic Initiate: free cast of Speak with Animals (no slot)."
       },
       "initiate": {
         "label": "Magic Initiate (Druid) · Wis",
@@ -36,9 +36,9 @@
             "sub": "cantrip · +1d4 to one ability check · Concentration"
           },
           {
-            "ref": "produceflame",
-            "name": "Produce Flame",
-            "sub": "cantrip · 1d8 fire ranged · sheds light"
+            "ref": "message",
+            "name": "Message",
+            "sub": "cantrip · whisper a creature at 120 ft"
           }
         ]
       }

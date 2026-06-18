@@ -2,7 +2,7 @@
   "Brynja Ashbow": {
     "abilities": {
       "STR": 8,
-      "DEX": 19,
+      "DEX": 17,
       "CON": 13,
       "INT": 10,
       "WIS": 15,
@@ -10,15 +10,15 @@
     },
     "skillProf": [
       "Animal Handling",
+      "Athletics",
       "Insight",
-      "Nature",
       "Perception",
       "Persuasion",
       "Stealth",
       "Survival"
     ],
     "skillExp": [
-      "Stealth"
+      "Insight"
     ],
     "checkMods": {
       "CHA": 2
@@ -45,14 +45,14 @@
     },
     "pools": {
       "mi": {
-        "label": "Faerie Fire — free",
+        "label": "Speak with Animals — free",
         "max": 1,
         "rest": "long",
-        "ref": "faeriefire",
+        "ref": "speakwithanimals",
         "storm": true,
         "note": "long rest",
         "use": "Use free cast",
-        "reminder": "Magic Initiate: free cast of Faerie Fire (no slot)."
+        "reminder": "Magic Initiate: free cast of Speak with Animals (no slot)."
       },
       "hm": {
         "label": "Hunter's Mark — free casts",
@@ -195,9 +195,9 @@
             "sub": "cantrip · +1d4 to one ability check · Concentration"
           },
           {
-            "ref": "produceflame",
-            "name": "Produce Flame",
-            "sub": "cantrip · 1d8 fire ranged · sheds light"
+            "ref": "message",
+            "name": "Message",
+            "sub": "cantrip · whisper a creature at 120 ft"
           }
         ]
       }
