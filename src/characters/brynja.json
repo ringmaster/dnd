@@ -63,7 +63,8 @@
   "weapons": [
     {
       "id": "longbow",
-      "carried": true
+      "carried": true,
+      "atkBonus": 2
     },
     {
       "id": "shortsword",
@@ -197,9 +198,9 @@
       "type": "features",
       "list": [
         {
-          "ref": "asi",
-          "name": "Level 4: Ability Score Improvement",
-          "sub": "not allocated — scores stay at base + Guide background"
+          "ref": "archery",
+          "name": "Level 4 ASI → Archery feat",
+          "sub": "+2 to ranged weapon attack rolls (a Fighting Style feat)"
         },
         {
           "ref": "coreranger",
@@ -333,6 +334,10 @@
             },
             {
               "cls": "choice",
+              "html": "<b>Human Versatile:</b> Origin feat → <b>Lucky</b> (2 Luck Points · Advantage or impose Disadvantage)"
+            },
+            {
+              "cls": "choice",
               "html": "<b>Human Skillful:</b> Animal Handling"
             }
           ]
@@ -380,10 +385,7 @@
           "items": [
             {
               "cls": "choice",
-              "html": "<b>Ability Score Improvement → feat (Lucky)</b> — taken as a feat, so ability scores stay at base + background"
-            },
-            {
-              "html": "<b>Lucky</b> — 2 Luck Points (spend for Advantage, or impose Disadvantage on an attacker); regained on a long rest"
+              "html": "<b>Ability Score Improvement → Archery feat</b> — +2 to ranged weapon attack rolls (the longbow's +7)"
             }
           ]
         }
@@ -414,7 +416,7 @@
         }
       ],
       "body": [
-        "One attack on your turn (Extra Attack arrives at level 5). +5 to hit = Dex +3 and proficiency +2. Damage adds your Dexterity (+3).",
+        "One attack on your turn (Extra Attack arrives at level 5). +7 to hit = Dex +3, proficiency +2, and the Archery feat +2. Damage adds your Dexterity (+3).",
         "Slow (mastery): when you hit and deal damage, the target's Speed drops by 10 feet until the start of your next turn.",
         "Needs ammunition and two free hands to fire."
       ]
@@ -462,20 +464,6 @@
         "Once per turn, when you hit a creature with a weapon, you can deal an extra 1d4 psychic damage. Each creature can take this extra damage only once per turn.",
         "It costs no action and stacks with Hunter's Mark; the die grows to 1d6 at ranger level 11.",
         "It isn't magical and needs no Concentration — it simply rides your hits."
-      ]
-    },
-    "asi": {
-      "title": "Level 4 — Ability Score Improvement",
-      "dice": null,
-      "chips": [
-        {
-          "t": "Not yet allocated",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "At level 4 the Ranger gains an Ability Score Improvement. On the official sheet it hasn't been spent — Brynja's scores are the base array plus the Guide background's +2 Dexterity / +1 Wisdom, with no further bump.",
-        "Spend it for +2 to one ability (e.g. Dexterity → 19), +1 to two, or another feat."
       ]
     },
     "favoredenemy": {
@@ -617,6 +605,24 @@
       ],
       "body": [
         "You always have Charm Person prepared (it doesn't count against your prepared total); more Fey spells are added as you level. You also possess a fey blessing — choose it from the Feywild Gifts table or roll for it."
+      ]
+    },
+    "archery": {
+      "title": "Archery (Fighting Style feat)",
+      "dice": null,
+      "chips": [
+        {
+          "t": "+2 ranged attacks",
+          "c": "ember"
+        },
+        {
+          "t": "Level-4 feat",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Taken with the level-4 Ability Score Improvement (Fighting Style feats need the Fighting Style feature, which Rangers gain at level 2). You gain a +2 bonus to attack rolls with ranged weapons — already included in the longbow's +7 to hit.",
+        "Your level-2 Fighting Style is Defense (+1 AC while wearing armor); you can't choose the same Fighting Style twice, so Archery is a separate second style."
       ]
     }
   },
