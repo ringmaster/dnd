@@ -97,7 +97,8 @@ var CARD = {
   skills: function(){
     var foot="";
     var t=CHARACTER.tools||[], lang=CHARACTER.languages;
-    if(t.length) foot+='<div class="prof-line"><span class="prof-lbl">Tools</span>'+t.map(esc).join(" · ")+'</div>';
+    function toolLink(name){ var key=ALIASES[String(name).toLowerCase()]; return key ? '<button class="gloss-term" data-gloss="'+esc(key)+'" type="button">'+esc(name)+'</button>' : esc(name); }
+    if(t.length) foot+='<div class="prof-line"><span class="prof-lbl">Tools</span>'+t.map(toolLink).join(" · ")+'</div>';
     if(lang){ var parts=(lang.known||[]).slice(); if(lang.choices) parts.push(lang.choices+" of choice"); if(parts.length) foot+='<div class="prof-line"><span class="prof-lbl">Languages</span>'+parts.map(esc).join(" · ")+'</div>'; }
     return '<h2>Skills <span class="hint">tap a skill · ● proficient · roll d20 + value</span></h2><div class="skills" id="skills"></div>'+(foot?'<div class="prof-foot">'+foot+'</div>':'');
   },
