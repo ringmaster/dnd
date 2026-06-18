@@ -350,10 +350,23 @@ function renderCombat(){
     }
     // a leveled-spell move only shows if that spell is actually prepared/known right now
     moves = moves.filter(function(m){ return m.spellLevel==null || castable[m.ref]; });
-    var items = (g.more||[]).map(function(m){ return '<button class="gloss-term" data-gloss="'+esc(m.gloss)+'" type="button">'+esc(m.label)+'</button>'; });
-    if(weaponGroup) items.push('<button class="gloss-term cm-more-spells" data-scroll="[data-card=&quot;inventory&quot;]" type="button">Other weapons ↓</button>');
-    if(hasSpells && g.cost==="Action") items.push('<button class="gloss-term cm-more-spells" data-scroll="[data-card=&quot;spellcasting&quot;]" type="button">Other spells ↓</button>');
-    var more = items.length ? '<div class="cm-more">Also: '+items.join(' · ')+'</div>' : "";
+    // surface every prepared spell whose cast time matches this group, so Combat Mode
+    // always offers what you can actually cast (deduped against authored moves above)
+    if(SPELL_CATALOG && SPELL_CATALOG.length){
+      var have={}; moves.forEach(function(m){ if(m.ref) have[m.ref]=1; });
+      (state.prepared||[]).forEach(function(id){
+        var sp=spById(id); if(!sp || have[id]) return;
+        if((sp.cast||"Action")!==g.cost) return;
+        moves.push({ label:"Cast "+sp.name, ref:id, spellLevel:sp.level, detail:sp.note });
+      });
+    }
+    var alsoItems = (g.more||[]).map(function(m){ return '<button class="gloss-term" data-gloss="'+esc(m.gloss)+'" type="button">'+esc(m.label)+'</button>'; });
+    var navItems = [];
+    if(weaponGroup) navItems.push('<button class="gloss-term cm-more-spells" data-scroll="[data-card=&quot;inventory&quot;]" type="button">Other weapons ↓</button>');
+    if(hasSpells && g.cost==="Action") navItems.push('<button class="gloss-term cm-more-spells" data-scroll="[data-card=&quot;spellcasting&quot;]" type="button">Other spells ↓</button>');
+    var nav = navItems.length ? '<div class="cm-nav'+(navItems.length===1?' solo':'')+'">'+navItems.join('')+'</div>' : "";
+    var also = alsoItems.length ? '<div class="cm-more">Also: '+alsoItems.join(' · ')+'</div>' : "";
+    var more = nav + also;
     return '<div class="cm-group'+(g.reaction?' cm-reaction':'')+'"><div class="cm-cost">'+esc(g.cost)+'</div>'+moves.map(combatMove).join("")+more+'</div>';
   }).join("");
   el.innerHTML = note + groups;
@@ -459,8 +472,13 @@ function openRemoteModal(x){
   refDice.textContent=""; refDice.style.display="none";
   refChips.innerHTML='<span class="chip storm">5e reference · '+esc(x.type)+'</span>'; refChips.style.display="flex";
   refBody.innerHTML="";
-  var paras=String(x.desc||"").split(/\n\n+/);
-  paras.forEach(function(t){ t=t.replace(/\s*\n\s*/g," ").trim(); if(t){ var p=document.createElement("p"); p.textContent=t; refBody.appendChild(p); } });
+  var md=String(x.desc||"").trim();
+  if(md && typeof marked!=="undefined" && marked.parse){
+    try { refBody.innerHTML=marked.parse(md); } catch(err){ refBody.innerHTML=""; }
+  }
+  if(!refBody.childNodes.length && md){
+    String(md).split(/\n\n+/).forEach(function(t){ t=t.replace(/\s*\n\s*/g," ").trim(); if(t){ var p=document.createElement("p"); p.textContent=t; refBody.appendChild(p); } });
+  }
   if(!refBody.childNodes.length){ var p=document.createElement("p"); p.textContent="No description available."; refBody.appendChild(p); }
   linkifyTerms(refBody);
   refFoot.innerHTML='<span class="uses-left">via Open5e · SRD (5e). Your sheet uses 2024 rules — wording may differ.</span>';
@@ -808,7 +826,14 @@ function wireSheet(){
     so.addEventListener("click", openSearch);
     sc.addEventListener("click", closeSearch);
     searchInput.addEventListener("input", function(){ clearTimeout(searchTimer); searchTimer=setTimeout(runSearch, 180); });
-    searchInput.addEventListener("keydown", function(e){ if(e.key==="Escape") closeSearch(); });
+    searchInput.addEventListener("keydown", function(e){
+      if(e.key==="Escape"){ closeSearch(); return; }
+      if(e.key==="Enter"){
+        e.preventDefault();
+        var q=searchInput.value.trim().toLowerCase();
+        if(q.length>=2){ remoteSearch(q); }
+      }
+    });
   }
 
   document.getElementById("refClose").addEventListener("click", closeRef);

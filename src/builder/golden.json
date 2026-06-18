@@ -135,7 +135,8 @@
           "id": "goodberry",
           "name": "Goodberry",
           "note": "10 berries, 1 HP each",
-          "level": 1
+          "level": 1,
+          "cast": "Bonus Action"
         },
         {
           "id": "longstrider",
@@ -147,7 +148,8 @@
           "id": "ensnaringstrike",
           "name": "Ensnaring Strike",
           "note": "Restrained on hit · Concentration",
-          "level": 1
+          "level": 1,
+          "cast": "Bonus Action"
         },
         {
           "id": "fogcloud",
