@@ -104,6 +104,17 @@ function defaultCarried(){
   OWNED.forEach(function(id){ var hc=handCount(wById(id)); if(hands+hc<=2){ out.push(id); hands+=hc; } });
   return out;
 }
+/* generate a default rules modal for any weapon without a hand-authored ref, so every
+   weapon is tappable (drawn or stowed); openRef fills in the live to-hit / damage / crit */
+WEAPONS.forEach(function(w){
+  if(REF[w.id] || !w.dmgDice) return;
+  REF[w.id] = {
+    title: w.name,
+    chips: (w.props||[]).map(function(p){ return { t: p.charAt(0).toUpperCase()+p.slice(1) }; }),
+    body: ["Your "+w.name.toLowerCase()+"."+((w.props&&w.props.length)?" Properties: "+w.props.join(", ")+".":"")]
+      .concat(w.masteryEff ? ["Mastery — "+w.mastery+": "+w.masteryEff] : [])
+  };
+});
 
 /* ----- prepared spells (optional) ----- */
 var PREPARED_MAX = CHARACTER.prepared ? CHARACTER.prepared.max : 0;
@@ -678,7 +689,10 @@ function openRef(id, trigger){
   var wpn=wById(id), diceText=r.dice||"", chips=r.chips||[];
   if(wpn && wpn.dmgDice){
     diceText="To hit: d20 "+weaponToHit(wpn)+"   ·   Damage: "+weaponDmg(wpn)+(versatileActive(wpn)?" (two-handed)":"");
-    chips=chips.map(function(c){ return /^Crit /.test(c.t) ? Object.assign({},c,{t:"Crit "+critDmg(wpn)}) : c; });
+    var critTxt="Crit "+critDmg(wpn);
+    if(chips.some(function(c){ return /^Crit/.test(c.t); })) chips=chips.map(function(c){ return /^Crit/.test(c.t) ? Object.assign({},c,{t:critTxt}) : c; });
+    else chips=chips.concat([{t:critTxt, c:"ember"}]);
+    if(state.masteries.indexOf(wpn.id)>=0 && wpn.mastery && !chips.some(function(c){ return c.t===wpn.mastery; })) chips=chips.concat([{t:wpn.mastery, c:"storm"}]);
   }
   refDice.textContent=diceText; refDice.style.display=diceText?"block":"none"; if(diceText) linkifyTerms(refDice);
   refChips.innerHTML="";
