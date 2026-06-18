@@ -18,13 +18,7 @@
   },
   "speed": 30,
   "ac": {
-    "armor": {
-      "label": "Studded leather",
-      "base": 12,
-      "addDex": true,
-      "note": "light armor · 12 + full Dex",
-      "default": true
-    },
+    "armor": "studded",
     "shield": {
       "label": "Shield",
       "bonus": 2,
@@ -61,64 +55,31 @@
   "weapons": [
     {
       "id": "longbow",
-      "name": "Longbow",
-      "mastery": "Slow",
-      "masteryEff": "Hit + damage: target's Speed drops 10 ft.",
       "carried": true,
-      "ability": "DEX",
-      "dmgDice": "1d8",
-      "atkBonus": 2,
-      "props": [
-        "piercing",
-        "range 150/600"
-      ]
+      "atkBonus": 2
     },
     {
       "id": "shortsword",
-      "name": "Shortsword",
-      "mastery": "Vex",
-      "masteryEff": "Hit + damage: Advantage on your next attack vs the target.",
-      "carried": true,
-      "ability": "FIN",
-      "dmgDice": "1d6",
-      "props": [
-        "piercing",
-        "finesse"
-      ]
+      "carried": true
     },
     {
       "id": "shortbow",
-      "name": "Shortbow",
-      "mastery": "Vex",
-      "masteryEff": "Hit + damage: Advantage on your next attack vs the target.",
       "carried": false
     },
     {
       "id": "scimitar",
-      "name": "Scimitar",
-      "mastery": "Nick",
-      "masteryEff": "Make the Light off-hand attack as part of the Attack action (no Bonus Action).",
       "carried": false
     },
     {
       "id": "handcrossbow",
-      "name": "Hand Crossbow",
-      "mastery": "Vex",
-      "masteryEff": "Hit + damage: Advantage on your next attack vs the target.",
       "carried": false
     },
     {
       "id": "dagger",
-      "name": "Dagger",
-      "mastery": "Nick",
-      "masteryEff": "Make the Light off-hand attack as part of the Attack action.",
       "carried": false
     },
     {
       "id": "spear",
-      "name": "Spear",
-      "mastery": "Sap",
-      "masteryEff": "Hit + damage: target has Disadvantage on its next attack.",
       "carried": false
     }
   ],

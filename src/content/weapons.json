@@ -1,0 +1,186 @@
+{
+  "battleaxe": {
+    "name": "Battleaxe",
+    "ability": "STR",
+    "dmgDice": "1d8",
+    "props": [
+      "slashing",
+      "magical"
+    ],
+    "mastery": "Topple",
+    "masteryEff": "On a hit, Con save (DC 14) or Prone."
+  },
+  "dagger": {
+    "name": "Dagger",
+    "ability": "FIN",
+    "dmgDice": "1d4",
+    "props": [
+      "piercing",
+      "finesse",
+      "range 20/60"
+    ],
+    "mastery": "Nick",
+    "masteryEff": "Make the Light off-hand attack as part of the Attack action."
+  },
+  "greataxe": {
+    "name": "Greataxe",
+    "ability": "STR",
+    "dmgDice": "1d12",
+    "props": [
+      "slashing",
+      "heavy",
+      "two-handed"
+    ],
+    "mastery": "Cleave",
+    "masteryEff": "On a hit, also strike a second creature within 5 ft."
+  },
+  "handaxe": {
+    "name": "Handaxe",
+    "ability": "STR",
+    "dmgDice": "1d6",
+    "props": [
+      "range 20/60"
+    ],
+    "mastery": "Vex",
+    "masteryEff": "Hit + damage: Advantage on your next attack vs the target."
+  },
+  "handcrossbow": {
+    "name": "Hand Crossbow",
+    "ability": "DEX",
+    "dmgDice": "1d6",
+    "props": [
+      "piercing",
+      "ammunition",
+      "light",
+      "loading",
+      "range 30/120"
+    ],
+    "mastery": "Vex",
+    "masteryEff": "Hit + damage: Advantage on your next attack vs the target."
+  },
+  "javelin": {
+    "name": "Javelin",
+    "ability": "STR",
+    "dmgDice": "1d6",
+    "props": [
+      "piercing",
+      "thrown 30/120"
+    ],
+    "mastery": "Slow",
+    "masteryEff": "Hit + damage: target's Speed drops 10 ft."
+  },
+  "longbow": {
+    "name": "Longbow",
+    "ability": "DEX",
+    "dmgDice": "1d8",
+    "props": [
+      "piercing",
+      "range 150/600"
+    ],
+    "mastery": "Slow",
+    "masteryEff": "Hit + damage: target's Speed drops 10 ft."
+  },
+  "longsword": {
+    "name": "Longsword",
+    "ability": "STR",
+    "dmgDice": "1d8",
+    "props": [
+      "slashing",
+      "versatile 1d10"
+    ],
+    "mastery": "Sap",
+    "masteryEff": "Hit + damage: target has Disadvantage on its next attack."
+  },
+  "mace": {
+    "name": "Mace",
+    "ability": "STR",
+    "dmgDice": "1d6",
+    "props": [
+      "bludgeoning"
+    ],
+    "mastery": "Sap",
+    "masteryEff": "Hit + damage: the target has Disadvantage on its next attack roll."
+  },
+  "maul": {
+    "name": "Maul",
+    "ability": "STR",
+    "dmgDice": "2d6",
+    "props": [
+      "bludgeoning",
+      "heavy",
+      "two-handed"
+    ],
+    "mastery": "Topple",
+    "masteryEff": "On a hit, Con save or Prone (two-handed)."
+  },
+  "quarterstaff": {
+    "name": "Quarterstaff",
+    "ability": "STR",
+    "dmgDice": "1d6",
+    "props": [
+      "bludgeoning",
+      "versatile 1d8"
+    ],
+    "mastery": "Topple",
+    "masteryEff": "On a hit, the target makes a Constitution save (DC 8 + Str + Prof) or has the Prone condition."
+  },
+  "scimitar": {
+    "name": "Scimitar",
+    "ability": "FIN",
+    "dmgDice": "1d6",
+    "props": [
+      "slashing",
+      "finesse",
+      "light"
+    ],
+    "mastery": "Nick",
+    "masteryEff": "Make the Light off-hand attack as part of the Attack action (no Bonus Action)."
+  },
+  "shortbow": {
+    "name": "Shortbow",
+    "ability": "DEX",
+    "dmgDice": "1d6",
+    "props": [
+      "piercing",
+      "ammunition",
+      "range 80/320",
+      "two-handed"
+    ],
+    "mastery": "Vex",
+    "masteryEff": "Hit + damage: Advantage on your next attack vs the target."
+  },
+  "shortsword": {
+    "name": "Shortsword",
+    "ability": "FIN",
+    "dmgDice": "1d6",
+    "props": [
+      "piercing",
+      "finesse"
+    ],
+    "mastery": "Vex",
+    "masteryEff": "Hit + damage: Advantage on your next attack vs the target."
+  },
+  "spear": {
+    "name": "Spear",
+    "ability": "STR",
+    "dmgDice": "1d6",
+    "props": [
+      "piercing",
+      "thrown 20/60",
+      "versatile 1d8"
+    ],
+    "mastery": "Sap",
+    "masteryEff": "Hit + damage: target has Disadvantage on its next attack."
+  },
+  "warhammer": {
+    "name": "Warhammer",
+    "ability": "STR",
+    "dmgDice": "1d8",
+    "props": [
+      "bludgeoning",
+      "versatile 1d10"
+    ],
+    "mastery": "Push",
+    "masteryEff": "Hit + damage: push a Large-or-smaller target 10 ft away."
+  }
+}

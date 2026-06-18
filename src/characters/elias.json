@@ -15,13 +15,7 @@
   ],
   "speed": 30,
   "ac": {
-    "armor": {
-      "label": "Mage Armor",
-      "base": 13,
-      "addDex": true,
-      "note": "1st-level spell · 13 + Dex (1 hour)",
-      "default": false
-    }
+    "armor": "magearmor"
   },
   "hp": {
     "max": 26
@@ -52,26 +46,12 @@
   "weapons": [
     {
       "id": "quarterstaff",
-      "name": "Quarterstaff",
-      "carried": true,
-      "ability": "STR",
-      "dmgDice": "1d6",
-      "props": [
-        "bludgeoning",
-        "versatile 1d8"
-      ]
+      "carried": true
     },
     {
       "id": "dagger",
-      "name": "Dagger (thrown)",
       "carried": true,
-      "ability": "FIN",
-      "dmgDice": "1d4",
-      "props": [
-        "piercing",
-        "finesse",
-        "range 20/60"
-      ]
+      "name": "Dagger (thrown)"
     }
   ],
   "masteryMax": 0,

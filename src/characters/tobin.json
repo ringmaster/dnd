@@ -15,13 +15,7 @@
   ],
   "speed": 30,
   "ac": {
-    "armor": {
-      "label": "Chain mail",
-      "base": 16,
-      "addDex": false,
-      "note": "heavy armor · sets AC to 16",
-      "default": true
-    },
+    "armor": "chainmail",
     "shield": {
       "label": "Shield",
       "bonus": 2,
@@ -58,24 +52,11 @@
   "weapons": [
     {
       "id": "mace",
-      "name": "Mace",
-      "carried": true,
-      "ability": "STR",
-      "dmgDice": "1d6",
-      "props": [
-        "bludgeoning"
-      ]
+      "carried": true
     },
     {
       "id": "warhammer",
-      "name": "Warhammer",
-      "carried": true,
-      "ability": "STR",
-      "dmgDice": "1d8",
-      "props": [
-        "bludgeoning",
-        "versatile 1d10"
-      ]
+      "carried": true
     }
   ],
   "masteryMax": 0,

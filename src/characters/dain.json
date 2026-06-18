@@ -15,13 +15,7 @@
   ],
   "speed": 30,
   "ac": {
-    "armor": {
-      "label": "Chain mail",
-      "base": 16,
-      "addDex": false,
-      "note": "heavy armor · sets AC to 16",
-      "default": true
-    },
+    "armor": "chainmail",
     "shield": {
       "label": "Shield",
       "bonus": 2,
@@ -65,69 +59,35 @@
   "weapons": [
     {
       "id": "battleaxe",
-      "name": "Battleaxe",
-      "mastery": "Topple",
-      "masteryEff": "On a hit, Con save (DC 14) or Prone.",
-      "carried": true,
-      "ability": "STR",
-      "dmgDice": "1d8",
-      "props": [
-        "slashing",
-        "magical"
-      ]
+      "carried": true
     },
     {
       "id": "handaxe",
-      "name": "Handaxe (thrown)",
-      "mastery": "Vex",
-      "masteryEff": "Hit + damage: Advantage on your next attack vs the target.",
       "carried": true,
-      "ability": "STR",
-      "dmgDice": "1d6",
-      "props": [
-        "range 20/60"
-      ]
+      "name": "Handaxe (thrown)"
     },
     {
       "id": "warhammer",
-      "name": "Warhammer",
-      "mastery": "Push",
-      "masteryEff": "Hit + damage: push a Large-or-smaller target 10 ft away.",
       "carried": false
     },
     {
       "id": "longsword",
-      "name": "Longsword",
-      "mastery": "Sap",
-      "masteryEff": "Hit + damage: target has Disadvantage on its next attack.",
       "carried": false
     },
     {
       "id": "greataxe",
-      "name": "Greataxe",
-      "mastery": "Cleave",
-      "masteryEff": "On a hit, also strike a second creature within 5 ft.",
       "carried": false
     },
     {
       "id": "maul",
-      "name": "Maul",
-      "mastery": "Topple",
-      "masteryEff": "On a hit, Con save or Prone (two-handed).",
       "carried": false
     },
     {
       "id": "spear",
-      "name": "Spear",
-      "mastery": "Sap",
-      "masteryEff": "Hit + damage: target has Disadvantage on its next attack.",
       "carried": false
     },
     {
       "id": "javelin",
-      "name": "Javelin",
-      "mastery": "Slow",
-      "masteryEff": "Hit + damage: target's Speed drops 10 ft.",
       "carried": false
     }
   ],

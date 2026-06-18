@@ -23,6 +23,17 @@ try { FEATS = JSON.parse(fs.readFileSync(path.join(HERE, "feats.json"), "utf8"))
 try { SPELLS = JSON.parse(fs.readFileSync(path.join(CONTENT, "spells.json"), "utf8")); } catch (e) { SPELLS = {}; }
 try { SPECIES = JSON.parse(fs.readFileSync(path.join(CONTENT, "species.json"), "utf8")); } catch (e) { SPECIES = {}; }
 try { BACKGROUNDS = JSON.parse(fs.readFileSync(path.join(CONTENT, "backgrounds.json"), "utf8")); } catch (e) { BACKGROUNDS = {}; }
+let WEAPONS = {}, ARMOR = {};
+try { WEAPONS = JSON.parse(fs.readFileSync(path.join(CONTENT, "weapons.json"), "utf8")); } catch (e) { WEAPONS = {}; }
+try { ARMOR = JSON.parse(fs.readFileSync(path.join(CONTENT, "armor.json"), "utf8")); } catch (e) { ARMOR = {}; }
+
+/* merge a character weapon entry (id + per-character overlay) with its catalog stats */
+function mergeWeapon(w){
+  const base = WEAPONS[w.id] || {};
+  const out = Object.assign({}, base, w);
+  if (w.addProps){ out.props = (base.props || []).concat(w.addProps); delete out.addProps; }
+  return out;
+}
 
 /* resolve an include path ("species:human:resourceful", "background:guide") to a grant */
 function resolveInclude(pathStr){
@@ -92,6 +103,8 @@ function effectsOf(sources){            // flatten a source's own effects + any 
 
 export function compile(input){
   const c = JSON.parse(JSON.stringify(input));
+  if (Array.isArray(c.weapons)) c.weapons = c.weapons.map(mergeWeapon);
+  if (c.ac && typeof c.ac.armor === "string") c.ac.armor = Object.assign({}, ARMOR[c.ac.armor]);   // expand armor by type
   const sources = expandGrants((c.build && c.build.sources) || []);
   if (!sources.length) return c;
   const eff = effectsOf(sources);
