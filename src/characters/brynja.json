@@ -34,9 +34,6 @@
   "hp": {
     "max": 32
   },
-  "spellcasting": {
-    "ability": "WIS"
-  },
   "studs": [
     {
       "ref": "stat_ac",
@@ -129,58 +126,6 @@
     "longbow",
     "shortsword"
   ],
-  "prepared": {
-    "max": 5,
-    "default": [
-      "curewounds",
-      "goodberry",
-      "longstrider",
-      "ensnaringstrike",
-      "fogcloud"
-    ],
-    "catalog": [
-      {
-        "id": "curewounds",
-        "name": "Cure Wounds",
-        "note": "heal 2d8 +2 · touch"
-      },
-      {
-        "id": "goodberry",
-        "name": "Goodberry",
-        "note": "10 berries, 1 HP each"
-      },
-      {
-        "id": "longstrider",
-        "name": "Longstrider",
-        "note": "+10 ft Speed for 1 hour"
-      },
-      {
-        "id": "ensnaringstrike",
-        "name": "Ensnaring Strike",
-        "note": "Restrained on hit · Concentration"
-      },
-      {
-        "id": "fogcloud",
-        "name": "Fog Cloud",
-        "note": "20-ft Heavily Obscured · Concentration"
-      },
-      {
-        "id": "speakwithanimals",
-        "name": "Speak with Animals",
-        "note": "talk to Beasts · 10 min"
-      },
-      {
-        "id": "entangle",
-        "name": "Entangle",
-        "note": "Restrain in a 20-ft square · Concentration"
-      },
-      {
-        "id": "detectmagic",
-        "name": "Detect Magic",
-        "note": "sense magic within 30 ft · Concentration"
-      }
-    ]
-  },
   "rest": {
     "short": [
       "Spend Hit Dice to heal",
@@ -218,25 +163,7 @@
       ]
     },
     {
-      "type": "spellcasting",
-      "slotPool": "slot1",
-      "prepared": true,
-      "initiate": {
-        "label": "Magic Initiate (Druid) · Wis",
-        "pool": "mi",
-        "spells": [
-          {
-            "ref": "guidance",
-            "name": "Guidance",
-            "sub": "cantrip · +1d4 to one ability check · Concentration"
-          },
-          {
-            "ref": "produceflame",
-            "name": "Produce Flame",
-            "sub": "cantrip · 1d8 fire ranged · sheds light"
-          }
-        ]
-      }
+      "type": "spellcasting"
     },
     {
       "type": "pools",
@@ -1320,6 +1247,22 @@
             "note": "long rest",
             "use": "Use free cast",
             "reminder": "Magic Initiate: free cast of Faerie Fire (no slot)."
+          },
+          "initiate": {
+            "label": "Magic Initiate (Druid) · Wis",
+            "pool": "mi",
+            "spells": [
+              {
+                "ref": "guidance",
+                "name": "Guidance",
+                "sub": "cantrip · +1d4 to one ability check · Concentration"
+              },
+              {
+                "ref": "produceflame",
+                "name": "Produce Flame",
+                "sub": "cantrip · 1d8 fire ranged · sheds light"
+              }
+            ]
           }
         }
       },
@@ -1371,6 +1314,62 @@
             "note": "long rest",
             "use": "Spend a slot",
             "reminder": "Spend a 1st-level spell slot."
+          },
+          "spellcasting": {
+            "ability": "WIS",
+            "slotPool": "slot1",
+            "prepared": {
+              "max": 5,
+              "default": [
+                "curewounds",
+                "goodberry",
+                "longstrider",
+                "ensnaringstrike",
+                "fogcloud"
+              ],
+              "catalog": [
+                {
+                  "id": "curewounds",
+                  "name": "Cure Wounds",
+                  "note": "heal 2d8 +2 · touch"
+                },
+                {
+                  "id": "goodberry",
+                  "name": "Goodberry",
+                  "note": "10 berries, 1 HP each"
+                },
+                {
+                  "id": "longstrider",
+                  "name": "Longstrider",
+                  "note": "+10 ft Speed for 1 hour"
+                },
+                {
+                  "id": "ensnaringstrike",
+                  "name": "Ensnaring Strike",
+                  "note": "Restrained on hit · Concentration"
+                },
+                {
+                  "id": "fogcloud",
+                  "name": "Fog Cloud",
+                  "note": "20-ft Heavily Obscured · Concentration"
+                },
+                {
+                  "id": "speakwithanimals",
+                  "name": "Speak with Animals",
+                  "note": "talk to Beasts · 10 min"
+                },
+                {
+                  "id": "entangle",
+                  "name": "Entangle",
+                  "note": "Restrain in a 20-ft square · Concentration"
+                },
+                {
+                  "id": "detectmagic",
+                  "name": "Detect Magic",
+                  "note": "sense magic within 30 ft · Concentration"
+                }
+              ]
+            }
           }
         }
       },
