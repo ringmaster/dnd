@@ -568,7 +568,7 @@ function acToggleBtn(label, note, onClick){
   btn.addEventListener("click", onClick); return btn;
 }
 function equipArmor(id){ state.armorId = (state.armorId===id) ? "" : id; persist(); renderACStud(); paintAC(); renderInvEquip(); }
-function equipShield(){ if(!state.shield && handsFree()<1){ toast("No free hand for a shield — stow a weapon first."); return; } state.shield=!state.shield; persist(); renderACStud(); paintAC(); renderInvEquip(); renderAttacks(); }
+function equipShield(){ if(!state.shield && handsFree()<1){ toast("No free hand for a shield — stow a weapon first."); return; } state.shield=!state.shield; persist(); renderACStud(); paintAC(); renderInvEquip(); renderAttacks(); renderCombat(); }
 function toggleStyle(){ state.style=!state.style; persist(); renderACStud(); paintAC(); }
 function openAC(trigger){
   resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
@@ -674,10 +674,16 @@ function openRef(id, trigger){
   var r=REF[id]; if(!r) return;
   resetGlossary(); lastTrigger=trigger||null; currentRefPool=r.pool||null;
   refTitle.textContent=r.title;
-  refDice.textContent=r.dice||""; refDice.style.display=r.dice?"block":"none"; if(r.dice) linkifyTerms(refDice);
+  // weapon refs: reflect the live to-hit / damage / crit (versatile-aware), not the authored dice
+  var wpn=wById(id), diceText=r.dice||"", chips=r.chips||[];
+  if(wpn && wpn.dmgDice){
+    diceText="To hit: d20 "+weaponToHit(wpn)+"   ·   Damage: "+weaponDmg(wpn)+(versatileActive(wpn)?" (two-handed)":"");
+    chips=chips.map(function(c){ return /^Crit /.test(c.t) ? Object.assign({},c,{t:"Crit "+critDmg(wpn)}) : c; });
+  }
+  refDice.textContent=diceText; refDice.style.display=diceText?"block":"none"; if(diceText) linkifyTerms(refDice);
   refChips.innerHTML="";
-  (r.chips||[]).forEach(function(c){ var s=document.createElement("span"); s.className="chip"+(c.c?(" "+c.c):""); s.textContent=c.t; refChips.appendChild(s); });
-  refChips.style.display=(r.chips&&r.chips.length)?"flex":"none";
+  chips.forEach(function(c){ var s=document.createElement("span"); s.className="chip"+(c.c?(" "+c.c):""); s.textContent=c.t; refChips.appendChild(s); });
+  refChips.style.display=chips.length?"flex":"none";
   refBody.innerHTML=""; bodyParas(refBody, r.body);
   refFoot.innerHTML="";
   if(r.level!=null){
