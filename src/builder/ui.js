@@ -22,7 +22,10 @@
      character is captured as a custom "root" element so it survives round-trip.
      `ref` is here because compile() auto-generates the reference modals from the
      build sources; `combat` because the builder now generates a combat block. */
-  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1};
+  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1,
+    // fields compile() DERIVES from the build sources — decomposed back into the
+    // form (see decompose()), never kept as opaque custom blobs
+    abilities:1,always:1,cantrips:1,checkMods:1,initiate:1,initiativeBonus:1,languages:1,pools:1,prepared:1,skillExp:1,skillProf:1,slotPool:1,slotPools:1,spellcasting:1,tools:1};
   /* card types the builder generates; loaded cards of any other type are kept as custom "card" elements */
   var MANAGED_CARDS = {abilities:1,hitpoints:1,attacks:1,spellcasting:1,skills:1,pools:1,inventory:1,features:1,background:1,buildlog:1};
   /* class features that surface as Combat-Mode moves (besides weapons + spells) */
@@ -239,12 +242,26 @@
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
         if(spc.prepared && spc.prepared.default) state.prepared=spc.prepared.default.slice(); }
     });
+    if(!(b.sources && b.sources.length)) decompose(ch);   // build-stripped compiled char
     captureCustoms(ch);
     // snapshot for pristine pass-through: until the user edits something, re-export
     // exactly what was loaded so a character survives the round trip untouched
     state._orig = JSON.parse(JSON.stringify(ch));
     state._sig = editSig();
     return true;
+  }
+  /* When a character arrives compiled (no build sources), pull its derived
+     fields back into the form model instead of dropping them. Skills that the
+     background already grants are excluded so they regenerate from that source
+     rather than being double-counted as class picks. */
+  function decompose(ch){
+    var bgEff=(CAT.backgrounds[state.background]||{}).effects||{};
+    if(Array.isArray(ch.skillProf)){ var bgSk=bgEff.skills||[]; state.skills=ch.skillProf.filter(function(s){ return bgSk.indexOf(s)<0; }); }
+    if(Array.isArray(ch.skillExp) && ch.skillExp.length) state.choices.expertise=ch.skillExp[0];
+    if(Array.isArray(ch.cantrips)) state.cantrips=ch.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
+    if(ch.prepared && Array.isArray(ch.prepared.default)) state.prepared=ch.prepared.default.slice();
+    if(ch.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}, bgInc=bgEff.abilityIncrease||{};
+      ABIL.forEach(function(a){ base[a]=(ch.abilities[a]!=null?ch.abilities[a]:10)-(bgInc[a]||0); }); state.base=base; }
   }
   /* a signature of every field the form can change; if it still matches the
      value captured at load time, nothing has been edited */
