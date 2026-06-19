@@ -305,9 +305,11 @@ console.log("done — " + built + " sheet(s).");
 // Optionally mirror the built site to a local dev volume, so the sheets are
 // served (e.g. https://dnd.dev.clubbabyseal.com/) without a GitHub Pages push.
 // Silently skipped when the volume isn't mounted — e.g. in CI.
-const DEV_MIRROR = "/Volumes/devsites/dnd";
+const DEV_VOLUME = "/Volumes/devsites/dnd";
+const DEV_MIRROR = path.join(DEV_VOLUME, "dist");
 try {
-  if (fs.existsSync(DEV_MIRROR) && fs.statSync(DEV_MIRROR).isDirectory()) {
+  if (fs.existsSync(DEV_VOLUME) && fs.statSync(DEV_VOLUME).isDirectory()) {
+    fs.mkdirSync(DEV_MIRROR, { recursive: true });
     fs.cpSync(DOCS, DEV_MIRROR, { recursive: true, filter: (s) => !s.endsWith(".DS_Store") });
     console.log("mirrored docs/ → " + DEV_MIRROR);
   }
