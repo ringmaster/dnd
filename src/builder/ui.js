@@ -28,12 +28,6 @@
     abilities:1,always:1,cantrips:1,checkMods:1,initiate:1,initiativeBonus:1,languages:1,pools:1,prepared:1,skillExp:1,skillProf:1,slotPool:1,slotPools:1,spellcasting:1,tools:1};
   /* card types the builder generates; loaded cards of any other type are kept as custom "card" elements */
   var MANAGED_CARDS = {abilities:1,hitpoints:1,attacks:1,spellcasting:1,skills:1,pools:1,inventory:1,features:1,background:1,buildlog:1};
-  /* class features that surface as Combat-Mode moves (besides weapons + spells) */
-  var CLASS_COMBAT = {
-    fighter: { action:[{feature:"Action Surge", label:"Action Surge", ref:"actionsurge", pool:"as", detail:"take one extra action"}],
-               bonus:[{feature:"Second Wind", label:"Second Wind", ref:"secondwind", pool:"sw", detail:"regain HP"}] },
-    cleric:  { action:[{feature:"Channel Divinity", label:"Channel Divinity", ref:"channeldivinity", pool:"cd", detail:"Divine Spark / Turn Undead"}] }
-  };
   var CUSTOM_KINDS = {root:"Top-level field", source:"Build source / feature", card:"Card"};
   var FIGHTING_STYLES=[
     {id:"archery", name:"Archery", note:"+2 to ranged weapon attack rolls"},
@@ -386,26 +380,8 @@
     cards.push({type:"buildlog", title:"Build Log", hint:"every choice, level by level", levels:genBuildLog()});
     return cards;
   }
-  /* Combat Mode block. Weapon attacks + class-feature moves are listed here;
-     the sheet injects prepared spells (by cast time) and the drawn-weapon set
-     at render time, so this only needs the groups + non-spell moves. */
-  function combatFeatureMove(m){ var mv={ label:m.label, ref:m.ref }; if(m.pool) mv.pool=m.pool; if(m.detail) mv.detail=m.detail; return mv; }
-  function genCombat(){
-    var cd=classData(), d=derive(), cc=CLASS_COMBAT[state.cls]||{}, groups=[];
-    var actionMoves=[];
-    state.weapons.forEach(function(id){ var w=CAT.weapons[id]; if(w && w.dmgDice) actionMoves.push({ label:"Attack — "+w.name, weapon:id }); });
-    (cc.action||[]).forEach(function(m){ if(featureReached(m.feature)) actionMoves.push(combatFeatureMove(m)); });
-    var actionMore=[{label:"Dash",gloss:"dash"},{label:"Disengage",gloss:"disengage"},{label:"Dodge",gloss:"dodge"},{label:"Hide",gloss:"hide"},{label:"Help",gloss:"help"},{label:"Search",gloss:"search"},{label:"Ready",gloss:"ready-action"}];
-    if(actionMoves.length || cd.spellAbility) groups.push({ cost:"Action", more:actionMore, moves:actionMoves });
-    var bonusMoves=[];
-    (cc.bonus||[]).forEach(function(m){ if(featureReached(m.feature)) bonusMoves.push(combatFeatureMove(m)); });
-    if(bonusMoves.length || cd.spellAbility) groups.push({ cost:"Bonus Action", moves:bonusMoves });
-    groups.push({ cost:"Movement", moves:[{ label:"Move", detail:"up to your Speed ("+d.speed+" ft)" }] });
-    var reactionMoves=[{ label:"Opportunity Attack", gloss:"opportunity-attack", detail:"one melee attack when a foe leaves your reach" }];
-    (cc.reaction||[]).forEach(function(m){ if(featureReached(m.feature)) reactionMoves.push(combatFeatureMove(m)); });
-    groups.push({ cost:"Reaction", reaction:true, moves:reactionMoves });
-    return { groups:groups };
-  }
+  /* Combat Mode is derived by the compile spine (deriveCombat) from weapons,
+     spellcasting, and features — not authored here. */
   function scaffold(){
     // pristine pass-through: unedited since load -> return the original verbatim
     if(state._orig && state._sig === editSig()) return JSON.parse(JSON.stringify(state._orig));
@@ -426,7 +402,7 @@
       studs: genStuds(), weapons: state.weapons.map(function(id){ var w={id:id,carried:true}, cat=CAT.weapons[id]||{}, ranged=(cat.props||[]).some(function(p){return /range|ammunition/.test(p);}), twoH=(cat.props||[]).indexOf("two-handed")>=0;
         if(state.choices.style==="archery" && ranged) w.atkBonus=2;
         if(state.choices.style==="dueling" && !ranged && !twoH) w.dmgBonus=2;
-        return w; }), cards: genCards(), combat: genCombat(),
+        return w; }), cards: genCards(),
       riderHead: (hr.riders.length && hr.head) ? hr.head : undefined,
       hitRiders: hr.riders.length ? hr.riders : undefined,
       build: buildBlock()

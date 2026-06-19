@@ -100,6 +100,41 @@ function effectsOf(sources, cat){
 }
 function hadKey(eff, k){ return eff.some(e => e[k] != null); }
 
+/* Combat Mode is derived, not authored: it falls out of the carried weapons,
+   the spellcasting ability, and the character's features (surfaced as pools).
+   The sheet still injects *prepared* spells (which change at runtime) by cast
+   time; this provides the static scaffold + always-on/free-cast moves. */
+const COMBAT_MOVES = {
+  actionsurge:     { cost:"Action",       label:"Action Surge",     detail:"take one extra action" },
+  channeldivinity: { cost:"Action",       label:"Channel Divinity", detail:"Divine Spark / Turn Undead" },
+  secondwind:      { cost:"Bonus Action", label:"Second Wind",      detail:"regain HP" },
+  stonecunning:    { cost:"Bonus Action", label:"Stonecunning",     detail:"tremorsense 60 ft for 10 min" },
+};
+const ANYTIME_MOVES = {
+  lucky:       [{ cost:"Reaction", label:"Lucky — impose Disadvantage", detail:"on an attack against you" },
+                { cost:"Anytime (a d20 Test)", label:"Lucky — gain Advantage", detail:"on your d20 Test" }],
+  inspiration: [{ cost:"Anytime (a d20 Test)", label:"Heroic Inspiration — reroll", detail:"keep either result" }],
+};
+const ACTION_MORE = [["Dash","dash"],["Disengage","disengage"],["Dodge","dodge"],["Hide","hide"],["Help","help"],["Search","search"],["Ready","ready-action"]].map(x => ({ label:x[0], gloss:x[1] }));
+function deriveCombat(c, cat){
+  const SPELLS = cat.spells || {}, pools = c.pools || {}, caster = !!c.spellcasting;
+  const by = { "Action":[], "Bonus Action":[], "Reaction":[], "Anytime (a d20 Test)":[] };
+  (c.weapons || []).filter(w => w.carried && w.dmgDice).forEach(w => by["Action"].push({ label:"Attack — "+w.name, weapon:w.id }));
+  for (const pid in pools){
+    const ref = pools[pid].ref;
+    if (SPELLS[ref]){ const sp = SPELLS[ref], cost = sp.cast || "Action"; if (by[cost]) by[cost].push({ label:"Cast "+sp.name, ref, spellLevel:sp.level, freePool:pid, detail:"free cast" }); }
+    else if (COMBAT_MOVES[ref]){ const m = COMBAT_MOVES[ref]; by[m.cost].push({ label:m.label, ref, pool:pid, detail:m.detail }); }
+    else if (ANYTIME_MOVES[ref]){ ANYTIME_MOVES[ref].forEach(m => by[m.cost].push({ label:m.label, ref, pool:pid, detail:m.detail })); }
+  }
+  const groups = [];
+  if (by["Action"].length || caster) groups.push({ cost:"Action", more: ACTION_MORE, moves: by["Action"] });
+  if (by["Bonus Action"].length || caster) groups.push({ cost:"Bonus Action", moves: by["Bonus Action"] });
+  groups.push({ cost:"Movement", moves:[{ label:"Move", detail:"up to your Speed ("+(c.speed||30)+" ft)" }] });
+  groups.push({ cost:"Reaction", reaction:true, moves:[{ label:"Opportunity Attack", gloss:"opportunity-attack", detail:"one melee attack when a foe leaves your reach" }].concat(by["Reaction"]) });
+  if (by["Anytime (a d20 Test)"].length) groups.push({ cost:"Anytime (a d20 Test)", moves: by["Anytime (a d20 Test)"] });
+  return { groups };
+}
+
 export function compile(input, cat){
   cat = cat || {};
   cat = { feats:cat.feats||{}, spells:cat.spells||{}, species:cat.species||{}, backgrounds:cat.backgrounds||{}, weapons:cat.weapons||{}, armor:cat.armor||{}, classFeatures:cat.classFeatures||{} };
@@ -194,6 +229,7 @@ export function compile(input, cat){
       c.ref[id] = Object.assign(ref, c.ref[id] || {});
     }
   }
+  c.combat = c.combat || deriveCombat(c, cat);   // authored block wins; otherwise derive
   return c;
 }
 
