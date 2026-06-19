@@ -51,9 +51,6 @@
     },
     "Deft Explorer": {
       "refId": "deftexplorer",
-      "effects": {
-        "languages": 2
-      },
       "ref": {
         "title": "Deft Explorer",
         "chips": [

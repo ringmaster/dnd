@@ -15,6 +15,7 @@
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
     skills:[], originFeat:"", asis:{}, masteries:[], cantrips:[], prepared:[],
     equipment:[],          // unified inventory: {kind:'weapon'|'armor'|'shield'|'item', id?, name}
+    languages:[],          // known languages (resolved, not "choices")
     choices:{ style:"", expertise:"", order:"", skillful:"" },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
@@ -272,7 +273,7 @@
     if(ch.ac && ch.ac.shield) state.equipment.push({kind:"shield", name:"Shield"});
     var invCard=(ch.cards||[]).find(function(c){ return c && c.type==="inventory"; });
     if(invCard && Array.isArray(invCard.items)) invCard.items.forEach(function(it){ if(it && it.name && !gearNames[baseName(it.name)]) state.equipment.push({kind:"item", name:it.name, tag:it.tag}); });
-    state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[];
+    state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[]; state.languages=[];
     state.choices={style:"",expertise:"",order:"",skillful:""};
     (b.sources||[]).forEach(function(s){
       var id=s.id||"", eff=s.effects||{};
@@ -285,12 +286,13 @@
           else state.asis[lv]={mode:"asi11",a:k[0],b:k[1]||k[0]}; } }
       else if(s.grantsFeat) state.originFeat=s.grantsFeat;   // extra origin feat (Human Versatile, etc.) however it's tagged
       if(id==="fighting-style" && s.name){ var fm=/Fighting Style:\s*(.+)$/.exec(s.name); if(fm){ var st=FIGHTING_STYLES.filter(function(x){return x.name===fm[1].trim();})[0]; if(st) state.choices.style=st.id; } }
-      if(id==="expertise" && eff.expertise) state.choices.expertise=eff.expertise[0];
+      if(eff.expertise) state.choices.expertise=eff.expertise[0];   // from Deft Explorer / Scholar / however tagged
       if(eff.skills && id===speciesSkillTrait()) state.choices.skillful=eff.skills[0];   // Human Skillful's chosen skill
       if(id==="divine-order" && s.name) state.choices.order=/Thaumaturge/i.test(s.name)?"thaumaturge":"protector";
-      if(id==="spellcasting" && eff.spellcasting){ var spc=eff.spellcasting;
+      if(eff.spellcasting){ var spc=eff.spellcasting;   // spellcasting source, however its id is tagged (e.g. ranger-spellcasting)
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
         if(spc.prepared && spc.prepared.default) state.prepared=spc.prepared.default.slice(); }
+      if(Array.isArray(eff.language)) state.languages=eff.language.slice();   // known languages, resolved
     });
     // Fighting Style is carried in ac.style (a derived AC bonus), not a source — recover it from the label
     if(!state.choices.style && ch.ac && ch.ac.style && ch.ac.style.label){
@@ -324,7 +326,7 @@
   function editSig(){
     return JSON.stringify([ state.name, state.species, state.cls, state.subclass, state.background, state.level,
       state.base, state.skills, state.equipment, state.originFeat, state.asis,
-      state.masteries, state.cantrips, state.prepared, state.choices, state.bio, state.customs ]);
+      state.masteries, state.cantrips, state.prepared, state.languages, state.choices, state.bio, state.customs ]);
   }
   /* Capture the things the builder genuinely doesn't model, so they're not
      lost once the character is edited: unknown top-level fields (e.g. combat,
@@ -363,6 +365,7 @@
     var sources = [];
     sources.push({ id:state.background, name:"Background: "+(CAT.backgrounds[state.background]||{}).name, include:"background:"+state.background });
     if(state.skills.length) sources.push({ id:state.cls+"-skills", name:(cd.name||state.cls)+" skills", effects:{ skills: state.skills.slice() } });
+    if(state.languages.length) sources.push({ id:"languages", name:"Languages", effects:{ language: state.languages.slice() } });
     var sp = CAT.species[state.species];
     if(sp) Object.keys(sp.traits).forEach(function(tr){ var src={ id:tr, name:(sp.name+": "+sp.traits[tr].name), include:"species:"+state.species+":"+tr };
       if(sp.traits[tr].grantsSkill && state.choices.skillful) src.effects={ skills:[state.choices.skillful] };   // Human Skillful's chosen skill
@@ -698,6 +701,9 @@
       ]));
     });
     skillCard.appendChild(skillList);
+    var langInput = el("input",{class:"binput", placeholder:"e.g. Common, Elvish, Dwarvish", oninput:function(e){ state.languages=e.target.value.split(",").map(function(s){return s.trim();}).filter(Boolean); refreshOut(); }});
+    langInput.value = state.languages.join(", ");
+    skillCard.appendChild(field("Languages", langInput, "Known languages, comma-separated."));
 
     // origin feat (level 1): every background grants one (shown read-only); only
     // species with the Versatile trait (Human) grant a second, selectable one

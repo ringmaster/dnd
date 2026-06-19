@@ -31,6 +31,8 @@ jobs:
           node-version: 24
       - name: Check effects compile to golden
         run: node src/builder/compile.mjs --check src/builder/golden.json src/characters/*.json
+      - name: Builder round-trip (pristine + edited) preserves every character
+        run: node src/builder/roundtrip.mjs
       - name: Build character sheets
         run: node src/build.mjs
       - name: Install image-generation deps
