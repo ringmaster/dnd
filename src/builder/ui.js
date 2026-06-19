@@ -15,13 +15,22 @@
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
     skills:[], armor:"", shield:false, originFeat:"", asis:{}, weapons:[], masteries:[], cantrips:[], prepared:[],
     choices:{ style:"", expertise:"", order:"" },
+    bio:"",               // Background-card story text (paragraphs separated by blank lines)
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
   };
   /* top-level keys the builder owns/regenerates; everything else on a loaded
-     character is captured as a custom "root" element so it survives round-trip */
-  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,build:1,identity:1};
+     character is captured as a custom "root" element so it survives round-trip.
+     `ref` is here because compile() auto-generates the reference modals from the
+     build sources; `combat` because the builder now generates a combat block. */
+  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1};
   /* card types the builder generates; loaded cards of any other type are kept as custom "card" elements */
-  var MANAGED_CARDS = {abilities:1,hitpoints:1,attacks:1,spellcasting:1,skills:1,pools:1,inventory:1,features:1,buildlog:1};
+  var MANAGED_CARDS = {abilities:1,hitpoints:1,attacks:1,spellcasting:1,skills:1,pools:1,inventory:1,features:1,background:1,buildlog:1};
+  /* class features that surface as Combat-Mode moves (besides weapons + spells) */
+  var CLASS_COMBAT = {
+    fighter: { action:[{feature:"Action Surge", label:"Action Surge", ref:"actionsurge", pool:"as", detail:"take one extra action"}],
+               bonus:[{feature:"Second Wind", label:"Second Wind", ref:"secondwind", pool:"sw", detail:"regain HP"}] },
+    cleric:  { action:[{feature:"Channel Divinity", label:"Channel Divinity", ref:"channeldivinity", pool:"cd", detail:"Divine Spark / Turn Undead"}] }
+  };
   var CUSTOM_KINDS = {root:"Top-level field", source:"Build source / feature", card:"Card"};
   var FIGHTING_STYLES=[
     {id:"archery", name:"Archery", note:"+2 to ranged weapon attack rolls"},
@@ -207,6 +216,8 @@
     if(b.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}; ABIL.forEach(function(a){ if(b.abilities[a]!=null) base[a]=b.abilities[a]; }); state.base=base; }
     state.weapons = (ch.weapons||[]).map(function(w){ return typeof w==="string"?w:w.id; });
     state.masteries = (ch.masteryDefault||[]).slice();
+    var bgCard = (ch.cards||[]).find(function(c){ return c && c.type==="background"; });
+    state.bio = (bgCard && bgCard.paras) ? bgCard.paras.join("\n\n") : "";
     state.armor = (ch.ac && (typeof ch.ac.armor==="string"?ch.ac.armor:(ch.ac.armor&&ch.ac.armor.id))) || "";
     state.shield = !!(ch.ac && ch.ac.shield);
     state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[];
@@ -240,7 +251,7 @@
   function editSig(){
     return JSON.stringify([ state.name, state.species, state.cls, state.subclass, state.background, state.level,
       state.base, state.skills, state.armor, state.shield, state.originFeat, state.asis,
-      state.weapons, state.masteries, state.cantrips, state.prepared, state.choices, state.customs ]);
+      state.weapons, state.masteries, state.cantrips, state.prepared, state.choices, state.bio, state.customs ]);
   }
   /* Capture the things the builder genuinely doesn't model, so they're not
      lost once the character is edited: unknown top-level fields (e.g. combat,
@@ -342,6 +353,11 @@
     });
     return Object.keys(byLevel).map(Number).sort(function(a,b){return a-b;}).map(function(l){ return {title:"Level "+l, tag:cd.name||"", items:byLevel[l]}; });
   }
+  function bgHint(){
+    var parts=[ (CAT.species[state.species]||{}).name, (CAT.backgrounds[state.background]||{}).name ];
+    if(state.level>=3 && state.subclass) parts.push((CAT.subclasses[state.subclass]||{}).name);
+    return parts.filter(Boolean).join(" · ");
+  }
   function genCards(){
     var cd=classData(), cards=[ {type:"abilities"}, {type:"hitpoints"}, {type:"attacks"} ];
     if(cd.spellAbility) cards.push({type:"spellcasting"});
@@ -349,8 +365,29 @@
     cards.push({type:"pools", title:"Resources", pools:"*"});
     if(state.weapons.length) cards.push({type:"inventory", items:[]});
     var feats=featureList(); if(feats.length) cards.push({type:"features", title:"Features & Traits", list:feats});
+    if(state.bio && state.bio.trim()) cards.push({ type:"background", hint:bgHint(), paras:state.bio.split(/\n\s*\n/).map(function(p){return p.trim();}).filter(Boolean) });
     cards.push({type:"buildlog", title:"Build Log", hint:"every choice, level by level", levels:genBuildLog()});
     return cards;
+  }
+  /* Combat Mode block. Weapon attacks + class-feature moves are listed here;
+     the sheet injects prepared spells (by cast time) and the drawn-weapon set
+     at render time, so this only needs the groups + non-spell moves. */
+  function combatFeatureMove(m){ var mv={ label:m.label, ref:m.ref }; if(m.pool) mv.pool=m.pool; if(m.detail) mv.detail=m.detail; return mv; }
+  function genCombat(){
+    var cd=classData(), d=derive(), cc=CLASS_COMBAT[state.cls]||{}, groups=[];
+    var actionMoves=[];
+    state.weapons.forEach(function(id){ var w=CAT.weapons[id]; if(w && w.dmgDice) actionMoves.push({ label:"Attack — "+w.name, weapon:id }); });
+    (cc.action||[]).forEach(function(m){ if(featureReached(m.feature)) actionMoves.push(combatFeatureMove(m)); });
+    var actionMore=[{label:"Dash",gloss:"dash"},{label:"Disengage",gloss:"disengage"},{label:"Dodge",gloss:"dodge"},{label:"Hide",gloss:"hide"},{label:"Help",gloss:"help"},{label:"Search",gloss:"search"},{label:"Ready",gloss:"ready-action"}];
+    if(actionMoves.length || cd.spellAbility) groups.push({ cost:"Action", more:actionMore, moves:actionMoves });
+    var bonusMoves=[];
+    (cc.bonus||[]).forEach(function(m){ if(featureReached(m.feature)) bonusMoves.push(combatFeatureMove(m)); });
+    if(bonusMoves.length || cd.spellAbility) groups.push({ cost:"Bonus Action", moves:bonusMoves });
+    groups.push({ cost:"Movement", moves:[{ label:"Move", detail:"up to your Speed ("+d.speed+" ft)" }] });
+    var reactionMoves=[{ label:"Opportunity Attack", gloss:"opportunity-attack", detail:"one melee attack when a foe leaves your reach" }];
+    (cc.reaction||[]).forEach(function(m){ if(featureReached(m.feature)) reactionMoves.push(combatFeatureMove(m)); });
+    groups.push({ cost:"Reaction", reaction:true, moves:reactionMoves });
+    return { groups:groups };
   }
   function scaffold(){
     // pristine pass-through: unedited since load -> return the original verbatim
@@ -372,7 +409,7 @@
       studs: genStuds(), weapons: state.weapons.map(function(id){ var w={id:id,carried:true}, cat=CAT.weapons[id]||{}, ranged=(cat.props||[]).some(function(p){return /range|ammunition/.test(p);}), twoH=(cat.props||[]).indexOf("two-handed")>=0;
         if(state.choices.style==="archery" && ranged) w.atkBonus=2;
         if(state.choices.style==="dueling" && !ranged && !twoH) w.dmgBonus=2;
-        return w; }), cards: genCards(),
+        return w; }), cards: genCards(), combat: genCombat(),
       riderHead: (hr.riders.length && hr.head) ? hr.head : undefined,
       hitRiders: hr.riders.length ? hr.riders : undefined,
       build: buildBlock()
@@ -621,6 +658,13 @@
     if(featureReached("Divine Order")) choiceFields.push(selField("Divine Order", state.choices.order, [["","— choose —"],["protector","Protector — martial weapons & heavy armor"],["thaumaturge","Thaumaturge — extra cantrip & Arcana bonus"]], function(v){ state.choices.order=v; render(); }));
     if(choiceFields.length) choiceCard=el("div",{class:"bcard"},[el("h2",{text:"Feature Choices"})].concat(choiceFields));
 
+    // background story -> the sheet's Background card
+    var bioTa = el("textarea",{class:"bout", rows:"7", oninput:function(e){ state.bio=e.target.value; refreshOut(); }});
+    bioTa.value = state.bio || "";
+    var bioCard = el("div",{class:"bcard"},[ el("h2",{text:"Background Story"}),
+      el("div",{class:"bsub",text:"Bio for the sheet's Background card ("+(bgHint())+"). Separate paragraphs with a blank line. Leave empty to omit the card."}),
+      bioTa ]);
+
     // custom elements: anything the builder doesn't model, kept structured + round-tripped
     var customCard = el("div",{class:"bcard"},[ el("h2",{text:"Custom Elements"}),
       el("div",{class:"bsub",text:"Things the builder doesn't model — captured on load (e.g. combat, ref, a Background card) and preserved through the round trip. Edit the JSON here, or add your own ad hoc."}) ]);
@@ -654,7 +698,7 @@
         r.readAsText(f); }})
     ]);
 
-    root.appendChild(el("div",{class:"bcol"},[loadCard, core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, choiceCard, advCard, customCard].filter(Boolean)));
+    root.appendChild(el("div",{class:"bcol"},[loadCard, core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, choiceCard, advCard, bioCard, customCard].filter(Boolean)));
     root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
     refreshOut();
   }
