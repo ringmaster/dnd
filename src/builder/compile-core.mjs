@@ -132,7 +132,8 @@ function deriveCombat(c, cat){
   groups.push({ cost:"Movement", moves:[{ label:"Move", detail:"up to your Speed ("+(c.speed||30)+" ft)" }] });
   groups.push({ cost:"Reaction", reaction:true, moves:[{ label:"Opportunity Attack", gloss:"opportunity-attack", detail:"one melee attack when a foe leaves your reach" }].concat(by["Reaction"]) });
   if (by["Anytime (a d20 Test)"].length) groups.push({ cost:"Anytime (a d20 Test)", moves: by["Anytime (a d20 Test)"] });
-  return { groups };
+  const note = "Your turn: <b>Move</b> up to your Speed, take <b>one Action</b>, and <b>one Bonus Action</b>. You also get one <button class=\"gloss-term\" data-gloss=\"reaction\" type=\"button\">Reaction</button>, used when its trigger happens (often on someone else’s turn).";
+  return { note, groups };
 }
 
 export function compile(input, cat){
