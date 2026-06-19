@@ -221,6 +221,16 @@ ${styles}
   .eq-res:last-child{border-bottom:none}
   .eq-res:hover,.eq-res:focus{background:#1a1f29}
   .eq-rname{flex:1}
+  .skill-list{display:flex;flex-direction:column;gap:.1rem;margin-top:.5rem}
+  .skill-row{display:flex;align-items:center;gap:.6rem;padding:.3rem .45rem;border-radius:6px;cursor:default}
+  .skill-row.on{background:rgba(224,164,88,.09)}
+  .skill-row.na{opacity:.5}
+  .sk-cb{width:16px;height:16px;accent-color:var(--ember);cursor:pointer}
+  .sk-chit{width:16px;text-align:center;color:var(--ember-bright)}
+  .sk-na{width:16px;text-align:center;color:var(--iron-light)}
+  .sk-name{flex:1;color:var(--bone)}
+  .sk-ab{font-family:"Cinzel",serif;font-size:.66rem;letter-spacing:.05em;color:var(--ash)}
+  .skill-row:not(.na){cursor:pointer}
 </style>
 </head>
 <body>

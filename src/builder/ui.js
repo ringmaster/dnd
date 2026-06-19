@@ -97,6 +97,19 @@
     state.skills.forEach(function(s){ if(!set[s]) set[s]="class"; });
     return set;
   }
+  /* skills proficiency is auto-granted (locked) — not a class choice — by the
+     background, a species trait, a class feature, or a subclass grant */
+  function autoSkills(){
+    var set={};
+    function add(skills, label){ (skills||[]).forEach(function(s){ if(!set[s]) set[s]=label; }); }
+    var bg=CAT.backgrounds[state.background]; if(bg&&bg.effects) add(bg.effects.skills, "background");
+    var sp=CAT.species[state.species];
+    if(sp) Object.keys(sp.traits||{}).forEach(function(tr){ var t=sp.traits[tr]; if(t.effects) add(t.effects.skills, sp.name); });
+    var cf=(CAT.classFeatures||{})[state.cls]||{}, fbl=classData().featuresByLevel||{};
+    for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ var f=cf[name]; if(f&&f.effects) add(f.effects.skills, name); });
+    subclassGrants().forEach(function(g){ if(g.effects) add(g.effects.skills, (CAT.subclasses[state.subclass]||{}).name||"subclass"); });
+    return set;
+  }
   function derive(){
     var sc = finalScores(), pb = pbForLevel(state.level), cd = classData();
     var d = { scores:sc, pb:pb, mods:{} };
@@ -650,28 +663,33 @@
       el("div",{class:"bsub",text:"Background adds "+(Object.keys(inc).map(function(k){return fmt(inc[k])+" "+k;}).join(", ")||"nothing")+". Optimize assigns your current values to the best stats for the class."}),
       arrayRow ].concat(abilRows));
 
-    // skills
+    // skills — sheet-like list: ● locked chits for granted skills, checkboxes for class choices
     var skillCard = el("div",{class:"bcard"},[ el("h2",{text:"Skills"}) ]);
-    var granted = grantedSkills();
-    if(bg && bg.effects && bg.effects.skills) skillCard.appendChild(el("div",{class:"bsub",text:"Background grants: "+bg.effects.skills.join(", ")}));
-    if(cd.skillChoices){
-      var chosen = state.skills.length, max=cd.skillChoices.count;
-      skillCard.appendChild(el("div",{class:"bsub",text:"Choose "+max+" class skills ("+chosen+"/"+max+"):"}));
-      var wrap=el("div",{class:"bchips"});
-      cd.skillChoices.from.forEach(function(s){
-        var isBg = bg && bg.effects && bg.effects.skills && bg.effects.skills.indexOf(s)>=0;
-        var on = state.skills.indexOf(s)>=0;
-        var b=el("button",{class:"bchip"+(on?" on":"")+(isBg?" dim":""), type:"button", text:s+" ("+SKILL_ABIL[s]+")", onclick:function(){
-          if(isBg) return;
-          var i=state.skills.indexOf(s);
-          if(i>=0) state.skills.splice(i,1);
-          else { if(state.skills.length>=max){ return; } state.skills.push(s); }
+    var auto = autoSkills();
+    var classFrom = (cd.skillChoices && cd.skillChoices.from) || [];
+    var max = cd.skillChoices ? cd.skillChoices.count : 0;
+    var pickedCount = state.skills.filter(function(s){ return !auto[s]; }).length;
+    var subBits=[]; var bgsk=(bg&&bg.effects&&bg.effects.skills)||[];
+    if(bgsk.length) subBits.push("● granted skills are locked");
+    if(max) subBits.push("choose "+max+" class skill"+(max>1?"s":"")+" ("+pickedCount+"/"+max+")");
+    skillCard.appendChild(el("div",{class:"bsub",text: subBits.join(" · ")||"No skill choices for this build."}));
+    var skillList = el("div",{class:"skill-list"});
+    Object.keys(SKILL_ABIL).sort().forEach(function(sk){
+      var locked=auto[sk], canChoose=classFrom.indexOf(sk)>=0, chosen=state.skills.indexOf(sk)>=0, on=!!locked||chosen;
+      var ctrl;
+      if(locked){ ctrl=el("span",{class:"sk-chit", title:"From "+locked, text:"●"}); }
+      else if(canChoose){ ctrl=el("input",{type:"checkbox", class:"sk-cb", checked:chosen?"checked":null, onchange:function(e){
+          var i=state.skills.indexOf(sk);
+          if(e.target.checked){ if(i<0){ if(pickedCount>=max){ e.target.checked=false; return; } state.skills.push(sk); } }
+          else if(i>=0) state.skills.splice(i,1);
           render();
-        }});
-        wrap.appendChild(b);
-      });
-      skillCard.appendChild(wrap);
-    }
+        }}); }
+      else { ctrl=el("span",{class:"sk-na", text:"·"}); }
+      skillList.appendChild(el("label",{class:"skill-row"+(on?" on":"")+(!locked&&!canChoose?" na":"")},[
+        ctrl, el("span",{class:"sk-name",text:sk}), el("span",{class:"sk-ab",text:SKILL_ABIL[sk]})
+      ]));
+    });
+    skillCard.appendChild(skillList);
 
     // origin feat (level 1)
     var featCard = el("div",{class:"bcard"},[ el("h2",{text:"Origin Feat"}) ]);
