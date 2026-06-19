@@ -215,6 +215,12 @@ ${styles}
   .eq-weapon{color:var(--ember-bright);border-color:var(--ember)}
   .eq-armor,.eq-shield{color:#86b6d6;border-color:#3a5a72}
   .eq-name{flex:1;color:var(--bone)}
+  .eq-search{position:relative}
+  .eq-results{position:absolute;left:0;right:0;top:100%;z-index:20;margin-top:.2rem;background:#0e1014;border:1px solid var(--iron-light);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.55);max-height:18rem;overflow:auto}
+  .eq-res{display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;background:transparent;border:none;border-bottom:1px solid var(--iron);padding:.5rem .6rem;cursor:pointer;color:var(--bone);font-size:.85rem}
+  .eq-res:last-child{border-bottom:none}
+  .eq-res:hover,.eq-res:focus{background:#1a1f29}
+  .eq-rname{flex:1}
 </style>
 </head>
 <body>

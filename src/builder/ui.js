@@ -184,9 +184,24 @@
   }
   function featureList(){
     var cd=classData(), fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[state.cls]||{}, out=[];
+    // class features by level
     for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(name==="Ability Score Improvement"||/Subclass$/.test(name)) return; out.push({ ref:(cf[name]&&cf[name].refId)||"", name:name, sub:"Level "+l }); });
+    // subclass grants
     var scName=(CAT.subclasses[state.subclass]||{}).name||"";
     subclassGrants().forEach(function(g){ out.push({ ref:g.id, name:g.name, sub:scName }); });
+    // species traits
+    var sp=CAT.species[state.species];
+    if(sp) Object.keys(sp.traits||{}).forEach(function(tr){ out.push({ ref:tr, name:sp.traits[tr].name, sub:sp.name }); });
+    // background, and the origin feat it grants
+    var bg=CAT.backgrounds[state.background];
+    if(bg){ out.push({ ref:state.background, name:"Background: "+bg.name, sub:"" });
+      if(bg.grantsFeat) out.push({ ref:bg.grantsFeat, name:featName(bg.grantsFeat), sub:bg.name+" origin feat" }); }
+    // extra origin feat (Human Versatile, etc.)
+    if(state.originFeat) out.push({ ref:state.originFeat, name:featName(state.originFeat), sub:"Origin feat" });
+    // ASIs: feats and ability bumps
+    reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return;
+      if(a.mode==="feat" && a.feat) out.push({ ref:a.feat, name:featName(a.feat), sub:"Level "+l+" feat" });
+      else out.push({ ref:"", name:"Ability Score Improvement", sub:"Level "+l }); });
     return out;
   }
 
@@ -535,15 +550,25 @@
     Object.keys(CAT.weapons).forEach(function(id){ EQ_OPTS.push({label:CAT.weapons[id].name, kind:"weapon", id:id}); });
     Object.keys(CAT.armor).filter(function(k){return k!=="magearmor";}).forEach(function(id){ EQ_OPTS.push({label:CAT.armor[id].label, kind:"armor", id:id}); });
     EQ_OPTS.push({label:"Shield", kind:"shield"});
-    var eqInput = el("input",{class:"binput", list:"eqdatalist", placeholder:"Add weapon, armor, shield, or supply…", autocomplete:"off"});
-    function addEquip(){
-      var v=(eqInput.value||"").trim(); if(!v) return;
-      var m=EQ_OPTS.filter(function(o){ return o.label.toLowerCase()===v.toLowerCase(); })[0];
-      if(m && m.kind==="shield" && eqHasShield()){ eqInput.value=""; return; }
-      state.equipment.push(m ? {kind:m.kind, id:m.id, name:m.label} : {kind:"item", name:v});
-      eqInput.value=""; render();
+    var eqInput = el("input",{class:"binput", placeholder:"Search weapons, armor, shields, supplies…", autocomplete:"off"});
+    var eqResults = el("div",{class:"eq-results"}); eqResults.style.display="none";
+    function addEquipItem(o){
+      if(o.kind==="shield" && eqHasShield()){ eqInput.value=""; eqResults.style.display="none"; return; }
+      state.equipment.push(o.id ? {kind:o.kind, id:o.id, name:o.label} : {kind:"item", name:o.label});
+      render();
     }
-    eqInput.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); addEquip(); } });
+    function showEqResults(){
+      var q=(eqInput.value||"").trim().toLowerCase(); eqResults.innerHTML="";
+      if(!q){ eqResults.style.display="none"; return; }
+      var matches=EQ_OPTS.filter(function(o){ return o.label.toLowerCase().indexOf(q)>=0; });
+      matches.sort(function(a,b){ var as=a.label.toLowerCase().indexOf(q)===0?0:1, bs=b.label.toLowerCase().indexOf(q)===0?0:1; return as!==bs?as-bs:a.label.localeCompare(b.label); });
+      matches.slice(0,8).forEach(function(o){ eqResults.appendChild(el("button",{class:"eq-res", type:"button", onclick:function(){ addEquipItem(o); }},[ el("span",{class:"eq-kind eq-"+o.kind, text:o.kind}), el("span",{class:"eq-rname", text:o.label}) ])); });
+      var typed=eqInput.value.trim();
+      eqResults.appendChild(el("button",{class:"eq-res", type:"button", onclick:function(){ addEquipItem({kind:"item", label:typed}); }},[ el("span",{class:"eq-kind eq-item", text:"supply"}), el("span",{class:"eq-rname", text:'Add “'+typed+'” as a supply'}) ]));
+      eqResults.style.display="block";
+    }
+    eqInput.addEventListener("input", showEqResults);
+    eqInput.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); var q=eqInput.value.trim(); if(!q) return; var m=EQ_OPTS.filter(function(o){ return o.label.toLowerCase()===q.toLowerCase(); })[0]; addEquipItem(m||{kind:"item", label:q}); } });
     var eqList = el("div",{class:"eq-list"});
     if(!state.equipment.length) eqList.appendChild(el("div",{class:"bf-h",text:"No equipment yet — add weapons, armor, and supplies above."}));
     state.equipment.forEach(function(e, idx){
@@ -555,8 +580,7 @@
     });
     var equipCard = el("div",{class:"bcard"},[ el("h2",{text:"Equipment"}),
       el("div",{class:"bsub",text:"Weapons, armor, shields, and supplies the character owns. Which armor is worn and which weapons are drawn is decided on the sheet (AC and attacks are derived there)."}),
-      el("div",{class:"brow2"},[ eqInput, el("button",{class:"bbtn tiny ember", type:"button", text:"Add", onclick:addEquip}) ]),
-      el("datalist",{id:"eqdatalist"}, EQ_OPTS.map(function(o){ return el("option",{value:o.label}); })),
+      el("div",{class:"eq-search"},[ eqInput, eqResults ]),
       eqList
     ]);
 
