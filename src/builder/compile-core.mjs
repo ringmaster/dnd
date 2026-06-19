@@ -108,6 +108,9 @@ export function compile(input, cat){
   if (Array.isArray(c.weapons)) c.weapons = c.weapons.map(w => mergeWeapon(w, cat));
   if (c.ac && typeof c.ac.armor === "string"){ const id = c.ac.armor; c.ac.armor = Object.assign({ id }, ARMOR[id]); }
   if (c.ac && Array.isArray(c.ac.armory)) c.ac.armory = c.ac.armory.map(x => typeof x === "string" ? Object.assign({ id:x }, ARMOR[x]) : x);
+  // stamp explicit identity so a compiled (build-stripped) character still
+  // names its class/species/subclass — never inferred from stats
+  if (c.build) c.identity = { species: c.build.species || null, class: c.build.class || null, subclass: c.build.subclass || null, background: c.build.background || null };
   const sources = expandGrants((c.build && c.build.sources) || [], cat);
   if (!sources.length) return c;
   const eff = effectsOf(sources, cat);

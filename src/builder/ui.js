@@ -19,7 +19,7 @@
   };
   /* top-level keys the builder owns/regenerates; everything else on a loaded
      character is captured as a custom "root" element so it survives round-trip */
-  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,build:1};
+  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,build:1,identity:1};
   /* card types the builder generates; loaded cards of any other type are kept as custom "card" elements */
   var MANAGED_CARDS = {abilities:1,hitpoints:1,attacks:1,spellcasting:1,skills:1,pools:1,inventory:1,features:1,buildlog:1};
   var CUSTOM_KINDS = {root:"Top-level field", source:"Build source / feature", card:"Card"};
@@ -193,38 +193,17 @@
   }
 
   /* ----- round-trip: rebuild form state from an existing character JSON ----- */
-  /* Compiled characters (loaded without a build block) don't name their class/
-     species/subclass, so infer them from telltale fields rather than silently
-     defaulting to Ranger/Human. */
-  function inferClass(ch){
-    var saves=(ch.saves||[]).slice().sort().join(","), hd=ch.hitDie;
-    var both="", saveOnly="";
-    for(var k in CAT.classes){ var cd=CAT.classes[k], cs=(cd.saves||[]).slice().sort().join(",");
-      if(cs===saves){ saveOnly=saveOnly||k; if(cd.hitDie===hd) both=both||k; } }
-    return both || saveOnly || "";
-  }
-  function inferSpecies(ch){
-    var sp=String(ch.subtitle||"").split(" · ")[0].trim().toLowerCase();
-    for(var k in CAT.species){ if((CAT.species[k].name||"").toLowerCase()===sp) return k; }
-    return "";
-  }
-  function inferSubclass(ch, cls){
-    var sub=(CAT.classes[cls]||{}).subclasses||[], hay=String(ch.subtitle||"").toLowerCase();
-    for(var i=0;i<sub.length;i++){ var nm=((CAT.subclasses[sub[i]]||{}).name||"").toLowerCase(); if(!nm) continue;
-      if(hay.indexOf(nm)>=0) return sub[i];                                   // full name (e.g. "Fey Wanderer")
-      var first=nm.split(" ")[0]; if(first.length>=3 && hay.indexOf(first)>=0) return sub[i]; // e.g. "Life Domain" vs "Life Cleric"
-    }
-    return "";
-  }
   function loadState(ch){
     if(!ch || typeof ch!=="object") return false;
-    var b=ch.build||{};
+    // identity is read explicitly: from the build block (source files) or the
+    // compiled `identity` stamp (build-stripped sheets) — never inferred.
+    var b=ch.build||{}, id=ch.identity||{};
     state.name = ch.name || state.name;
     state.level = ch.level || b.level || state.level;
-    state.species = b.species || inferSpecies(ch) || state.species;
-    state.cls = b.class || inferClass(ch) || state.cls;
-    state.subclass = b.subclass || inferSubclass(ch, state.cls) || "";
-    state.background = b.background || state.background;
+    state.species = b.species || id.species || state.species;
+    state.cls = b.class || id.class || state.cls;
+    state.subclass = b.subclass || id.subclass || "";
+    state.background = b.background || id.background || state.background;
     if(b.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}; ABIL.forEach(function(a){ if(b.abilities[a]!=null) base[a]=b.abilities[a]; }); state.base=base; }
     state.weapons = (ch.weapons||[]).map(function(w){ return typeof w==="string"?w:w.id; });
     state.masteries = (ch.masteryDefault||[]).slice();
