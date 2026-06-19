@@ -129,7 +129,7 @@
     var slots=spellSlotsFor(); if(slots) sc.slots=slots;
     if(state.cantrips.length) sc.cantrips=state.cantrips.map(function(id){ return { ref:id, name:CAT.spells[id].name, sub:spellSub(CAT.spells[id]) }; });
     var pc=preparedCount();
-    if(pc) sc.prepared={ max:pc, default:state.prepared.slice(), catalog:classLeveledSpells().map(function(id){ return { id:id, name:CAT.spells[id].name, note:spellSub(CAT.spells[id]), level:CAT.spells[id].level }; }) };
+    if(pc) sc.prepared={ max:pc, default:state.prepared.slice(), catalog:classLeveledSpells().map(function(id){ var c={ id:id, name:CAT.spells[id].name, note:spellSub(CAT.spells[id]), level:CAT.spells[id].level }; if(CAT.spells[id].cast) c.cast=CAT.spells[id].cast; return c; }) };
     return sc;
   }
   function classFeatureSources(){
@@ -163,6 +163,63 @@
     var scName=(CAT.subclasses[state.subclass]||{}).name||"";
     subclassGrants().forEach(function(g){ out.push({ ref:g.id, name:g.name, sub:scName }); });
     return out;
+  }
+
+  /* ----- on-hit damage riders (Dreadful Strikes, maneuvers, Hunter's Mark) ----- */
+  function maneuverDC(){ var d=derive(); return 8 + d.pb + Math.max(d.mods.STR, d.mods.DEX); }
+  function hitRiderData(){
+    var riders=[], head=null, dc=maneuverDC();
+    function subDC(s){ return s==null ? s : String(s).replace(/\{dc\}/g, dc); }
+    function take(src){ if(!src) return; if(src.riderHead) head=src.riderHead;
+      (src.hitRiders||[]).forEach(function(r){ var rr=Object.assign({}, r); if(rr.note) rr.note=subDC(rr.note); if(rr.offNote) rr.offNote=subDC(rr.offNote); riders.push(rr); }); }
+    var cf=(CAT.classFeatures||{})[state.cls]||{}, fbl=classData().featuresByLevel||{};
+    for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ take(cf[name]); });
+    subclassGrants().forEach(take);
+    return { head:head, riders:riders };
+  }
+  /* a plain-language note for ability-check bonuses (e.g. Otherworldly Glamour) */
+  function checkModNote(){
+    var notes=[];
+    subclassGrants().forEach(function(g){ var cb=g.effects&&g.effects.checkBonus; if(!cb) return;
+      Object.keys(cb).forEach(function(tgt){ var src=String(cb[tgt]).replace(/Mod$/,"").toUpperCase(); if(ABIL_NAME[src]&&ABIL_NAME[tgt]) notes.push(g.name+": add your "+ABIL_NAME[src]+" modifier to all "+ABIL_NAME[tgt]+" checks."); }); });
+    return notes.join(" ");
+  }
+
+  /* ----- round-trip: rebuild form state from an existing character JSON ----- */
+  function loadState(ch){
+    if(!ch || typeof ch!=="object") return false;
+    var b=ch.build||{};
+    state.name = ch.name || state.name;
+    state.level = ch.level || b.level || state.level;
+    state.species = b.species || state.species;
+    state.cls = b.class || state.cls;
+    state.subclass = b.subclass || "";
+    state.background = b.background || state.background;
+    if(b.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}; ABIL.forEach(function(a){ if(b.abilities[a]!=null) base[a]=b.abilities[a]; }); state.base=base; }
+    state.weapons = (ch.weapons||[]).map(function(w){ return typeof w==="string"?w:w.id; });
+    state.masteries = (ch.masteryDefault||[]).slice();
+    state.armor = (ch.ac && (typeof ch.ac.armor==="string"?ch.ac.armor:(ch.ac.armor&&ch.ac.armor.id))) || "";
+    state.shield = !!(ch.ac && ch.ac.shield);
+    state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[];
+    state.choices={style:"",expertise:"",order:""};
+    (b.sources||[]).forEach(function(s){
+      var id=s.id||"", eff=s.effects||{};
+      if(/-skills$/.test(id) && eff.skills) state.skills=eff.skills.slice();
+      var am=/^asi-(\d+)$/.exec(id);
+      if(am){ var lv=+am[1];
+        if(s.grantsFeat) state.asis[lv]={mode:"feat",feat:s.grantsFeat};
+        else if(eff.abilityIncrease){ var k=Object.keys(eff.abilityIncrease);
+          if(k.length===1 && eff.abilityIncrease[k[0]]===2) state.asis[lv]={mode:"asi2",a:k[0]};
+          else state.asis[lv]={mode:"asi11",a:k[0],b:k[1]||k[0]}; } }
+      else if(s.grantsFeat && /^feat-/.test(id)) state.originFeat=s.grantsFeat;
+      if(id==="fighting-style" && s.name){ var fm=/Fighting Style:\s*(.+)$/.exec(s.name); if(fm){ var st=FIGHTING_STYLES.filter(function(x){return x.name===fm[1].trim();})[0]; if(st) state.choices.style=st.id; } }
+      if(id==="expertise" && eff.expertise) state.choices.expertise=eff.expertise[0];
+      if(id==="divine-order" && s.name) state.choices.order=/Thaumaturge/i.test(s.name)?"thaumaturge":"protector";
+      if(id==="spellcasting" && eff.spellcasting){ var spc=eff.spellcasting;
+        if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
+        if(spc.prepared && spc.prepared.default) state.prepared=spc.prepared.default.slice(); }
+    });
+    return true;
   }
 
   /* ----- build block + scaffold output ----- */
@@ -247,12 +304,14 @@
   function scaffold(){
     var d = derive(), cd = classData();
     var slug = state.name.toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"") || "hero";
+    var hr = hitRiderData(), cmn = checkModNote();
     var ch = {
       id: slug, out: slug+".html", name: state.name,
       subtitle: ((CAT.species[state.species]||{}).name||"")+" "+((cd.name)||"")+" · Level "+state.level,
+      portrait: slug+".png",
       title: state.name, footer: "Built with the character builder",
       storageKey: "dnd_"+slug, level: state.level, hitDie: d.hitDie,
-      proficiencyBonus: d.pb, saves: d.saves, speed: d.speed,
+      proficiencyBonus: d.pb, saves: d.saves, checkModNote: cmn||undefined, speed: d.speed,
       ac: (function(){ var ac={}; if(state.armor) ac.armor=state.armor; if(state.shield) ac.shield={label:"Shield",bonus:2,note:"+2 AC",default:true}; if(state.choices.style==="defense") ac.style={label:"Defense",bonus:1,note:"+1 AC while armored",requiresArmor:true,default:true}; return ac; })(),
       hp: { max: d.hp },
       masteryMax: cd.weaponMastery || 0, masteryDefault: state.masteries.slice(),
@@ -261,6 +320,8 @@
         if(state.choices.style==="archery" && ranged) w.atkBonus=2;
         if(state.choices.style==="dueling" && !ranged && !twoH) w.dmgBonus=2;
         return w; }), cards: genCards(), combat: null,
+      riderHead: (hr.riders.length && hr.head) ? hr.head : undefined,
+      hitRiders: hr.riders.length ? hr.riders : undefined,
       build: buildBlock()
     };
     return ch;
@@ -507,7 +568,15 @@
     if(featureReached("Divine Order")) choiceFields.push(selField("Divine Order", state.choices.order, [["","— choose —"],["protector","Protector — martial weapons & heavy armor"],["thaumaturge","Thaumaturge — extra cantrip & Arcana bonus"]], function(v){ state.choices.order=v; render(); }));
     if(choiceFields.length) choiceCard=el("div",{class:"bcard"},[el("h2",{text:"Feature Choices"})].concat(choiceFields));
 
-    root.appendChild(el("div",{class:"bcol"},[core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, choiceCard, advCard].filter(Boolean)));
+    // load an existing character JSON back into the form to edit it
+    var loadCard = el("div",{class:"bcard"},[ el("h2",{text:"Load"}),
+      el("div",{class:"bsub",text:"Edit an existing character: load its JSON from src/characters/ (best with builder-made files)."}),
+      el("input",{type:"file", accept:".json,application/json", class:"binput", onchange:function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader();
+        r.onload=function(){ try{ var ch=JSON.parse(r.result); if(loadState(ch)) render(); else alert("That doesn't look like a character JSON."); }catch(err){ alert("Couldn't parse JSON: "+err.message); } };
+        r.readAsText(f); }})
+    ]);
+
+    root.appendChild(el("div",{class:"bcol"},[loadCard, core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, choiceCard, advCard].filter(Boolean)));
     root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
     refreshOut();
   }

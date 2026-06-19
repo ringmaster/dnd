@@ -111,7 +111,8 @@
     ],
     "classes": [
       "ranger"
-    ]
+    ],
+    "cast": "Bonus Action"
   },
   "entangle": {
     "name": "Entangle",
@@ -154,7 +155,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "cast": "Reaction"
   },
   "firebolt": {
     "name": "Fire Bolt",
@@ -202,7 +204,8 @@
     "classes": [
       "ranger",
       "druid"
-    ]
+    ],
+    "cast": "Bonus Action"
   },
   "guidance": {
     "name": "Guidance",
@@ -255,7 +258,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "cast": "Bonus Action"
   },
   "holdperson": {
     "name": "Hold Person",
@@ -286,7 +290,8 @@
     ],
     "classes": [
       "ranger"
-    ]
+    ],
+    "cast": "Bonus Action"
   },
   "lesserrestoration": {
     "name": "Lesser Restoration",
@@ -383,9 +388,19 @@
   "message": {
     "name": "Message",
     "level": 0,
-    "chips": [{ "t": "120 ft" }],
-    "body": ["You point toward a creature within range and whisper a message. The target (and only the target) hears it and can whisper a reply that only you hear. You can extend the spell around corners and through openings."],
-    "classes": ["wizard", "druid", "bard"]
+    "chips": [
+      {
+        "t": "120 ft"
+      }
+    ],
+    "body": [
+      "You point toward a creature within range and whisper a message. The target (and only the target) hears it and can whisper a reply that only you hear. You can extend the spell around corners and through openings."
+    ],
+    "classes": [
+      "wizard",
+      "druid",
+      "bard"
+    ]
   },
   "minorillusion": {
     "name": "Minor Illusion",
@@ -425,7 +440,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "cast": "Bonus Action"
   },
   "prayerofhealing": {
     "name": "Prayer of Healing",
@@ -517,7 +533,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "cast": "Bonus Action"
   },
   "shield": {
     "name": "Shield",
@@ -533,7 +550,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "cast": "Reaction"
   },
   "shieldoffaith": {
     "name": "Shield of Faith",
@@ -550,7 +568,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "cast": "Bonus Action"
   },
   "silence": {
     "name": "Silence",
@@ -636,7 +655,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "cast": "Bonus Action"
   },
   "tollthedead": {
     "name": "Toll the Dead",

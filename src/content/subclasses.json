@@ -5,18 +5,76 @@
     "desc": "A ranger touched by the Feywild — charming, fey-stepping, and dealing psychic dread.",
     "grants": [
       {
-        "id": "glamour", "name": "Otherworldly Glamour",
-        "effects": { "skills": ["Persuasion"], "checkBonus": { "CHA": "wisMod" } },
-        "ref": { "title": "Otherworldly Glamour", "chips": [{ "t": "+Wis to Cha checks", "c": "ember" }], "body": ["You add your Wisdom modifier to any Charisma check you make, and you gain proficiency in one Charisma skill (Persuasion)."] }
+        "id": "glamour",
+        "name": "Otherworldly Glamour",
+        "effects": {
+          "skills": [
+            "Persuasion"
+          ],
+          "checkBonus": {
+            "CHA": "wisMod"
+          }
+        },
+        "ref": {
+          "title": "Otherworldly Glamour",
+          "chips": [
+            {
+              "t": "+Wis to Cha checks",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You add your Wisdom modifier to any Charisma check you make, and you gain proficiency in one Charisma skill (Persuasion)."
+          ]
+        }
       },
       {
-        "id": "dreadful", "name": "Dreadful Strikes",
-        "ref": { "title": "Dreadful Strikes", "chips": [{ "t": "+1d4 psychic" }], "body": ["Once per turn when you hit a creature with a weapon, you can deal an extra 1d4 psychic damage (1d6 at level 11)."] }
+        "id": "dreadful",
+        "name": "Dreadful Strikes",
+        "ref": {
+          "title": "Dreadful Strikes",
+          "chips": [
+            {
+              "t": "+1d4 psychic"
+            }
+          ],
+          "body": [
+            "Once per turn when you hit a creature with a weapon, you can deal an extra 1d4 psychic damage (1d6 at level 11)."
+          ]
+        },
+        "hitRiders": [
+          {
+            "ref": "dreadful",
+            "label": "Dreadful Strikes",
+            "dmg": "+1d4",
+            "note": "psychic · once per turn, no action"
+          }
+        ]
       },
       {
-        "id": "feywanderermagic", "name": "Fey Wanderer Spells",
-        "effects": { "alwaysPrepared": [{ "ref": "charmperson", "name": "Charm Person", "sub": "Fey Wanderer · Conc." }] },
-        "ref": { "title": "Fey Wanderer Spells", "chips": [{ "t": "Always prepared", "c": "storm" }], "body": ["You always have Charm Person prepared; more Fey spells are added as you level (Misty Step at 5, Dimension Door at 9, etc.)."] }
+        "id": "feywanderermagic",
+        "name": "Fey Wanderer Spells",
+        "effects": {
+          "alwaysPrepared": [
+            {
+              "ref": "charmperson",
+              "name": "Charm Person",
+              "sub": "Fey Wanderer · Conc."
+            }
+          ]
+        },
+        "ref": {
+          "title": "Fey Wanderer Spells",
+          "chips": [
+            {
+              "t": "Always prepared",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You always have Charm Person prepared; more Fey spells are added as you level (Misty Step at 5, Dimension Door at 9, etc.)."
+          ]
+        }
       }
     ]
   },
@@ -26,18 +84,100 @@
     "desc": "A fighter who spends superiority dice on tactical combat maneuvers.",
     "grants": [
       {
-        "id": "combatsup", "name": "Combat Superiority",
-        "effects": { "grantsPool": { "id": "sup", "label": "Superiority Dice", "max": 4, "rest": "short", "ref": "combatsup", "storm": false, "note": "short rest", "use": "Spend a die", "reminder": "Spend a superiority die — roll 1d8 for the maneuver." } },
-        "ref": { "title": "Combat Superiority", "chips": [{ "t": "4 × d8", "c": "ember" }, { "t": "Short rest", "c": "storm" }], "body": ["You have four d8 superiority dice that fuel maneuvers; regain them on a short or long rest. Your maneuver save DC = 8 + Proficiency Bonus + Strength or Dexterity modifier."] }
+        "id": "combatsup",
+        "name": "Combat Superiority",
+        "effects": {
+          "grantsPool": {
+            "id": "sup",
+            "label": "Superiority Dice",
+            "max": 4,
+            "rest": "short",
+            "ref": "combatsup",
+            "storm": false,
+            "note": "short rest",
+            "use": "Spend a die",
+            "reminder": "Spend a superiority die — roll 1d8 for the maneuver."
+          }
+        },
+        "ref": {
+          "title": "Combat Superiority",
+          "chips": [
+            {
+              "t": "4 × d8",
+              "c": "ember"
+            },
+            {
+              "t": "Short rest",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You have four d8 superiority dice that fuel maneuvers; regain them on a short or long rest. Your maneuver save DC = 8 + Proficiency Bonus + Strength or Dexterity modifier."
+          ]
+        }
       },
       {
-        "id": "studentofwar", "name": "Student of War",
-        "effects": { "skills": ["Insight"], "tools": ["Smith's Tools"] },
-        "ref": { "title": "Student of War", "chips": [{ "t": "+1 skill & tool" }], "body": ["You gain proficiency with one type of Artisan's Tools (Smith's Tools) and one skill from the Fighter list (Insight)."] }
+        "id": "studentofwar",
+        "name": "Student of War",
+        "effects": {
+          "skills": [
+            "Insight"
+          ],
+          "tools": [
+            "Smith's Tools"
+          ]
+        },
+        "ref": {
+          "title": "Student of War",
+          "chips": [
+            {
+              "t": "+1 skill & tool"
+            }
+          ],
+          "body": [
+            "You gain proficiency with one type of Artisan's Tools (Smith's Tools) and one skill from the Fighter list (Insight)."
+          ]
+        }
       },
       {
-        "id": "maneuvers", "name": "Maneuvers",
-        "ref": { "title": "Maneuvers", "chips": [{ "t": "Pick 3", "c": "ember" }], "body": ["You learn three maneuvers (Trip Attack, Goading Attack, Precision Attack, Riposte, etc.), fueled by superiority dice. Record your chosen maneuvers."] }
+        "id": "maneuvers",
+        "name": "Maneuvers",
+        "ref": {
+          "title": "Maneuvers",
+          "chips": [
+            {
+              "t": "Pick 3",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You learn three maneuvers (Trip Attack, Goading Attack, Precision Attack, Riposte, etc.), fueled by superiority dice. Record your chosen maneuvers."
+          ]
+        },
+        "riderHead": "Spend a Superiority Die",
+        "hitRiders": [
+          {
+            "ref": "trip",
+            "label": "Trip Attack",
+            "dmg": "+1d8",
+            "pool": "sup",
+            "note": "Str save DC {dc} or knocked Prone"
+          },
+          {
+            "ref": "goad",
+            "label": "Goading Attack",
+            "dmg": "+1d8",
+            "pool": "sup",
+            "note": "Wis save DC {dc} or Disadv. attacking others"
+          },
+          {
+            "ref": "precision",
+            "label": "Precision Attack",
+            "dmg": "+1d8",
+            "pool": "sup",
+            "note": "add to the attack roll instead"
+          }
+        ]
       }
     ]
   },
@@ -47,13 +187,52 @@
     "desc": "A wizard who glimpses the future and replaces rolls with foretold Portent dice.",
     "grants": [
       {
-        "id": "portent", "name": "Portent",
-        "effects": { "grantsPool": { "id": "portent", "label": "Portent Dice", "max": 2, "rest": "long", "ref": "portent", "storm": false, "note": "rolled after a long rest", "use": "Use a Portent", "reminder": "Portent: replace any d20 (yours or a creature you can see) with a recorded Portent roll." } },
-        "ref": { "title": "Portent", "chips": [{ "t": "2 dice", "c": "ember" }, { "t": "Long rest", "c": "storm" }], "body": ["After a long rest, roll two d20s and record them. You can replace any attack roll, saving throw, or ability check (yours or a creature you can see) with one of these foretold rolls, before the roll is made."] }
+        "id": "portent",
+        "name": "Portent",
+        "effects": {
+          "grantsPool": {
+            "id": "portent",
+            "label": "Portent Dice",
+            "max": 2,
+            "rest": "long",
+            "ref": "portent",
+            "storm": false,
+            "note": "rolled after a long rest",
+            "use": "Use a Portent",
+            "reminder": "Portent: replace any d20 (yours or a creature you can see) with a recorded Portent roll."
+          }
+        },
+        "ref": {
+          "title": "Portent",
+          "chips": [
+            {
+              "t": "2 dice",
+              "c": "ember"
+            },
+            {
+              "t": "Long rest",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "After a long rest, roll two d20s and record them. You can replace any attack roll, saving throw, or ability check (yours or a creature you can see) with one of these foretold rolls, before the roll is made."
+          ]
+        }
       },
       {
-        "id": "divinationsavant", "name": "Divination Savant",
-        "ref": { "title": "Divination Savant", "chips": [{ "t": "Cheaper divinations" }], "body": ["Copying a Divination spell into your spellbook costs half the usual time and gold, and Divination spells are easier for you to learn."] }
+        "id": "divinationsavant",
+        "name": "Divination Savant",
+        "ref": {
+          "title": "Divination Savant",
+          "chips": [
+            {
+              "t": "Cheaper divinations"
+            }
+          ],
+          "body": [
+            "Copying a Divination spell into your spellbook costs half the usual time and gold, and Divination spells are easier for you to learn."
+          ]
+        }
       }
     ]
   },
@@ -63,22 +242,76 @@
     "desc": "A cleric of the Life domain — the premier healer, bolstering allies' hit points.",
     "grants": [
       {
-        "id": "lifedomainspells", "name": "Life Domain Spells",
-        "effects": { "alwaysPrepared": [
-          { "ref": "bless", "name": "Bless", "sub": "+1d4 to attacks & saves · Conc." },
-          { "ref": "curewounds", "name": "Cure Wounds", "sub": "heal 2d8 + Wis · touch" },
-          { "ref": "aid", "name": "Aid", "sub": "+5 max & current HP to 3 allies" },
-          { "ref": "lesserrestoration", "name": "Lesser Restoration", "sub": "end a disease or a condition" }
-        ] },
-        "ref": { "title": "Life Domain Spells", "chips": [{ "t": "Always prepared", "c": "storm" }], "body": ["Bless, Cure Wounds, Aid, and Lesser Restoration are always prepared and don't count against your prepared total."] }
+        "id": "lifedomainspells",
+        "name": "Life Domain Spells",
+        "effects": {
+          "alwaysPrepared": [
+            {
+              "ref": "bless",
+              "name": "Bless",
+              "sub": "+1d4 to attacks & saves · Conc."
+            },
+            {
+              "ref": "curewounds",
+              "name": "Cure Wounds",
+              "sub": "heal 2d8 + Wis · touch"
+            },
+            {
+              "ref": "aid",
+              "name": "Aid",
+              "sub": "+5 max & current HP to 3 allies"
+            },
+            {
+              "ref": "lesserrestoration",
+              "name": "Lesser Restoration",
+              "sub": "end a disease or a condition"
+            }
+          ]
+        },
+        "ref": {
+          "title": "Life Domain Spells",
+          "chips": [
+            {
+              "t": "Always prepared",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "Bless, Cure Wounds, Aid, and Lesser Restoration are always prepared and don't count against your prepared total."
+          ]
+        }
       },
       {
-        "id": "discipleoflife", "name": "Disciple of Life",
-        "ref": { "title": "Disciple of Life", "chips": [{ "t": "Extra healing", "c": "ember" }], "body": ["Whenever a spell slot of 1st level or higher restores hit points to a creature, that creature regains extra hit points equal to 2 + the slot's level."] }
+        "id": "discipleoflife",
+        "name": "Disciple of Life",
+        "ref": {
+          "title": "Disciple of Life",
+          "chips": [
+            {
+              "t": "Extra healing",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Whenever a spell slot of 1st level or higher restores hit points to a creature, that creature regains extra hit points equal to 2 + the slot's level."
+          ]
+        }
       },
       {
-        "id": "preservelife", "name": "Channel Divinity: Preserve Life",
-        "ref": { "title": "Preserve Life", "chips": [{ "t": "Channel Divinity", "c": "storm" }], "body": ["As a Magic action, spend a use of Channel Divinity to restore hit points equal to five times your cleric level, divided among creatures within 30 ft. It can't raise a creature above half its hit point maximum."] }
+        "id": "preservelife",
+        "name": "Channel Divinity: Preserve Life",
+        "ref": {
+          "title": "Preserve Life",
+          "chips": [
+            {
+              "t": "Channel Divinity",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Magic action, spend a use of Channel Divinity to restore hit points equal to five times your cleric level, divided among creatures within 30 ft. It can't raise a creature above half its hit point maximum."
+          ]
+        }
       }
     ]
   }
