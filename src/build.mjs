@@ -199,6 +199,13 @@ ${styles}
   .bbtn{font-family:"Cinzel",serif;background:linear-gradient(180deg,#2c333e,#222831);color:var(--bone);border:1px solid var(--iron-light);border-radius:8px;padding:.55rem .9rem;cursor:pointer;font-size:.8rem}
   .bbtn.ember{border-color:var(--ember);color:var(--ember-bright)}
   .bout{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:.74rem;background:#0e1014;color:var(--bone);border:1px solid var(--iron);border-radius:8px;padding:.7rem;resize:vertical}
+  .cust-row{border:1px solid var(--iron);border-radius:10px;padding:.6rem;margin-bottom:.7rem;background:rgba(0,0,0,.18)}
+  .cust-head{display:flex;align-items:center;gap:.4rem;margin-bottom:.45rem;flex-wrap:wrap}
+  .cust-kind{font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ember-bright);border:1px solid var(--ember);border-radius:6px;padding:.18rem .4rem;white-space:nowrap}
+  .cust-label{flex:1 1 8rem;min-width:6rem}
+  .cust-key{flex:1 1 7rem;min-width:5rem;font-family:ui-monospace,Menlo,monospace}
+  .cust-json{margin-top:0}
+  .cust-err{color:#e0736b;display:block;margin-top:.25rem;min-height:1em}
 </style>
 </head>
 <body>

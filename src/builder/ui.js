@@ -14,8 +14,15 @@
     name:"New Hero", species:"human", cls:"ranger", subclass:"", background:"guide", level:4,
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
     skills:[], armor:"", shield:false, originFeat:"", asis:{}, weapons:[], masteries:[], cantrips:[], prepared:[],
-    choices:{ style:"", expertise:"", order:"" }
+    choices:{ style:"", expertise:"", order:"" },
+    customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
   };
+  /* top-level keys the builder owns/regenerates; everything else on a loaded
+     character is captured as a custom "root" element so it survives round-trip */
+  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,build:1};
+  /* card types the builder generates; loaded cards of any other type are kept as custom "card" elements */
+  var MANAGED_CARDS = {abilities:1,hitpoints:1,attacks:1,spellcasting:1,skills:1,pools:1,inventory:1,features:1,buildlog:1};
+  var CUSTOM_KINDS = {root:"Top-level field", source:"Build source / feature", card:"Card"};
   var FIGHTING_STYLES=[
     {id:"archery", name:"Archery", note:"+2 to ranged weapon attack rolls"},
     {id:"defense", name:"Defense", note:"+1 AC while wearing armor"},
@@ -219,7 +226,36 @@
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
         if(spc.prepared && spc.prepared.default) state.prepared=spc.prepared.default.slice(); }
     });
+    captureCustoms(ch, b);
     return true;
+  }
+  /* Capture everything the builder can't reproduce so nothing is lost on a
+     round-trip: unknown top-level fields, build sources that buildBlock()
+     wouldn't regenerate, and cards of a type the builder doesn't manage.
+     Each becomes a typed envelope {kind, key?, label, value} (see scaffold). */
+  function captureCustoms(ch, b){
+    state.customs=[];
+    var genIds={}; buildBlock().sources.forEach(function(s){ if(s.id) genIds[s.id]=1; });
+    (b.sources||[]).forEach(function(s){ if(!s || (s.id && genIds[s.id])) return; state.customs.push({ kind:"source", label:(s.name||s.id||"build source"), value:s }); });
+    Object.keys(ch).forEach(function(k){ if(KNOWN_ROOT[k]) return; state.customs.push({ kind:"root", key:k, label:k, value:ch[k] }); });
+    (ch.cards||[]).forEach(function(c){ if(c && c.type && !MANAGED_CARDS[c.type]) state.customs.push({ kind:"card", label:(c.title||c.type), value:c }); });
+  }
+  function addCustom(kind){
+    var starter = kind==="source" ? { id:"custom-feature", name:"Custom Feature", ref:{ title:"Custom Feature", chips:[], body:["Describe what this feature does."] } }
+      : kind==="card" ? { type:"background", hint:"", paras:["Custom card text."] }
+      : { hello:"world" };
+    var label = kind==="source" ? "Custom Feature" : kind==="card" ? "Custom card" : "newField";
+    var e = { kind:kind, label:label, value:starter };
+    if(kind==="root") e.key="customField";
+    state.customs.push(e); render();
+  }
+  function applyCustoms(ch){
+    (state.customs||[]).forEach(function(cu){ if(!cu) return;
+      if(cu.kind==="root" && cu.key) ch[cu.key]=cu.value;
+      else if(cu.kind==="source"){ (ch.build.sources=ch.build.sources||[]).push(cu.value); }
+      else if(cu.kind==="card"){ (ch.cards=ch.cards||[]).push(cu.value); }
+    });
+    return ch;
   }
 
   /* ----- build block + scaffold output ----- */
@@ -319,12 +355,12 @@
       studs: genStuds(), weapons: state.weapons.map(function(id){ var w={id:id,carried:true}, cat=CAT.weapons[id]||{}, ranged=(cat.props||[]).some(function(p){return /range|ammunition/.test(p);}), twoH=(cat.props||[]).indexOf("two-handed")>=0;
         if(state.choices.style==="archery" && ranged) w.atkBonus=2;
         if(state.choices.style==="dueling" && !ranged && !twoH) w.dmgBonus=2;
-        return w; }), cards: genCards(), combat: null,
+        return w; }), cards: genCards(),
       riderHead: (hr.riders.length && hr.head) ? hr.head : undefined,
       hitRiders: hr.riders.length ? hr.riders : undefined,
       build: buildBlock()
     };
-    return ch;
+    return applyCustoms(ch);
   }
 
   /* ----- help text for the current selection of each field ----- */
@@ -568,6 +604,27 @@
     if(featureReached("Divine Order")) choiceFields.push(selField("Divine Order", state.choices.order, [["","— choose —"],["protector","Protector — martial weapons & heavy armor"],["thaumaturge","Thaumaturge — extra cantrip & Arcana bonus"]], function(v){ state.choices.order=v; render(); }));
     if(choiceFields.length) choiceCard=el("div",{class:"bcard"},[el("h2",{text:"Feature Choices"})].concat(choiceFields));
 
+    // custom elements: anything the builder doesn't model, kept structured + round-tripped
+    var customCard = el("div",{class:"bcard"},[ el("h2",{text:"Custom Elements"}),
+      el("div",{class:"bsub",text:"Anything the builder doesn't model (e.g. combat, ref, bespoke cards/features). Captured on load and added to the output. Add your own ad hoc."}) ]);
+    state.customs.forEach(function(cu, idx){
+      var head=el("div",{class:"cust-head"},[
+        el("span",{class:"cust-kind",text:CUSTOM_KINDS[cu.kind]||cu.kind}),
+        el("input",{class:"binput cust-label", value:cu.label||"", placeholder:"label", oninput:function(e){ cu.label=e.target.value; }}),
+        cu.kind==="root" ? el("input",{class:"binput cust-key", value:cu.key||"", placeholder:"field name", oninput:function(e){ cu.key=e.target.value; refreshOut(); }}) : null,
+        el("button",{class:"bbtn tiny", type:"button", text:"Remove", onclick:function(){ state.customs.splice(idx,1); render(); }})
+      ].filter(Boolean));
+      var errEl=el("span",{class:"bf-h cust-err"});
+      var ta=el("textarea",{class:"bout cust-json", rows:"6", value:JSON.stringify(cu.value,null,2),
+        oninput:function(e){ try{ cu.value=JSON.parse(e.target.value); errEl.textContent=""; refreshOut(); }catch(ex){ errEl.textContent="Invalid JSON — fix to apply: "+ex.message; } }});
+      customCard.appendChild(el("div",{class:"cust-row"},[head, ta, errEl]));
+    });
+    customCard.appendChild(el("div",{class:"brow2"},[
+      el("button",{class:"bbtn tiny", type:"button", text:"+ Feature/source", onclick:function(){ addCustom("source"); }}),
+      el("button",{class:"bbtn tiny", type:"button", text:"+ Field", onclick:function(){ addCustom("root"); }}),
+      el("button",{class:"bbtn tiny", type:"button", text:"+ Card", onclick:function(){ addCustom("card"); }})
+    ]));
+
     // load an existing character JSON back into the form to edit it
     var loadCard = el("div",{class:"bcard"},[ el("h2",{text:"Load"}),
       el("div",{class:"bsub",text:"Edit an existing character: load its JSON from src/characters/ (best with builder-made files)."}),
@@ -576,7 +633,7 @@
         r.readAsText(f); }})
     ]);
 
-    root.appendChild(el("div",{class:"bcol"},[loadCard, core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, choiceCard, advCard].filter(Boolean)));
+    root.appendChild(el("div",{class:"bcol"},[loadCard, core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, choiceCard, advCard, customCard].filter(Boolean)));
     root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
     refreshOut();
   }
