@@ -227,7 +227,18 @@
         if(spc.prepared && spc.prepared.default) state.prepared=spc.prepared.default.slice(); }
     });
     captureCustoms(ch, b);
+    // snapshot for pristine pass-through: until the user edits something, re-export
+    // exactly what was loaded so a character survives the round trip untouched
+    state._orig = JSON.parse(JSON.stringify(ch));
+    state._sig = editSig();
     return true;
+  }
+  /* a signature of every field the form can change; if it still matches the
+     value captured at load time, nothing has been edited */
+  function editSig(){
+    return JSON.stringify([ state.name, state.species, state.cls, state.subclass, state.background, state.level,
+      state.base, state.skills, state.armor, state.shield, state.originFeat, state.asis,
+      state.weapons, state.masteries, state.cantrips, state.prepared, state.choices, state.customs ]);
   }
   /* Capture everything the builder can't reproduce so nothing is lost on a
      round-trip: unknown top-level fields, build sources that buildBlock()
@@ -338,6 +349,8 @@
     return cards;
   }
   function scaffold(){
+    // pristine pass-through: unedited since load -> return the original verbatim
+    if(state._orig && state._sig === editSig()) return JSON.parse(JSON.stringify(state._orig));
     var d = derive(), cd = classData();
     var slug = state.name.toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"") || "hero";
     var hr = hitRiderData(), cmn = checkModNote();

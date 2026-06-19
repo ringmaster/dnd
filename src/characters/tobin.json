@@ -602,21 +602,6 @@
         "effects": {}
       },
       {
-        "id": "brave",
-        "name": "Halfling: Brave",
-        "effects": {}
-      },
-      {
-        "id": "luck",
-        "name": "Halfling: Luck",
-        "effects": {}
-      },
-      {
-        "id": "nimbleness",
-        "name": "Halfling: Nimbleness",
-        "effects": {}
-      },
-      {
         "id": "cleric-hitdice",
         "name": "Hit Dice (d8)",
         "effects": {
