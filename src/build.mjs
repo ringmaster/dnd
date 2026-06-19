@@ -301,3 +301,16 @@ const viewerHtml = template
 fs.writeFileSync(path.join(DOCS, "view.html"), viewerHtml);
 console.log("built docs/view.html  (" + viewerHtml.length + " bytes)");
 console.log("done — " + built + " sheet(s).");
+
+// Optionally mirror the built site to a local dev volume, so the sheets are
+// served (e.g. https://dnd.dev.clubbabyseal.com/) without a GitHub Pages push.
+// Silently skipped when the volume isn't mounted — e.g. in CI.
+const DEV_MIRROR = "/Volumes/devsites/dnd";
+try {
+  if (fs.existsSync(DEV_MIRROR) && fs.statSync(DEV_MIRROR).isDirectory()) {
+    fs.cpSync(DOCS, DEV_MIRROR, { recursive: true, filter: (s) => !s.endsWith(".DS_Store") });
+    console.log("mirrored docs/ → " + DEV_MIRROR);
+  }
+} catch (e) {
+  console.log("dev mirror skipped (" + DEV_MIRROR + "): " + e.message);
+}
