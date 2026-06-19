@@ -193,14 +193,37 @@
   }
 
   /* ----- round-trip: rebuild form state from an existing character JSON ----- */
+  /* Compiled characters (loaded without a build block) don't name their class/
+     species/subclass, so infer them from telltale fields rather than silently
+     defaulting to Ranger/Human. */
+  function inferClass(ch){
+    var saves=(ch.saves||[]).slice().sort().join(","), hd=ch.hitDie;
+    var both="", saveOnly="";
+    for(var k in CAT.classes){ var cd=CAT.classes[k], cs=(cd.saves||[]).slice().sort().join(",");
+      if(cs===saves){ saveOnly=saveOnly||k; if(cd.hitDie===hd) both=both||k; } }
+    return both || saveOnly || "";
+  }
+  function inferSpecies(ch){
+    var sp=String(ch.subtitle||"").split(" · ")[0].trim().toLowerCase();
+    for(var k in CAT.species){ if((CAT.species[k].name||"").toLowerCase()===sp) return k; }
+    return "";
+  }
+  function inferSubclass(ch, cls){
+    var sub=(CAT.classes[cls]||{}).subclasses||[], hay=String(ch.subtitle||"").toLowerCase();
+    for(var i=0;i<sub.length;i++){ var nm=((CAT.subclasses[sub[i]]||{}).name||"").toLowerCase(); if(!nm) continue;
+      if(hay.indexOf(nm)>=0) return sub[i];                                   // full name (e.g. "Fey Wanderer")
+      var first=nm.split(" ")[0]; if(first.length>=3 && hay.indexOf(first)>=0) return sub[i]; // e.g. "Life Domain" vs "Life Cleric"
+    }
+    return "";
+  }
   function loadState(ch){
     if(!ch || typeof ch!=="object") return false;
     var b=ch.build||{};
     state.name = ch.name || state.name;
     state.level = ch.level || b.level || state.level;
-    state.species = b.species || state.species;
-    state.cls = b.class || state.cls;
-    state.subclass = b.subclass || "";
+    state.species = b.species || inferSpecies(ch) || state.species;
+    state.cls = b.class || inferClass(ch) || state.cls;
+    state.subclass = b.subclass || inferSubclass(ch, state.cls) || "";
     state.background = b.background || state.background;
     if(b.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}; ABIL.forEach(function(a){ if(b.abilities[a]!=null) base[a]=b.abilities[a]; }); state.base=base; }
     state.weapons = (ch.weapons||[]).map(function(w){ return typeof w==="string"?w:w.id; });
@@ -226,7 +249,7 @@
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
         if(spc.prepared && spc.prepared.default) state.prepared=spc.prepared.default.slice(); }
     });
-    captureCustoms(ch, b);
+    captureCustoms(ch);
     // snapshot for pristine pass-through: until the user edits something, re-export
     // exactly what was loaded so a character survives the round trip untouched
     state._orig = JSON.parse(JSON.stringify(ch));
@@ -240,14 +263,16 @@
       state.base, state.skills, state.armor, state.shield, state.originFeat, state.asis,
       state.weapons, state.masteries, state.cantrips, state.prepared, state.choices, state.customs ]);
   }
-  /* Capture everything the builder can't reproduce so nothing is lost on a
-     round-trip: unknown top-level fields, build sources that buildBlock()
-     wouldn't regenerate, and cards of a type the builder doesn't manage.
-     Each becomes a typed envelope {kind, key?, label, value} (see scaffold). */
-  function captureCustoms(ch, b){
+  /* Capture the things the builder genuinely doesn't model, so they're not
+     lost once the character is edited: unknown top-level fields (e.g. combat,
+     ref) and cards of a type the builder doesn't generate (e.g. a Background
+     bio card). Each becomes a typed envelope {kind, key?, label, value}.
+     Build sources are deliberately NOT auto-captured — the builder regenerates
+     the ones it models, and an unedited character is preserved verbatim by the
+     pristine pass-through in scaffold(), so capturing them would only show
+     confusing duplicates of things like "Spellcasting" or "Hit Dice". */
+  function captureCustoms(ch){
     state.customs=[];
-    var genIds={}; buildBlock().sources.forEach(function(s){ if(s.id) genIds[s.id]=1; });
-    (b.sources||[]).forEach(function(s){ if(!s || (s.id && genIds[s.id])) return; state.customs.push({ kind:"source", label:(s.name||s.id||"build source"), value:s }); });
     Object.keys(ch).forEach(function(k){ if(KNOWN_ROOT[k]) return; state.customs.push({ kind:"root", key:k, label:k, value:ch[k] }); });
     (ch.cards||[]).forEach(function(c){ if(c && c.type && !MANAGED_CARDS[c.type]) state.customs.push({ kind:"card", label:(c.title||c.type), value:c }); });
   }
@@ -619,7 +644,8 @@
 
     // custom elements: anything the builder doesn't model, kept structured + round-tripped
     var customCard = el("div",{class:"bcard"},[ el("h2",{text:"Custom Elements"}),
-      el("div",{class:"bsub",text:"Anything the builder doesn't model (e.g. combat, ref, bespoke cards/features). Captured on load and added to the output. Add your own ad hoc."}) ]);
+      el("div",{class:"bsub",text:"Things the builder doesn't model — captured on load (e.g. combat, ref, a Background card) and preserved through the round trip. Edit the JSON here, or add your own ad hoc."}) ]);
+    if(!state.customs.length) customCard.appendChild(el("div",{class:"bf-h",text:"None. Use the buttons below to add one."}));
     state.customs.forEach(function(cu, idx){
       var head=el("div",{class:"cust-head"},[
         el("span",{class:"cust-kind",text:CUSTOM_KINDS[cu.kind]||cu.kind}),
@@ -628,8 +654,11 @@
         el("button",{class:"bbtn tiny", type:"button", text:"Remove", onclick:function(){ state.customs.splice(idx,1); render(); }})
       ].filter(Boolean));
       var errEl=el("span",{class:"bf-h cust-err"});
-      var ta=el("textarea",{class:"bout cust-json", rows:"6", value:JSON.stringify(cu.value,null,2),
+      // NB: a <textarea>'s text is its .value PROPERTY, not a value attribute — el() sets
+      // attributes, so set the property here or the box renders blank.
+      var ta=el("textarea",{class:"bout cust-json", rows:"6",
         oninput:function(e){ try{ cu.value=JSON.parse(e.target.value); errEl.textContent=""; refreshOut(); }catch(ex){ errEl.textContent="Invalid JSON — fix to apply: "+ex.message; } }});
+      ta.value=JSON.stringify(cu.value, null, 2);
       customCard.appendChild(el("div",{class:"cust-row"},[head, ta, errEl]));
     });
     customCard.appendChild(el("div",{class:"brow2"},[
