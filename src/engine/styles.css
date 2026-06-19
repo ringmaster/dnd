@@ -372,6 +372,8 @@
 
   footer{max-width:1240px;margin:2rem auto 0;text-align:center;color:var(--ash-dim);font-size:.74rem}
   footer a{color:var(--ash);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+  .footer-links{margin-top:.55rem;font-family:"Cinzel",serif;letter-spacing:.04em}
+  .footer-links a{color:var(--ember);text-decoration-color:var(--ember)}
 
   @media (max-width:560px){ .rest-opts{grid-template-columns:1fr} .who h1{font-size:1.15rem} }
   @media (prefers-reduced-motion: reduce){ *{animation:none !important;transition:none !important} }

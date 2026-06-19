@@ -882,6 +882,24 @@ function wireSheet(){
       renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInventory(); if(CHARACTER.prepared) renderPrepared(); renderConc(); toast("Sheet reset.");
     }
   });
+  var editLink=document.getElementById("editLink"); if(editLink) editLink.addEventListener("click", editChar);
+  var exportLink=document.getElementById("exportLink"); if(exportLink) exportLink.addEventListener("click", exportChar);
+}
+
+/* ----- Edit / Export the character's source JSON ----- */
+function sourceDoc(){ return (typeof CHARACTER_SOURCE!=="undefined" && CHARACTER_SOURCE) ? CHARACTER_SOURCE : CHARACTER; }
+function exportChar(){
+  var src=sourceDoc();
+  var blob=new Blob([JSON.stringify(src, null, 2)], {type:"application/json"});
+  var url=URL.createObjectURL(blob), a=document.createElement("a");
+  a.href=url; a.download=(src.id||"character")+".json"; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+function editChar(){
+  var src=sourceDoc();
+  try { localStorage.setItem("dnd_builder_import", JSON.stringify(src)); }
+  catch(e){ toast("Couldn't hand off to the editor."); return; }
+  window.open("builder.html?import=1", "_blank");
 }
 
 /* ----- init ----- */

@@ -647,5 +647,15 @@
     var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=ch.id+".json"; document.body.appendChild(a); a.click(); a.remove();
   }
 
-  document.addEventListener("DOMContentLoaded", function(){ root=document.getElementById("builder"); render(); });
+  document.addEventListener("DOMContentLoaded", function(){
+    root=document.getElementById("builder");
+    // handoff from a sheet's "Edit" link: import the character it stashed, then clear it
+    try {
+      if(/[?&]import=1/.test(location.search)){
+        var imp=localStorage.getItem("dnd_builder_import");
+        if(imp){ loadState(JSON.parse(imp)); localStorage.removeItem("dnd_builder_import"); }
+      }
+    } catch(e){}
+    render();
+  });
 })();

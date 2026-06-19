@@ -31,10 +31,13 @@ const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</
 let built = 0;
 const index = [];
 for (const cf of charFiles) {
-  let data;
-  try { data = JSON.parse(read(path.join(SRC, "characters", cf))); }
+  let data, rawSource;
+  try { rawSource = read(path.join(SRC, "characters", cf)); data = JSON.parse(rawSource); }
   catch (e) { console.error("Bad JSON in " + cf + ": " + e.message); process.exit(1); }
   if (!data.out) { console.error(cf + " is missing an `out` filename"); process.exit(1); }
+
+  // the un-compiled source (keeps `build`) rides along so the sheet can Edit/Export it
+  const sourceJson = JSON.stringify(JSON.parse(rawSource)).replace(/<\/script/gi, "<\\/script");
 
   // expand declarative effects (build.sources) into materialized fields the engine reads
   data = compile(data);
@@ -47,7 +50,7 @@ for (const cf of charFiles) {
 
   // inline data; guard against a literal </script> inside any string
   const dataJson = JSON.stringify(data).replace(/<\/script/gi, "<\\/script");
-  const script = indent("var CHARACTER = " + dataJson + ";\n\n" + engineJs, "  ");
+  const script = indent("var CHARACTER = " + dataJson + ";\nvar CHARACTER_SOURCE = " + sourceJson + ";\n\n" + engineJs, "  ");
 
   const html = template
     .replace("{{TITLE}}", (data.title || data.name || "Character Sheet"))
