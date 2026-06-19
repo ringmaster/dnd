@@ -185,7 +185,22 @@
     "tool-cartographers":{term:"Cartographer's Tools",def:"Quills, compasses, calipers, and rulers for making and reading maps. Proficiency adds your Proficiency Bonus to checks to draw an accurate map, determine where you are from one, or estimate distance, terrain, and travel time."},
     "tool-smiths":{term:"Smith's Tools",def:"Hammers, tongs, and a portable forge for working metal. Proficiency adds your Proficiency Bonus to checks to forge or repair metal gear and weapons, pry or bend metal, and judge the quality of metalwork."},
     "tool-calligraphers":{term:"Calligrapher's Supplies",def:"Inks, quills, and parchment for fine writing. Proficiency adds your Proficiency Bonus to checks to produce elegant documents, identify the hand behind a script, or detect a forgery."},
-    "tool-gaming":{term:"Gaming Set",def:"A set for a game of chance or skill — dice, playing cards, or a board game. Proficiency adds your Proficiency Bonus to ability checks you make to play the game, to read your opponents, or to spot cheating."}
+    "tool-gaming":{term:"Gaming Set",def:"A set for a game of chance or skill — dice, playing cards, or a board game. Proficiency adds your Proficiency Bonus to ability checks you make to play the game, to read your opponents, or to spot cheating."},
+    "dmg-piercing":{term:"Piercing",def:"Physical damage from punctures and stabs — arrows, spears, a bite."},
+    "dmg-slashing":{term:"Slashing",def:"Physical damage from cuts and slices — swords, axes, claws."},
+    "dmg-bludgeoning":{term:"Bludgeoning",def:"Physical damage from blunt force — hammers, clubs, a slam, or a fall."},
+    "wp-ammunition":{term:"Ammunition",def:"This weapon needs ammunition (arrows, bolts, needles) to make a ranged attack; each shot spends one piece. After a fight you can recover half the ammunition you fired."},
+    "wp-finesse":{term:"Finesse",def:"When you attack with a Finesse weapon you choose Strength or Dexterity for both the attack and the damage roll — most characters use Dexterity."},
+    "wp-heavy":{term:"Heavy",def:"A Heavy weapon is large and unwieldy: you attack with Disadvantage unless your Strength (for a melee weapon) or Dexterity (for a ranged one) is at least 13."},
+    "wp-light":{term:"Light",def:"A Light weapon is easy to wield in one hand. When you take the Attack action with one, you can also attack with a different Light weapon in your other hand as a Bonus Action."},
+    "wp-loading":{term:"Loading",def:"You can fire only one piece of ammunition from a Loading weapon when you take the Attack action, no matter how many attacks you could otherwise make."},
+    "wp-range":{term:"Range",def:"Ranged and thrown weapons list two distances, e.g. 80/320: the normal range and the long range in feet. Past the normal range you attack with Disadvantage; you can't hit a target beyond the long range."},
+    "wp-thrown":{term:"Thrown",def:"You can throw this weapon to make a ranged attack, using the same ability modifier you'd use to attack with it in melee. Its two numbers (e.g. 20/60) are its normal and long range in feet."},
+    "wp-twohanded":{term:"Two-Handed",def:"This weapon takes two hands to attack with, so you can't also hold a shield or a second weapon while you attack with it."},
+    "wp-versatile":{term:"Versatile",def:"You can wield this weapon with one or two hands. The die in parentheses (e.g. 1d10) is the damage when you use two hands."},
+    "armor-light":{term:"Light Armor",def:"The lightest armor — padded, leather, or studded leather. Your AC is its base value plus your full Dexterity modifier."},
+    "armor-medium":{term:"Medium Armor",def:"Hide, chain shirt, scale mail, breastplate, or half plate. Your AC is its base value plus your Dexterity modifier, capped at +2."},
+    "armor-heavy":{term:"Heavy Armor",def:"The heaviest armor — ring mail, chain mail, splint, or plate. It sets your AC outright with no Dexterity bonus, and some types need a minimum Strength."}
   };
   var ALIASES = {
     "advantage":"advantage","disadvantage":"disadvantage",
@@ -221,7 +236,11 @@
     "cartographer's tools":"tool-cartographers","cartographers tools":"tool-cartographers",
     "smith's tools":"tool-smiths","smiths tools":"tool-smiths",
     "calligrapher's supplies":"tool-calligraphers","calligraphers supplies":"tool-calligraphers",
-    "gaming set":"tool-gaming","gaming sets":"tool-gaming"
+    "gaming set":"tool-gaming","gaming sets":"tool-gaming",
+    "piercing":"dmg-piercing","slashing":"dmg-slashing","bludgeoning":"dmg-bludgeoning",
+    "ammunition":"wp-ammunition","finesse":"wp-finesse","heavy":"wp-heavy","loading":"wp-loading",
+    "range":"wp-range","thrown":"wp-thrown","two-handed":"wp-twohanded","two-handed weapon":"wp-twohanded","versatile":"wp-versatile",
+    "light armor":"armor-light","medium armor":"armor-medium","heavy armor":"armor-heavy"
   };
   function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
   var aliasAlt = Object.keys(ALIASES).sort(function(a,b){return b.length-a.length;}).map(escapeRe).join("|");
