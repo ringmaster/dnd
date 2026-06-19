@@ -228,7 +228,7 @@
         else if(eff.abilityIncrease){ var k=Object.keys(eff.abilityIncrease);
           if(k.length===1 && eff.abilityIncrease[k[0]]===2) state.asis[lv]={mode:"asi2",a:k[0]};
           else state.asis[lv]={mode:"asi11",a:k[0],b:k[1]||k[0]}; } }
-      else if(s.grantsFeat && /^feat-/.test(id)) state.originFeat=s.grantsFeat;
+      else if(s.grantsFeat) state.originFeat=s.grantsFeat;   // extra origin feat (Human Versatile, etc.) however it's tagged
       if(id==="fighting-style" && s.name){ var fm=/Fighting Style:\s*(.+)$/.exec(s.name); if(fm){ var st=FIGHTING_STYLES.filter(function(x){return x.name===fm[1].trim();})[0]; if(st) state.choices.style=st.id; } }
       if(id==="expertise" && eff.expertise) state.choices.expertise=eff.expertise[0];
       if(id==="divine-order" && s.name) state.choices.order=/Thaumaturge/i.test(s.name)?"thaumaturge":"protector";
@@ -236,6 +236,12 @@
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
         if(spc.prepared && spc.prepared.default) state.prepared=spc.prepared.default.slice(); }
     });
+    // Fighting Style is carried in ac.style (a derived AC bonus), not a source — recover it from the label
+    if(!state.choices.style && ch.ac && ch.ac.style && ch.ac.style.label){
+      var lbl=String(ch.ac.style.label).toLowerCase();
+      var fs=FIGHTING_STYLES.filter(function(x){ return lbl.indexOf(x.name.toLowerCase())>=0; })[0];
+      if(fs) state.choices.style=fs.id;
+    }
     if(!(b.sources && b.sources.length)) decompose(ch);   // build-stripped compiled char
     captureCustoms(ch);
     // snapshot for pristine pass-through: until the user edits something, re-export
