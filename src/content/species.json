@@ -6,9 +6,16 @@
         "name": "Skillful",
         "ref": {
           "title": "Human: Skillful",
-          "chips": [{ "t": "+1 skill" }],
-          "body": ["You gain proficiency in one additional skill of your choice from any list."]
-        }
+          "chips": [
+            {
+              "t": "+1 skill"
+            }
+          ],
+          "body": [
+            "You gain proficiency in one additional skill of your choice from any list."
+          ]
+        },
+        "grantsSkill": true
       },
       "resourceful": {
         "name": "Resourceful",
@@ -27,17 +34,32 @@
         },
         "ref": {
           "title": "Human: Resourceful",
-          "chips": [{ "t": "Heroic Inspiration", "c": "ember" }],
-          "body": ["You gain Heroic Inspiration whenever you finish a long rest, if you don't already have it. Spend it to reroll a d20."]
+          "chips": [
+            {
+              "t": "Heroic Inspiration",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You gain Heroic Inspiration whenever you finish a long rest, if you don't already have it. Spend it to reroll a d20."
+          ]
         }
       },
       "versatile": {
         "name": "Versatile",
         "ref": {
           "title": "Human: Versatile",
-          "chips": [{ "t": "Origin feat", "c": "ember" }],
-          "body": ["You gain one Origin feat of your choice, on top of the feat from your background."]
-        }
+          "chips": [
+            {
+              "t": "Origin feat",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You gain one Origin feat of your choice, on top of the feat from your background."
+          ]
+        },
+        "grantsOriginFeat": true
       }
     }
   },
@@ -48,16 +70,37 @@
         "name": "Darkvision & Dwarven Toughness",
         "ref": {
           "title": "Darkvision & Dwarven Toughness",
-          "chips": [{ "t": "120 ft" }, { "t": "+1 HP / level", "c": "ember" }],
-          "body": ["Darkvision out to 120 ft. Dwarven Toughness raises your hit point maximum by 1 per level."]
+          "chips": [
+            {
+              "t": "120 ft"
+            },
+            {
+              "t": "+1 HP / level",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Darkvision out to 120 ft. Dwarven Toughness raises your hit point maximum by 1 per level."
+          ]
         }
       },
       "dwarven": {
         "name": "Dwarven Resilience",
         "ref": {
           "title": "Dwarven Resilience",
-          "chips": [{ "t": "Resist poison", "c": "storm" }, { "t": "Adv on poison saves", "c": "storm" }],
-          "body": ["You have Resistance to poison damage and Advantage on saving throws you make to avoid or end the Poisoned condition."]
+          "chips": [
+            {
+              "t": "Resist poison",
+              "c": "storm"
+            },
+            {
+              "t": "Adv on poison saves",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You have Resistance to poison damage and Advantage on saving throws you make to avoid or end the Poisoned condition."
+          ]
         }
       },
       "stonecunning": {
@@ -78,7 +121,18 @@
         "ref": {
           "title": "Stonecunning",
           "pool": "sc",
-          "chips": [{ "t": "Bonus action" }, { "t": "Tremorsense 60 ft", "c": "storm" }, { "t": "Long rest" }],
+          "chips": [
+            {
+              "t": "Bonus action"
+            },
+            {
+              "t": "Tremorsense 60 ft",
+              "c": "storm"
+            },
+            {
+              "t": "Long rest"
+            }
+          ],
           "body": [
             "As a Bonus Action, gain Tremorsense out to 60 ft for 10 minutes while you are in contact with stone or a stone surface.",
             "Uses equal to your Proficiency Bonus, regained on a long rest."
@@ -94,24 +148,44 @@
         "name": "Brave",
         "ref": {
           "title": "Halfling: Brave",
-          "chips": [{ "t": "vs Frightened", "c": "storm" }],
-          "body": ["You have Advantage on saving throws you make to avoid or end the Frightened condition."]
+          "chips": [
+            {
+              "t": "vs Frightened",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You have Advantage on saving throws you make to avoid or end the Frightened condition."
+          ]
         }
       },
       "luck": {
         "name": "Luck",
         "ref": {
           "title": "Halfling: Luck",
-          "chips": [{ "t": "Reroll a natural 1", "c": "ember" }],
-          "body": ["When you roll a 1 on the d20 of a D20 Test (an attack roll, ability check, or saving throw), you can reroll the die and must use the new roll."]
+          "chips": [
+            {
+              "t": "Reroll a natural 1",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "When you roll a 1 on the d20 of a D20 Test (an attack roll, ability check, or saving throw), you can reroll the die and must use the new roll."
+          ]
         }
       },
       "nimbleness": {
         "name": "Nimbleness",
         "ref": {
           "title": "Halfling: Nimbleness",
-          "chips": [{ "t": "Move through bigger creatures" }],
-          "body": ["You can move through the space of any creature that is a size larger than you, though it isn't difficult terrain for you."]
+          "chips": [
+            {
+              "t": "Move through bigger creatures"
+            }
+          ],
+          "body": [
+            "You can move through the space of any creature that is a size larger than you, though it isn't difficult terrain for you."
+          ]
         }
       }
     }

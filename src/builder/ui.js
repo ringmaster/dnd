@@ -15,7 +15,7 @@
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
     skills:[], originFeat:"", asis:{}, masteries:[], cantrips:[], prepared:[],
     equipment:[],          // unified inventory: {kind:'weapon'|'armor'|'shield'|'item', id?, name}
-    choices:{ style:"", expertise:"", order:"" },
+    choices:{ style:"", expertise:"", order:"", skillful:"" },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
   };
@@ -108,6 +108,7 @@
     var cf=(CAT.classFeatures||{})[state.cls]||{}, fbl=classData().featuresByLevel||{};
     for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ var f=cf[name]; if(f&&f.effects) add(f.effects.skills, name); });
     subclassGrants().forEach(function(g){ if(g.effects) add(g.effects.skills, (CAT.subclasses[state.subclass]||{}).name||"subclass"); });
+    if(speciesSkillTrait() && state.choices.skillful) add([state.choices.skillful], (CAT.species[state.species]||{}).name+" Skillful");
     return set;
   }
   function derive(){
@@ -140,6 +141,10 @@
     return reachedASIs().some(function(l){ var a=state.asis[l]; return a && a.mode==="feat" && a.feat===id; });
   }
   function backgroundFeat(){ var bg=CAT.backgrounds[state.background]; return bg && bg.grantsFeat; }
+  /* a species trait flagged as granting a bonus origin feat / skill (Human Versatile / Skillful) */
+  function speciesTraitWith(flag){ var sp=CAT.species[state.species]; if(!sp) return null; var t=sp.traits||{}; for(var k in t){ if(t[k][flag]) return k; } return null; }
+  function speciesGrantsFeat(){ return !!speciesTraitWith("grantsOriginFeat"); }
+  function speciesSkillTrait(){ return speciesTraitWith("grantsSkill"); }
 
   /* ----- spell slots by character level + class features ----- */
   var HALF_SLOTS={1:[2],2:[2],3:[3],4:[3],5:[4,2],6:[4,2],7:[4,3],8:[4,3],9:[4,3,2],10:[4,3,2],11:[4,3,3],12:[4,3,3],13:[4,3,3,1],14:[4,3,3,1],15:[4,3,3,2],16:[4,3,3,2],17:[4,3,3,3,1],18:[4,3,3,3,1],19:[4,3,3,3,2],20:[4,3,3,3,2]};
@@ -268,7 +273,7 @@
     var invCard=(ch.cards||[]).find(function(c){ return c && c.type==="inventory"; });
     if(invCard && Array.isArray(invCard.items)) invCard.items.forEach(function(it){ if(it && it.name && !gearNames[baseName(it.name)]) state.equipment.push({kind:"item", name:it.name, tag:it.tag}); });
     state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[];
-    state.choices={style:"",expertise:"",order:""};
+    state.choices={style:"",expertise:"",order:"",skillful:""};
     (b.sources||[]).forEach(function(s){
       var id=s.id||"", eff=s.effects||{};
       if(/-skills$/.test(id) && eff.skills) state.skills=eff.skills.slice();
@@ -281,6 +286,7 @@
       else if(s.grantsFeat) state.originFeat=s.grantsFeat;   // extra origin feat (Human Versatile, etc.) however it's tagged
       if(id==="fighting-style" && s.name){ var fm=/Fighting Style:\s*(.+)$/.exec(s.name); if(fm){ var st=FIGHTING_STYLES.filter(function(x){return x.name===fm[1].trim();})[0]; if(st) state.choices.style=st.id; } }
       if(id==="expertise" && eff.expertise) state.choices.expertise=eff.expertise[0];
+      if(eff.skills && id===speciesSkillTrait()) state.choices.skillful=eff.skills[0];   // Human Skillful's chosen skill
       if(id==="divine-order" && s.name) state.choices.order=/Thaumaturge/i.test(s.name)?"thaumaturge":"protector";
       if(id==="spellcasting" && eff.spellcasting){ var spc=eff.spellcasting;
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
@@ -358,7 +364,9 @@
     sources.push({ id:state.background, name:"Background: "+(CAT.backgrounds[state.background]||{}).name, include:"background:"+state.background });
     if(state.skills.length) sources.push({ id:state.cls+"-skills", name:(cd.name||state.cls)+" skills", effects:{ skills: state.skills.slice() } });
     var sp = CAT.species[state.species];
-    if(sp) Object.keys(sp.traits).forEach(function(tr){ sources.push({ id:tr, name:(sp.name+": "+sp.traits[tr].name), include:"species:"+state.species+":"+tr }); });
+    if(sp) Object.keys(sp.traits).forEach(function(tr){ var src={ id:tr, name:(sp.name+": "+sp.traits[tr].name), include:"species:"+state.species+":"+tr };
+      if(sp.traits[tr].grantsSkill && state.choices.skillful) src.effects={ skills:[state.choices.skillful] };   // Human Skillful's chosen skill
+      sources.push(src); });
     // class spellcasting (slots + chosen cantrips/prepared) + class features up to level
     if(cd.spellAbility && spellSlotsFor()) sources.push({ id:"spellcasting", name:"Spellcasting", effects:{ spellcasting:spellEntries() } });
     classFeatureSources().forEach(function(s){ sources.push(s); });
@@ -549,8 +557,8 @@
       el("h2",{text:"Identity"}),
       field("Name", el("input",{class:"binput", value:state.name, oninput:function(e){ state.name=e.target.value; refreshOut(); }})),
       el("div",{class:"bgrid"},[
-        selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; render(); }, "", speciesHelp()),
-        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:"",order:""}; render(); }, "", classHelp()),
+        selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; if(!speciesGrantsFeat()) state.originFeat=""; if(!speciesSkillTrait()) state.choices.skillful=""; render(); }, "", speciesHelp()),
+        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:"",order:"",skillful:state.choices.skillful}; render(); }, "", classHelp()),
         selField("Subclass", state.subclass, state.level<3 ? [["","— locked —"]] : [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.subclass=v; render(); }, state.level<3 ? "Subclass is gained at level 3." : "Pick a class first.", subclassHelp()),
         selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp()),
         selField("Level", String(state.level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.level=parseInt(v,10); render(); }, "", "Your character level (1–20). Higher levels raise Proficiency Bonus, HP, spell slots, and unlock features.")
@@ -691,11 +699,13 @@
     });
     skillCard.appendChild(skillList);
 
-    // origin feat (level 1)
+    // origin feat (level 1): every background grants one (shown read-only); only
+    // species with the Versatile trait (Human) grant a second, selectable one
     var featCard = el("div",{class:"bcard"},[ el("h2",{text:"Origin Feat"}) ]);
     var bgFeat = backgroundFeat();
     if(bgFeat) featCard.appendChild(el("div",{class:"bsub",text:"From background: "+((CAT.feats[bgFeat]||{}).name||bgFeat).replace(/\s*\(.*\)$/,"")}));
-    featCard.appendChild(selField("Extra origin feat (e.g. Human Versatile)", state.originFeat, featOptions(), function(v){ state.originFeat=v; render(); }, "", featHelp()));
+    if(speciesGrantsFeat()) featCard.appendChild(selField((CAT.species[state.species].name)+" extra origin feat", state.originFeat, featOptions(), function(v){ state.originFeat=v; render(); }, "", featHelp()));
+    else featCard.appendChild(el("div",{class:"bf-h",text:(CAT.species[state.species]||{}).name+" doesn't grant an extra origin feat — only the background's."}));
 
     // advancement: subclass (L3) + ASIs (4/8/12/16/19)
     var advCard = el("div",{class:"bcard"},[ el("h2",{text:"Advancement"}) ]);
@@ -736,6 +746,7 @@
 
     // feature sub-choices (Fighting Style, Expertise, Divine Order)
     var choiceCard=null, choiceFields=[];
+    if(speciesSkillTrait()) choiceFields.push(selField((CAT.species[state.species].name)+" Skillful — extra skill", state.choices.skillful, [["","— choose a skill —"]].concat(Object.keys(SKILL_ABIL).sort().map(function(s){return [s,s+" ("+SKILL_ABIL[s]+")"];})), function(v){ state.choices.skillful=v; render(); }, "", "Human Skillful grants proficiency in one skill of your choice."));
     if(featureReached("Fighting Style")) choiceFields.push(selField("Fighting Style", state.choices.style, [["","— choose —"]].concat(FIGHTING_STYLES.map(function(s){return [s.id,s.name];})), function(v){ state.choices.style=v; render(); }, "", FIGHTING_STYLES.map(function(s){return s.name+" — "+s.note;})));
     if(needsExpertise()){ var ps=proficientSkills(); choiceFields.push(selField("Expertise", state.choices.expertise, [["","— choose a proficient skill —"]].concat(ps.map(function(s){return [s,s];})), function(v){ state.choices.expertise=v; render(); }, ps.length?"":"Pick class skills first.")); }
     if(featureReached("Divine Order")) choiceFields.push(selField("Divine Order", state.choices.order, [["","— choose —"],["protector","Protector — martial weapons & heavy armor"],["thaumaturge","Thaumaturge — extra cantrip & Arcana bonus"]], function(v){ state.choices.order=v; render(); }));
