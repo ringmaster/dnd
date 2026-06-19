@@ -209,6 +209,12 @@ ${styles}
   .cust-key{flex:1 1 7rem;min-width:5rem;font-family:ui-monospace,Menlo,monospace}
   .cust-json{margin-top:0}
   .cust-err{color:#e0736b;display:block;margin-top:.25rem;min-height:1em}
+  .eq-list{margin-top:.6rem;display:flex;flex-direction:column;gap:.3rem}
+  .eq-row{display:flex;align-items:center;gap:.5rem;border:1px solid var(--iron);border-radius:8px;padding:.35rem .5rem;background:rgba(0,0,0,.18)}
+  .eq-kind{font-family:"Cinzel",serif;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;padding:.16rem .38rem;white-space:nowrap;border:1px solid var(--iron-light);color:var(--ash)}
+  .eq-weapon{color:var(--ember-bright);border-color:var(--ember)}
+  .eq-armor,.eq-shield{color:#86b6d6;border-color:#3a5a72}
+  .eq-name{flex:1;color:var(--bone)}
 </style>
 </head>
 <body>

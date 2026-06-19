@@ -13,7 +13,8 @@
   var state = {
     name:"New Hero", species:"human", cls:"ranger", subclass:"", background:"guide", level:4,
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
-    skills:[], armor:"", shield:false, originFeat:"", asis:{}, weapons:[], masteries:[], cantrips:[], prepared:[],
+    skills:[], originFeat:"", asis:{}, masteries:[], cantrips:[], prepared:[],
+    equipment:[],          // unified inventory: {kind:'weapon'|'armor'|'shield'|'item', id?, name}
     choices:{ style:"", expertise:"", order:"" },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
@@ -58,6 +59,15 @@
   function opt(v, label, sel, dis){ return el("option", {value:v, text:label, selected: sel?"selected":null, disabled: dis?"disabled":null}); }
   function titleCase(s){ return String(s).split(/[-_ ]+/).map(function(w){ return w ? w.charAt(0).toUpperCase()+w.slice(1) : w; }).join(" "); }
 
+  /* ----- inventory helpers (state.equipment is the single source of truth) ----- */
+  function eqOf(kind){ return state.equipment.filter(function(e){ return e.kind===kind; }); }
+  function eqWeaponIds(){ return eqOf("weapon").map(function(e){ return e.id; }).filter(function(id){ return CAT.weapons[id]; }); }
+  function eqArmorIds(){ return eqOf("armor").map(function(e){ return e.id; }).filter(function(id){ return CAT.armor[id]; }); }
+  function eqHasShield(){ return eqOf("shield").length>0; }
+  function eqItems(){ return eqOf("item"); }
+  /* best (highest base AC) owned armor — the sheet's default-worn piece */
+  function bestArmorId(){ var ids=eqArmorIds(); if(!ids.length) return ""; return ids.slice().sort(function(a,b){ return (CAT.armor[b].base||0)-(CAT.armor[a].base||0); })[0]; }
+
   /* ----- derived values from current state ----- */
   function abilityIncreases(){
     var inc = {};
@@ -92,11 +102,13 @@
     var d = { scores:sc, pb:pb, mods:{} };
     ABIL.forEach(function(a){ d.mods[a]=mod(sc[a]); });
     d.saves = (cd.saves||[]);
-    // AC from equipped armor (+ shield)
-    var arm = state.armor && CAT.armor[state.armor];
+    // AC preview from the best owned armor (+ shield + Defense) — the sheet lets
+    // you change what's actually equipped
+    var armId = bestArmorId(), arm = armId && CAT.armor[armId];
     if(arm){ var dex=d.mods.DEX; var dadd = arm.addDex ? (arm.dexCap!=null?Math.min(dex,arm.dexCap):dex) : 0; d.ac = arm.base + dadd; d.acNote = arm.label; }
     else { d.ac = 10 + d.mods.DEX; d.acNote = "No armor (10 + Dex)"; }
-    if(state.shield){ d.ac += 2; d.acNote += " + shield"; }
+    if(eqHasShield()){ d.ac += 2; d.acNote += " + shield"; }
+    if(arm && state.choices.style==="defense"){ d.ac += 1; d.acNote += " + Defense"; }
     // HP (average)
     var die = cd.hitDie || "d8";
     d.hp = (DIE_MAX[die]||8) + (state.level-1)*(DIE_AVG[die]||5) + state.level*d.mods.CON;
@@ -211,12 +223,22 @@
     state.subclass = b.subclass || id.subclass || "";
     state.background = b.background || id.background || state.background;
     if(b.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}; ABIL.forEach(function(a){ if(b.abilities[a]!=null) base[a]=b.abilities[a]; }); state.base=base; }
-    state.weapons = (ch.weapons||[]).map(function(w){ return typeof w==="string"?w:w.id; });
     state.masteries = (ch.masteryDefault||[]).slice();
     var bgCard = (ch.cards||[]).find(function(c){ return c && c.type==="background"; });
     state.bio = (bgCard && bgCard.paras) ? bgCard.paras.join("\n\n") : "";
-    state.armor = (ch.ac && (typeof ch.ac.armor==="string"?ch.ac.armor:(ch.ac.armor&&ch.ac.armor.id))) || "";
-    state.shield = !!(ch.ac && ch.ac.shield);
+    // rebuild the unified inventory from weapons + armory + shield + inert items
+    state.equipment = [];
+    // any catalog weapon/armor name (plus "shield") is "gear", not an inert supply
+    var gearNames = { shield:1 };
+    Object.keys(CAT.weapons).forEach(function(id){ gearNames[CAT.weapons[id].name.toLowerCase()]=1; });
+    Object.keys(CAT.armor).forEach(function(id){ gearNames[CAT.armor[id].label.toLowerCase()]=1; });
+    var baseName = function(n){ return String(n).replace(/\s*\(.*\)\s*$/,"").trim().toLowerCase(); };
+    (ch.weapons||[]).forEach(function(w){ var id=typeof w==="string"?w:w.id; if(id && CAT.weapons[id]) state.equipment.push({kind:"weapon", id:id, name:CAT.weapons[id].name}); });
+    var armory = (ch.ac && (ch.ac.armory || (ch.ac.armor ? [ch.ac.armor] : []))) || [];
+    armory.forEach(function(a){ var id=typeof a==="string"?a:(a&&a.id); if(id && CAT.armor[id]) state.equipment.push({kind:"armor", id:id, name:CAT.armor[id].label}); });
+    if(ch.ac && ch.ac.shield) state.equipment.push({kind:"shield", name:"Shield"});
+    var invCard=(ch.cards||[]).find(function(c){ return c && c.type==="inventory"; });
+    if(invCard && Array.isArray(invCard.items)) invCard.items.forEach(function(it){ if(it && it.name && !gearNames[baseName(it.name)]) state.equipment.push({kind:"item", name:it.name, tag:it.tag}); });
     state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[];
     state.choices={style:"",expertise:"",order:""};
     (b.sources||[]).forEach(function(s){
@@ -267,8 +289,8 @@
      value captured at load time, nothing has been edited */
   function editSig(){
     return JSON.stringify([ state.name, state.species, state.cls, state.subclass, state.background, state.level,
-      state.base, state.skills, state.armor, state.shield, state.originFeat, state.asis,
-      state.weapons, state.masteries, state.cantrips, state.prepared, state.choices, state.bio, state.customs ]);
+      state.base, state.skills, state.equipment, state.originFeat, state.asis,
+      state.masteries, state.cantrips, state.prepared, state.choices, state.bio, state.customs ]);
   }
   /* Capture the things the builder genuinely doesn't model, so they're not
      lost once the character is edited: unknown top-level fields (e.g. combat,
@@ -380,7 +402,9 @@
     if(cd.spellAbility) cards.push({type:"spellcasting"});
     cards.push({type:"skills"});
     cards.push({type:"pools", title:"Resources", pools:"*"});
-    if(state.weapons.length) cards.push({type:"inventory", items:[]});
+    if(eqWeaponIds().length || eqArmorIds().length || eqHasShield() || eqItems().length){
+      cards.push({ type:"inventory", items: eqItems().map(function(e){ return e.tag ? {name:e.name, tag:e.tag} : {name:e.name}; }) });
+    }
     var feats=featureList(); if(feats.length) cards.push({type:"features", title:"Features & Traits", list:feats});
     if(state.bio && state.bio.trim()) cards.push({ type:"background", hint:bgHint(), paras:state.bio.split(/\n\s*\n/).map(function(p){return p.trim();}).filter(Boolean) });
     cards.push({type:"buildlog", title:"Build Log", hint:"every choice, level by level", levels:genBuildLog()});
@@ -401,11 +425,17 @@
       title: state.name, footer: "Built with the character builder",
       storageKey: "dnd_"+slug, level: state.level, hitDie: d.hitDie,
       proficiencyBonus: d.pb, saves: d.saves, checkModNote: cmn||undefined, speed: d.speed,
-      ac: (function(){ var ac={}; if(state.armor) ac.armor=state.armor; if(state.shield) ac.shield={label:"Shield",bonus:2,note:"+2 AC",default:true}; if(state.choices.style==="defense") ac.style={label:"Defense",bonus:1,note:"+1 AC while armored",requiresArmor:true,default:true}; return ac; })(),
+      // ownership only — the sheet decides what's actually worn/held. Best armor
+      // is listed first so it's the default-equipped piece; the rest are swappable.
+      ac: (function(){ var ac={}; var best=bestArmorId(), ids=eqArmorIds();
+        if(ids.length){ ac.armory=[best].concat(ids.filter(function(id){ return id!==best; })); }
+        if(eqHasShield()) ac.shield={label:"Shield",bonus:2,note:"+2 AC",default:true};
+        if(state.choices.style==="defense") ac.style={label:"Defense",bonus:1,note:"+1 AC while armored",requiresArmor:true,default:true};
+        return ac; })(),
       hp: { max: d.hp },
       masteryMax: cd.weaponMastery || 0, masteryDefault: state.masteries.slice(),
       rest: { short:["Spend Hit Dice to heal","Recover short-rest features"], long:["HP → maximum","Spell slots → full","Hit Dice → half restored","All per-rest features reset"], shortToast:"Short rest taken.", longToast:"Long rest — fully restored." },
-      studs: genStuds(), weapons: state.weapons.map(function(id){ var w={id:id,carried:true}, cat=CAT.weapons[id]||{}, ranged=(cat.props||[]).some(function(p){return /range|ammunition/.test(p);}), twoH=(cat.props||[]).indexOf("two-handed")>=0;
+      studs: genStuds(), weapons: eqWeaponIds().map(function(id){ var w={id:id,carried:true}, cat=CAT.weapons[id]||{}, ranged=(cat.props||[]).some(function(p){return /range|ammunition/.test(p);}), twoH=(cat.props||[]).indexOf("two-handed")>=0;
         if(state.choices.style==="archery" && ranged) w.atkBonus=2;
         if(state.choices.style==="dueling" && !ranged && !twoH) w.dmgBonus=2;
         return w; }), cards: genCards(),
@@ -423,7 +453,6 @@
   function subclassHelp(){ if(!state.subclass) return "Your subclass is chosen at level 3 and shapes your class's identity."; var s=CAT.subclasses[state.subclass]; if(!s) return ""; return [s.desc||"", "Features: "+(s.features||[]).join(", ")+"."]; }
   function backgroundHelp(){ var b=CAT.backgrounds[state.background]; return b ? [(b.ref&&b.ref.body&&b.ref.body[0])||""] : ""; }
   function featHelp(){ if(!state.originFeat) return "A level-1 Origin feat. Human Versatile grants one; other species don't. (ASI feats at 4/8/12/16/19 are chosen under Advancement.)"; var f=CAT.feats[state.originFeat]; return (f&&f.ref&&f.ref.body) ? f.ref.body : (f?[f.name]:""); }
-  function armorHelp(){ if(!state.armor) return "No armor: AC = 10 + your Dexterity modifier. A shield adds +2."; var a=CAT.armor[state.armor]; return a?[a.label+" — "+a.note]:""; }
 
   /* ----- ability arrays ----- */
   var STANDARD_ARRAY=[15,14,13,12,10,8];
@@ -500,12 +529,35 @@
       ])
     ]);
 
-    // equipped gear -> AC (Mage Armor is a spell, not armor, so it isn't here)
-    var armorOpts=[["","No armor (10 + Dex)"]].concat(Object.keys(CAT.armor).filter(function(k){return k!=="magearmor";}).map(function(k){return [k,CAT.armor[k].label];}));
-    var gearCard = el("div",{class:"bcard"},[ el("h2",{text:"Equipped"}),
-      el("div",{class:"bsub",text:"Armor Class is built from what you have equipped."}),
-      selField("Armor", state.armor, armorOpts, function(v){ state.armor=v; render(); }, "", armorHelp()),
-      el("label",{class:"bcheck"},[ el("input",{type:"checkbox", checked: state.shield?"checked":null, onchange:function(e){ state.shield=e.target.checked; render(); }}), el("span",{text:"Shield (+2 AC)"}) ])
+    // equipment: one autocomplete to add weapons, armor, shields, and supplies.
+    // Equipping (worn armor, drawn weapons) happens on the sheet, not here.
+    var EQ_OPTS = [];
+    Object.keys(CAT.weapons).forEach(function(id){ EQ_OPTS.push({label:CAT.weapons[id].name, kind:"weapon", id:id}); });
+    Object.keys(CAT.armor).filter(function(k){return k!=="magearmor";}).forEach(function(id){ EQ_OPTS.push({label:CAT.armor[id].label, kind:"armor", id:id}); });
+    EQ_OPTS.push({label:"Shield", kind:"shield"});
+    var eqInput = el("input",{class:"binput", list:"eqdatalist", placeholder:"Add weapon, armor, shield, or supply…", autocomplete:"off"});
+    function addEquip(){
+      var v=(eqInput.value||"").trim(); if(!v) return;
+      var m=EQ_OPTS.filter(function(o){ return o.label.toLowerCase()===v.toLowerCase(); })[0];
+      if(m && m.kind==="shield" && eqHasShield()){ eqInput.value=""; return; }
+      state.equipment.push(m ? {kind:m.kind, id:m.id, name:m.label} : {kind:"item", name:v});
+      eqInput.value=""; render();
+    }
+    eqInput.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); addEquip(); } });
+    var eqList = el("div",{class:"eq-list"});
+    if(!state.equipment.length) eqList.appendChild(el("div",{class:"bf-h",text:"No equipment yet — add weapons, armor, and supplies above."}));
+    state.equipment.forEach(function(e, idx){
+      eqList.appendChild(el("div",{class:"eq-row"},[
+        el("span",{class:"eq-kind eq-"+e.kind, text:e.kind}),
+        el("span",{class:"eq-name", text:e.name||e.id||"?"}),
+        el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove", text:"✕", onclick:function(){ state.equipment.splice(idx,1); render(); }})
+      ]));
+    });
+    var equipCard = el("div",{class:"bcard"},[ el("h2",{text:"Equipment"}),
+      el("div",{class:"bsub",text:"Weapons, armor, shields, and supplies the character owns. Which armor is worn and which weapons are drawn is decided on the sheet (AC and attacks are derived there)."}),
+      el("div",{class:"brow2"},[ eqInput, el("button",{class:"bbtn tiny ember", type:"button", text:"Add", onclick:addEquip}) ]),
+      el("datalist",{id:"eqdatalist"}, EQ_OPTS.map(function(o){ return el("option",{value:o.label}); })),
+      eqList
     ]);
 
     // spells: cantrips + prepared from the class list (casters only)
@@ -536,32 +588,22 @@
       }
     }
 
-    // weapons: pick your kit + masteries
-    var wpnCard = el("div",{class:"bcard"},[ el("h2",{text:"Weapons"}),
-      el("div",{class:"bsub",text:"Tap weapons to add them to your kit — they show in Attacks and Inventory."}) ]);
-    var wWrap=el("div",{class:"bchips"});
-    Object.keys(CAT.weapons).sort(function(a,b){ return CAT.weapons[a].name<CAT.weapons[b].name?-1:1; }).forEach(function(id){
-      var w=CAT.weapons[id], on=state.weapons.indexOf(id)>=0;
-      wWrap.appendChild(el("button",{class:"bchip"+(on?" on":""), type:"button", text:w.name, onclick:function(){
-        var i=state.weapons.indexOf(id);
-        if(i>=0){ state.weapons.splice(i,1); var mi=state.masteries.indexOf(id); if(mi>=0) state.masteries.splice(mi,1); }
-        else state.weapons.push(id);
-        render();
-      }}));
-    });
-    wpnCard.appendChild(wWrap);
+    // weapon mastery: mastered weapon TYPES (a class feature), independent of
+    // what the character actually carries
+    var masteryCard=null;
     if(cd.weaponMastery){
-      wpnCard.appendChild(el("div",{class:"bsub",text:"Weapon Mastery — choose up to "+cd.weaponMastery+" from your kit ("+state.masteries.length+"/"+cd.weaponMastery+"):"}));
+      masteryCard = el("div",{class:"bcard"},[ el("h2",{text:"Weapon Mastery"}),
+        el("div",{class:"bsub",text:"Weapon types you've mastered — up to "+cd.weaponMastery+" ("+state.masteries.length+"/"+cd.weaponMastery+"). Independent of your inventory."}) ]);
       var mWrap=el("div",{class:"bchips"});
-      state.weapons.forEach(function(id){ var w=CAT.weapons[id]; if(!w||!w.mastery) return; var on=state.masteries.indexOf(id)>=0;
+      Object.keys(CAT.weapons).filter(function(id){ return CAT.weapons[id].mastery; }).sort(function(a,b){ return CAT.weapons[a].name<CAT.weapons[b].name?-1:1; }).forEach(function(id){
+        var w=CAT.weapons[id], on=state.masteries.indexOf(id)>=0;
         mWrap.appendChild(el("button",{class:"bchip"+(on?" on":""), type:"button", text:w.name+" · "+w.mastery, onclick:function(){
           var i=state.masteries.indexOf(id);
           if(i>=0) state.masteries.splice(i,1); else { if(state.masteries.length>=cd.weaponMastery) return; state.masteries.push(id); }
           render();
         }}));
       });
-      if(!state.weapons.length) mWrap.appendChild(el("span",{class:"bf-h",text:"Add weapons to your kit first."}));
-      wpnCard.appendChild(mWrap);
+      masteryCard.appendChild(mWrap);
     }
 
     // abilities
@@ -697,7 +739,7 @@
         r.readAsText(f); }})
     ]);
 
-    root.appendChild(el("div",{class:"bcol"},[loadCard, core, abilCard, gearCard, wpnCard, spellCard, skillCard, featCard, choiceCard, advCard, bioCard, customCard].filter(Boolean)));
+    root.appendChild(el("div",{class:"bcol"},[loadCard, core, abilCard, equipCard, masteryCard, spellCard, skillCard, featCard, choiceCard, advCard, bioCard, customCard].filter(Boolean)));
     root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
     refreshOut();
   }
