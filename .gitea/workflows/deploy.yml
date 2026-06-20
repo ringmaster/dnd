@@ -1,0 +1,13 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    uses: ringmaster/tower/.gitea/workflows/deploy-static.yml@main
+    with:
+      site: dnd
+      build-command: node src/build.mjs
+      dist-dir: docs
