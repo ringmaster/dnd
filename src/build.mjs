@@ -261,6 +261,18 @@ ${styles}
   .hb-toggle input{margin-top:.15rem}
   .bcard.flash{animation:compflash 1.2s ease-out}
   @keyframes compflash{0%,40%{box-shadow:0 0 0 2px var(--ember-bright),0 4px 12px rgba(0,0,0,.35)}100%{box-shadow:0 4px 12px rgba(0,0,0,.35)}}
+  .jt-tree{font-size:.82rem}
+  .jt-scalar{display:flex;gap:.4rem;align-items:center}
+  .jt-type{flex:none;width:auto;min-width:0;padding:.25rem .35rem;font-size:.72rem}
+  .jt-val{flex:1 1 auto;min-width:4rem}
+  .jt-strwrap{display:flex;gap:.3rem;align-items:center;flex:1 1 auto;min-width:0}
+  .jt-bool{display:flex;gap:.35rem;align-items:center;color:var(--ash);font-size:.8rem}
+  .jt-head{display:flex;gap:.4rem;align-items:center;margin-bottom:.35rem}
+  .jt-children{border-left:2px solid var(--iron);margin-left:.45rem;padding-left:.6rem;display:flex;flex-direction:column;gap:.4rem;margin-top:.2rem}
+  .jt-row{display:flex;gap:.4rem;align-items:flex-start}
+  .jt-key{flex:none;min-width:3.5rem;max-width:9rem}
+  .jt-key.idx{color:var(--ash);font-family:ui-monospace,Menlo,monospace;padding-top:.4rem;min-width:1.3rem;max-width:1.6rem}
+  .jt-row > .jt-node{flex:1 1 auto;min-width:0}
 </style>
 </head>
 <body>

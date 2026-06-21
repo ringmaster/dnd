@@ -37,8 +37,15 @@ function renderHeaderHTML(){
   var studs = CHARACTER.studs.map(function(s){
     return '<button class="stud" data-ref="'+esc(s.ref)+'" type="button"><span class="sl">'+esc(s.label)+'</span><span class="sv"'+(s.id?' id="'+s.id+'"':'')+'>'+esc(studDisplay(s))+'</span></button>';
   }).join("");
+  var flag = CHARACTER.bespoke
+    ? { cls:"bespoke", text:"Bespoke character — it contains custom traits that don't necessarily match the rules as written." }
+    : CHARACTER.homebrew
+    ? { cls:"homebrew", text:"Homebrew character — some choices may not follow the rules as written." }
+    : null;
+  var banner = flag ? '<div class="charflag '+flag.cls+'"><span class="cf-tag">'+(flag.cls==="bespoke"?"Bespoke":"Homebrew")+'</span><span class="cf-text">'+esc(flag.text+(CHARACTER.homebrewNote?" "+CHARACTER.homebrewNote:""))+'</span></div>' : '';
   return '<div class="who"><h1>'+esc(CHARACTER.name)+'</h1><div class="sub">'+esc(CHARACTER.subtitle)+'</div></div>'+
     '<div class="studs" id="hstuds">'+studs+'<button class="stud-search" id="searchOpen" type="button" aria-label="Search">'+svgIcon("search")+'</button></div>'+
+    banner+
     '<div class="hsearch" id="hsearch" style="display:none">'+
       '<span class="hsearch-ic">'+svgIcon("search")+'</span>'+
       '<input id="searchInput" class="hsearch-input" type="text" autocomplete="off" placeholder="Search rules & sheet…" aria-label="Search rules and sheet">'+

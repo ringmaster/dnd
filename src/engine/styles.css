@@ -37,6 +37,11 @@
   .who h1{margin:0;font-size:1.3rem;font-weight:900;color:var(--bone);line-height:1}
   .who .sub{color:var(--ash);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
   .studs{display:flex;gap:.4rem;flex-wrap:wrap}
+  .charflag{flex:1 1 100%;display:flex;align-items:center;gap:.6rem;border-radius:9px;padding:.5rem .7rem;font-size:.8rem;line-height:1.35}
+  .charflag.bespoke{background:rgba(120,86,193,.12);border:1px solid rgba(120,86,193,.5);color:#cdbcf0}
+  .charflag.homebrew{background:rgba(107,90,47,.14);border:1px solid rgba(107,90,47,.55);color:#d9c37a}
+  .charflag .cf-tag{flex:none;font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid currentColor;border-radius:5px;padding:.15rem .4rem}
+  .charflag .cf-text{flex:1 1 auto}
   .stud{
     background:linear-gradient(180deg,#222732,#181c24);border:1px solid var(--iron);border-radius:8px;
     box-shadow:var(--shadow-carve);padding:.35rem .6rem;text-align:center;min-width:54px;

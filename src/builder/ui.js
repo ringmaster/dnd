@@ -22,13 +22,15 @@
     choices:{ style:"", expertise:[], order:"", skillful:"", lineage:"" },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
     homebrew:false,       // when true, legality issues are non-blocking and the export is flagged homebrew
+    bespoke:false,        // hand-authored character with custom, not-necessarily-RAW content (legality waived)
+    homebrewNote:"",      // optional explanation shown on the sheet banner
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
   };
   /* top-level keys the builder owns/regenerates; everything else on a loaded
      character is captured as a custom "root" element so it survives round-trip.
      `ref` is here because compile() auto-generates the reference modals from the
      build sources; `combat` because the builder now generates a combat block. */
-  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1,homebrew:1,
+  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1,homebrew:1,bespoke:1,homebrewNote:1,
     // fields compile() DERIVES from the build sources — decomposed back into the
     // form (see decompose()), never kept as opaque custom blobs
     abilities:1,always:1,cantrips:1,checkMods:1,initiate:1,initiativeBonus:1,languages:1,pools:1,prepared:1,skillExp:1,skillProf:1,slotPool:1,slotPools:1,spellcasting:1,tools:1};
@@ -355,6 +357,8 @@
     var b=ch.build||{}, id=ch.identity||{};
     state.name = ch.name || state.name;
     state.homebrew = !!ch.homebrew;
+    state.bespoke = !!ch.bespoke;
+    state.homebrewNote = ch.homebrewNote || "";
     state.species = b.species || id.species || state.species;
     state.background = b.background || id.background || state.background;
     // class breakdown: build.classes / identity.classes (multiclass) or a single class
@@ -465,6 +469,51 @@
       else if(cu.kind==="card"){ (ch.cards=ch.cards||[]).push(cu.value); }
     });
     return ch;
+  }
+
+  /* ----- typed JSON tree editor (for Custom Elements) -----
+     Renders any JSON value as a tree of typed inputs: number/string/boolean
+     scalars, plus object/array containers with add/remove. Scalar edits bubble
+     via set() -> refreshOut() (no re-render, so input focus is kept); structural
+     edits (type change, add/remove, key rename) call render() to rebuild. */
+  var DICE_RE=/^\s*\d*d\d+(\s*[+-]\s*\d+)?\s*$/i;
+  function jtype(v){ return Array.isArray(v)?"array":v===null?"null":typeof v; }
+  function jsonNode(value, set){
+    var t=jtype(value);
+    var typeSel=select(t, [["string","abc"],["number","123"],["boolean","✓/✗"],["object","{ } object"],["array","[ ] list"]], function(nt){
+      set(nt==="string"?"":nt==="number"?0:nt==="boolean"?false:nt==="object"?{}:nt==="array"?[]:null); render();
+    });
+    typeSel.className="bsel jt-type";
+    var editor;
+    if(t==="boolean"){
+      editor=el("label",{class:"jt-bool"},[ el("input",{type:"checkbox", checked:value?"checked":null, onchange:function(e){ set(e.target.checked); }}), el("span",{text:value?"true":"false"}) ]);
+    } else if(t==="number"){
+      editor=el("input",{class:"binput jt-val", type:"number", value:String(value), oninput:function(e){ set(e.target.value===""?0:Number(e.target.value)); }});
+    } else if(t==="string"){
+      var inp=el("input",{class:"binput jt-val", oninput:function(e){ set(e.target.value); }}); inp.value=value;
+      editor=el("div",{class:"jt-strwrap"},[ inp, DICE_RE.test(value)?el("span",{class:"jt-dice", title:"Looks like a dice roll", text:"🎲"}):null ].filter(Boolean));
+    } else if(t==="array"){
+      var ac=el("div",{class:"jt-children"});
+      value.forEach(function(item,i){ ac.appendChild(el("div",{class:"jt-row"},[
+        el("span",{class:"jt-key idx", text:i+""}),
+        jsonNode(item, function(nv){ value[i]=nv; set(value); }),
+        el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove item", text:"✕", onclick:function(){ value.splice(i,1); set(value); render(); }})
+      ])); });
+      ac.appendChild(el("button",{class:"bbtn tiny ember", type:"button", text:"+ item", onclick:function(){ value.push(""); set(value); render(); }}));
+      editor=ac;
+    } else if(t==="object"){
+      var oc=el("div",{class:"jt-children"});
+      Object.keys(value).forEach(function(k){ oc.appendChild(el("div",{class:"jt-row"},[
+        el("input",{class:"binput jt-key", value:k, "aria-label":"Field name", onchange:function(e){ var nk=e.target.value.trim(); if(nk && nk!==k){ var nv={}; Object.keys(value).forEach(function(x){ nv[x===k?nk:x]=value[x]; }); set(nv); render(); } }}),
+        jsonNode(value[k], function(nv){ value[k]=nv; set(value); }),
+        el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove field", text:"✕", onclick:function(){ delete value[k]; set(value); render(); }})
+      ])); });
+      oc.appendChild(el("button",{class:"bbtn tiny ember", type:"button", text:"+ field", onclick:function(){ var n="field"+(Object.keys(value).length+1); value[n]=""; set(value); render(); }}));
+      editor=oc;
+    } else { editor=el("span",{class:"bf-h", text:"null"}); }
+    if(t==="object"||t==="array")
+      return el("div",{class:"jt-node"},[ el("div",{class:"jt-head"},[typeSel]), editor ]);
+    return el("div",{class:"jt-node jt-scalar"},[ typeSel, editor ]);
   }
 
   /* ----- build block + scaffold output ----- */
@@ -603,6 +652,8 @@
       riderHead: (hr.riders.length && hr.head) ? hr.head : undefined,
       hitRiders: hr.riders.length ? hr.riders : undefined,
       homebrew: state.homebrew || undefined,
+      bespoke: state.bespoke || undefined,
+      homebrewNote: state.homebrewNote || undefined,
       build: buildBlock()
     };
     return applyCustoms(ch);
@@ -897,12 +948,21 @@
     }
     var hbToggle = el("label",{class:"hb-toggle"},[
       el("input",{type:"checkbox", checked: state.homebrew?"checked":null, onchange:function(e){ state.homebrew=e.target.checked; render(); }}),
-      el("span",{text:" Homebrew — allow a non-legal / bespoke build (flags the export)"})
+      el("span",{text:" Homebrew — allow a non-legal build (flags the export)"})
     ]);
-    var compBody=[hbToggle];
-    if(state.homebrew){
-      compBody.push(el("div",{class:"comp-note",text:"⚙ Homebrew mode — legality isn't enforced and the exported character is flagged homebrew. Issues below are informational."}));
-      legalErrors.concat(legalWarns).forEach(function(i){ compBody.push(issueRow(i,true)); });
+    var bsToggle = el("label",{class:"hb-toggle"},[
+      el("input",{type:"checkbox", checked: state.bespoke?"checked":null, onchange:function(e){ state.bespoke=e.target.checked; render(); }}),
+      el("span",{text:" Bespoke — hand-authored, custom content (not necessarily RAW)"})
+    ]);
+    var waived = state.homebrew || state.bespoke;
+    var compBody=[hbToggle, bsToggle];
+    if(waived){
+      var note=state.bespoke
+        ? "⚙ Bespoke — this character has custom traits that don't necessarily match the rules as written. Legality isn't enforced and the sheet shows a Bespoke banner."
+        : "⚙ Homebrew — legality isn't enforced and the export is flagged homebrew.";
+      compBody.push(el("div",{class:"comp-note",text:note}));
+      var noteTa=el("input",{class:"binput", placeholder:"Optional note shown on the sheet banner…", value:state.homebrewNote||"", oninput:function(e){ state.homebrewNote=e.target.value; refreshOut(); }});
+      compBody.push(noteTa);
     } else if(!legalIssues.length){
       compBody.push(el("div",{class:"comp-ok",text:"✓ Legal character — every required choice is made."}));
     } else {
@@ -911,7 +971,7 @@
       if(legalWarns.length) compBody.push(el("div",{class:"comp-h soft",text:"Worth checking:"}));
       legalWarns.forEach(function(i){ compBody.push(issueRow(i,true)); });
     }
-    var completenessCard = el("div",{class:"bcard bcomp "+(state.homebrew?"hb":(legalErrors.length?"bad":"good"))},
+    var completenessCard = el("div",{class:"bcard bcomp "+(waived?"hb":(legalErrors.length?"bad":"good"))},
       [ el("h2",{text:"Completeness"}) ].concat(compBody));
 
     // output
@@ -953,22 +1013,28 @@
 
     // custom elements: anything the builder doesn't model, kept structured + round-tripped
     var customCard = el("div",{class:"bcard"},[ el("h2",{text:"Custom Elements"}),
-      el("div",{class:"bsub",text:"Things the builder doesn't model — captured on load (e.g. combat, ref, a Background card) and preserved through the round trip. Edit the JSON here, or add your own ad hoc."}) ]);
+      el("div",{class:"bsub",text:"Things the builder doesn't model — captured on load (e.g. combat, ref, a Background card) and preserved through the round trip. Edit fields as a typed tree, or switch to raw JSON."}) ]);
     if(!state.customs.length) customCard.appendChild(el("div",{class:"bf-h",text:"None. Use the buttons below to add one."}));
     state.customs.forEach(function(cu, idx){
       var head=el("div",{class:"cust-head"},[
         el("span",{class:"cust-kind",text:CUSTOM_KINDS[cu.kind]||cu.kind}),
         el("input",{class:"binput cust-label", value:cu.label||"", placeholder:"label", oninput:function(e){ cu.label=e.target.value; }}),
         cu.kind==="root" ? el("input",{class:"binput cust-key", value:cu.key||"", placeholder:"field name", oninput:function(e){ cu.key=e.target.value; refreshOut(); }}) : null,
+        el("button",{class:"bbtn tiny", type:"button", text:cu._raw?"Tree view":"Raw JSON", onclick:function(){ cu._raw=!cu._raw; render(); }}),
         el("button",{class:"bbtn tiny", type:"button", text:"Remove", onclick:function(){ state.customs.splice(idx,1); render(); }})
       ].filter(Boolean));
-      var errEl=el("span",{class:"bf-h cust-err"});
-      // NB: a <textarea>'s text is its .value PROPERTY, not a value attribute — el() sets
-      // attributes, so set the property here or the box renders blank.
-      var ta=el("textarea",{class:"bout cust-json", rows:"6",
-        oninput:function(e){ try{ cu.value=JSON.parse(e.target.value); errEl.textContent=""; refreshOut(); }catch(ex){ errEl.textContent="Invalid JSON — fix to apply: "+ex.message; } }});
-      ta.value=JSON.stringify(cu.value, null, 2);
-      customCard.appendChild(el("div",{class:"cust-row"},[head, ta, errEl]));
+      var body;
+      if(cu._raw){
+        var errEl=el("span",{class:"bf-h cust-err"});
+        // NB: a <textarea>'s text is its .value PROPERTY, not a value attribute.
+        var ta=el("textarea",{class:"bout cust-json", rows:"6",
+          oninput:function(e){ try{ cu.value=JSON.parse(e.target.value); errEl.textContent=""; refreshOut(); }catch(ex){ errEl.textContent="Invalid JSON — fix to apply: "+ex.message; } }});
+        ta.value=JSON.stringify(cu.value, null, 2);
+        body=el("div",{},[ta, errEl]);
+      } else {
+        body=el("div",{class:"jt-tree"},[ jsonNode(cu.value, function(nv){ cu.value=nv; refreshOut(); }) ]);
+      }
+      customCard.appendChild(el("div",{class:"cust-row"},[head, body]));
     });
     customCard.appendChild(el("div",{class:"brow2"},[
       el("button",{class:"bbtn tiny", type:"button", text:"+ Feature/source", onclick:function(){ addCustom("source"); }}),
