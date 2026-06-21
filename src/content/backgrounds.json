@@ -67,7 +67,8 @@
         }
       ],
       "body": [
-        "1-2 terse sentences summarizing: grants the Crafter Origin feat, Investigation & Persuasion, Artisan's Tools, and a +2/+1 ability boost."
+        "A craftsperson shaped by years of work in a workshop or guild.",
+        "Artisan grants the Crafter Origin feat, proficiency in Investigation and Persuasion, proficiency with Artisan's Tools, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -103,7 +104,8 @@
         }
       ],
       "body": [
-        "Grants the Skilled Origin feat, Deception & Sleight of Hand, a Forgery Kit, and a +2/+1 ability boost."
+        "A smooth-talking swindler who lives by guile, disguise, and nerve.",
+        "Charlatan grants the Skilled Origin feat, proficiency in Deception and Sleight of Hand, proficiency with Forgery Kit, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -173,7 +175,8 @@
         }
       ],
       "body": [
-        "1-2 terse sentences: grants the Musician Origin feat, Acrobatics & Performance, a Musical Instrument, and a +2/+1 ability boost."
+        "A performer who has played to crowds for coin and applause.",
+        "Entertainer grants the Musician Origin feat, proficiency in Acrobatics and Performance, proficiency with Musical Instrument, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -209,7 +212,8 @@
         }
       ],
       "body": [
-        "1-2 terse sentences: grants the Tough Origin feat, Animal Handling & Nature, Carpenter's Tools, and a +2/+1 ability boost."
+        "A life of hard, honest labor working the land and tending stock.",
+        "Farmer grants the Tough Origin feat, proficiency in Animal Handling and Nature, proficiency with Carpenter's Tools, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -314,7 +318,8 @@
         }
       ],
       "body": [
-        "1-2 terse sentences: grants the Healer Origin feat, Medicine & Religion, an Herbalism Kit, and a +2/+1 ability boost."
+        "Years of seclusion spent in study, prayer, or quiet recovery.",
+        "Hermit grants the Healer Origin feat, proficiency in Medicine and Religion, proficiency with Herbalism Kit, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -350,7 +355,8 @@
         }
       ],
       "body": [
-        "Grants the Lucky Origin feat, Animal Handling & Persuasion, Navigator's Tools, and a +2/+1 ability boost."
+        "A trader raised among caravans, ledgers, and sharp bargains.",
+        "Merchant grants the Lucky Origin feat, proficiency in Animal Handling and Persuasion, proficiency with Navigator's Tools, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -386,7 +392,8 @@
         }
       ],
       "body": [
-        "Grants the Skilled Origin feat, History & Persuasion, a Gaming Set, and a +2/+1 ability boost."
+        "Born to privilege and schooled in courtly manners and intrigue.",
+        "Noble grants the Skilled Origin feat, proficiency in History and Persuasion, proficiency with Gaming Set, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -458,7 +465,8 @@
         }
       ],
       "body": [
-        "1-2 terse sentences: grants the Tavern Brawler Origin feat, Acrobatics & Perception, Navigator's Tools, and a +2/+1 ability boost."
+        "A life before the mast, weathering storms and dockside brawls.",
+        "Sailor grants the Tavern Brawler Origin feat, proficiency in Acrobatics and Perception, proficiency with Navigator's Tools, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -494,7 +502,8 @@
         }
       ],
       "body": [
-        "1-2 terse sentences: grants the Skilled Origin feat, Investigation & Perception, Calligrapher's Supplies, and a +2/+1 ability boost."
+        "A meticulous copyist trained in scriptoria and dusty archives.",
+        "Scribe grants the Skilled Origin feat, proficiency in Investigation and Perception, proficiency with Calligrapher's Supplies, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -530,7 +539,8 @@
         }
       ],
       "body": [
-        "1-2 terse sentences: grants the Savage Attacker Origin feat, Athletics & Intimidation, a Gaming Set, and a +2/+1 ability boost."
+        "A veteran of drills, long campaigns, and the press of battle.",
+        "Soldier grants the Savage Attacker Origin feat, proficiency in Athletics and Intimidation, proficiency with Gaming Set, and a +2 / +1 ability boost."
       ]
     }
   },
@@ -566,7 +576,8 @@
         }
       ],
       "body": [
-        "1-2 terse sentences: grants the Lucky Origin feat, Insight & Stealth, Thieves' Tools, and a +2/+1 ability boost."
+        "A drifter who came up on the streets and the open road.",
+        "Wayfarer grants the Lucky Origin feat, proficiency in Insight and Stealth, proficiency with Thieves' Tools, and a +2 / +1 ability boost."
       ]
     }
   }

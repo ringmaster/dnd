@@ -51,7 +51,7 @@
             }
           ],
           "body": [
-            "As a Magic action, touch a creature to heal it. You restore a number of Hit Points equal to the number of d4s rolled equal to your Proficiency Bonus.",
+            "As a Magic action, touch a creature and roll a number of d4s equal to your Proficiency Bonus; the creature regains that many Hit Points.",
             "Uses equal to your Proficiency Bonus, regained on a long rest."
           ]
         },
