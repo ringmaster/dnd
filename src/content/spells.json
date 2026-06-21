@@ -686,5 +686,162 @@
     "classes": [
       "wizard"
     ]
+  },
+  "wordofradiance": {
+    "name": "Word of Radiance",
+    "level": 0,
+    "dice": "Con save DC {dc} · 2d6 radiant",
+    "chips": [
+      {
+        "t": "5 ft"
+      }
+    ],
+    "body": [
+      "Each creature of your choice within 5 ft makes a Constitution save (DC {dc}) or takes 2d6 radiant damage. The dice increase with level (3d6 at 5th, 4d6 at 11th, 5d6 at 17th)."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "thaumaturgy": {
+    "name": "Thaumaturgy",
+    "level": 0,
+    "chips": [
+      {
+        "t": "30 ft"
+      }
+    ],
+    "body": [
+      "Manifest a minor wonder within 30 ft for up to 1 minute: boom your voice three times as loud, flicker flames, cause harmless tremors, sound a phantom noise, fling open or shut an unbarred door or window, or alter your eyes' appearance. You can sustain up to three effects at once."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "moonbeam": {
+    "name": "Moonbeam",
+    "level": 2,
+    "concentration": true,
+    "dice": "Con save DC {dc} · 2d10 radiant",
+    "chips": [
+      {
+        "t": "120 ft"
+      }
+    ],
+    "body": [
+      "A 5-ft-wide, 40-ft-high beam of moonlight fills a cylinder. A creature that enters the beam or starts its turn there makes a Constitution save (DC {dc}), taking 2d10 radiant on a failure (half on success). As a Bonus Action on later turns you can move the beam 60 ft. Shapechangers have Disadvantage on the save."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ],
+    "cast": "Action"
+  },
+  "spiritguardians": {
+    "name": "Spirit Guardians",
+    "level": 3,
+    "concentration": true,
+    "dice": "Wis save DC {dc} · 3d8 radiant",
+    "chips": [
+      {
+        "t": "15-ft aura"
+      }
+    ],
+    "body": [
+      "Spectral guardians fill a 15-ft radius around you for the duration. The area is Difficult Terrain for enemies; when a creature of your choice enters the aura or starts its turn there it makes a Wisdom save (DC {dc}), taking 3d8 radiant on a failure (half on success). 3d8 increases by 1d8 per slot level above 3rd."
+    ],
+    "classes": [
+      "cleric"
+    ],
+    "cast": "Action"
+  },
+  "dispelmagic": {
+    "name": "Dispel Magic",
+    "level": 3,
+    "chips": [
+      {
+        "t": "120 ft"
+      }
+    ],
+    "body": [
+      "Choose a creature, object, or magical effect within 120 ft. Any spell of level 3 or lower on the target ends. For a higher-level spell, make an ability check using your spellcasting ability (DC 10 + that spell's level) to end it. A higher-level slot auto-ends spells of its level or lower."
+    ],
+    "classes": [
+      "cleric",
+      "wizard",
+      "druid"
+    ]
+  },
+  "daylight": {
+    "name": "Daylight",
+    "level": 3,
+    "chips": [
+      {
+        "t": "60-ft bright"
+      }
+    ],
+    "body": [
+      "A 60-ft-radius sphere of bright light (plus 60 ft of dim light beyond) spreads from a point or object you choose, lasting 1 hour. It counts as sunlight. If cast on an area of magical darkness of 3rd level or lower, that darkness is dispelled."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
+  },
+  "revivify": {
+    "name": "Revivify",
+    "level": 3,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "t": "300 gp diamond",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Touch a creature that has died within the last minute; it returns to life with 1 hit point. This doesn't restore missing body parts or revive a creature that died of old age. Consumes 300 gp of diamonds."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "auraoflife": {
+    "name": "Aura of Life",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30-ft aura"
+      }
+    ],
+    "body": [
+      "A 30-ft aura radiates from you for up to 10 minutes (Concentration). You and allies in it have Resistance to necrotic damage, your hit point maximums can't be reduced, and any ally there with 0 HP that isn't dead regains 1 HP at the start of its turn."
+    ],
+    "classes": [
+      "cleric",
+      "paladin"
+    ]
+  },
+  "banishment": {
+    "name": "Banishment",
+    "level": 4,
+    "concentration": true,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft"
+      }
+    ],
+    "body": [
+      "A creature within 60 ft makes a Charisma save (DC {dc}) or is banished for up to 1 minute (Concentration). A native of another plane is sent home (and stays if you concentrate the full minute); anything else is held in a harmless demiplane. A higher-level slot targets one extra creature per level above 4th."
+    ],
+    "classes": [
+      "cleric",
+      "wizard",
+      "paladin"
+    ],
+    "cast": "Action"
   }
 }
