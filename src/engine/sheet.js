@@ -740,13 +740,27 @@ function appendHitRiders(container){
   riders.forEach(function(rd){
     var active=hitRiderActive(rd);
     var b=document.createElement("button"); b.type="button"; b.className="hr-box"+(active?"":" hr-off");
-    if(rd.ref) b.setAttribute("data-ref", rd.ref);
+    if(rd.ref) b.setAttribute("data-rider", rd.ref);   // expand inline (keeps the attack in view), not navigate away
     var note=active ? (rd.note||"") : (rd.offNote || (rd.requiresConc?("needs Concentration on "+rd.requiresConc):(rd.pool?"none left — rest to recover":"not available")));
     if(rd.pool){ note=(note?note+" · ":"")+state[rd.pool]+"/"+POOL_MAX[rd.pool]+" left"; }
     b.innerHTML='<span class="hr-dmg">'+esc(rd.dmg)+'</span><span class="hr-text"><span class="hr-name">'+esc(rd.label)+'</span><span class="hr-note">'+esc(note)+'</span></span>';
     wrap.appendChild(b);
   });
   container.appendChild(wrap);
+}
+/* Expand a rider's reference INLINE at the bottom of the current modal (like an
+   inline glossary entry) so the weapon's to-hit/damage stays visible — tapping a
+   maneuver/superiority option must not replace the attack card. */
+function expandRef(refId){
+  var r=REF[refId]; if(!r || !refGlossary) return;
+  var existing=refGlossary.querySelector('[data-gd="rider-'+refId+'"]');
+  if(existing){ existing.scrollIntoView({block:"nearest"}); existing.classList.add("flash"); setTimeout(function(){ existing.classList.remove("flash"); },600); return; }
+  var box=document.createElement("div"); box.className="gloss-def"; box.setAttribute("data-gd","rider-"+refId);
+  var h=document.createElement("span"); h.className="gd-term"; h.textContent=r.title; box.appendChild(h);
+  if(r.dice){ var d=document.createElement("div"); d.className="gd-body"; d.style.color="var(--ember-bright)"; d.textContent=r.dice; box.appendChild(d); }
+  (r.body||[]).forEach(function(p){ var pb=document.createElement("div"); pb.className="gd-body"; pb.textContent=p; box.appendChild(pb); linkifyTerms(pb); });
+  refGlossary.appendChild(box);
+  box.scrollIntoView({block:"nearest"});
 }
 function openRef(id, trigger){
   if(id==="stat_ac"){ openAC(trigger); return; }
@@ -872,6 +886,7 @@ function wireSheet(){
     var gl=e.target.closest("[data-gloss]"); if(gl){ openGlossModal(gl.getAttribute("data-gloss"), gl); return; }
     var sc=e.target.closest("[data-scroll]"); if(sc){ scrollToAnchor(sc.getAttribute("data-scroll")); return; }
     var sk=e.target.closest("[data-skill]"); if(sk){ openGlossModal(ALIASES[sk.getAttribute("data-skill").toLowerCase()], sk); return; }
+    var rd=e.target.closest("[data-rider]"); if(rd){ expandRef(rd.getAttribute("data-rider")); return; }
     var t=e.target.closest("[data-ref]"); if(!t) return; openRef(t.getAttribute("data-ref"), t);
   });
 
