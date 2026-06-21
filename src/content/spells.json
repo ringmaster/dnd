@@ -6420,5 +6420,49 @@
       "wizard"
     ],
     "school": "conjuration"
+  },
+  "auraofvitality": {
+    "name": "Aura of Vitality",
+    "level": 3,
+    "school": "transmutation",
+    "concentration": true,
+    "dice": "heal 2d6 {mod}",
+    "chips": [
+      {
+        "t": "30-ft aura"
+      },
+      {
+        "t": "Conc."
+      }
+    ],
+    "body": [
+      "A 30-ft aura lasts up to 1 minute (Concentration). As a Bonus Action you can heal one creature in it for 2d6 hit points."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "paladin"
+    ]
+  },
+  "tinyhut": {
+    "name": "Leomund's Tiny Hut",
+    "level": 3,
+    "school": "evocation",
+    "chips": [
+      {
+        "t": "10-ft dome"
+      },
+      {
+        "t": "8 hours"
+      }
+    ],
+    "body": [
+      "A 10-ft-radius immobile dome of force shelters up to nine creatures for 8 hours; ranged attacks and spells can't pass through, and the interior is dry and mild. A ritual."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "wizard"
+    ]
   }
 }

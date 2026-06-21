@@ -5,7 +5,7 @@
   "bespoke": true,
   "subtitle": "Variant Human · Rogue 4 / Cleric 8 / Monk 4 · Lvl 16",
   "title": "Wex",
-  "footer": "Rogue (Inquisitive) 4 / Cleric (Twilight) 8 / Monk (Shadow) 4",
+  "footer": "Rogue (Assassin) 4 / Cleric (Twilight) 8 / Monk (Shadow) 4",
   "storageKey": "dnd_wex",
   "level": 16,
   "hitDice": [
@@ -194,19 +194,9 @@
           "sub": "Rogue · finesse/ranged · once per turn"
         },
         {
-          "ref": "insightfulfighting",
-          "name": "Insightful Fighting",
-          "sub": "Inquisitive · Sneak Attack without Advantage (Insight vs. Deception)"
-        },
-        {
-          "ref": "eyefordetail",
-          "name": "Eye for Detail",
-          "sub": "Inquisitive · Bonus-Action Perception / Investigation"
-        },
-        {
-          "ref": "eardeceit",
-          "name": "Ear for Deceit",
-          "sub": "Inquisitive · detect lies (treat a d20 of 7 or lower as 8 on Insight)"
+          "ref": "assassinate",
+          "name": "Assassinate",
+          "sub": "Assassin · advantage vs. those who haven't acted; crit vs. surprised"
         },
         {
           "ref": "cunningaction",
@@ -311,7 +301,20 @@
       "paras": [
         "Wex moves through Port Haven's underside like a shadow with a conscience — a smuggler and fixer turned moon-touched agent of Noxa, the twilight goddess.",
         "Loyal to friends rather than ideals; haunted by a death he blames on his own mistake, and determined that it never happen again. Tell him he can't do something and it's as good as done.",
-        "He keeps a worn prayer book to Noxa, a sending stone for Shae of the Dusk House, and a knack for being exactly where the moonlight falls."
+        "He keeps a worn prayer book to Noxa, a sending stone for Shae of the Dusk House, and a knack for being exactly where the moonlight falls.",
+        "<b>Ideal:</b> People. Loyal to friends, not ideals — everyone else can take a trip down the Styx. <b>Bond:</b> Someone he loved died because of a mistake he made; never again. <b>Flaw:</b> If there's a plan, he'll forget it; if he doesn't forget it, he'll ignore it.",
+        "<i>The best way to get Wex to do something is to tell him he can't.</i>"
+      ]
+    },
+    {
+      "type": "background",
+      "hint": "Contacts & Connections",
+      "paras": [
+        "<b>Shae-Nefre Zounn</b> — owner-operator of The Dusk House (sending stone).",
+        "<b>Than</b> — the party's liaison at the Adventurers Guild.",
+        "<b>Darwin Monroe</b> — moon priest of Noxa, whose markings Wex is beginning to share.",
+        "<b>Adalicia Illendar</b> — Head of the Ranger Brigade (sending stone).",
+        "<b>Barnaby Stonegate</b> — the mayor's stablemaster."
       ]
     },
     {
@@ -444,7 +447,7 @@
           "tag": "Rogue 3 · Inquisitive",
           "items": [
             {
-              "html": "<b>Rogue 3 — Inquisitive:</b> Insightful Fighting (Sneak Attack without Advantage), Eye for Detail, Ear for Deceit; Sneak Attack → 2d6"
+              "html": "<b>Rogue 3 — Inquisitive:</b> Insightful Fighting, Eye for Detail, Ear for Deceit; Sneak Attack → 2d6 <span class=\"tag\">later retrained to Assassin (see final sheet)</span>"
             },
             {
               "html": "<b>Steady Aim</b> — Bonus Action for Advantage on your next attack (Speed 0)"
@@ -700,42 +703,34 @@
     "umbrastep": {
       "title": "Umbra Step (DM-bestowed)",
       "body": [
-        "Step through a moonlit shadow and emerge from another unobserved moonlit shadow within line of sight (120 ft) or tied to a strong memory. Counts as a 0-ft move; both shadows must be unobserved by non-allies."
-      ]
-    },
-    "insightfulfighting": {
-      "title": "Insightful Fighting",
+        "Step through a moonlit shadow and emerge from another unobserved moonlit shadow within line of sight (120 ft) or tied to a strong memory. Counts as a 0-ft move; both shadows must be unobserved by non-allies, and the magic only works on strong shadows cast by moonlight (not mere darkness).",
+        "Appearing near enemies may forfeit the benefit of stealth and can prevent an immediate return. A divine boon from Noxa that deepens as Wex's bond grows — mirroring the moon-priest Darwin Monroe.",
+        "Progression — L11 Partial Observation: may use observed shadows, but each observer adds a cumulative 10% chance to be lost to whispering shadows for 1d4 hours (lose Concentration, Disadvantage on Concentration). L13 Umbral Momentum: +10 ft speed and Advantage on Acrobatics until end of turn. L14 Shadow Companion: leave the path open for one willing ally (≤ your size) to follow, 1×/short rest (not for memory-shadows). L16 Enhanced Umbral Momentum: bonus rises to +20 ft and Advantage on the next Dex save this turn. L17 Shadow Casting: 1×/short rest use a non-moon shadow — tattoo-like markings begin to surface. L19 Superior Umbral Momentum: +30 ft and resistance to opportunity attacks until end of turn."
+      ],
       "chips": [
         {
-          "t": "Sneak Attack enabler",
+          "t": "0-ft move",
+          "c": "ember"
+        },
+        {
+          "t": "Moonlit shadows",
+          "c": "storm"
+        },
+        {
+          "t": "Grows with you"
+        }
+      ]
+    },
+    "assassinate": {
+      "title": "Assassinate",
+      "chips": [
+        {
+          "t": "Surprise → crit",
           "c": "ember"
         }
       ],
       "body": [
-        "As a Bonus Action, make a Wisdom (Insight) check contested by the target's Charisma (Deception). On a success you can use Sneak Attack against that target even without Advantage (but not with Disadvantage) for 1 minute or until you use this on a different target."
-      ]
-    },
-    "eyefordetail": {
-      "title": "Eye for Detail",
-      "chips": [
-        {
-          "t": "Bonus action"
-        }
-      ],
-      "body": [
-        "As a Bonus Action, make a Wisdom (Perception) check to spot a hidden creature or object, or an Intelligence (Investigation) check to uncover or decipher a clue."
-      ]
-    },
-    "eardeceit": {
-      "title": "Ear for Deceit",
-      "chips": [
-        {
-          "t": "Insight",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "Whenever you make a Wisdom (Insight) check to determine whether a creature is lying, treat a roll of 7 or lower on the d20 as an 8."
+        "You have Advantage on attack rolls against any creature that hasn't taken a turn in combat yet. Any hit you score against a creature that is surprised is a critical hit."
       ]
     }
   },
@@ -745,7 +740,7 @@
     "classes": [
       {
         "class": "rogue",
-        "subclass": "inquisitive",
+        "subclass": "assassin",
         "level": 4
       },
       {
@@ -965,68 +960,21 @@
             "prepared": {
               "max": 13,
               "default": [
-                "guidingbolt",
-                "spiritguardians",
-                "moonbeam",
-                "silence",
-                "holdperson",
-                "dispelmagic",
-                "revivify",
                 "banishment",
+                "command",
+                "clairvoyance",
+                "controlwater",
                 "daylight",
-                "auraoflife"
+                "dispelmagic",
+                "guidingbolt",
+                "holdperson",
+                "protectionfromevilandgood",
+                "revivify",
+                "sending",
+                "silence",
+                "spiritguardians"
               ],
               "catalog": [
-                {
-                  "id": "guidingbolt",
-                  "name": "Guiding Bolt",
-                  "note": "ranged spell atk +10 · 4d6 radiant",
-                  "level": 1
-                },
-                {
-                  "id": "moonbeam",
-                  "name": "Moonbeam",
-                  "note": "domain · 2d10 radiant beam · Conc.",
-                  "level": 2,
-                  "cast": "Action"
-                },
-                {
-                  "id": "silence",
-                  "name": "Silence",
-                  "note": "20-ft no sound · Conc.",
-                  "level": 2
-                },
-                {
-                  "id": "holdperson",
-                  "name": "Hold Person",
-                  "note": "Wis save DC 18 · Conc.",
-                  "level": 2
-                },
-                {
-                  "id": "spiritguardians",
-                  "name": "Spirit Guardians",
-                  "note": "3d8 radiant aura · Conc.",
-                  "level": 3,
-                  "cast": "Action"
-                },
-                {
-                  "id": "dispelmagic",
-                  "name": "Dispel Magic",
-                  "note": "end a spell ≤ 3rd freely",
-                  "level": 3
-                },
-                {
-                  "id": "daylight",
-                  "name": "Daylight",
-                  "note": "60-ft bright light",
-                  "level": 3
-                },
-                {
-                  "id": "revivify",
-                  "name": "Revivify",
-                  "note": "raise a creature dead ≤ 1 min",
-                  "level": 3
-                },
                 {
                   "id": "banishment",
                   "name": "Banishment",
@@ -1035,14 +983,197 @@
                   "cast": "Action"
                 },
                 {
+                  "id": "command",
+                  "name": "Command",
+                  "note": "Wis save DC 18",
+                  "level": 1
+                },
+                {
+                  "id": "clairvoyance",
+                  "name": "Clairvoyance",
+                  "note": "level 3 · Conc.",
+                  "level": 3
+                },
+                {
+                  "id": "controlwater",
+                  "name": "Control Water",
+                  "note": "level 4 · Conc.",
+                  "level": 4
+                },
+                {
+                  "id": "daylight",
+                  "name": "Daylight",
+                  "note": "level 3",
+                  "level": 3
+                },
+                {
+                  "id": "dispelmagic",
+                  "name": "Dispel Magic",
+                  "note": "level 3",
+                  "level": 3
+                },
+                {
+                  "id": "guidingbolt",
+                  "name": "Guiding Bolt",
+                  "note": "To hit: d20 +10 · 4d6 radiant",
+                  "level": 1
+                },
+                {
+                  "id": "holdperson",
+                  "name": "Hold Person",
+                  "note": "Wis save DC 18 · Conc.",
+                  "level": 2
+                },
+                {
+                  "id": "protectionfromevilandgood",
+                  "name": "Protection from Evil and Good",
+                  "note": "level 1 · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "revivify",
+                  "name": "Revivify",
+                  "note": "level 3",
+                  "level": 3
+                },
+                {
+                  "id": "sending",
+                  "name": "Sending",
+                  "note": "level 3",
+                  "level": 3
+                },
+                {
+                  "id": "silence",
+                  "name": "Silence",
+                  "note": "level 2 · Conc.",
+                  "level": 2
+                },
+                {
+                  "id": "spiritguardians",
+                  "name": "Spirit Guardians",
+                  "note": "Wis save DC 18 · 3d8 radiant · Conc.",
+                  "level": 3,
+                  "cast": "Action"
+                },
+                {
+                  "id": "faeriefire",
+                  "name": "Faerie Fire",
+                  "note": "Dex save DC 18 · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "sleep",
+                  "name": "Sleep",
+                  "note": "5d8 HP of creatures · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "moonbeam",
+                  "name": "Moonbeam",
+                  "note": "Con save DC 18 · 2d10 radiant · Conc.",
+                  "level": 2,
+                  "cast": "Action"
+                },
+                {
+                  "id": "seeinvisibility",
+                  "name": "See Invisibility",
+                  "note": "level 2",
+                  "level": 2
+                },
+                {
+                  "id": "auraofvitality",
+                  "name": "Aura of Vitality",
+                  "note": "heal 2d6 +5 · Conc.",
+                  "level": 3
+                },
+                {
+                  "id": "tinyhut",
+                  "name": "Leomund's Tiny Hut",
+                  "note": "level 3",
+                  "level": 3
+                },
+                {
                   "id": "auraoflife",
                   "name": "Aura of Life",
-                  "note": "domain · resist necrotic · Conc.",
+                  "note": "level 3 · Conc.",
                   "level": 3
+                },
+                {
+                  "id": "greaterinvisibility",
+                  "name": "Greater Invisibility",
+                  "note": "level 4 · Conc.",
+                  "level": 4
+                },
+                {
+                  "id": "augury",
+                  "name": "Augury",
+                  "note": "level 2",
+                  "level": 2
+                },
+                {
+                  "id": "magiccircle",
+                  "name": "Magic Circle",
+                  "note": "level 3",
+                  "level": 3
+                },
+                {
+                  "id": "sanctuary",
+                  "name": "Sanctuary",
+                  "note": "Wis save DC 18",
+                  "level": 1,
+                  "cast": "Bonus Action"
                 }
               ]
             }
           }
+        }
+      },
+      {
+        "id": "twilight-domain-spells",
+        "name": "Twilight Domain Spells",
+        "effects": {
+          "alwaysPrepared": [
+            {
+              "ref": "faeriefire",
+              "name": "Faerie Fire",
+              "sub": "Twilight domain · always prepared"
+            },
+            {
+              "ref": "sleep",
+              "name": "Sleep",
+              "sub": "Twilight domain · always prepared"
+            },
+            {
+              "ref": "moonbeam",
+              "name": "Moonbeam",
+              "sub": "Twilight domain · always prepared"
+            },
+            {
+              "ref": "seeinvisibility",
+              "name": "See Invisibility",
+              "sub": "Twilight domain · always prepared"
+            },
+            {
+              "ref": "auraofvitality",
+              "name": "Aura of Vitality",
+              "sub": "Twilight domain · always prepared"
+            },
+            {
+              "ref": "tinyhut",
+              "name": "Leomund's Tiny Hut",
+              "sub": "Twilight domain · always prepared"
+            },
+            {
+              "ref": "auraoflife",
+              "name": "Aura of Life",
+              "sub": "Twilight domain · always prepared"
+            },
+            {
+              "ref": "greaterinvisibility",
+              "name": "Greater Invisibility",
+              "sub": "Twilight domain · always prepared"
+            }
+          ]
         }
       }
     ]

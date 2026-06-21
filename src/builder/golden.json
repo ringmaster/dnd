@@ -766,7 +766,48 @@
     ],
     "checkMods": {},
     "initiativeBonus": 0,
-    "always": [],
+    "always": [
+      {
+        "ref": "faeriefire",
+        "name": "Faerie Fire",
+        "sub": "Twilight domain · always prepared"
+      },
+      {
+        "ref": "sleep",
+        "name": "Sleep",
+        "sub": "Twilight domain · always prepared"
+      },
+      {
+        "ref": "moonbeam",
+        "name": "Moonbeam",
+        "sub": "Twilight domain · always prepared"
+      },
+      {
+        "ref": "seeinvisibility",
+        "name": "See Invisibility",
+        "sub": "Twilight domain · always prepared"
+      },
+      {
+        "ref": "auraofvitality",
+        "name": "Aura of Vitality",
+        "sub": "Twilight domain · always prepared"
+      },
+      {
+        "ref": "tinyhut",
+        "name": "Leomund's Tiny Hut",
+        "sub": "Twilight domain · always prepared"
+      },
+      {
+        "ref": "auraoflife",
+        "name": "Aura of Life",
+        "sub": "Twilight domain · always prepared"
+      },
+      {
+        "ref": "greaterinvisibility",
+        "name": "Greater Invisibility",
+        "sub": "Twilight domain · always prepared"
+      }
+    ],
     "tools": [
       "Disguise Kit",
       "Gaming Set",
@@ -884,68 +925,21 @@
     "prepared": {
       "max": 13,
       "default": [
-        "guidingbolt",
-        "spiritguardians",
-        "moonbeam",
-        "silence",
-        "holdperson",
-        "dispelmagic",
-        "revivify",
         "banishment",
+        "command",
+        "clairvoyance",
+        "controlwater",
         "daylight",
-        "auraoflife"
+        "dispelmagic",
+        "guidingbolt",
+        "holdperson",
+        "protectionfromevilandgood",
+        "revivify",
+        "sending",
+        "silence",
+        "spiritguardians"
       ],
       "catalog": [
-        {
-          "id": "guidingbolt",
-          "name": "Guiding Bolt",
-          "note": "ranged spell atk +10 · 4d6 radiant",
-          "level": 1
-        },
-        {
-          "id": "moonbeam",
-          "name": "Moonbeam",
-          "note": "domain · 2d10 radiant beam · Conc.",
-          "level": 2,
-          "cast": "Action"
-        },
-        {
-          "id": "silence",
-          "name": "Silence",
-          "note": "20-ft no sound · Conc.",
-          "level": 2
-        },
-        {
-          "id": "holdperson",
-          "name": "Hold Person",
-          "note": "Wis save DC 18 · Conc.",
-          "level": 2
-        },
-        {
-          "id": "spiritguardians",
-          "name": "Spirit Guardians",
-          "note": "3d8 radiant aura · Conc.",
-          "level": 3,
-          "cast": "Action"
-        },
-        {
-          "id": "dispelmagic",
-          "name": "Dispel Magic",
-          "note": "end a spell ≤ 3rd freely",
-          "level": 3
-        },
-        {
-          "id": "daylight",
-          "name": "Daylight",
-          "note": "60-ft bright light",
-          "level": 3
-        },
-        {
-          "id": "revivify",
-          "name": "Revivify",
-          "note": "raise a creature dead ≤ 1 min",
-          "level": 3
-        },
         {
           "id": "banishment",
           "name": "Banishment",
@@ -954,10 +948,145 @@
           "cast": "Action"
         },
         {
+          "id": "command",
+          "name": "Command",
+          "note": "Wis save DC 18",
+          "level": 1
+        },
+        {
+          "id": "clairvoyance",
+          "name": "Clairvoyance",
+          "note": "level 3 · Conc.",
+          "level": 3
+        },
+        {
+          "id": "controlwater",
+          "name": "Control Water",
+          "note": "level 4 · Conc.",
+          "level": 4
+        },
+        {
+          "id": "daylight",
+          "name": "Daylight",
+          "note": "level 3",
+          "level": 3
+        },
+        {
+          "id": "dispelmagic",
+          "name": "Dispel Magic",
+          "note": "level 3",
+          "level": 3
+        },
+        {
+          "id": "guidingbolt",
+          "name": "Guiding Bolt",
+          "note": "To hit: d20 +10 · 4d6 radiant",
+          "level": 1
+        },
+        {
+          "id": "holdperson",
+          "name": "Hold Person",
+          "note": "Wis save DC 18 · Conc.",
+          "level": 2
+        },
+        {
+          "id": "protectionfromevilandgood",
+          "name": "Protection from Evil and Good",
+          "note": "level 1 · Conc.",
+          "level": 1
+        },
+        {
+          "id": "revivify",
+          "name": "Revivify",
+          "note": "level 3",
+          "level": 3
+        },
+        {
+          "id": "sending",
+          "name": "Sending",
+          "note": "level 3",
+          "level": 3
+        },
+        {
+          "id": "silence",
+          "name": "Silence",
+          "note": "level 2 · Conc.",
+          "level": 2
+        },
+        {
+          "id": "spiritguardians",
+          "name": "Spirit Guardians",
+          "note": "Wis save DC 18 · 3d8 radiant · Conc.",
+          "level": 3,
+          "cast": "Action"
+        },
+        {
+          "id": "faeriefire",
+          "name": "Faerie Fire",
+          "note": "Dex save DC 18 · Conc.",
+          "level": 1
+        },
+        {
+          "id": "sleep",
+          "name": "Sleep",
+          "note": "5d8 HP of creatures · Conc.",
+          "level": 1
+        },
+        {
+          "id": "moonbeam",
+          "name": "Moonbeam",
+          "note": "Con save DC 18 · 2d10 radiant · Conc.",
+          "level": 2,
+          "cast": "Action"
+        },
+        {
+          "id": "seeinvisibility",
+          "name": "See Invisibility",
+          "note": "level 2",
+          "level": 2
+        },
+        {
+          "id": "auraofvitality",
+          "name": "Aura of Vitality",
+          "note": "heal 2d6 +5 · Conc.",
+          "level": 3
+        },
+        {
+          "id": "tinyhut",
+          "name": "Leomund's Tiny Hut",
+          "note": "level 3",
+          "level": 3
+        },
+        {
           "id": "auraoflife",
           "name": "Aura of Life",
-          "note": "domain · resist necrotic · Conc.",
+          "note": "level 3 · Conc.",
           "level": 3
+        },
+        {
+          "id": "greaterinvisibility",
+          "name": "Greater Invisibility",
+          "note": "level 4 · Conc.",
+          "level": 4
+        },
+        {
+          "id": "augury",
+          "name": "Augury",
+          "note": "level 2",
+          "level": 2
+        },
+        {
+          "id": "magiccircle",
+          "name": "Magic Circle",
+          "note": "level 3",
+          "level": 3
+        },
+        {
+          "id": "sanctuary",
+          "name": "Sanctuary",
+          "note": "Wis save DC 18",
+          "level": 1,
+          "cast": "Bonus Action"
         }
       ]
     },
@@ -997,7 +1126,49 @@
           "sub": "Shadow Arts · a sound or image"
         }
       ],
-      "prepared": true
+      "prepared": true,
+      "always": [
+        {
+          "ref": "faeriefire",
+          "name": "Faerie Fire",
+          "sub": "Twilight domain · always prepared"
+        },
+        {
+          "ref": "sleep",
+          "name": "Sleep",
+          "sub": "Twilight domain · always prepared"
+        },
+        {
+          "ref": "moonbeam",
+          "name": "Moonbeam",
+          "sub": "Twilight domain · always prepared"
+        },
+        {
+          "ref": "seeinvisibility",
+          "name": "See Invisibility",
+          "sub": "Twilight domain · always prepared"
+        },
+        {
+          "ref": "auraofvitality",
+          "name": "Aura of Vitality",
+          "sub": "Twilight domain · always prepared"
+        },
+        {
+          "ref": "tinyhut",
+          "name": "Leomund's Tiny Hut",
+          "sub": "Twilight domain · always prepared"
+        },
+        {
+          "ref": "auraoflife",
+          "name": "Aura of Life",
+          "sub": "Twilight domain · always prepared"
+        },
+        {
+          "ref": "greaterinvisibility",
+          "name": "Greater Invisibility",
+          "sub": "Twilight domain · always prepared"
+        }
+      ]
     }
   },
   "Kaeral Vance": {
