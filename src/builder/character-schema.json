@@ -88,6 +88,12 @@
         "initiativeBonus": { "type": "string", "desc": "Initiative bonus, often 'prof'." },
         "alwaysPrepared": { "type": "array", "items": { "type": "object", "fields": { "ref": { "type": "string" }, "name": { "type": "string" }, "sub": { "type": "string" } } }, "desc": "Spells always prepared (don't count against limits)." },
         "grantsPool": { "ref": "pool", "desc": "A resource pool granted (pool gets an `id`)." },
+        "spellGrants": { "type": "object", "desc": "Innate/granted spellcasting (lineages, racial traits, feats): known cantrips + level-gated leveled spells castable free once per long rest.", "fields": {
+          "label": { "type": "string", "desc": "Source label shown on each granted spell's sub-line." },
+          "ability": { "type": ["string", "array"], "desc": "Casting ability code, or a list to pick the character's highest from." },
+          "cantrips": { "type": "array", "items": { "type": "string" }, "desc": "Cantrip ids (at-will)." },
+          "leveled": { "type": "array", "items": { "type": "object", "fields": { "level": { "type": "number", "required": true, "desc": "Character level that unlocks it." }, "spell": { "type": "string", "required": true }, "uses": { "type": "string", "desc": "'prof' for Prof/long rest; default once." } } } }
+        }},
         "spellcasting": { "type": "object", "desc": "Confers spellcasting. On a class feature it's a marker (ability/progression/list); on the builder's 'spellcasting' source it's the full materialized block (ability + slots/cantrips/prepared).", "fields": {
           "ability": { "ref": "ability" },
           "progression": { "type": "enum", "enum": ["full", "half", "third", "pact"] },

@@ -1,0 +1,510 @@
+{
+  "id": "veyra_ash",
+  "out": "veyra_ash.html",
+  "name": "Veyra Ash",
+  "subtitle": "Tiefling · Fighter · Champion · Lvl 5",
+  "title": "Veyra Ash",
+  "footer": "Tiefling Fighter — innate fiendish magic",
+  "storageKey": "dnd_veyra_ash",
+  "level": 5,
+  "hitDie": "d10",
+  "proficiencyBonus": 3,
+  "saves": [
+    "STR",
+    "CON"
+  ],
+  "speed": 30,
+  "ac": {
+    "armory": [
+      "chainmail"
+    ],
+    "shield": {
+      "label": "Shield",
+      "bonus": 2,
+      "note": "+2 AC",
+      "default": true
+    },
+    "style": {
+      "label": "Defense",
+      "bonus": 1,
+      "note": "+1 AC while armored",
+      "requiresArmor": true,
+      "default": true
+    }
+  },
+  "hp": {
+    "max": 44
+  },
+  "masteryMax": 3,
+  "masteryDefault": [
+    "longsword",
+    "dagger",
+    "handcrossbow"
+  ],
+  "rest": {
+    "short": [
+      "Spend Hit Dice to heal",
+      "Recover short-rest features"
+    ],
+    "long": [
+      "HP → maximum",
+      "Spell slots → full",
+      "Hit Dice → half restored",
+      "All per-rest features reset"
+    ],
+    "shortToast": "Short rest taken.",
+    "longToast": "Long rest — fully restored."
+  },
+  "studs": [
+    {
+      "ref": "stat_ac",
+      "label": "AC",
+      "id": "acVal"
+    },
+    {
+      "ref": "stat_init",
+      "label": "Init"
+    },
+    {
+      "ref": "stat_speed",
+      "label": "Speed"
+    },
+    {
+      "ref": "stat_prof",
+      "label": "Prof"
+    },
+    {
+      "ref": "stat_pass",
+      "label": "Pass.Per"
+    }
+  ],
+  "weapons": [
+    {
+      "id": "longsword",
+      "carried": true
+    },
+    {
+      "id": "dagger",
+      "carried": true
+    },
+    {
+      "id": "handcrossbow",
+      "carried": true
+    }
+  ],
+  "cards": [
+    {
+      "type": "abilities"
+    },
+    {
+      "type": "hitpoints"
+    },
+    {
+      "type": "attacks"
+    },
+    {
+      "type": "skills"
+    },
+    {
+      "type": "pools",
+      "title": "Resources",
+      "pools": "*"
+    },
+    {
+      "type": "inventory",
+      "items": []
+    },
+    {
+      "type": "features",
+      "title": "Features & Traits",
+      "list": [
+        {
+          "ref": "fightingstyle",
+          "name": "Fighting Style",
+          "sub": "Level 1"
+        },
+        {
+          "ref": "secondwind",
+          "name": "Second Wind",
+          "sub": "Level 1"
+        },
+        {
+          "ref": "weaponmastery",
+          "name": "Weapon Mastery",
+          "sub": "Level 1"
+        },
+        {
+          "ref": "actionsurge",
+          "name": "Action Surge",
+          "sub": "Level 2"
+        },
+        {
+          "ref": "tacticalmind",
+          "name": "Tactical Mind",
+          "sub": "Level 2"
+        },
+        {
+          "ref": "extraattack",
+          "name": "Extra Attack",
+          "sub": "Level 5"
+        },
+        {
+          "ref": "tacticalshift",
+          "name": "Tactical Shift",
+          "sub": "Level 5"
+        },
+        {
+          "ref": "improvedcritical",
+          "name": "Improved Critical",
+          "sub": "Champion"
+        },
+        {
+          "ref": "remarkableathlete",
+          "name": "Remarkable Athlete",
+          "sub": "Champion"
+        },
+        {
+          "ref": "darkvision",
+          "name": "Darkvision",
+          "sub": "Tiefling"
+        },
+        {
+          "ref": "otherworldlyPresence",
+          "name": "Otherworldly Presence",
+          "sub": "Tiefling"
+        },
+        {
+          "ref": "tief-infernal",
+          "name": "Fiendish Legacy: Infernal",
+          "sub": "Tiefling"
+        },
+        {
+          "ref": "soldier",
+          "name": "Background: Soldier",
+          "sub": ""
+        },
+        {
+          "ref": "savageattacker",
+          "name": "Savage Attacker",
+          "sub": "Soldier origin feat"
+        },
+        {
+          "ref": "",
+          "name": "Ability Score Improvement",
+          "sub": "Level 4"
+        }
+      ]
+    },
+    {
+      "type": "buildlog",
+      "title": "Build Log",
+      "hint": "every choice, level by level",
+      "levels": [
+        {
+          "title": "Level 1",
+          "tag": "Fighter",
+          "items": [
+            {
+              "html": "<b>Fighting Style</b> — You gain a Fighting Style feat of your choice (Defense, Dueling, Archery, Great Weapon Fighting, etc.) — record it on your sheet."
+            },
+            {
+              "html": "<b>Second Wind</b> — As a Bonus Action, regain 1d10 + your fighter level hit points. Regain your uses on a short or long rest."
+            },
+            {
+              "html": "<b>Weapon Mastery</b> — You can use the mastery property of three kinds of weapons of your choice; change the choices after a long rest. Pick them in the Weapon Mastery panel."
+            },
+            {
+              "html": "<b>Species: Tiefling</b> — Darkvision, Otherworldly Presence · Speed 30"
+            },
+            {
+              "html": "<b>Ability scores:</b> Str 17, Dex 13, Con 15, Int 8, Wis 10, Cha 12 <span class=\"tag\">(background +2 STR / +1 CON)</span>"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Background: Soldier</b> — Origin feat Savage Attacker"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Skills (Fighter, choose 2):</b> Perception, Survival"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Fighting Style:</b> Defense"
+            }
+          ]
+        },
+        {
+          "title": "Level 2",
+          "tag": "Fighter",
+          "items": [
+            {
+              "html": "<b>Action Surge</b> — On your turn, take one additional action — most often a second Attack action. Regain it on a short or long rest."
+            },
+            {
+              "html": "<b>Tactical Mind</b> — When you fail an ability check, you can expend a use of Second Wind to add 1d10 to the check. If it still fails, you don't lose the Second Wind use."
+            }
+          ]
+        },
+        {
+          "title": "Level 3",
+          "tag": "Fighter",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Subclass:</b> Champion"
+            },
+            {
+              "html": "<b>Improved Critical</b> — Your attack rolls with weapons and Unarmed Strikes can score a critical hit on a roll of 19 or 20."
+            },
+            {
+              "html": "<b>Remarkable Athlete</b> — You have Advantage on Initiative rolls and Strength (Athletics) checks. Once per turn, immediately after a Strength-based attack that hits, you can move up to half your Speed without provoking Opportunity Attacks."
+            }
+          ]
+        },
+        {
+          "title": "Level 4",
+          "tag": "Fighter",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Ability Score Improvement:</b> +2 STR"
+            }
+          ]
+        },
+        {
+          "title": "Level 5",
+          "tag": "Fighter",
+          "items": [
+            {
+              "html": "<b>Extra Attack</b> — You can attack twice, instead of once, whenever you take the Attack action on your turn."
+            },
+            {
+              "html": "<b>Tactical Shift</b> — Whenever you activate Second Wind, you can move up to half your Speed without provoking Opportunity Attacks."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "build": {
+    "species": "tiefling",
+    "background": "soldier",
+    "classes": [
+      {
+        "class": "fighter",
+        "subclass": "champion",
+        "level": 5
+      }
+    ],
+    "abilities": {
+      "STR": 15,
+      "DEX": 13,
+      "CON": 14,
+      "INT": 8,
+      "WIS": 10,
+      "CHA": 12
+    },
+    "sources": [
+      {
+        "id": "soldier",
+        "name": "Background: Soldier",
+        "include": "background:soldier"
+      },
+      {
+        "id": "fighter-skills",
+        "name": "Fighter skills",
+        "effects": {
+          "skills": [
+            "Perception",
+            "Survival"
+          ]
+        }
+      },
+      {
+        "id": "languages",
+        "name": "Languages",
+        "effects": {
+          "language": [
+            "Common",
+            "Infernal"
+          ]
+        }
+      },
+      {
+        "id": "darkvision",
+        "name": "Tiefling: Darkvision",
+        "include": "species:tiefling:darkvision"
+      },
+      {
+        "id": "otherworldlyPresence",
+        "name": "Tiefling: Otherworldly Presence",
+        "include": "species:tiefling:otherworldlyPresence"
+      },
+      {
+        "id": "lineage",
+        "name": "Fiendish Legacy: Infernal",
+        "effects": {
+          "spellGrants": {
+            "ability": [
+              "INT",
+              "WIS",
+              "CHA"
+            ],
+            "cantrips": [
+              "firebolt"
+            ],
+            "leveled": [
+              {
+                "level": 3,
+                "spell": "hellishrebuke"
+              },
+              {
+                "level": 5,
+                "spell": "darkness"
+              }
+            ],
+            "label": "Infernal"
+          }
+        },
+        "ref": {
+          "title": "Infernal",
+          "chips": [
+            {
+              "t": "Resist Fire",
+              "c": "storm"
+            },
+            {
+              "t": "Fire Bolt"
+            }
+          ],
+          "body": [
+            "You have Resistance to Fire damage and know the Fire Bolt cantrip. At level 3 you can cast Hellish Rebuke, and at level 5 Darkness, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
+          ]
+        },
+        "refId": "tief-infernal"
+      },
+      {
+        "id": "fightingstyle",
+        "name": "Fighter: Fighting Style",
+        "include": "class:fighter:Fighting Style"
+      },
+      {
+        "id": "secondwind",
+        "name": "Fighter: Second Wind",
+        "include": "class:fighter:Second Wind"
+      },
+      {
+        "id": "weaponmastery",
+        "name": "Fighter: Weapon Mastery",
+        "include": "class:fighter:Weapon Mastery"
+      },
+      {
+        "id": "actionsurge",
+        "name": "Fighter: Action Surge",
+        "include": "class:fighter:Action Surge"
+      },
+      {
+        "id": "tacticalmind",
+        "name": "Fighter: Tactical Mind",
+        "include": "class:fighter:Tactical Mind"
+      },
+      {
+        "id": "extraattack",
+        "name": "Fighter: Extra Attack",
+        "include": "class:fighter:Extra Attack"
+      },
+      {
+        "id": "tacticalshift",
+        "name": "Fighter: Tactical Shift",
+        "include": "class:fighter:Tactical Shift"
+      },
+      {
+        "id": "sw",
+        "name": "Second Wind",
+        "effects": {
+          "grantsPool": {
+            "id": "sw",
+            "label": "Second Wind",
+            "max": 3,
+            "rest": "short",
+            "ref": "secondwind",
+            "storm": true,
+            "note": "short rest",
+            "use": "Use Second Wind",
+            "reminder": "Second Wind: roll 1d10 + your fighter level, then add it with Heal."
+          }
+        }
+      },
+      {
+        "id": "as",
+        "name": "Action Surge",
+        "effects": {
+          "grantsPool": {
+            "id": "as",
+            "label": "Action Surge",
+            "max": 1,
+            "rest": "short",
+            "ref": "actionsurge",
+            "storm": false,
+            "note": "short rest",
+            "use": "Use",
+            "reminder": "Action Surge — take one extra action this turn."
+          }
+        }
+      },
+      {
+        "id": "fighting-style",
+        "name": "Fighting Style: Defense",
+        "refId": "fightingstyle",
+        "ref": {
+          "title": "Fighting Style: Defense",
+          "chips": [
+            {
+              "t": "Combat feat"
+            }
+          ],
+          "body": [
+            "+1 AC while wearing armor."
+          ]
+        }
+      },
+      {
+        "id": "improvedcritical",
+        "name": "Champion: Improved Critical",
+        "ref": {
+          "title": "Improved Critical",
+          "chips": [
+            {
+              "t": "Crit on 19-20",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Your attack rolls with weapons and Unarmed Strikes can score a critical hit on a roll of 19 or 20."
+          ]
+        },
+        "refId": "improvedcritical"
+      },
+      {
+        "id": "remarkableathlete",
+        "name": "Champion: Remarkable Athlete",
+        "ref": {
+          "title": "Remarkable Athlete",
+          "body": [
+            "You have Advantage on Initiative rolls and Strength (Athletics) checks. Once per turn, immediately after a Strength-based attack that hits, you can move up to half your Speed without provoking Opportunity Attacks."
+          ]
+        },
+        "refId": "remarkableathlete"
+      },
+      {
+        "id": "asi-4",
+        "name": "Level 4: Ability Score Improvement",
+        "effects": {
+          "abilityIncrease": {
+            "STR": 2
+          }
+        }
+      }
+    ]
+  }
+}

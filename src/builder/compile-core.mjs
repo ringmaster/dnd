@@ -172,7 +172,7 @@ export function compile(input, cat){
 
   const skills = new Set(), exp = new Set(), tools = new Set(), checkMods = {}, pools = {}, always = [];
   let init = 0, langChoices = 0; const langNames = new Set();
-  let spellcasting = null, initiate = null;
+  let spellcasting = null, initiate = null, innateAbility = null;
   for (const e of eff){
     (e.skills||[]).forEach(x => skills.add(x));
     (e.expertise||[]).forEach(x => exp.add(x));
@@ -185,6 +185,19 @@ export function compile(input, cat){
     (e.alwaysPrepared||[]).forEach(a => always.push(typeof a === "string" ? { name:a } : a));
     if (e.spellcasting){ spellcasting = e.spellcasting; (e.spellcasting.slots||[]).forEach(sp => { const p = Object.assign({}, sp); const id = p.id; delete p.id; if (p.max != null) p.max = resolveVal(p.max, ctx); pools[id] = p; }); }
     if (e.initiate) initiate = e.initiate;
+    // general innate/granted spellcasting (lineages, racial traits, future feats):
+    // known cantrips + level-gated leveled spells castable free 1x/long rest (or with a slot).
+    if (e.spellGrants){ const g = e.spellGrants;
+      const ab = Array.isArray(g.ability) ? g.ability.slice().sort((x,y) => abilMod(c.abilities, y) - abilMod(c.abilities, x))[0] : g.ability;
+      if (ab && !innateAbility) innateAbility = ab;
+      const lbl = g.label ? g.label + " · " : "";
+      (g.cantrips||[]).forEach(id => always.push({ ref:id, name:spName(id, cat), sub: lbl + "cantrip" }));
+      (g.leveled||[]).forEach(L => { if ((c.level||0) >= (L.level||1)) {
+        const prof = L.uses === "prof", max = prof ? c.proficiencyBonus : 1;
+        always.push({ ref:L.spell, name:spName(L.spell, cat), sub: lbl + (prof ? "free (Prof/long rest)" : "free 1×/long rest") });
+        pools["ig" + L.spell] = { label: spName(L.spell, cat) + " — free", max, rest:"long", ref:L.spell, storm:true, note:"long rest", use:"Use free cast", reminder:(g.label||"Innate Magic") + ": free cast of " + spName(L.spell, cat) + " (no slot)." };
+      }});
+    }
   }
 
   if (skills.size || hadKey(eff, "skills")) c.skillProf = [...skills].sort();
@@ -211,7 +224,7 @@ export function compile(input, cat){
     if (pool) { c.pools = c.pools || {}; c.pools.hd = pool; }
   }
 
-  const sc = (c.cards||[]).find(x => x.type === "spellcasting");
+  let sc = (c.cards||[]).find(x => x.type === "spellcasting");
   if (spellcasting){
     c.spellcasting = { ability: spellcasting.ability };
     if (spellcasting.prepared) c.prepared = spellcasting.prepared;
@@ -221,7 +234,11 @@ export function compile(input, cat){
       if (spellcasting.cantrips) sc.cantrips = spellcasting.cantrips;
       if (spellcasting.prepared) sc.prepared = true;
     }
+  } else if (innateAbility){
+    c.spellcasting = { ability: innateAbility };   // a non-caster with innate spells still has a casting ability
   }
+  // a non-caster with innate magic gets a spellcasting card to render it
+  if (!sc && c.spellcasting && always.length){ sc = { type:"spellcasting", title:"Innate Magic" }; (c.cards = c.cards || []).push(sc); }
   if (sc && always.length) sc.always = always;
   if (sc && initiate) sc.initiate = initiate;
 

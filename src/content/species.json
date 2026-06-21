@@ -85,6 +85,16 @@
           "body": [
             "You know the Light cantrip. Charisma is your spellcasting ability for it."
           ]
+        },
+        "effects": {
+          "spellGrants": {
+            "ability": "CHA",
+            "cantrips": [
+              "light"
+            ],
+            "leveled": [],
+            "label": "Light Bearer"
+          }
         }
       },
       "celestialrevelation": {
@@ -459,6 +469,29 @@
             "body": [
               "You know the Dancing Lights cantrip and your Darkvision extends to 120 ft. At level 3 you can cast Faerie Fire, and at level 5 Darkness, each once per long rest without a slot (Int/Wis/Cha — your choice); you can also cast them with spell slots."
             ]
+          },
+          "effects": {
+            "spellGrants": {
+              "ability": [
+                "INT",
+                "WIS",
+                "CHA"
+              ],
+              "cantrips": [
+                "dancinglights"
+              ],
+              "leveled": [
+                {
+                  "level": 3,
+                  "spell": "faeriefire"
+                },
+                {
+                  "level": 5,
+                  "spell": "darkness"
+                }
+              ],
+              "label": "Drow"
+            }
           }
         },
         "high": {
@@ -474,6 +507,29 @@
             "body": [
               "You know the Prestidigitation cantrip (swap it whenever you finish a long rest). At level 3 you can cast Detect Magic, and at level 5 Misty Step, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
             ]
+          },
+          "effects": {
+            "spellGrants": {
+              "ability": [
+                "INT",
+                "WIS",
+                "CHA"
+              ],
+              "cantrips": [
+                "prestidigitation"
+              ],
+              "leveled": [
+                {
+                  "level": 3,
+                  "spell": "detectmagic"
+                },
+                {
+                  "level": 5,
+                  "spell": "mistystep"
+                }
+              ],
+              "label": "High Elf"
+            }
           }
         },
         "wood": {
@@ -493,6 +549,29 @@
             "body": [
               "Your Speed increases to 35 ft and you know the Druidcraft cantrip. At level 3 you can cast Longstrider, and at level 5 Pass without Trace, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
             ]
+          },
+          "effects": {
+            "spellGrants": {
+              "ability": [
+                "INT",
+                "WIS",
+                "CHA"
+              ],
+              "cantrips": [
+                "druidcraft"
+              ],
+              "leveled": [
+                {
+                  "level": 3,
+                  "spell": "longstrider"
+                },
+                {
+                  "level": 5,
+                  "spell": "passwithouttrace"
+                }
+              ],
+              "label": "Wood Elf"
+            }
           }
         }
       }
@@ -552,6 +631,22 @@
             "body": [
               "You know the Minor Illusion cantrip and can cast Speak with Animals without a spell slot a number of times equal to your Proficiency Bonus per long rest (or with a slot)."
             ]
+          },
+          "effects": {
+            "spellGrants": {
+              "ability": "INT",
+              "cantrips": [
+                "minorillusion"
+              ],
+              "leveled": [
+                {
+                  "level": 1,
+                  "spell": "speakwithanimals",
+                  "uses": "prof"
+                }
+              ],
+              "label": "Forest Gnome"
+            }
           }
         },
         "rock": {
@@ -571,6 +666,17 @@
             "body": [
               "You know the Mending and Prestidigitation cantrips. As a Bonus Action (Tinker) you can build a tiny clockwork device (a toy, lighter, or music box) using artisan's tools."
             ]
+          },
+          "effects": {
+            "spellGrants": {
+              "ability": "INT",
+              "cantrips": [
+                "mending",
+                "prestidigitation"
+              ],
+              "leveled": [],
+              "label": "Rock Gnome"
+            }
           }
         }
       }
@@ -949,6 +1055,19 @@
           "body": [
             "You know the Thaumaturgy cantrip, and you cast it with the same spellcasting ability you chose for your Fiendish Legacy."
           ]
+        },
+        "effects": {
+          "spellGrants": {
+            "ability": [
+              "INT",
+              "WIS",
+              "CHA"
+            ],
+            "cantrips": [
+              "thaumaturgy"
+            ],
+            "label": "Otherworldly Presence"
+          }
         }
       }
     },
@@ -972,6 +1091,29 @@
             "body": [
               "You have Resistance to Poison damage and know the Poison Spray cantrip. At level 3 you can cast Ray of Sickness, and at level 5 Hold Person, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
             ]
+          },
+          "effects": {
+            "spellGrants": {
+              "ability": [
+                "INT",
+                "WIS",
+                "CHA"
+              ],
+              "cantrips": [
+                "poisonspray"
+              ],
+              "leveled": [
+                {
+                  "level": 3,
+                  "spell": "rayofsickness"
+                },
+                {
+                  "level": 5,
+                  "spell": "holdperson"
+                }
+              ],
+              "label": "Abyssal"
+            }
           }
         },
         "chthonic": {
@@ -991,6 +1133,29 @@
             "body": [
               "You have Resistance to Necrotic damage and know the Chill Touch cantrip. At level 3 you can cast False Life, and at level 5 Ray of Enfeeblement, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
             ]
+          },
+          "effects": {
+            "spellGrants": {
+              "ability": [
+                "INT",
+                "WIS",
+                "CHA"
+              ],
+              "cantrips": [
+                "chilltouch"
+              ],
+              "leveled": [
+                {
+                  "level": 3,
+                  "spell": "falselife"
+                },
+                {
+                  "level": 5,
+                  "spell": "rayofenfeeblement"
+                }
+              ],
+              "label": "Chthonic"
+            }
           }
         },
         "infernal": {
@@ -1010,6 +1175,29 @@
             "body": [
               "You have Resistance to Fire damage and know the Fire Bolt cantrip. At level 3 you can cast Hellish Rebuke, and at level 5 Darkness, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
             ]
+          },
+          "effects": {
+            "spellGrants": {
+              "ability": [
+                "INT",
+                "WIS",
+                "CHA"
+              ],
+              "cantrips": [
+                "firebolt"
+              ],
+              "leveled": [
+                {
+                  "level": 3,
+                  "spell": "hellishrebuke"
+                },
+                {
+                  "level": 5,
+                  "spell": "darkness"
+                }
+              ],
+              "label": "Infernal"
+            }
           }
         }
       }

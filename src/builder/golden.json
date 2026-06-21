@@ -1303,5 +1303,138 @@
       ],
       "prepared": true
     }
+  },
+  "Veyra Ash": {
+    "abilities": {
+      "STR": 19,
+      "DEX": 13,
+      "CON": 15,
+      "INT": 8,
+      "WIS": 10,
+      "CHA": 12
+    },
+    "skillProf": [
+      "Athletics",
+      "Intimidation",
+      "Perception",
+      "Survival"
+    ],
+    "skillExp": [],
+    "checkMods": {},
+    "initiativeBonus": 0,
+    "always": [
+      {
+        "ref": "thaumaturgy",
+        "name": "Thaumaturgy",
+        "sub": "Otherworldly Presence · cantrip"
+      },
+      {
+        "ref": "firebolt",
+        "name": "Fire Bolt",
+        "sub": "Infernal · cantrip"
+      },
+      {
+        "ref": "hellishrebuke",
+        "name": "Hellish Rebuke",
+        "sub": "Infernal · free 1×/long rest"
+      },
+      {
+        "ref": "darkness",
+        "name": "Darkness",
+        "sub": "Infernal · free 1×/long rest"
+      }
+    ],
+    "tools": [
+      "Gaming Set"
+    ],
+    "languages": {
+      "known": [
+        "Common",
+        "Infernal"
+      ],
+      "choices": 0
+    },
+    "pools": {
+      "ighellishrebuke": {
+        "label": "Hellish Rebuke — free",
+        "max": 1,
+        "rest": "long",
+        "ref": "hellishrebuke",
+        "storm": true,
+        "note": "long rest",
+        "use": "Use free cast",
+        "reminder": "Infernal: free cast of Hellish Rebuke (no slot)."
+      },
+      "igdarkness": {
+        "label": "Darkness — free",
+        "max": 1,
+        "rest": "long",
+        "ref": "darkness",
+        "storm": true,
+        "note": "long rest",
+        "use": "Use free cast",
+        "reminder": "Infernal: free cast of Darkness (no slot)."
+      },
+      "sw": {
+        "label": "Second Wind",
+        "max": 3,
+        "rest": "short",
+        "ref": "secondwind",
+        "storm": true,
+        "note": "short rest",
+        "use": "Use Second Wind",
+        "reminder": "Second Wind: roll 1d10 + your fighter level, then add it with Heal."
+      },
+      "as": {
+        "label": "Action Surge",
+        "max": 1,
+        "rest": "short",
+        "ref": "actionsurge",
+        "storm": false,
+        "note": "short rest",
+        "use": "Use",
+        "reminder": "Action Surge — take one extra action this turn."
+      },
+      "hd": {
+        "label": "Hit Dice",
+        "max": 5,
+        "rest": "long",
+        "ref": "hitdice",
+        "storm": false,
+        "note": "1d10+2 · short rest",
+        "use": "Use",
+        "reminder": "Hit Die: roll 1d10+2, then add it with Heal."
+      }
+    },
+    "spellcasting": {
+      "ability": "CHA"
+    },
+    "prepared": null,
+    "spellcastingCard": {
+      "type": "spellcasting",
+      "title": "Innate Magic",
+      "always": [
+        {
+          "ref": "thaumaturgy",
+          "name": "Thaumaturgy",
+          "sub": "Otherworldly Presence · cantrip"
+        },
+        {
+          "ref": "firebolt",
+          "name": "Fire Bolt",
+          "sub": "Infernal · cantrip"
+        },
+        {
+          "ref": "hellishrebuke",
+          "name": "Hellish Rebuke",
+          "sub": "Infernal · free 1×/long rest"
+        },
+        {
+          "ref": "darkness",
+          "name": "Darkness",
+          "sub": "Infernal · free 1×/long rest"
+        }
+      ]
+    }
   }
 }

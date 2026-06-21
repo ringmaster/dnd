@@ -83,7 +83,7 @@ var CARD = {
     return '<h2>'+esc(card.title||"Resources")+hint+'</h2>'+pools+extras;
   },
   spellcasting: function(card){
-    var html='<h2>Spellcasting <span class="hint">'+esc(ABIL_NAME[CHARACTER.spellcasting.ability])+' · save DC '+spellDC()+' · atk '+fmt(spellAtk())+'</span></h2>';
+    var html='<h2>'+esc(card.title||"Spellcasting")+' <span class="hint">'+esc(ABIL_NAME[CHARACTER.spellcasting.ability])+' · save DC '+spellDC()+' · atk '+fmt(spellAtk())+'</span></h2>';
     if(card.slotPools) card.slotPools.forEach(function(id){ html+=poolBlock(id); });
     else if(card.slotPool) html+=poolBlock(card.slotPool);
     html+='<div style="margin-top:.6rem">';
