@@ -472,48 +472,75 @@
   }
 
   /* ----- typed JSON tree editor (for Custom Elements) -----
-     Renders any JSON value as a tree of typed inputs: number/string/boolean
-     scalars, plus object/array containers with add/remove. Scalar edits bubble
-     via set() -> refreshOut() (no re-render, so input focus is kept); structural
-     edits (type change, add/remove, key rename) call render() to rebuild. */
+     Scalars render as compact STATIC chips; tapping a chip swaps it in place for
+     an input (no full re-render, so it's cheap and mobile-friendly) and swaps
+     back on blur/Enter. Object/array containers list rows that WRAP so nothing
+     overruns the margin. Structural edits (type change, add/remove, rename) call
+     render() to rebuild. */
   var DICE_RE=/^\s*\d*d\d+(\s*[+-]\s*\d+)?\s*$/i;
   function jtype(v){ return Array.isArray(v)?"array":v===null?"null":typeof v; }
-  function jsonNode(value, set){
-    var t=jtype(value);
-    var typeSel=select(t, [["string","abc"],["number","123"],["boolean","✓/✗"],["object","{ } object"],["array","[ ] list"]], function(nt){
+  function jtTypeSel(value, set){
+    var s=select(jtype(value), [["string","abc"],["number","123"],["boolean","T/F"],["object","{}"],["array","[ ]"]], function(nt){
       set(nt==="string"?"":nt==="number"?0:nt==="boolean"?false:nt==="object"?{}:nt==="array"?[]:null); render();
     });
-    typeSel.className="bsel jt-type";
-    var editor;
+    s.className="bsel jt-type"; return s;
+  }
+  function jtScalar(value, set){
+    var t=jtype(value);
     if(t==="boolean"){
-      editor=el("label",{class:"jt-bool"},[ el("input",{type:"checkbox", checked:value?"checked":null, onchange:function(e){ set(e.target.checked); }}), el("span",{text:value?"true":"false"}) ]);
-    } else if(t==="number"){
-      editor=el("input",{class:"binput jt-val", type:"number", value:String(value), oninput:function(e){ set(e.target.value===""?0:Number(e.target.value)); }});
-    } else if(t==="string"){
-      var inp=el("input",{class:"binput jt-val", oninput:function(e){ set(e.target.value); }}); inp.value=value;
-      editor=el("div",{class:"jt-strwrap"},[ inp, DICE_RE.test(value)?el("span",{class:"jt-dice", title:"Looks like a dice roll", text:"🎲"}):null ].filter(Boolean));
-    } else if(t==="array"){
-      var ac=el("div",{class:"jt-children"});
-      value.forEach(function(item,i){ ac.appendChild(el("div",{class:"jt-row"},[
-        el("span",{class:"jt-key idx", text:i+""}),
-        jsonNode(item, function(nv){ value[i]=nv; set(value); }),
-        el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove item", text:"✕", onclick:function(){ value.splice(i,1); set(value); render(); }})
-      ])); });
-      ac.appendChild(el("button",{class:"bbtn tiny ember", type:"button", text:"+ item", onclick:function(){ value.push(""); set(value); render(); }}));
-      editor=ac;
-    } else if(t==="object"){
-      var oc=el("div",{class:"jt-children"});
-      Object.keys(value).forEach(function(k){ oc.appendChild(el("div",{class:"jt-row"},[
-        el("input",{class:"binput jt-key", value:k, "aria-label":"Field name", onchange:function(e){ var nk=e.target.value.trim(); if(nk && nk!==k){ var nv={}; Object.keys(value).forEach(function(x){ nv[x===k?nk:x]=value[x]; }); set(nv); render(); } }}),
-        jsonNode(value[k], function(nv){ value[k]=nv; set(value); }),
-        el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove field", text:"✕", onclick:function(){ delete value[k]; set(value); render(); }})
-      ])); });
-      oc.appendChild(el("button",{class:"bbtn tiny ember", type:"button", text:"+ field", onclick:function(){ var n="field"+(Object.keys(value).length+1); value[n]=""; set(value); render(); }}));
-      editor=oc;
-    } else { editor=el("span",{class:"bf-h", text:"null"}); }
-    if(t==="object"||t==="array")
-      return el("div",{class:"jt-node"},[ el("div",{class:"jt-head"},[typeSel]), editor ]);
-    return el("div",{class:"jt-node jt-scalar"},[ typeSel, editor ]);
+      var b=el("button",{class:"jt-chip jt-bool"+(value?" on":""), type:"button"});
+      b.textContent=value?"true":"false";
+      b.addEventListener("click", function(){ value=!value; set(value); b.textContent=value?"true":"false"; if(b.classList&&b.classList.toggle) b.classList.toggle("on", value); });
+      return b;
+    }
+    var chip=el("button",{class:"jt-chip"+(t==="string"&&DICE_RE.test(value)?" dice":"")+(value===""?" empty":""), type:"button"});
+    chip.textContent = value===""?"(empty)":String(value);
+    chip.addEventListener("click", function(){
+      var input=el("input",{class:"binput jt-edit", type:t==="number"?"number":"text"});
+      input.value=String(value); chip.replaceWith(input); input.focus(); try{ input.select(); }catch(e){}
+      var done=false;
+      function back(commit){ if(done) return; done=true; if(commit){ var nv=t==="number"?(input.value===""?0:Number(input.value)):input.value; value=nv; set(nv); } input.replaceWith(jtScalar(value, set)); }
+      input.addEventListener("blur", function(){ back(true); });
+      input.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); input.blur(); } else if(e.key==="Escape"){ back(false); } });
+    });
+    return chip;
+  }
+  function jtKey(k, onRename){
+    var b=el("button",{class:"jt-key", type:"button"}); b.textContent=k;
+    b.addEventListener("click", function(){
+      var input=el("input",{class:"binput jt-edit jt-keyedit"}); input.value=k;
+      b.replaceWith(input); input.focus(); try{ input.select(); }catch(e){}
+      var done=false;
+      function back(){ if(done) return; done=true; var nk=input.value.trim(); if(nk && nk!==k){ onRename(nk); } else { input.replaceWith(jtKey(k, onRename)); } }
+      input.addEventListener("blur", back);
+      input.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); input.blur(); } });
+    });
+    return b;
+  }
+  function jtRow(keyEl, valueNode, onRemove){
+    return el("div",{class:"jt-row"},[ keyEl, valueNode, el("button",{class:"jt-x", type:"button", "aria-label":"Remove", text:"✕", onclick:onRemove}) ]);
+  }
+  function jsonNode(value, set){
+    var t=jtype(value);
+    if(t==="object"||t==="array"){
+      var kids=el("div",{class:"jt-children"});
+      if(t==="array"){
+        value.forEach(function(item,i){ kids.appendChild(jtRow(
+          el("span",{class:"jt-key idx", text:i+""}),
+          jsonNode(item, function(nv){ value[i]=nv; set(value); }),
+          function(){ value.splice(i,1); set(value); render(); })); });
+        kids.appendChild(el("button",{class:"bbtn tiny ember jt-add", type:"button", text:"+ item", onclick:function(){ value.push(""); set(value); render(); }}));
+      } else {
+        Object.keys(value).forEach(function(k){ kids.appendChild(jtRow(
+          jtKey(k, function(nk){ var nv={}; Object.keys(value).forEach(function(x){ nv[x===k?nk:x]=value[x]; }); set(nv); render(); }),
+          jsonNode(value[k], function(nv){ value[k]=nv; set(value); }),
+          function(){ delete value[k]; set(value); render(); })); });
+        kids.appendChild(el("button",{class:"bbtn tiny ember jt-add", type:"button", text:"+ field", onclick:function(){ value["field"+(Object.keys(value).length+1)]=""; set(value); render(); }}));
+      }
+      var n=t==="array"?value.length:Object.keys(value).length;
+      return el("div",{class:"jt-node"},[ el("div",{class:"jt-head"},[ jtTypeSel(value,set), el("span",{class:"jt-count", text:(t==="array"?"list":"object")+" · "+n+(n===1?" entry":" entries")}) ]), kids ]);
+    }
+    return el("div",{class:"jt-node jt-scalar"},[ jtTypeSel(value,set), jtScalar(value,set) ]);
   }
 
   /* ----- build block + scaffold output ----- */

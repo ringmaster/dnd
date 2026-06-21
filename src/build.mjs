@@ -261,18 +261,26 @@ ${styles}
   .hb-toggle input{margin-top:.15rem}
   .bcard.flash{animation:compflash 1.2s ease-out}
   @keyframes compflash{0%,40%{box-shadow:0 0 0 2px var(--ember-bright),0 4px 12px rgba(0,0,0,.35)}100%{box-shadow:0 4px 12px rgba(0,0,0,.35)}}
-  .jt-tree{font-size:.82rem}
-  .jt-scalar{display:flex;gap:.4rem;align-items:center}
-  .jt-type{flex:none;width:auto;min-width:0;padding:.25rem .35rem;font-size:.72rem}
-  .jt-val{flex:1 1 auto;min-width:4rem}
-  .jt-strwrap{display:flex;gap:.3rem;align-items:center;flex:1 1 auto;min-width:0}
-  .jt-bool{display:flex;gap:.35rem;align-items:center;color:var(--ash);font-size:.8rem}
-  .jt-head{display:flex;gap:.4rem;align-items:center;margin-bottom:.35rem}
-  .jt-children{border-left:2px solid var(--iron);margin-left:.45rem;padding-left:.6rem;display:flex;flex-direction:column;gap:.4rem;margin-top:.2rem}
-  .jt-row{display:flex;gap:.4rem;align-items:flex-start}
-  .jt-key{flex:none;min-width:3.5rem;max-width:9rem}
-  .jt-key.idx{color:var(--ash);font-family:ui-monospace,Menlo,monospace;padding-top:.4rem;min-width:1.3rem;max-width:1.6rem}
-  .jt-row > .jt-node{flex:1 1 auto;min-width:0}
+  .jt-tree{font-size:.82rem;max-width:100%;overflow:hidden}
+  .jt-node{min-width:0;max-width:100%}
+  .jt-scalar{display:inline-flex;gap:.3rem;align-items:center;flex-wrap:wrap;min-width:0;max-width:100%}
+  .jt-type{flex:none;width:auto;min-width:0;padding:.12rem .28rem;font-size:.68rem}
+  .jt-chip{background:#0e1014;border:1px solid var(--iron-light);border-radius:6px;padding:.22rem .5rem;color:var(--bone);font-family:ui-monospace,Menlo,monospace;font-size:.76rem;cursor:text;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+  .jt-chip.dice{color:var(--ember-bright)}
+  .jt-chip.empty{color:var(--ash-dim);font-style:italic}
+  .jt-chip.jt-bool{font-family:inherit;cursor:pointer}
+  .jt-chip.jt-bool.on{color:#7fd49b}
+  .jt-edit{padding:.2rem .4rem;font-size:.78rem;max-width:100%;box-sizing:border-box}
+  .jt-keyedit{max-width:8rem}
+  .jt-head{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin-bottom:.3rem;min-width:0}
+  .jt-count{color:var(--ash);font-size:.7rem}
+  .jt-children{border-left:1px solid var(--iron);margin-left:.35rem;padding-left:.55rem;display:flex;flex-direction:column;gap:.32rem;margin-top:.2rem;min-width:0}
+  .jt-row{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap;min-width:0;max-width:100%}
+  .jt-key{flex:none;color:var(--ember-bright);background:none;font-family:inherit;font-size:.76rem;cursor:pointer;padding:.1rem .15rem;border:none;border-bottom:1px dotted var(--iron-light);max-width:9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .jt-key.idx{color:var(--ash-dim);font-family:ui-monospace,Menlo,monospace;border:none;cursor:default;min-width:1.1rem;text-align:right}
+  .jt-x{flex:none;background:none;border:1px solid var(--iron);color:var(--ash);border-radius:5px;padding:.05rem .32rem;font-size:.7rem;cursor:pointer;line-height:1.4}
+  .jt-add{align-self:flex-start;margin-top:.1rem}
+  .jt-row > .jt-node,.jt-row > .jt-scalar{flex:1 1 auto;min-width:0}
 </style>
 </head>
 <body>
