@@ -8,7 +8,8 @@
     "og": "node src/builder/og-images.mjs",
     "check": "node src/builder/compile.mjs --check src/builder/golden.json src/characters/*.json",
     "roundtrip": "node src/builder/roundtrip.mjs",
-    "schema": "node src/builder/schema-validate.mjs src/characters/*.json"
+    "schema": "node src/builder/schema-validate.mjs src/characters/*.json",
+    "schema:docs": "node src/builder/schema-docs.mjs"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2"

@@ -33,6 +33,8 @@ jobs:
         run: node src/builder/compile.mjs --check src/builder/golden.json src/characters/*.json
       - name: Builder round-trip (pristine + edited) preserves every character
         run: node src/builder/roundtrip.mjs
+      - name: Validate every character against the format schema
+        run: node src/builder/schema-validate.mjs src/characters/*.json
       - name: Build character sheets
         run: node src/build.mjs
       - name: Install image-generation deps
