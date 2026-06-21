@@ -56,6 +56,8 @@ function normSpellMeta(s) {
   };
   if (s.material) m.material = s.material;
   if (String(s.ritual).toLowerCase() === "yes" || s.can_be_cast_as_ritual) m.ritual = true;
+  // higher_level present ⇒ casting with a higher slot improves the spell
+  if (s.higher_level && String(s.higher_level).trim()) m.upcast = true;
   return m;
 }
 
@@ -93,9 +95,9 @@ function enrichSpells() {
     const s = spells[id];
     const m = meta[norm(s.name)] || meta[norm(id)];
     if (!m) { misses.push(s.name); continue; }
-    // only add the four display fields; never touch authored `cast`/`concentration`/`school`
+    // only add display + scaling fields; never touch authored `cast`/`concentration`/`school`
     let touched = false;
-    for (const [src, dst] of [["range", "range"], ["components", "components"], ["material", "material"], ["castTime", "castTime"], ["duration", "duration"], ["ritual", "ritual"]]) {
+    for (const [src, dst] of [["range", "range"], ["components", "components"], ["material", "material"], ["castTime", "castTime"], ["duration", "duration"], ["ritual", "ritual"], ["upcast", "upcast"]]) {
       if (m[src] != null && m[src] !== "" && s[dst] == null) { s[dst] = m[src]; touched = true; }
     }
     if (touched) filled++;

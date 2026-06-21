@@ -88,5 +88,19 @@ if (process.argv[1] && process.argv[1].endsWith("schema-validate.mjs")) {
     if (unknown.length) console.log("  · unknown fields (not in schema): " + unknown.join(", "));
   }
   console.log("\n" + (bad ? bad + " character(s) FAILED schema" : "ALL CHARACTERS MATCH THE SCHEMA ✓"));
-  process.exit(bad ? 1 : 0);
+
+  // ---- validate the spell content library against its own schema ----
+  const SPELL_SCHEMA = JSON.parse(fs.readFileSync(path.join(HERE, "..", "content", "spells.schema.json"), "utf8"));
+  const spells = JSON.parse(fs.readFileSync(path.join(HERE, "..", "content", "spells.json"), "utf8"));
+  let spellBad = 0; const unknownFields = {};
+  for (const id of Object.keys(spells)) {
+    const { errors, unknown } = validate(spells[id], SPELL_SCHEMA);
+    if (errors.length) { spellBad++; console.log("  ✗ " + id + ": " + errors.join("; ")); }
+    unknown.forEach((u) => { unknownFields[u.replace(/^\./, "")] = 1; });
+  }
+  const uf = Object.keys(unknownFields);
+  if (uf.length) console.log("  · unknown spell fields (not in schema): " + uf.join(", "));
+  console.log(spellBad ? "\n" + spellBad + " spell(s) FAILED schema" : "\nALL " + Object.keys(spells).length + " SPELLS MATCH THE SCHEMA ✓");
+
+  process.exit(bad || spellBad ? 1 : 0);
 }

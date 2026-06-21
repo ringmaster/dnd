@@ -23,7 +23,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "chilltouch": {
     "name": "Chill Touch",
@@ -50,7 +51,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "1 round"
+    "duration": "1 round",
+    "upcast": true
   },
   "dancinglights": {
     "name": "Dancing Lights",
@@ -150,7 +152,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "guidance": {
     "name": "Guidance",
@@ -295,7 +298,8 @@
     "range": "10 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "prestidigitation": {
     "name": "Prestidigitation",
@@ -332,7 +336,8 @@
     "range": "Self",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "10 minutes"
+    "duration": "10 minutes",
+    "upcast": true
   },
   "rayoffrost": {
     "name": "Ray of Frost",
@@ -358,7 +363,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "resistance": {
     "name": "Resistance",
@@ -402,7 +408,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "shillelagh": {
     "name": "Shillelagh",
@@ -454,7 +461,8 @@
     "range": "Touch",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "sparethedying": {
     "name": "Spare the Dying",
@@ -570,7 +578,8 @@
     "range": "60 feet",
     "components": "V",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "wordofradiance": {
     "name": "Word of Radiance",
@@ -647,7 +656,8 @@
     "components": "V, S, M",
     "material": "A morsel of food.",
     "castTime": "1 action",
-    "duration": "24 hours"
+    "duration": "24 hours",
+    "upcast": true
   },
   "bane": {
     "name": "Bane",
@@ -675,7 +685,8 @@
     "components": "V, S, M",
     "material": "A drop of blood.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "bless": {
     "name": "Bless",
@@ -692,7 +703,8 @@
     "components": "V, S, M",
     "material": "A sprinkling of holy water.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "burninghands": {
     "name": "Burning Hands",
@@ -715,7 +727,8 @@
     "range": "Self",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "charmperson": {
     "name": "Charm Person",
@@ -733,7 +746,8 @@
     "range": "30 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "1 hour"
+    "duration": "1 hour",
+    "upcast": true
   },
   "colorspray": {
     "name": "Color Spray",
@@ -757,7 +771,8 @@
     "components": "V, S, M",
     "material": "A pinch of powder or sand that is colored red, yellow, and blue.",
     "castTime": "1 action",
-    "duration": "1 round"
+    "duration": "1 round",
+    "upcast": true
   },
   "command": {
     "name": "Command",
@@ -780,7 +795,8 @@
     "range": "60 feet",
     "components": "V",
     "castTime": "1 action",
-    "duration": "1 round"
+    "duration": "1 round",
+    "upcast": true
   },
   "comprehendlanguages": {
     "name": "Comprehend Languages",
@@ -832,7 +848,8 @@
     "components": "V, S, M",
     "material": "A drop of water if creating water, or a few grains of sand if destroying it.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "curewounds": {
     "name": "Cure Wounds",
@@ -855,7 +872,8 @@
     "range": "Touch",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "detectevilandgood": {
     "name": "Detect Evil and Good",
@@ -1015,7 +1033,8 @@
     "range": "Self",
     "components": "V",
     "castTime": "1 bonus action",
-    "duration": "Concentration, up to 1 minute"
+    "duration": "Concentration, up to 1 minute",
+    "upcast": true
   },
   "entangle": {
     "name": "Entangle",
@@ -1104,7 +1123,8 @@
     "components": "V, S, M",
     "material": "A small amount of alcohol or distilled spirits.",
     "castTime": "1 action",
-    "duration": "1 hour"
+    "duration": "1 hour",
+    "upcast": true
   },
   "featherfall": {
     "name": "Feather Fall",
@@ -1198,7 +1218,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "goodberry": {
     "name": "Goodberry",
@@ -1269,7 +1290,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "1 round"
+    "duration": "1 round",
+    "upcast": true
   },
   "healingword": {
     "name": "Healing Word",
@@ -1295,7 +1317,8 @@
     "range": "60 feet",
     "components": "V",
     "castTime": "1 bonus action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "hellishrebuke": {
     "name": "Hellish Rebuke",
@@ -1321,7 +1344,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 reaction, which you take in response to being damaged by a creature within 60 feet of you that you can see",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "heroism": {
     "name": "Heroism",
@@ -1400,7 +1424,8 @@
     "range": "90 feet",
     "components": "V",
     "castTime": "1 bonus action",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "identify": {
     "name": "Identify",
@@ -1477,7 +1502,8 @@
     "range": "Touch",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "jump": {
     "name": "Jump",
@@ -1526,7 +1552,8 @@
     "components": "V, S, M",
     "material": "A pinch of dirt.",
     "castTime": "1 action",
-    "duration": "1 hour"
+    "duration": "1 hour",
+    "upcast": true
   },
   "magearmor": {
     "name": "Mage Armor",
@@ -1569,7 +1596,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "protectionfromevilandgood": {
     "name": "Protection from Evil and Good",
@@ -1648,7 +1676,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "sanctuary": {
     "name": "Sanctuary",
@@ -1763,7 +1792,8 @@
     "components": "V, S, M",
     "material": "A pinch of fine sand, rose petals, or a cricket.",
     "castTime": "1 action",
-    "duration": "1 minute"
+    "duration": "1 minute",
+    "upcast": true
   },
   "speakwithanimals": {
     "name": "Speak with Animals",
@@ -1815,7 +1845,8 @@
     "range": "Self",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "unseenservant": {
     "name": "Unseen Servant",
@@ -1872,7 +1903,8 @@
     "components": "V, S, M",
     "material": "a twig from a tree struck by lightning",
     "castTime": "1 action",
-    "duration": "Concentration, up to 1 minute"
+    "duration": "Concentration, up to 1 minute",
+    "upcast": true
   },
   "acidarrow": {
     "name": "Acid Arrow",
@@ -1881,9 +1913,6 @@
     "chips": [
       {
         "t": "90 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -1897,7 +1926,8 @@
     "components": "V, S, M",
     "material": "Powdered rhubarb leaf and an adder's stomach.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "aid": {
     "name": "Aid",
@@ -1919,17 +1949,13 @@
     "components": "V, S, M",
     "material": "A tiny strip of white cloth.",
     "castTime": "1 action",
-    "duration": "8 hours"
+    "duration": "8 hours",
+    "upcast": true
   },
   "alterself": {
     "name": "Alter Self",
     "level": 2,
     "concentration": true,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "Transform yourself: gain an aquatic form, change your appearance, or grow natural weapons (1d6 + {mod} damage). Concentration, up to 1 hour; you may shift options on your turn."
     ],
@@ -1949,9 +1975,6 @@
     "chips": [
       {
         "t": "30 ft"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -1968,16 +1991,12 @@
     "material": "A morsel of food.",
     "castTime": "1 action",
     "duration": "24 hours",
-    "ritual": true
+    "ritual": true,
+    "upcast": true
   },
   "arcanelock": {
     "name": "Arcane Lock",
     "level": 2,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "A door, chest, or portal becomes magically locked, impassable until you or a chosen creature opens it; the DC to break or pick it rises by 10. Lasts until dispelled."
     ],
@@ -2019,11 +2038,6 @@
     "name": "Barkskin",
     "level": 2,
     "concentration": true,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "A willing creature's skin turns bark-like; its AC can't be lower than 16 regardless of armor. Concentration, up to 1 hour."
     ],
@@ -2045,9 +2059,6 @@
     "chips": [
       {
         "t": "30 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2063,17 +2074,13 @@
     "range": "30 feet",
     "components": "V",
     "castTime": "1 action",
-    "duration": "1 minute"
+    "duration": "1 minute",
+    "upcast": true
   },
   "blur": {
     "name": "Blur",
     "level": 2,
     "concentration": true,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "Your form blurs; attackers have Disadvantage to hit you unless they don't rely on sight. Concentration, up to 1 minute."
     ],
@@ -2095,9 +2102,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2116,11 +2120,6 @@
   "continualflame": {
     "name": "Continual Flame",
     "level": 2,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "A flame equal to torchlight springs from an object, giving heatless light until dispelled; it can be covered but not smothered or drowned. Consumes 50 gp of ruby dust."
     ],
@@ -2143,9 +2142,6 @@
     "chips": [
       {
         "t": "120 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2170,9 +2166,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2193,11 +2186,6 @@
   "darkvision": {
     "name": "Darkvision",
     "level": 2,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "A willing creature gains darkvision out to 60 ft for 8 hours."
     ],
@@ -2219,11 +2207,6 @@
     "level": 2,
     "concentration": true,
     "dice": "Wis save DC {dc}",
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "Read the surface thoughts of a creature within 30 ft, probing deeper if it fails a Wis save (DC {dc}); you can also detect thinking creatures nearby. Concentration, up to 1 minute."
     ],
@@ -2246,9 +2229,6 @@
     "chips": [
       {
         "t": "Touch"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2265,17 +2245,13 @@
     "components": "V, S, M",
     "material": "Fur or a feather from a beast.",
     "castTime": "1 action",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "enlargereduce": {
     "name": "Enlarge/Reduce",
     "level": 2,
     "concentration": true,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "Enlarge a creature or object one size (Advantage on Str, +1d4 weapon damage) or reduce it (Disadvantage on Str, −1d4 weapon damage). Concentration, up to 1 minute."
     ],
@@ -2297,9 +2273,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2321,9 +2294,6 @@
     "chips": [
       {
         "t": "30 ft"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2341,11 +2311,6 @@
   "findtraps": {
     "name": "Find Traps",
     "level": 2,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "You sense the presence of any trap within line of sight, learning its general nature but not its exact location or how to disable it."
     ],
@@ -2368,9 +2333,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2385,7 +2347,8 @@
     "components": "V, S, M",
     "material": "A bit of tallow, a pinch of brimstone, and a dusting of powdered iron.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "gentlerepose": {
     "name": "Gentle Repose",
@@ -2393,9 +2356,6 @@
     "chips": [
       {
         "t": "Touch"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2418,11 +2378,6 @@
     "level": 2,
     "concentration": true,
     "dice": "Str save DC {dc}",
-    "chips": [
-      {
-        "c": "ember"
-      }
-    ],
     "body": [
       "A 60-ft line of strong wind pushes creatures that fail a Str save (DC {dc}) 15 ft away and snuffs flames; you can redirect it as a Bonus Action. Concentration, up to 1 minute."
     ],
@@ -2447,9 +2402,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2464,7 +2416,8 @@
     "components": "V, S, M",
     "material": "A piece of iron and a flame.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "holdperson": {
     "name": "Hold Person",
@@ -2483,7 +2436,8 @@
     "components": "V, S, M",
     "material": "A small, straight piece of iron.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "invisibility": {
     "name": "Invisibility",
@@ -2492,9 +2446,6 @@
     "chips": [
       {
         "t": "Touch"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2511,7 +2462,8 @@
     "components": "V, S, M",
     "material": "An eyelash encased in gum arabic.",
     "castTime": "1 action",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "knock": {
     "name": "Knock",
@@ -2519,9 +2471,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2567,9 +2516,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2589,11 +2535,6 @@
   "locateanimalsorplants": {
     "name": "Locate Animals or Plants",
     "level": 2,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "Name one kind of beast or plant; you instantly learn the direction and distance to the nearest such within 5 miles, if any."
     ],
@@ -2614,11 +2555,6 @@
     "name": "Locate Object",
     "level": 2,
     "concentration": true,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "Sense the direction to a familiar or described object within 1,000 ft, if it's within range and not blocked by lead. Concentration, up to 10 minutes."
     ],
@@ -2640,11 +2576,6 @@
   "magicaura": {
     "name": "Magic Aura",
     "level": 2,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "Mask a creature or object so divination magic reads a false aura or no aura, or make a creature register as a chosen creature type. Lasts 24 hours."
     ],
@@ -2664,9 +2595,6 @@
     "chips": [
       {
         "t": "30 ft"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2691,9 +2619,6 @@
     "chips": [
       {
         "t": "Touch"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2708,7 +2633,8 @@
     "range": "Touch",
     "components": "V, S",
     "castTime": "1 bonus action",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "mirrorimage": {
     "name": "Mirror Image",
@@ -2774,17 +2700,13 @@
     "components": "V, S, M",
     "material": "Several seeds of any moonseed plant and a piece of opalescent feldspar.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "passwithouttrace": {
     "name": "Pass without Trace",
     "level": 2,
     "concentration": true,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "You and allies within 30 ft gain +10 to Stealth checks and leave no tracks or trail. Concentration, up to 1 hour."
     ],
@@ -2818,7 +2740,8 @@
     "range": "30 feet",
     "components": "V",
     "castTime": "10 minutes",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "protectionfrompoison": {
     "name": "Protection from Poison",
@@ -2826,9 +2749,6 @@
     "chips": [
       {
         "t": "Touch"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2854,9 +2774,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2878,9 +2795,6 @@
     "chips": [
       {
         "t": "Touch"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -2903,9 +2817,6 @@
     "chips": [
       {
         "t": "120 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2919,16 +2830,12 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "seeinvisibility": {
     "name": "See Invisibility",
     "level": 2,
-    "chips": [
-      {
-        "c": "storm"
-      }
-    ],
     "body": [
       "For 1 hour you see invisible creatures and objects and can see into the Ethereal Plane."
     ],
@@ -2951,9 +2858,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -2970,7 +2874,8 @@
     "components": "V, S, M",
     "material": "A burst of mica.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "silence": {
     "name": "Silence",
@@ -3003,9 +2908,6 @@
     "chips": [
       {
         "t": "Touch"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -3030,9 +2932,6 @@
     "chips": [
       {
         "t": "150 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -3072,7 +2971,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 bonus action",
-    "duration": "1 minute"
+    "duration": "1 minute",
+    "upcast": true
   },
   "suggestion": {
     "name": "Suggestion",
@@ -3082,9 +2982,6 @@
     "chips": [
       {
         "t": "30 ft"
-      },
-      {
-        "c": "ember"
       }
     ],
     "body": [
@@ -3109,9 +3006,6 @@
     "chips": [
       {
         "t": "Touch"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -3152,9 +3046,6 @@
     "chips": [
       {
         "t": "60 ft"
-      },
-      {
-        "c": "storm"
       }
     ],
     "body": [
@@ -3194,7 +3085,8 @@
     "components": "V, S, M",
     "material": "A drop of blood, a piece of flesh, and a pinch of bone dust.",
     "castTime": "1 minute",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "auraoflife": {
     "name": "Aura of Life",
@@ -3263,7 +3155,8 @@
     "range": "Touch",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "blink": {
     "name": "Blink",
@@ -3311,7 +3204,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 10 minutes"
+    "duration": "Up to 10 minutes",
+    "upcast": true
   },
   "clairvoyance": {
     "name": "Clairvoyance",
@@ -3361,7 +3255,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "counterspell": {
     "name": "Counterspell",
@@ -3449,7 +3344,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "fear": {
     "name": "Fear",
@@ -3531,7 +3427,8 @@
     "components": "V, S, M",
     "material": "A tiny ball of bat guano and sulfur.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "fly": {
     "name": "Fly",
@@ -3556,7 +3453,8 @@
     "components": "V, S, M",
     "material": "A wing feather from any bird.",
     "castTime": "1 action",
-    "duration": "Up to 10 minutes"
+    "duration": "Up to 10 minutes",
+    "upcast": true
   },
   "gaseousform": {
     "name": "Gaseous Form",
@@ -3609,7 +3507,8 @@
     "components": "V, S, M",
     "material": "Incense and powdered diamond worth at least 200 gp, which the spell consumes.",
     "castTime": "1 hour",
-    "duration": "Until dispelled or triggered"
+    "duration": "Until dispelled or triggered",
+    "upcast": true
   },
   "haste": {
     "name": "Haste",
@@ -3687,7 +3586,8 @@
     "components": "V, S, M",
     "material": "A bit of fur and a rod of amber, crystal, or glass.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "magiccircle": {
     "name": "Magic Circle",
@@ -3712,7 +3612,8 @@
     "components": "V, S, M",
     "material": "Holy water or powdered silver and iron worth at least 100 gp, which the spell consumes.",
     "castTime": "1 minute",
-    "duration": "1 hour"
+    "duration": "1 hour",
+    "upcast": true
   },
   "majorimage": {
     "name": "Major Image",
@@ -3740,7 +3641,8 @@
     "components": "V, S, M",
     "material": "A bit of fleece.",
     "castTime": "1 action",
-    "duration": "Up to 10 minutes"
+    "duration": "Up to 10 minutes",
+    "upcast": true
   },
   "masshealingword": {
     "name": "Mass Healing Word",
@@ -3763,7 +3665,8 @@
     "range": "60 feet",
     "components": "V",
     "castTime": "1 bonus action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "meldintostone": {
     "name": "Meld into Stone",
@@ -4069,7 +3972,8 @@
     "components": "V, S, M",
     "material": "A holy symbol.",
     "castTime": "1 action",
-    "duration": "Up to 10 minutes"
+    "duration": "Up to 10 minutes",
+    "upcast": true
   },
   "stinkingcloud": {
     "name": "Stinking Cloud",
@@ -4146,7 +4050,8 @@
     "range": "Self",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "waterbreathing": {
     "name": "Water Breathing",
@@ -4271,7 +4176,8 @@
     "components": "V, S, M",
     "material": "An item distasteful to the target.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "blacktentacles": {
     "name": "Black Tentacles",
@@ -4323,7 +4229,8 @@
     "range": "30 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "compulsion": {
     "name": "Compulsion",
@@ -4376,7 +4283,8 @@
     "components": "V, S, M",
     "material": "Three walnut shells.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "conjureminorelementals": {
     "name": "Conjure Minor Elementals",
@@ -4399,7 +4307,8 @@
     "range": "90 feet",
     "components": "V, S",
     "castTime": "1 minute",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "conjurewoodlandbeings": {
     "name": "Conjure Woodland Beings",
@@ -4423,7 +4332,8 @@
     "components": "V, S, M",
     "material": "One holly berry per creature summoned.",
     "castTime": "1 action",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "controlwater": {
     "name": "Control Water",
@@ -4541,7 +4451,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "faithfulhound": {
     "name": "Faithful Hound",
@@ -4757,7 +4668,8 @@
     "components": "V, S, M",
     "material": "A pinch of dust and a few drops of water.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "locatecreature": {
     "name": "Locate Creature",
@@ -4808,7 +4720,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "polymorph": {
     "name": "Polymorph",
@@ -4857,7 +4770,8 @@
     "components": "V, S, M",
     "material": "A thin sheet of lead, a piece of opaque glass, a wad of cotton or cloth, and powdered chrysolite.",
     "castTime": "10 minutes",
-    "duration": "24 hours"
+    "duration": "24 hours",
+    "upcast": true
   },
   "resilientsphere": {
     "name": "Resilient Sphere",
@@ -4979,7 +4893,8 @@
     "components": "V, S, M",
     "material": "A small piece of phosphorus.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "animateobjects": {
     "name": "Animate Objects",
@@ -5007,7 +4922,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "antilifeshell": {
     "name": "Antilife Shell",
@@ -5080,7 +4996,8 @@
     "components": "V, S, M",
     "material": "an eggshell and a snakeskin glove",
     "castTime": "1 action",
-    "duration": "Concentration, up to 1 minute"
+    "duration": "Concentration, up to 1 minute",
+    "upcast": true
   },
   "cloudkill": {
     "name": "Cloudkill",
@@ -5107,7 +5024,8 @@
     "range": "120 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 10 minutes"
+    "duration": "Up to 10 minutes",
+    "upcast": true
   },
   "commune": {
     "name": "Commune",
@@ -5178,7 +5096,8 @@
     "components": "V, S, M",
     "material": "A small crystal or glass cone.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "conjureelemental": {
     "name": "Conjure Elemental",
@@ -5205,7 +5124,8 @@
     "components": "V, S, M",
     "material": "Burning incense for air, soft clay for earth, sulfur and phosphorus for fire, or water and sand for water.",
     "castTime": "1 minute",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "contactotherplane": {
     "name": "Contact Other Plane",
@@ -5276,7 +5196,8 @@
     "components": "V, S, M",
     "material": "A tiny piece of matter of the same type of the item you plan to create.",
     "castTime": "1 minute",
-    "duration": "Special"
+    "duration": "Special",
+    "upcast": true
   },
   "dispelevilandgood": {
     "name": "Dispel Evil and Good",
@@ -5328,7 +5249,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "dream": {
     "name": "Dream",
@@ -5379,7 +5301,8 @@
     "components": "V, S, M",
     "material": "Pinch of sulfur.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "geas": {
     "name": "Geas",
@@ -5406,7 +5329,8 @@
     "range": "60 feet",
     "components": "V",
     "castTime": "1 minute",
-    "duration": "30 days"
+    "duration": "30 days",
+    "upcast": true
   },
   "greaterrestoration": {
     "name": "Greater Restoration",
@@ -5482,7 +5406,8 @@
     "components": "V, S, M",
     "material": "A small piece of iron.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "insectplague": {
     "name": "Insect Plague",
@@ -5511,7 +5436,8 @@
     "components": "V, S, M",
     "material": "A few grains of sugar, some kernels of grain, and a smear of fat.",
     "castTime": "1 action",
-    "duration": "Up to 10 minutes"
+    "duration": "Up to 10 minutes",
+    "upcast": true
   },
   "legendlore": {
     "name": "Legend Lore",
@@ -5561,7 +5487,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "mislead": {
     "name": "Mislead",
@@ -5608,7 +5535,8 @@
     "range": "30 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "passwall": {
     "name": "Passwall",
@@ -5656,7 +5584,8 @@
     "components": "V, S, M",
     "material": "A jewel worth at least 1,000 gp, which the spell consumes.",
     "castTime": "1 hour",
-    "duration": "24 hours"
+    "duration": "24 hours",
+    "upcast": true
   },
   "raisedead": {
     "name": "Raise Dead",
@@ -5947,7 +5876,8 @@
     "components": "V, S, M",
     "material": "A bit of fur; a piece of amber, glass, or a crystal rod; and three silver pins.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "circleofdeath": {
     "name": "Circle of Death",
@@ -5972,7 +5902,8 @@
     "components": "V, S, M",
     "material": "The powder of a crushed black pearl worth at least 500 gp.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "conjurefey": {
     "name": "Conjure Fey",
@@ -5995,7 +5926,8 @@
     "range": "90 feet",
     "components": "V, S",
     "castTime": "1 minute",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "contingency": {
     "name": "Contingency",
@@ -6041,7 +5973,8 @@
     "components": "V, S, M",
     "material": "One clay pot filled with grave dirt, one clay pot filled with brackish water, and one 150 gp black onyx stone for each corpse.",
     "castTime": "1 minute",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "disintegrate": {
     "name": "Disintegrate",
@@ -6065,7 +5998,8 @@
     "components": "V, S, M",
     "material": "A lodestone and a pinch of dust.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "eyebite": {
     "name": "Eyebite",
@@ -6187,7 +6121,8 @@
     "components": "V, S, M",
     "material": "A small crystal sphere.",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "globeofinvulnerability": {
     "name": "Globe of Invulnerability",
@@ -6211,7 +6146,8 @@
     "components": "V, S, M",
     "material": "A glass or crystal bead that shatters when the spell ends.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "guardsandwards": {
     "name": "Guards and Wards",
@@ -6279,7 +6215,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "heroesfeast": {
     "name": "Heroes' Feast",
@@ -6398,7 +6335,8 @@
     "components": "V, M",
     "material": "A snake's tongue and either a bit of honeycomb or a drop of sweet oil.",
     "castTime": "1 action",
-    "duration": "24 hours"
+    "duration": "24 hours",
+    "upcast": true
   },
   "moveearth": {
     "name": "Move Earth",
@@ -6564,7 +6502,8 @@
     "components": "V, S, M",
     "material": "A small piece of quartz.",
     "castTime": "1 action",
-    "duration": "Up to 10 minutes"
+    "duration": "Up to 10 minutes",
+    "upcast": true
   },
   "wallofthorns": {
     "name": "Wall of Thorns",
@@ -6588,7 +6527,8 @@
     "components": "V, S, M",
     "material": "A handful of thorns.",
     "castTime": "1 action",
-    "duration": "Up to 10 minutes"
+    "duration": "Up to 10 minutes",
+    "upcast": true
   },
   "windwalk": {
     "name": "Wind Walk",
@@ -6653,7 +6593,8 @@
     "range": "90 feet",
     "components": "V, S",
     "castTime": "1 minute",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "delayedblastfireball": {
     "name": "Delayed Blast Fireball",
@@ -6678,7 +6619,8 @@
     "components": "V, S, M",
     "material": "A tiny ball of bat guano and sulfur.",
     "castTime": "1 action",
-    "duration": "Up to 1 minute"
+    "duration": "Up to 1 minute",
+    "upcast": true
   },
   "divineword": {
     "name": "Divine Word",
@@ -6726,7 +6668,8 @@
     "range": "Self",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "8 hours"
+    "duration": "8 hours",
+    "upcast": true
   },
   "fingerofdeath": {
     "name": "Finger of Death",
@@ -7260,7 +7203,8 @@
     "range": "60 feet",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Up to 1 hour"
+    "duration": "Up to 1 hour",
+    "upcast": true
   },
   "earthquake": {
     "name": "Earthquake",
@@ -8127,7 +8071,8 @@
     "range": "Self (10-foot radius)",
     "components": "V, S",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "dissonantwhispers": {
     "name": "Dissonant Whispers",
@@ -8151,7 +8096,8 @@
     "range": "60 feet",
     "components": "V",
     "castTime": "1 action",
-    "duration": "Instantaneous"
+    "duration": "Instantaneous",
+    "upcast": true
   },
   "tashasmindwhip": {
     "name": "Tasha's Mind Whip",
@@ -8175,7 +8121,8 @@
     "range": "90 feet",
     "components": "V",
     "castTime": "1 action",
-    "duration": "1 round"
+    "duration": "1 round",
+    "upcast": true
   },
   "hungerofhadar": {
     "name": "Hunger of Hadar",
@@ -8230,7 +8177,8 @@
     "components": "V, S, M",
     "material": "a pickled tentacle and a vial of bile worth 400+ GP",
     "castTime": "1 action",
-    "duration": "Concentration, up to 1 hour"
+    "duration": "Concentration, up to 1 hour",
+    "upcast": true
   },
   "synapticstatic": {
     "name": "Synaptic Static",

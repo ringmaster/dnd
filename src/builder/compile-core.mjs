@@ -87,6 +87,7 @@ function spellRef(reg, t, classLabel){
   if (reg.concentration) ref.concentration = reg.name;
   const info = spellInfoLine(reg);
   if (info) ref.info = info;
+  if (reg.upcast) ref.upcast = true;   // casting with a higher slot improves it
   return ref;
 }
 function matRef(r, t){
