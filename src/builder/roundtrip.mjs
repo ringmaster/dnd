@@ -105,6 +105,14 @@ for (const f of fs.readdirSync(path.join(ROOT, "src", "characters")).filter((x) 
     failures++;
     eBad.forEach((k) => { console.log("     " + k + "\n       source: " + JSON.stringify(srcViews[k]) + "\n       edited: " + JSON.stringify(editedViews[k])); });
   }
+
+  // 3. the REGENERATED character must still be legal — guards against the builder's
+  //    edit/regenerate path silently dropping a choice (load -> edit -> preview -> edit).
+  if (!waived) {
+    const editedLegal = checkLegality(edited, CAT).filter((i) => i.level === "error");
+    console.log("  edited legal: " + (editedLegal.length ? "✗ " + editedLegal.map((i) => i.msg).join("; ") : "✓ still legal after regenerate"));
+    failures += editedLegal.length ? 1 : 0;
+  }
 }
 console.log("\n" + (failures ? failures + " ROUND-TRIP FAILURE(S)" : "ALL CHARACTERS SURVIVE THE ROUND TRIP (pristine + edited)"));
 process.exit(failures ? 1 : 0);

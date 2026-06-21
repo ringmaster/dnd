@@ -287,12 +287,16 @@ var ENGINE_SRC = ${JSON.stringify(engineJs)};
 function showError(msg){ var e=document.getElementById("vwErr"); if(e){ e.textContent=msg; e.style.display="block"; } }
 function hideLoader(){ var l=document.getElementById("vwLoader"); if(l) l.style.display="none"; }
 function renderCharacter(raw){
+  // keep the build-bearing source so the rendered sheet's Edit/Export hand the
+  // ACTUAL construction back to the builder (not a lossy, build-stripped compile)
+  var source = JSON.parse(JSON.stringify(raw));
   var compiled;
   try { compiled = compile(raw, CAT); } catch(e){ showError("Could not compile: " + e.message); return; }
   if (compiled.build) delete compiled.build;
   var json = JSON.stringify(compiled).replace(/<\\/script/gi, "<\\\\/script");
+  var srcJson = JSON.stringify(source).replace(/<\\/script/gi, "<\\\\/script");
   var s = document.createElement("script");
-  s.text = '(function(){"use strict"; var CHARACTER = ' + json + ';\\n' + ENGINE_SRC + '\\n})();';
+  s.text = '(function(){"use strict"; var CHARACTER = ' + json + '; var CHARACTER_SOURCE = ' + srcJson + ';\\n' + ENGINE_SRC + '\\n})();';
   document.body.appendChild(s);
   hideLoader();
 }
