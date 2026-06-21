@@ -30,7 +30,7 @@
      character is captured as a custom "root" element so it survives round-trip.
      `ref` is here because compile() auto-generates the reference modals from the
      build sources; `combat` because the builder now generates a combat block. */
-  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1,homebrew:1,bespoke:1,homebrewNote:1,
+  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1,homebrew:1,bespoke:1,homebrewNote:1,hitDice:1,
     // fields compile() DERIVES from the build sources — decomposed back into the
     // form (see decompose()), never kept as opaque custom blobs
     abilities:1,always:1,cantrips:1,checkMods:1,initiate:1,initiativeBonus:1,languages:1,pools:1,prepared:1,skillExp:1,skillProf:1,slotPool:1,slotPools:1,spellcasting:1,tools:1};
@@ -1089,8 +1089,11 @@
     state.customs.forEach(function(cu, idx){
       var head=el("div",{class:"cust-head"},[
         el("span",{class:"cust-kind",text:CUSTOM_KINDS[cu.kind]||cu.kind}),
-        el("input",{class:"binput cust-label", value:cu.label||"", placeholder:"label", oninput:function(e){ cu.label=e.target.value; }}),
-        cu.kind==="root" ? el("input",{class:"binput cust-key", value:cu.key||"", placeholder:"field name", oninput:function(e){ cu.key=e.target.value; refreshOut(); }}) : null,
+        // a top-level field is identified by its JSON field name (the key); cards/sources
+        // carry a friendly display label instead. Only one box, clearly purposed.
+        cu.kind==="root"
+          ? el("input",{class:"binput cust-key", value:cu.key||"", placeholder:"field name", "aria-label":"JSON field name", oninput:function(e){ cu.key=e.target.value; refreshOut(); }})
+          : el("input",{class:"binput cust-label", value:cu.label||"", placeholder:"label", "aria-label":"Label", oninput:function(e){ cu.label=e.target.value; }}),
         el("button",{class:"bbtn tiny", type:"button", text:cu._raw?"Tree view":"Raw JSON", onclick:function(){ cu._raw=!cu._raw; render(); }}),
         el("button",{class:"bbtn tiny", type:"button", text:"Remove", onclick:function(){ state.customs.splice(idx,1); render(); }})
       ].filter(Boolean));
