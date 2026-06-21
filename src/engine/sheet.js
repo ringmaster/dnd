@@ -471,7 +471,10 @@ function renderCorpusMatches(q, localMatches){
 function openCorpusEntry(e){
   cachedJson(rulesBase()+e.s+".json").then(function(shard){
     var x=shard[e.i]; if(!x) return;
-    openRemoteModal(Object.assign({}, x, {_foot:"From your offline rules library (SRD). This sheet uses 2024 rules — wording may differ."}));
+    var foot = (e.t==="feature"||e.t==="rules")
+      ? "From your offline rules library — 2024 rules."
+      : "From your offline rules library (SRD). This sheet uses 2024 rules — wording may differ.";
+    openRemoteModal(Object.assign({}, x, {_foot:foot}));
   }).catch(function(){});
 }
 function scrollToAnchor(sel){

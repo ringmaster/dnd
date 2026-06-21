@@ -35,8 +35,13 @@ function expandGrants(sources, cat){
 }
 const sg = n => (n >= 0 ? "+" : "") + n;
 function subst(s, t){ return s == null ? s : String(s).replace(/\{dc\}/g, t.dc).replace(/\{atk\}/g, t.atk).replace(/\{mod\}/g, t.mod); }
-function spellRef(reg, t){
-  const chips = [{ t: reg.level === 0 ? "Cantrip" : "Level " + reg.level }];
+function spellRef(reg, t, classLabel){
+  // Lead chip names the spell the way it appears on this character: "Cleric 3",
+  // "Wizard cantrip", or just "Level 3" when no class on the sheet grants it.
+  const lvlWord = reg.level === 0 ? "cantrip" : reg.level;
+  const lead = classLabel ? classLabel + " " + lvlWord : (reg.level === 0 ? "Cantrip" : "Level " + reg.level);
+  const chips = [{ t: lead }];
+  if (reg.school) chips.push({ t: cap(reg.school) });
   if (reg.concentration) chips.push({ t: "Concentration", c: "storm" });
   (reg.chips || []).forEach(c => chips.push(c));
   const ref = { title: reg.title || reg.name, chips, body: (reg.body || []).map(b => subst(b, t)) };
@@ -268,9 +273,12 @@ export function compile(input, cat){
     if (c.prepared && c.prepared.catalog) c.prepared.catalog.forEach(s => ids.add(s.id));
     const poolOf = {};
     for (const id in pools) if (pools[id].ref){ ids.add(pools[id].ref); poolOf[pools[id].ref] = id; }
+    const myClasses = (Array.isArray(c.build && c.build.classes) ? c.build.classes.map(x => x.class) : [c.build && c.build.class]).filter(Boolean);
     for (const id of ids){
       const reg = SPELLS[id]; if (!reg) continue;
-      const ref = spellRef(reg, t);
+      const onMy = (reg.classes || []).filter(cl => myClasses.includes(cl));
+      const classLabel = onMy.length ? cap(onMy[0]) : null;
+      const ref = spellRef(reg, t, classLabel);
       if (poolOf[id]) ref.freePool = poolOf[id];
       c.ref[id] = Object.assign(ref, c.ref[id] || {});
     }

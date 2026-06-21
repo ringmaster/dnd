@@ -22,9 +22,41 @@ const generic = (s) => String(s == null ? "" : s)
   .replace(/\{dc\}/g, "DC").replace(/\bDC DC\b/g, "DC")
   .replace(/\{atk\}/g, "your spell attack").replace(/\{mod\}/g, "your modifier");
 
+// Pull a plain object literal out of an engine JS fragment by brace-matching.
+function extractObject(file, marker) {
+  const src = fs.readFileSync(file, "utf8");
+  const at = src.indexOf(marker);
+  if (at < 0) throw new Error("marker not found: " + marker);
+  let i = src.indexOf("{", at), depth = 0, inStr = false, q = "", esc = false;
+  const start = i;
+  for (; i < src.length; i++) {
+    const ch = src[i];
+    if (inStr) { if (esc) esc = false; else if (ch === "\\") esc = true; else if (ch === q) inStr = false; continue; }
+    if (ch === '"' || ch === "'") { inStr = true; q = ch; continue; }
+    if (ch === "{") depth++;
+    else if (ch === "}") { depth--; if (depth === 0) { i++; break; } }
+  }
+  // eslint-disable-next-line no-eval
+  return (0, eval)("(" + src.slice(start, i) + ")");
+}
+
+// Render a sheet `ref` ({title, chips:[{t}], body:[...]}) as markdown.
+function refDesc(ref, header) {
+  const lines = [];
+  if (header) lines.push("**" + header + "**");
+  const chips = (ref.chips || []).map((c) => c.t).filter(Boolean);
+  if (chips.length) lines.push("_" + chips.join(" · ") + "_");
+  (ref.body || []).forEach((b) => lines.push(generic(b)));
+  return lines.join("\n\n");
+}
+
 export function buildRules() {
 const spells = rj(path.join(ROOT, "src", "content", "spells.json"));
 const feats = rj(path.join(ROOT, "src", "builder", "feats.json"));
+const classes = rj(path.join(ROOT, "src", "content", "classes.json"));
+const classFeatures = rj(path.join(ROOT, "src", "content", "class-features.json"));
+const subclasses = rj(path.join(ROOT, "src", "content", "subclasses.json"));
+const glossary = extractObject(path.join(ROOT, "src", "engine", "glossary.js"), "var GLOSSARY = {");
 
 function spellDesc(s) {
   const header = (s.level === 0 ? "Cantrip" : "Level " + s.level) + (s.school ? " · " + cap(s.school) : "");
@@ -59,7 +91,45 @@ for (const id of Object.keys(feats)) {
   featIndex.push({ i: id, n: f.name, t: "feat", s: "feats", sub: "Origin feat" });
 }
 
-const index = { version: 1, built: spellIndex.length + featIndex.length, entries: spellIndex.concat(featIndex) };
+// ---- Class & subclass features (so e.g. "Twilight Sanctuary" is searchable
+//      even on a character who isn't a Cleric) ----
+const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 40);
+const sub2class = {};
+for (const c of Object.keys(classes)) for (const s of (classes[c].subclasses || [])) sub2class[s] = classes[c].name;
+
+const featureShard = {}, featureIndex = [];
+const addFeature = (id, name, sub, ref) => {
+  let key = id || slug(name);
+  while (featureShard[key]) key += "_";
+  featureShard[key] = { id: key, name, type: "feature", sub, desc: refDesc(ref, name) };
+  featureIndex.push({ i: key, n: name, t: "feature", s: "features", sub });
+};
+for (const cls of Object.keys(classFeatures)) {
+  const cn = (classes[cls] && classes[cls].name) || cap(cls);
+  for (const fname of Object.keys(classFeatures[cls])) {
+    const f = classFeatures[cls][fname];
+    if (!f.ref) continue;
+    addFeature(f.refId, f.ref.title || fname, cn + " feature", f.ref);
+  }
+}
+for (const id of Object.keys(subclasses)) {
+  const sc = subclasses[id];
+  const cn = sc.class || sub2class[id] || "";
+  const sub = sc.name + (cn ? " (" + cn + ")" : "") + " feature";
+  for (const g of (sc.grants || [])) { if (g.ref) addFeature(g.id, g.ref.title || g.name, sub, g.ref); }
+}
+
+// ---- Rules glossary (conditions, actions, core terms) ----
+const glossShard = {}, glossIndex = [];
+for (const id of Object.keys(glossary)) {
+  const g = glossary[id];
+  if (!g || !g.term) continue;
+  glossShard[id] = { id, name: g.term, type: "rules", sub: "Rules glossary", desc: "**" + g.term + "**\n\n" + generic(g.def) };
+  glossIndex.push({ i: id, n: g.term, t: "rules", s: "glossary", sub: "Rules glossary" });
+}
+
+const entries = spellIndex.concat(featIndex, featureIndex, glossIndex);
+const index = { version: 1, built: entries.length, entries };
 
 const OUT = path.join(ROOT, "docs", "rules");
 fs.mkdirSync(OUT, { recursive: true });
@@ -67,7 +137,10 @@ const wj = (name, obj) => fs.writeFileSync(path.join(OUT, name), JSON.stringify(
 wj("index.json", index);
 wj("spells.json", spellShard);
 wj("feats.json", featShard);
-console.log("built docs/rules/  (" + index.entries.length + " entries: " + spellIndex.length + " spells, " + featIndex.length + " feats)");
+wj("features.json", featureShard);
+wj("glossary.json", glossShard);
+console.log("built docs/rules/  (" + index.entries.length + " entries: " + spellIndex.length + " spells, " +
+  featIndex.length + " feats, " + featureIndex.length + " features, " + glossIndex.length + " rules)");
 }
 
 if (process.argv[1] && process.argv[1].endsWith("rules-index.mjs")) buildRules();
