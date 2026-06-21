@@ -113,21 +113,6 @@
   "dragonborn": {
     "name": "Dragonborn",
     "traits": {
-      "draconicancestry": {
-        "name": "Draconic Ancestry",
-        "ref": {
-          "title": "Draconic Ancestry",
-          "chips": [
-            {
-              "t": "tag",
-              "c": "choice"
-            }
-          ],
-          "body": [
-            "When you create your character, choose a kind of dragon. Your Breath Weapon's damage type and your Damage Resistance are determined by the dragon type you choose: acid, cold, fire, lightning, or poison."
-          ]
-        }
-      },
       "breathweapon": {
         "name": "Breath Weapon",
         "ref": {
@@ -203,6 +188,111 @@
           "body": [
             "Starting at 5th level, as a bonus action, you can sprout a pair of wings from your back for 10 minutes. Once you use this trait, you can't use it again until you finish a long rest. While your wings are out, you have a flying speed equal to your walking speed."
           ]
+        }
+      }
+    },
+    "lineage": {
+      "label": "Draconic Ancestry",
+      "options": {
+        "acid": {
+          "name": "Acid",
+          "refId": "dragon-acid",
+          "ref": {
+            "title": "Acid",
+            "chips": [
+              {
+                "t": "acid damage",
+                "c": "ember"
+              },
+              {
+                "t": "Resist acid",
+                "c": "storm"
+              }
+            ],
+            "body": [
+              "Your Breath Weapon deals acid damage and you have Resistance to acid damage. Dragons of this ancestry include black and copper dragons."
+            ]
+          }
+        },
+        "cold": {
+          "name": "Cold",
+          "refId": "dragon-cold",
+          "ref": {
+            "title": "Cold",
+            "chips": [
+              {
+                "t": "cold damage",
+                "c": "ember"
+              },
+              {
+                "t": "Resist cold",
+                "c": "storm"
+              }
+            ],
+            "body": [
+              "Your Breath Weapon deals cold damage and you have Resistance to cold damage. Dragons of this ancestry include white and silver dragons."
+            ]
+          }
+        },
+        "fire": {
+          "name": "Fire",
+          "refId": "dragon-fire",
+          "ref": {
+            "title": "Fire",
+            "chips": [
+              {
+                "t": "fire damage",
+                "c": "ember"
+              },
+              {
+                "t": "Resist fire",
+                "c": "storm"
+              }
+            ],
+            "body": [
+              "Your Breath Weapon deals fire damage and you have Resistance to fire damage. Dragons of this ancestry include red, gold, and brass dragons."
+            ]
+          }
+        },
+        "lightning": {
+          "name": "Lightning",
+          "refId": "dragon-lightning",
+          "ref": {
+            "title": "Lightning",
+            "chips": [
+              {
+                "t": "lightning damage",
+                "c": "ember"
+              },
+              {
+                "t": "Resist lightning",
+                "c": "storm"
+              }
+            ],
+            "body": [
+              "Your Breath Weapon deals lightning damage and you have Resistance to lightning damage. Dragons of this ancestry include blue and bronze dragons."
+            ]
+          }
+        },
+        "poison": {
+          "name": "Poison",
+          "refId": "dragon-poison",
+          "ref": {
+            "title": "Poison",
+            "chips": [
+              {
+                "t": "poison damage",
+                "c": "ember"
+              },
+              {
+                "t": "Resist poison",
+                "c": "storm"
+              }
+            ],
+            "body": [
+              "Your Breath Weapon deals poison damage and you have Resistance to poison damage. Dragons of this ancestry include green dragons."
+            ]
+          }
         }
       }
     }
@@ -347,20 +437,63 @@
             "You don't sleep. Instead, you meditate deeply for 4 hours to finish a Long Rest and gain the same benefit a human does from 8 hours of sleep."
           ]
         }
-      },
-      "elvenLineage": {
-        "name": "Elven Lineage",
-        "ref": {
-          "title": "Elf: Elven Lineage",
-          "chips": [
-            {
-              "t": "tag",
-              "c": "ember"
-            }
-          ],
-          "body": [
-            "At 1st level, choose your elven lineage: Drow gain Dancing Lights cantrip and later access to Faerie Fire and Darkness with superior darkvision (120 ft). High Elf gain Prestidigitation cantrip (swappable) and later access to Detect Magic and Misty Step. Wood Elf gain Druidcraft cantrip and later access to Longstrider and Pass without Trace, plus your Speed increases by 5 feet."
-          ]
+      }
+    },
+    "lineage": {
+      "label": "Elven Lineage",
+      "options": {
+        "drow": {
+          "name": "Drow",
+          "refId": "elf-drow",
+          "ref": {
+            "title": "Drow",
+            "chips": [
+              {
+                "t": "Darkvision 120 ft",
+                "c": "storm"
+              },
+              {
+                "t": "Dancing Lights"
+              }
+            ],
+            "body": [
+              "You know the Dancing Lights cantrip and your Darkvision extends to 120 ft. At level 3 you can cast Faerie Fire, and at level 5 Darkness, each once per long rest without a slot (Int/Wis/Cha — your choice); you can also cast them with spell slots."
+            ]
+          }
+        },
+        "high": {
+          "name": "High Elf",
+          "refId": "elf-high",
+          "ref": {
+            "title": "High Elf",
+            "chips": [
+              {
+                "t": "Prestidigitation"
+              }
+            ],
+            "body": [
+              "You know the Prestidigitation cantrip (swap it whenever you finish a long rest). At level 3 you can cast Detect Magic, and at level 5 Misty Step, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
+            ]
+          }
+        },
+        "wood": {
+          "name": "Wood Elf",
+          "refId": "elf-wood",
+          "ref": {
+            "title": "Wood Elf",
+            "chips": [
+              {
+                "t": "Speed 35 ft",
+                "c": "ember"
+              },
+              {
+                "t": "Druidcraft"
+              }
+            ],
+            "body": [
+              "Your Speed increases to 35 ft and you know the Druidcraft cantrip. At level 3 you can cast Longstrider, and at level 5 Pass without Trace, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
+            ]
+          }
         }
       }
     }
@@ -397,20 +530,48 @@
             "You have Advantage on Intelligence, Wisdom, and Charisma saving throws."
           ]
         }
-      },
-      "gnomishLineage": {
-        "name": "Gnomish Lineage",
-        "ref": {
-          "title": "Gnome: Gnomish Lineage",
-          "chips": [
-            {
-              "t": "tag",
-              "c": "ember"
-            }
-          ],
-          "body": [
-            "At 1st level, choose Forest Gnome or Rock Gnome. Forest Gnomes know Minor Illusion and can cast Speak with Animals without using a spell slot a number of times equal to your Proficiency Bonus per long rest. Rock Gnomes know Mending and Prestidigitation, and can build a tiny clockwork device that provides a benefit you define."
-          ]
+      }
+    },
+    "lineage": {
+      "label": "Gnomish Lineage",
+      "options": {
+        "forest": {
+          "name": "Forest Gnome",
+          "refId": "gnome-forest",
+          "ref": {
+            "title": "Forest Gnome",
+            "chips": [
+              {
+                "t": "Minor Illusion"
+              },
+              {
+                "t": "Speak with Animals",
+                "c": "storm"
+              }
+            ],
+            "body": [
+              "You know the Minor Illusion cantrip and can cast Speak with Animals without a spell slot a number of times equal to your Proficiency Bonus per long rest (or with a slot)."
+            ]
+          }
+        },
+        "rock": {
+          "name": "Rock Gnome",
+          "refId": "gnome-rock",
+          "ref": {
+            "title": "Rock Gnome",
+            "chips": [
+              {
+                "t": "Mending · Prestidigitation"
+              },
+              {
+                "t": "Tinker",
+                "c": "ember"
+              }
+            ],
+            "body": [
+              "You know the Mending and Prestidigitation cantrips. As a Bonus Action (Tinker) you can build a tiny clockwork device (a toy, lighter, or music box) using artisan's tools."
+            ]
+          }
         }
       }
     }
@@ -418,34 +579,6 @@
   "goliath": {
     "name": "Goliath",
     "traits": {
-      "giantancestry": {
-        "name": "Giant Ancestry",
-        "ref": {
-          "title": "Giant Ancestry",
-          "chips": [
-            {
-              "t": "tag",
-              "c": "ember"
-            }
-          ],
-          "body": [
-            "You carry the blood of giants. Choose one supernatural boon from your giant lineage: Cloud's Jaunt (teleport 30 feet as a bonus action), Fire's Burn (add 1d10 fire damage to melee attacks), Frost's Chill (1d6 cold damage and reduce target's speed by 10 feet), Hill's Tumble (prone target on melee hit), Stone's Endurance (reduce incoming damage as a reaction), or Storm's Thunder (1d8 thunder damage when hit by an attack)."
-          ]
-        },
-        "effects": {
-          "grantsPool": {
-            "id": "giantancestry",
-            "label": "Giant Ancestry",
-            "max": "prof",
-            "rest": "long",
-            "ref": "giantancestry",
-            "storm": false,
-            "note": "long rest",
-            "use": "Use your chosen supernatural boon",
-            "reminder": "You may use this a number of times equal to your Proficiency Bonus"
-          }
-        }
-      },
       "largeform": {
         "name": "Large Form",
         "ref": {
@@ -489,6 +622,107 @@
           "body": [
             "Your walking speed is 35 feet."
           ]
+        }
+      }
+    },
+    "lineage": {
+      "label": "Giant Ancestry",
+      "options": {
+        "cloud": {
+          "name": "Cloud's Jaunt",
+          "refId": "giant-cloud",
+          "ref": {
+            "title": "Cloud's Jaunt",
+            "chips": [
+              {
+                "t": "Bonus action",
+                "c": "ember"
+              }
+            ],
+            "body": [
+              "As a Bonus Action, magically teleport up to 30 ft to an unoccupied space you can see. Uses = Proficiency Bonus per long rest."
+            ]
+          }
+        },
+        "fire": {
+          "name": "Fire's Burn",
+          "refId": "giant-fire",
+          "ref": {
+            "title": "Fire's Burn",
+            "chips": [
+              {
+                "t": "+1d10 fire",
+                "c": "ember"
+              }
+            ],
+            "body": [
+              "When you hit a target with an attack roll, deal an extra 1d10 fire damage. Uses = Proficiency Bonus per long rest."
+            ]
+          }
+        },
+        "frost": {
+          "name": "Frost's Chill",
+          "refId": "giant-frost",
+          "ref": {
+            "title": "Frost's Chill",
+            "chips": [
+              {
+                "t": "+1d6 cold",
+                "c": "ember"
+              }
+            ],
+            "body": [
+              "When you hit a target with an attack roll, deal an extra 1d6 cold damage and reduce its Speed by 10 ft until your next turn. Uses = Proficiency Bonus per long rest."
+            ]
+          }
+        },
+        "hill": {
+          "name": "Hill's Tumble",
+          "refId": "giant-hill",
+          "ref": {
+            "title": "Hill's Tumble",
+            "chips": [
+              {
+                "t": "Knock prone",
+                "c": "ember"
+              }
+            ],
+            "body": [
+              "When you hit a Large or smaller creature with an attack roll, you can knock it Prone. Uses = Proficiency Bonus per long rest."
+            ]
+          }
+        },
+        "stone": {
+          "name": "Stone's Endurance",
+          "refId": "giant-stone",
+          "ref": {
+            "title": "Stone's Endurance",
+            "chips": [
+              {
+                "t": "Reaction",
+                "c": "storm"
+              }
+            ],
+            "body": [
+              "As a Reaction when you take damage, roll 1d12 + your Constitution modifier and reduce the damage by that total. Uses = Proficiency Bonus per long rest."
+            ]
+          }
+        },
+        "storm": {
+          "name": "Storm's Thunder",
+          "refId": "giant-storm",
+          "ref": {
+            "title": "Storm's Thunder",
+            "chips": [
+              {
+                "t": "Reaction · 1d8 thunder",
+                "c": "ember"
+              }
+            ],
+            "body": [
+              "As a Reaction when you take damage from a creature within 60 ft, deal 1d8 thunder damage to that creature. Uses = Proficiency Bonus per long rest."
+            ]
+          }
         }
       }
     }
@@ -702,21 +936,6 @@
           ]
         }
       },
-      "fiendishLegacy": {
-        "name": "Fiendish Legacy",
-        "ref": {
-          "title": "Tiefling: Fiendish Legacy",
-          "chips": [
-            {
-              "t": "tag",
-              "c": "ember"
-            }
-          ],
-          "body": [
-            "At 1st level, choose one legacy: Abyssal (Poison resistance, Poison Spray cantrip; Ray of Sickness and Hold Person spells at higher levels), Chthonic (Necrotic resistance, Chill Touch cantrip; False Life and Ray of Enfeeblement spells at higher levels), or Infernal (Fire resistance, Fire Bolt cantrip; Hellish Rebuke and Darkness spells at higher levels). Your spellcasting ability for these spells is Intelligence, Wisdom, or Charisma of your choice."
-          ]
-        }
-      },
       "otherworldlyPresence": {
         "name": "Otherworldly Presence",
         "ref": {
@@ -730,6 +949,68 @@
           "body": [
             "You know the Thaumaturgy cantrip, and you cast it with the same spellcasting ability you chose for your Fiendish Legacy."
           ]
+        }
+      }
+    },
+    "lineage": {
+      "label": "Fiendish Legacy",
+      "options": {
+        "abyssal": {
+          "name": "Abyssal",
+          "refId": "tief-abyssal",
+          "ref": {
+            "title": "Abyssal",
+            "chips": [
+              {
+                "t": "Resist Poison",
+                "c": "storm"
+              },
+              {
+                "t": "Poison Spray"
+              }
+            ],
+            "body": [
+              "You have Resistance to Poison damage and know the Poison Spray cantrip. At level 3 you can cast Ray of Sickness, and at level 5 Hold Person, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
+            ]
+          }
+        },
+        "chthonic": {
+          "name": "Chthonic",
+          "refId": "tief-chthonic",
+          "ref": {
+            "title": "Chthonic",
+            "chips": [
+              {
+                "t": "Resist Necrotic",
+                "c": "storm"
+              },
+              {
+                "t": "Chill Touch"
+              }
+            ],
+            "body": [
+              "You have Resistance to Necrotic damage and know the Chill Touch cantrip. At level 3 you can cast False Life, and at level 5 Ray of Enfeeblement, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
+            ]
+          }
+        },
+        "infernal": {
+          "name": "Infernal",
+          "refId": "tief-infernal",
+          "ref": {
+            "title": "Infernal",
+            "chips": [
+              {
+                "t": "Resist Fire",
+                "c": "storm"
+              },
+              {
+                "t": "Fire Bolt"
+              }
+            ],
+            "body": [
+              "You have Resistance to Fire damage and know the Fire Bolt cantrip. At level 3 you can cast Hellish Rebuke, and at level 5 Darkness, each once per long rest without a slot (Int/Wis/Cha — your choice); or with spell slots."
+            ]
+          }
         }
       }
     }

@@ -19,7 +19,7 @@
     skills:[], originFeat:"", asis:{}, masteries:[], cantrips:[], prepared:[],
     equipment:[],          // unified inventory: {kind:'weapon'|'armor'|'shield'|'item', id?, name}
     languages:[],          // known languages (resolved, not "choices")
-    choices:{ style:"", expertise:[], order:"", skillful:"" },
+    choices:{ style:"", expertise:[], order:"", skillful:"", lineage:"" },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
     homebrew:false,       // when true, legality issues are non-blocking and the export is flagged homebrew
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
@@ -313,6 +313,7 @@
     // species traits
     var sp=CAT.species[state.species];
     if(sp) Object.keys(sp.traits||{}).forEach(function(tr){ out.push({ ref:tr, name:sp.traits[tr].name, sub:sp.name }); });
+    if(sp && sp.lineage && state.choices.lineage && sp.lineage.options[state.choices.lineage]){ var lo=sp.lineage.options[state.choices.lineage]; out.push({ ref:lo.refId, name:sp.lineage.label+": "+lo.name, sub:sp.name }); }
     // background, and the origin feat it grants
     var bg=CAT.backgrounds[state.background];
     if(bg){ out.push({ ref:state.background, name:"Background: "+bg.name, sub:"" });
@@ -380,7 +381,7 @@
     var invCard=(ch.cards||[]).find(function(c){ return c && c.type==="inventory"; });
     if(invCard && Array.isArray(invCard.items)) invCard.items.forEach(function(it){ if(it && it.name && !gearNames[baseName(it.name)]) state.equipment.push({kind:"item", name:it.name, tag:it.tag}); });
     state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[]; state.languages=[];
-    state.choices={style:"",expertise:[],order:"",skillful:""};
+    state.choices={style:"",expertise:[],order:"",skillful:"",lineage:""};
     (b.sources||[]).forEach(function(s){
       var id=s.id||"", eff=s.effects||{};
       if(/-skills$/.test(id) && eff.skills) state.skills=eff.skills.slice();
@@ -395,6 +396,7 @@
       if(eff.expertise) state.choices.expertise=eff.expertise.slice();   // all chosen Expertise skills (Deft Explorer/Scholar = 1, Rogue/Bard = 2 each)
       if(eff.skills && id===speciesSkillTrait()) state.choices.skillful=eff.skills[0];   // Human Skillful's chosen skill
       if(id==="divine-order" && s.name) state.choices.order=/Thaumaturge/i.test(s.name)?"thaumaturge":"protector";
+      if(id==="lineage" && s.refId){ var lin=(CAT.species[b.species||state.species]||{}).lineage; if(lin) Object.keys(lin.options).forEach(function(lk){ if(lin.options[lk].refId===s.refId) state.choices.lineage=lk; }); }
       if(eff.spellcasting){ var spc=eff.spellcasting;   // spellcasting source, however its id is tagged (e.g. ranger-spellcasting)
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
         if(spc.prepared && spc.prepared.default) state.prepared=spc.prepared.default.slice(); }
@@ -476,6 +478,11 @@
     if(sp) Object.keys(sp.traits).forEach(function(tr){ var src={ id:tr, name:(sp.name+": "+sp.traits[tr].name), include:"species:"+state.species+":"+tr };
       if(sp.traits[tr].grantsSkill && state.choices.skillful) src.effects={ skills:[state.choices.skillful] };   // Human Skillful's chosen skill
       sources.push(src); });
+    // chosen species lineage / ancestry (Elf, Gnome, Tiefling, Dragonborn, Goliath)
+    if(sp && sp.lineage && state.choices.lineage && sp.lineage.options[state.choices.lineage]){
+      var lo=sp.lineage.options[state.choices.lineage];
+      sources.push({ id:"lineage", name:sp.lineage.label+": "+lo.name, effects:lo.effects, ref:lo.ref, refId:lo.refId });
+    }
     // class features up to level (their refs/effects; spellcasting features carry only a marker effect
     // that the builder reads to detect casters — the full block is emitted last so it wins in compile)
     classFeatureSources().forEach(function(s){ sources.push(s); });
@@ -679,7 +686,7 @@
       var cdi = CAT.classes[cl.cls] || {}, scLvl = cdi.subclassLevel || 3;
       var subOpts = cl.level < scLvl ? [["","— lvl "+scLvl+" —"]] : [["","— none —"]].concat((cdi.subclasses||[]).map(function(s){ return [s,(CAT.subclasses[s]||{}).name||titleCase(s)]; }));
       var row = el("div",{class:"cls-row"},[
-        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:[],order:"",skillful:state.choices.skillful}; } render(); }),
+        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:[],order:"",skillful:state.choices.skillful,lineage:state.choices.lineage}; } render(); }),
         select(String(cl.level), Array.from({length:20},function(_,n){return [String(n+1),"Lvl "+(n+1)];}), function(v){ cl.level=parseInt(v,10); render(); }),
         select(cl.subclass, subOpts, function(v){ cl.subclass=v; render(); }),
         (i>0 ? el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove class", text:"✕", onclick:function(){ state.classes.splice(i,1); render(); }}) : el("span",{class:"cls-tag", text:"primary"}))
@@ -693,7 +700,7 @@
       el("h2",{text:"Identity"}),
       field("Name", el("input",{class:"binput", value:state.name, oninput:function(e){ state.name=e.target.value; refreshOut(); }})),
       el("div",{class:"bgrid"},[
-        selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; if(!speciesGrantsFeat()) state.originFeat=""; if(!speciesSkillTrait()) state.choices.skillful=""; render(); }, "", speciesHelp()),
+        selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; if(!speciesGrantsFeat()) state.originFeat=""; if(!speciesSkillTrait()) state.choices.skillful=""; state.choices.lineage=""; render(); }, "", speciesHelp()),
         selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp())
       ]),
       el("div",{class:"bsub",text:"Classes — total level "+state.level+" · proficiency bonus "+fmt(pbForLevel(state.level))+(state.classes.length>1?" · saves from your first class":"")}),
@@ -919,8 +926,11 @@
       outArea
     ]);
 
-    // feature sub-choices (Fighting Style, Expertise, Divine Order)
+    // feature sub-choices (Lineage, Fighting Style, Expertise, Divine Order)
     var choiceCard=null, choiceFields=[];
+    var spLin=(CAT.species[state.species]||{}).lineage;
+    if(spLin){ var linOpts=Object.keys(spLin.options).map(function(k){ return [k, spLin.options[k].name]; });
+      choiceFields.push(selField(spLin.label, state.choices.lineage, [["","— choose —"]].concat(linOpts), function(v){ state.choices.lineage=v; render(); }, "", linOpts.map(function(o){ return spLin.options[o[0]].ref.body[0]; }))); }
     if(speciesSkillTrait()) choiceFields.push(selField((CAT.species[state.species].name)+" Skillful — extra skill", state.choices.skillful, [["","— choose a skill —"]].concat(Object.keys(SKILL_ABIL).sort().map(function(s){return [s,s+" ("+SKILL_ABIL[s]+")"];})), function(v){ state.choices.skillful=v; render(); }, "", "Human Skillful grants proficiency in one skill of your choice."));
     if(featureReached("Fighting Style")) choiceFields.push(selField("Fighting Style", state.choices.style, [["","— choose —"]].concat(FIGHTING_STYLES.map(function(s){return [s.id,s.name];})), function(v){ state.choices.style=v; render(); }, "", FIGHTING_STYLES.map(function(s){return s.name+" — "+s.note;})));
     if(needsExpertise()){ var ps=proficientSkills(), xcnt=expertiseCount();

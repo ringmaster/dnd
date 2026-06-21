@@ -98,6 +98,10 @@ export function checkLegality(ch, cat){
       add("error", `${sfSkill} (Skillful) duplicates a skill you already have — pick a different one`, "feature-choices");
   }
 
+  // ---- species lineage / ancestry must be chosen (Elf, Gnome, Tiefling, Dragonborn, Goliath) ----
+  if (sp.lineage && !sources.some(s => s.id === "lineage"))
+    add("error", `${sp.name} ${sp.lineage.label} is not chosen`, "feature-choices");
+
   // ---- species Versatile: extra Origin feat must be chosen ----
   // recognized either as a builder-style feat-* source or a grantsFeat on the trait's own source
   const versTrait = Object.keys(sp.traits || {}).find(t => sp.traits[t].grantsOriginFeat);
