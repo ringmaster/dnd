@@ -131,15 +131,16 @@
     else { d.ac = 10 + d.mods.DEX; d.acNote = "No armor (10 + Dex)"; }
     if(eqHasShield()){ d.ac += 2; d.acNote += " + shield"; }
     if(arm && state.choices.style==="defense"){ d.ac += 1; d.acNote += " + Defense"; }
-    // HP (average)
-    var die = cd.hitDie || "d8";
-    d.hp = (DIE_MAX[die]||8) + (state.level-1)*(DIE_AVG[die]||5) + state.level*d.mods.CON;
+    // HP (average): first character level = max die + CON; every other level =
+    // that class's average die + CON. (Single-class reduces to the old formula.)
+    var dice=[]; state.classes.forEach(function(cl){ var dd=(CAT.classes[cl.cls]||{}).hitDie||"d8"; for(var i=0;i<cl.level;i++) dice.push(dd); });
+    d.hp = dice.reduce(function(h,dd,idx){ return h + (idx===0?(DIE_MAX[dd]||8):(DIE_AVG[dd]||5)) + d.mods.CON; }, 0);
     d.initiative = d.mods.DEX + (hasFeat("alert")?pb:0);
     var perProf = !!grantedSkills()["Perception"];
     d.passivePer = 10 + d.mods.WIS + (perProf?pb:0);
     if(cd.spellAbility){ var sm=d.mods[cd.spellAbility]; d.spellDC=8+pb+sm; d.spellAtk=pb+sm; d.spellAbility=cd.spellAbility; }
     d.speed = SPEED[state.species] || 30;
-    d.hitDie = die;
+    d.hitDie = cd.hitDie || "d8";   // primary class hit die (single-class shorthand)
     return d;
   }
   function hasFeat(id){
@@ -184,8 +185,9 @@
     return sc;
   }
   function classFeatureSources(){
-    var cd=classData(), fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[state.cls]||{}, out=[];
-    for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(cf[name]) out.push({ id:cf[name].refId||name, name:(cd.name||"")+": "+name, include:"class:"+state.cls+":"+name }); });
+    var out=[];
+    state.classes.forEach(function(cl){ var cd=CAT.classes[cl.cls]||{}, fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[cl.cls]||{};
+      for(var l=1;l<=cl.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(cf[name]) out.push({ id:cf[name].refId||name, name:(cd.name||"")+": "+name, include:"class:"+cl.cls+":"+name }); }); });
     return out;
   }
   /* class resource pools whose size scales with level (the ref comes from class-features) */
@@ -201,20 +203,30 @@
       { feature:"Channel Divinity", id:"cd", label:"Channel Divinity", ref:"channeldivinity", storm:false, rest:"short", note:"regain 1 on a short rest", use:"Use", max:function(l){return l>=18?4:(l>=6?3:2);}, reminder:"Channel Divinity: Divine Spark or Turn Undead." }
     ]
   };
-  function featureReached(name){ var fbl=classData().featuresByLevel||{}; for(var l=1;l<=state.level;l++){ if((fbl[String(l)]||[]).indexOf(name)>=0) return true; } return false; }
-  function subclassGrants(){ if(state.level<3 || !state.subclass) return []; return ((CAT.subclasses[state.subclass]||{}).grants)||[]; }
+  /* is a class feature reached in any class (or a specific class) at its level */
+  function clsReached(name, cl){ var fbl=(CAT.classes[cl.cls]||{}).featuresByLevel||{}; for(var l=1;l<=cl.level;l++){ if((fbl[String(l)]||[]).indexOf(name)>=0) return true; } return false; }
+  function featureReached(name){ return state.classes.some(function(cl){ return clsReached(name, cl); }); }
+  /* every class's subclass grants (each class's subclass, once it reaches its subclass level) */
+  function subclassGrants(){
+    var out=[];
+    state.classes.forEach(function(cl){ var scLvl=(CAT.classes[cl.cls]||{}).subclassLevel||3; if(cl.level>=scLvl && cl.subclass) out=out.concat(((CAT.subclasses[cl.subclass]||{}).grants)||[]); });
+    return out;
+  }
   function classPoolSources(){
-    var out=[]; (CLASS_POOLS[state.cls]||[]).forEach(function(cp){ if(!featureReached(cp.feature)) return;
-      out.push({ id:cp.id, name:cp.feature, effects:{ grantsPool:{ id:cp.id, label:cp.label, max:cp.max(state.level), rest:cp.rest, ref:cp.ref, storm:cp.storm, note:cp.note, use:cp.use, reminder:cp.reminder } } }); });
+    var out=[];
+    state.classes.forEach(function(cl){ (CLASS_POOLS[cl.cls]||[]).forEach(function(cp){ if(!clsReached(cp.feature, cl)) return;
+      out.push({ id:cp.id, name:cp.feature, effects:{ grantsPool:{ id:cp.id, label:cp.label, max:cp.max(cl.level), rest:cp.rest, ref:cp.ref, storm:cp.storm, note:cp.note, use:cp.use, reminder:cp.reminder } } }); }); });
     return out;
   }
   function featureList(){
-    var cd=classData(), fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[state.cls]||{}, out=[];
-    // class features by level
-    for(var l=1;l<=state.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(name==="Ability Score Improvement"||/Subclass$/.test(name)) return; out.push({ ref:(cf[name]&&cf[name].refId)||"", name:name, sub:"Level "+l }); });
-    // subclass grants
-    var scName=(CAT.subclasses[state.subclass]||{}).name||"";
-    subclassGrants().forEach(function(g){ out.push({ ref:g.id, name:g.name, sub:scName }); });
+    var out=[], multi=state.classes.length>1;
+    // class features by level, per class; subclass grants per class
+    state.classes.forEach(function(cl){
+      var cd=CAT.classes[cl.cls]||{}, fbl=cd.featuresByLevel||{}, cf=(CAT.classFeatures||{})[cl.cls]||{}, pfx=multi?(cd.name+": "):"";
+      for(var l=1;l<=cl.level;l++) (fbl[String(l)]||[]).forEach(function(name){ if(name==="Ability Score Improvement"||/Subclass$/.test(name)) return; out.push({ ref:(cf[name]&&cf[name].refId)||"", name:pfx+name, sub:(multi?cd.name+" ":"Level ")+l }); });
+      var scLvl=cd.subclassLevel||3;
+      if(cl.level>=scLvl && cl.subclass){ var scName=(CAT.subclasses[cl.subclass]||{}).name||""; (((CAT.subclasses[cl.subclass]||{}).grants)||[]).forEach(function(g){ out.push({ ref:g.id, name:g.name, sub:scName }); }); }
+    });
     // species traits
     var sp=CAT.species[state.species];
     if(sp) Object.keys(sp.traits||{}).forEach(function(tr){ out.push({ ref:tr, name:sp.traits[tr].name, sub:sp.name }); });
@@ -470,10 +482,12 @@
     var hr = hitRiderData(), cmn = checkModNote();
     var ch = {
       id: slug, out: slug+".html", name: state.name,
-      subtitle: ((CAT.species[state.species]||{}).name||"")+" "+((cd.name)||"")+" · Level "+state.level,
+      subtitle: ((CAT.species[state.species]||{}).name||"")+" · "+(state.classes.length>1 ? state.classes.map(function(cl){ return ((CAT.classes[cl.cls]||{}).name||cl.cls)+" "+cl.level; }).join(" / ") : ((CAT.classes[state.cls]||{}).name||state.cls))+" · Lvl "+state.level,
       portrait: slug+".png",
       title: state.name, footer: "Built with the character builder",
       storageKey: "dnd_"+slug, level: state.level, hitDie: d.hitDie,
+      // multiclass: per-class dice merged by type (compile derives the hd pool); single-class uses hitDie
+      hitDice: state.classes.length>1 ? (function(){ var by={}, ord=[]; state.classes.forEach(function(cl){ var dd=(CAT.classes[cl.cls]||{}).hitDie||"d8"; if(by[dd]==null){ by[dd]=0; ord.push(dd); } by[dd]+=cl.level; }); return ord.map(function(dd){ return {die:dd, count:by[dd]}; }); })() : undefined,
       proficiencyBonus: d.pb, saves: d.saves, checkModNote: cmn||undefined, speed: d.speed,
       // ownership only — the sheet decides what's actually worn/held. Best armor
       // is listed first so it's the default-equipped piece; the rest are swappable.
