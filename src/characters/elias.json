@@ -2,6 +2,8 @@
   "id": "elias_thorn",
   "out": "elias_thorn.html",
   "name": "Elias Thorn",
+  "homebrew": true,
+  "homebrewNote": "Hand-authored showcase sheet — the Human Versatile origin feat (Magic Initiate) lives in the features list rather than a builder feat source, so machine legality is waived.",
   "subtitle": "Human · Sage · Diviner (Wizard) · Lvl 4",
   "title": "Thorn — Divination Wizard Sheet",
   "footer": "Thorn wizard sheet",

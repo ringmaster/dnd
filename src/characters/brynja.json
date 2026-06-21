@@ -2,6 +2,8 @@
   "id": "brynja_ashbow",
   "out": "brynja_ashbow.html",
   "name": "Brynja Ashbow",
+  "homebrew": true,
+  "homebrewNote": "Hand-authored showcase sheet — the level-4 Archery pick is encoded narratively (features + longbow bonus) rather than as a builder ASI source, so machine legality is waived.",
   "subtitle": "Human · Guide · Fey Wanderer · Lvl 4",
   "title": "Ashbow — Fey Wanderer Ranger Sheet",
   "footer": "Ashbow ranger sheet",

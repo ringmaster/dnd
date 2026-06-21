@@ -1002,7 +1002,7 @@
   },
   "Kaeral Vance": {
     "abilities": {
-      "STR": 17,
+      "STR": 19,
       "DEX": 13,
       "CON": 14,
       "INT": 12,
@@ -1011,11 +1011,14 @@
     },
     "skillProf": [
       "Athletics",
-      "Perception"
+      "Insight",
+      "Intimidation",
+      "Perception",
+      "Survival"
     ],
     "skillExp": [],
     "checkMods": {},
-    "initiativeBonus": 4,
+    "initiativeBonus": 2,
     "always": [],
     "tools": [
       "Gaming Set"
@@ -1057,6 +1060,16 @@
         "note": "short rest",
         "use": "Use",
         "reminder": "Action Surge — take one extra action this turn."
+      },
+      "luck": {
+        "label": "Luck Points",
+        "max": 2,
+        "rest": "long",
+        "ref": "lucky",
+        "storm": false,
+        "note": "long rest",
+        "use": "Spend a Luck Point",
+        "reminder": "Lucky: gain Advantage on a d20 Test, or impose Disadvantage on an attack against you."
       },
       "slot1": {
         "label": "Level 1 Slots",

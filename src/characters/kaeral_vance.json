@@ -182,9 +182,14 @@
           "sub": "Guard origin feat"
         },
         {
-          "ref": "alert",
-          "name": "Alert",
-          "sub": "Level 4 feat"
+          "ref": "lucky",
+          "name": "Lucky",
+          "sub": "Origin feat"
+        },
+        {
+          "ref": "",
+          "name": "Ability Score Improvement",
+          "sub": "Level 4"
         }
       ]
     },
@@ -218,7 +223,11 @@
             },
             {
               "cls": "choice",
-              "html": "<b>Skills (Fighter, choose 2):</b> Athletics, Perception"
+              "html": "<b>Skills (Fighter, choose 2):</b> Intimidation, Survival"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Origin feat:</b> Lucky"
             },
             {
               "cls": "choice",
@@ -260,7 +269,7 @@
           "items": [
             {
               "cls": "choice",
-              "html": "<b>Feat:</b> Alert"
+              "html": "<b>Ability Score Improvement:</b> +2 STR"
             }
           ]
         }
@@ -296,8 +305,8 @@
         "name": "Fighter skills",
         "effects": {
           "skills": [
-            "Athletics",
-            "Perception"
+            "Intimidation",
+            "Survival"
           ]
         }
       },
@@ -314,7 +323,12 @@
       {
         "id": "skillful",
         "name": "Human: Skillful",
-        "include": "species:human:skillful"
+        "include": "species:human:skillful",
+        "effects": {
+          "skills": [
+            "Insight"
+          ]
+        }
       },
       {
         "id": "resourceful",
@@ -512,9 +526,18 @@
         "refId": "warbond"
       },
       {
+        "id": "feat-lucky",
+        "name": "Origin feat: Lucky",
+        "grantsFeat": "lucky"
+      },
+      {
         "id": "asi-4",
-        "name": "Level 4 feat: Alert",
-        "grantsFeat": "alert"
+        "name": "Level 4: Ability Score Improvement",
+        "effects": {
+          "abilityIncrease": {
+            "STR": 2
+          }
+        }
       },
       {
         "id": "spellcasting",

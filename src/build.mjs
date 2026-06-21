@@ -147,6 +147,9 @@ const CAT = {
   classFeatures: readJson(path.join(CONTENT, "class-features.json")),
 };
 const uiJs = read(path.join(SRC, "builder", "ui.js"));
+// the legality checker is shared with the round-trip test; inline it (export stripped) so the builder
+// can surface a live Completeness panel from the same rules the test enforces
+const legalityJs = read(path.join(SRC, "builder", "legality.mjs")).replace(/^export\s+/gm, "");
 const catJson = JSON.stringify(CAT).replace(/<\/script/gi, "<\\/script");
 const builderHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -239,6 +242,25 @@ ${styles}
   .cls-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
   .cls-row .bsel{flex:1 1 7rem;min-width:5rem}
   .cls-tag{font-family:"Cinzel",serif;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ash);border:1px solid var(--iron-light);border-radius:5px;padding:.2rem .4rem;white-space:nowrap}
+  .bcomp{position:sticky;top:1rem}
+  .bcomp.good{border-color:#2f6b46}
+  .bcomp.bad{border-color:#7a3b3b}
+  .bcomp.hb{border-color:#6b5a2f}
+  .comp-ok{color:#7fd49b;font-size:.86rem;font-weight:600}
+  .comp-note{color:#d9c37a;font-size:.78rem;margin:.2rem 0 .4rem;line-height:1.35}
+  .comp-h{color:var(--bone);font-size:.78rem;margin:.4rem 0 .3rem}
+  .comp-h.soft{color:var(--ash)}
+  .comp-row{display:flex;gap:.5rem;align-items:flex-start;width:100%;text-align:left;background:rgba(122,59,59,.14);border:1px solid rgba(122,59,59,.5);color:var(--bone);border-radius:7px;padding:.4rem .55rem;margin:.25rem 0;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1.3}
+  .comp-row:hover{background:rgba(122,59,59,.26)}
+  .comp-row.soft{background:rgba(107,90,47,.14);border-color:rgba(107,90,47,.5)}
+  .comp-row.soft:hover{background:rgba(107,90,47,.26)}
+  .comp-dot{color:#e0888a;font-weight:700;flex:none}
+  .comp-row.soft .comp-dot{color:#d9c37a}
+  .comp-msg{flex:1 1 auto}
+  .hb-toggle{display:flex;gap:.45rem;align-items:flex-start;font-size:.78rem;color:var(--ash);margin:.1rem 0 .5rem;cursor:pointer}
+  .hb-toggle input{margin-top:.15rem}
+  .bcard.flash{animation:compflash 1.2s ease-out}
+  @keyframes compflash{0%,40%{box-shadow:0 0 0 2px var(--ember-bright),0 4px 12px rgba(0,0,0,.35)}100%{box-shadow:0 4px 12px rgba(0,0,0,.35)}}
 </style>
 </head>
 <body>
@@ -247,6 +269,7 @@ ${styles}
     <div id="builder"></div>
   </div>
   <script>var CAT = ${catJson};</script>
+  <script>${legalityJs.replace(/<\/script/gi, "<\\/script")}</script>
   <script>${uiJs.replace(/<\/script/gi, "<\\/script")}</script>
 </body>
 </html>

@@ -21,6 +21,7 @@ import fs from "fs";
 import path from "path";
 import url from "url";
 import { compile, views } from "./compile.mjs";
+import { checkLegality } from "./legality.mjs";
 
 const HERE = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..", "..");
@@ -67,6 +68,14 @@ for (const f of fs.readdirSync(path.join(ROOT, "src", "characters")).filter((x) 
   const source = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "characters", f), "utf8"));
   const srcViews = views(compile(JSON.parse(JSON.stringify(source))));
   console.log("\n=== " + source.name + " (" + f + ") ===");
+
+  // 0. legality — every shipped character must be a legal build, unless it opts out
+  //    with homebrew/bespoke (checkLegality returns no issues for those).
+  const legalErrors = checkLegality(source, CAT).filter((i) => i.level === "error");
+  const waived = source.homebrew || source.bespoke;
+  console.log("  legality  : " + (legalErrors.length ? "✗ " + legalErrors.map((i) => i.msg).join("; ")
+    : "✓ legal" + (waived ? " (waived: " + (source.bespoke ? "bespoke" : "homebrew") + ")" : "")));
+  failures += legalErrors.length ? 1 : 0;
 
   // 1. pristine
   B.loadState(JSON.parse(JSON.stringify(source)));

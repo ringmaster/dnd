@@ -21,13 +21,14 @@
     languages:[],          // known languages (resolved, not "choices")
     choices:{ style:"", expertise:[], order:"", skillful:"" },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
+    homebrew:false,       // when true, legality issues are non-blocking and the export is flagged homebrew
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
   };
   /* top-level keys the builder owns/regenerates; everything else on a loaded
      character is captured as a custom "root" element so it survives round-trip.
      `ref` is here because compile() auto-generates the reference modals from the
      build sources; `combat` because the builder now generates a combat block. */
-  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1,
+  var KNOWN_ROOT = {id:1,out:1,name:1,subtitle:1,portrait:1,title:1,footer:1,storageKey:1,level:1,hitDie:1,proficiencyBonus:1,saves:1,checkModNote:1,speed:1,ac:1,hp:1,masteryMax:1,masteryDefault:1,rest:1,studs:1,weapons:1,cards:1,riderHead:1,hitRiders:1,combat:1,ref:1,build:1,identity:1,homebrew:1,
     // fields compile() DERIVES from the build sources — decomposed back into the
     // form (see decompose()), never kept as opaque custom blobs
     abilities:1,always:1,cantrips:1,checkMods:1,initiate:1,initiativeBonus:1,languages:1,pools:1,prepared:1,skillExp:1,skillProf:1,slotPool:1,slotPools:1,spellcasting:1,tools:1};
@@ -352,6 +353,7 @@
     // compiled `identity` stamp (build-stripped sheets) — never inferred.
     var b=ch.build||{}, id=ch.identity||{};
     state.name = ch.name || state.name;
+    state.homebrew = !!ch.homebrew;
     state.species = b.species || id.species || state.species;
     state.background = b.background || id.background || state.background;
     // class breakdown: build.classes / identity.classes (multiclass) or a single class
@@ -593,6 +595,7 @@
         return w; }), cards: genCards(),
       riderHead: (hr.riders.length && hr.head) ? hr.head : undefined,
       hitRiders: hr.riders.length ? hr.riders : undefined,
+      homebrew: state.homebrew || undefined,
       build: buildBlock()
     };
     return applyCustoms(ch);
@@ -806,13 +809,14 @@
       el("button",{class:"bbtn tiny", type:"button", text:"Heroic array", title:"17 15 14 12 10 8", onclick:function(){ setArray(HEROIC_ARRAY); }}),
       el("button",{class:"bbtn tiny ember", type:"button", text:"Optimize for "+(cd.name||"class"), onclick:optimizeForClass })
     ]);
-    var abilCard = el("div",{class:"bcard"},[ el("h2",{text:"Ability Scores"}),
+    var abilCard = el("div",{class:"bcard", id:"ability-scores"},[ el("h2",{text:"Ability Scores"}),
       el("div",{class:"bsub",text:"Background adds "+(Object.keys(inc).map(function(k){return fmt(inc[k])+" "+k;}).join(", ")||"nothing")+". Optimize assigns your current values to the best stats for the class."}),
       arrayRow ].concat(abilRows));
 
     // skills — sheet-like list: ● locked chits for granted skills, checkboxes for class choices
-    var skillCard = el("div",{class:"bcard"},[ el("h2",{text:"Skills"}) ]);
+    var skillCard = el("div",{class:"bcard", id:"skills"},[ el("h2",{text:"Skills"}) ]);
     var auto = autoSkills();
+    state.skills = state.skills.filter(function(s){ return !auto[s]; });   // drop class picks that a background/feature now grants (no duplicates)
     var classFrom = (cd.skillChoices && cd.skillChoices.from) || [];
     var max = cd.skillChoices ? cd.skillChoices.count : 0;
     var pickedCount = state.skills.filter(function(s){ return !auto[s]; }).length;
@@ -843,14 +847,14 @@
 
     // origin feat (level 1): every background grants one (shown read-only); only
     // species with the Versatile trait (Human) grant a second, selectable one
-    var featCard = el("div",{class:"bcard"},[ el("h2",{text:"Origin Feat"}) ]);
+    var featCard = el("div",{class:"bcard", id:"origin-feat"},[ el("h2",{text:"Origin Feat"}) ]);
     var bgFeat = backgroundFeat();
     if(bgFeat) featCard.appendChild(el("div",{class:"bsub",text:"From background: "+((CAT.feats[bgFeat]||{}).name||bgFeat).replace(/\s*\(.*\)$/,"")}));
     if(speciesGrantsFeat()) featCard.appendChild(selField((CAT.species[state.species].name)+" extra origin feat", state.originFeat, featOptions(), function(v){ state.originFeat=v; render(); }, "", featHelp()));
     else featCard.appendChild(el("div",{class:"bf-h",text:(CAT.species[state.species]||{}).name+" doesn't grant an extra origin feat — only the background's."}));
 
     // advancement: subclass (L3) + ASIs (4/8/12/16/19)
-    var advCard = el("div",{class:"bcard"},[ el("h2",{text:"Advancement"}) ]);
+    var advCard = el("div",{class:"bcard", id:"advancement"},[ el("h2",{text:"Advancement"}) ]);
     var reached = reachedASIs();
     advCard.appendChild(el("div",{class:"bsub",text: state.level<3 ? "Subclass unlocks at level 3." : (reached.length ? "Each ASI: +2 to one ability, +1 to two, or a feat." : "First Ability Score Improvement comes at level 4.")}));
     reached.forEach(function(slot){
@@ -873,6 +877,35 @@
         d.spellDC?stat("Spell DC", d.spellDC):null, d.spellAtk!=null?stat("Spell Atk", fmt(d.spellAtk)):null
       ].filter(Boolean))
     ]);
+
+    // completeness / legality panel — same checker the round-trip test enforces
+    var legalIssues = [];
+    try { if(typeof checkLegality==="function") legalIssues = checkLegality(scaffold(), CAT) || []; } catch(e){ legalIssues=[]; }
+    var legalErrors = legalIssues.filter(function(i){ return i.level==="error"; });
+    var legalWarns = legalIssues.filter(function(i){ return i.level==="warn"; });
+    function issueRow(i, soft){
+      return el("button",{class:"comp-row"+(soft?" soft":""), type:"button", title:"Jump to the relevant card", onclick:function(){
+        var t=document.getElementById(i.anchor); if(t){ t.scrollIntoView({behavior:"smooth", block:"center"}); t.classList.add("flash"); setTimeout(function(){ t.classList.remove("flash"); },1200); }
+      }},[ el("span",{class:"comp-dot",text: soft?"!":"✗"}), el("span",{class:"comp-msg",text:i.msg}) ]);
+    }
+    var hbToggle = el("label",{class:"hb-toggle"},[
+      el("input",{type:"checkbox", checked: state.homebrew?"checked":null, onchange:function(e){ state.homebrew=e.target.checked; render(); }}),
+      el("span",{text:" Homebrew — allow a non-legal / bespoke build (flags the export)"})
+    ]);
+    var compBody=[hbToggle];
+    if(state.homebrew){
+      compBody.push(el("div",{class:"comp-note",text:"⚙ Homebrew mode — legality isn't enforced and the exported character is flagged homebrew. Issues below are informational."}));
+      legalErrors.concat(legalWarns).forEach(function(i){ compBody.push(issueRow(i,true)); });
+    } else if(!legalIssues.length){
+      compBody.push(el("div",{class:"comp-ok",text:"✓ Legal character — every required choice is made."}));
+    } else {
+      if(legalErrors.length) compBody.push(el("div",{class:"comp-h",text:legalErrors.length+" thing"+(legalErrors.length>1?"s":"")+" to fix before this is a legal character:"}));
+      legalErrors.forEach(function(i){ compBody.push(issueRow(i,false)); });
+      if(legalWarns.length) compBody.push(el("div",{class:"comp-h soft",text:"Worth checking:"}));
+      legalWarns.forEach(function(i){ compBody.push(issueRow(i,true)); });
+    }
+    var completenessCard = el("div",{class:"bcard bcomp "+(state.homebrew?"hb":(legalErrors.length?"bad":"good"))},
+      [ el("h2",{text:"Completeness"}) ].concat(compBody));
 
     // output
     var outArea = el("textarea",{class:"bout", id:"bOut", readonly:"readonly", rows:"14"});
@@ -899,7 +932,7 @@
       })(ei); }
     }
     if(featureReached("Divine Order")) choiceFields.push(selField("Divine Order", state.choices.order, [["","— choose —"],["protector","Protector — martial weapons & heavy armor"],["thaumaturge","Thaumaturge — extra cantrip & Arcana bonus"]], function(v){ state.choices.order=v; render(); }));
-    if(choiceFields.length) choiceCard=el("div",{class:"bcard"},[el("h2",{text:"Feature Choices"})].concat(choiceFields));
+    if(choiceFields.length) choiceCard=el("div",{class:"bcard", id:"feature-choices"},[el("h2",{text:"Feature Choices"})].concat(choiceFields));
 
     // background story -> the sheet's Background card
     var bioTa = el("textarea",{class:"bout", rows:"7", oninput:function(e){ state.bio=e.target.value; refreshOut(); }});
@@ -942,7 +975,7 @@
     ]);
 
     root.appendChild(el("div",{class:"bcol"},[loadCard, core, abilCard, equipCard, masteryCard, spellCard, skillCard, featCard, choiceCard, advCard, bioCard, customCard].filter(Boolean)));
-    root.appendChild(el("div",{class:"bcol"},[derivedCard, outCard]));
+    root.appendChild(el("div",{class:"bcol"},[derivedCard, completenessCard, outCard]));
     refreshOut();
   }
   function refreshOut(){ var t=document.getElementById("bOut"); if(t) t.value = JSON.stringify(scaffold(), null, 2); }
