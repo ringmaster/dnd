@@ -1607,5 +1607,448 @@
         }
       ]
     }
+  },
+  "Emilie Grath": {
+    "abilities": {
+      "STR": 8,
+      "DEX": 16,
+      "CON": 15,
+      "INT": 12,
+      "WIS": 11,
+      "CHA": 19
+    },
+    "skillProf": [
+      "Insight",
+      "Intimidation",
+      "Investigation",
+      "Persuasion",
+      "Stealth",
+      "Survival"
+    ],
+    "skillExp": [],
+    "checkMods": {},
+    "initiativeBonus": 0,
+    "always": [],
+    "tools": [],
+    "languages": {
+      "known": [
+        "Abyssal",
+        "Common",
+        "Draconic",
+        "Elvish",
+        "Infernal"
+      ],
+      "choices": 0
+    },
+    "pools": {
+      "sp": {
+        "label": "Sorcery Points",
+        "max": 18,
+        "rest": "long",
+        "ref": "fontofmagic",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend",
+        "reminder": "Sorcery Points: convert to slots or fuel Metamagic / Psychic Sorcery."
+      },
+      "warp": {
+        "label": "Warping Implosion",
+        "max": 1,
+        "rest": "long",
+        "ref": "warpingimplosion",
+        "storm": false,
+        "note": "long rest (or 5 SP)",
+        "use": "Use",
+        "reminder": "Warping Implosion: teleport 120 ft and pull nearby creatures (3d10 force)."
+      },
+      "slot1": {
+        "label": "Level 1 Slots",
+        "max": 4,
+        "rest": "long",
+        "ref": "spellslots1",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 1st-level spell slot.",
+        "slotLevel": 1
+      },
+      "slot2": {
+        "label": "Level 2 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots2",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 2nd-level spell slot.",
+        "slotLevel": 2
+      },
+      "slot3": {
+        "label": "Level 3 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots3",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 3rd-level spell slot.",
+        "slotLevel": 3
+      },
+      "slot4": {
+        "label": "Level 4 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots4",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 4th-level spell slot.",
+        "slotLevel": 4
+      },
+      "slot5": {
+        "label": "Level 5 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots5",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 5th-level spell slot.",
+        "slotLevel": 5
+      },
+      "slot6": {
+        "label": "Level 6 Slots",
+        "max": 1,
+        "rest": "long",
+        "ref": "spellslots6",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 6th-level spell slot.",
+        "slotLevel": 6
+      },
+      "slot7": {
+        "label": "Level 7 Slots",
+        "max": 1,
+        "rest": "long",
+        "ref": "spellslots7",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 7th-level spell slot.",
+        "slotLevel": 7
+      },
+      "slot8": {
+        "label": "Level 8 Slots",
+        "max": 1,
+        "rest": "long",
+        "ref": "spellslots8",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 8th-level spell slot.",
+        "slotLevel": 8
+      },
+      "slot9": {
+        "label": "Level 9 Slots",
+        "max": 1,
+        "rest": "long",
+        "ref": "spellslots9",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 9th-level spell slot.",
+        "slotLevel": 9
+      },
+      "hd": {
+        "label": "Hit Dice",
+        "max": 18,
+        "rest": "long",
+        "ref": "hitdice",
+        "storm": false,
+        "note": "1d6+2 · short rest",
+        "use": "Use",
+        "reminder": "Hit Die: roll 1d6+2, then add it with Heal."
+      }
+    },
+    "spellcasting": {
+      "ability": "CHA"
+    },
+    "prepared": {
+      "max": 15,
+      "default": [
+        "disguiseself",
+        "witchbolt",
+        "magearmor",
+        "featherfall",
+        "silverybarbs",
+        "armsofhadar",
+        "dissonantwhispers",
+        "detectthoughts",
+        "invisibility",
+        "knock",
+        "tashasmindwhip",
+        "mirrorimage",
+        "mistystep",
+        "calmemotions",
+        "counterspell",
+        "hungerofhadar",
+        "sending",
+        "icestorm",
+        "blacktentacles",
+        "summonaberration",
+        "synapticstatic",
+        "animateobjects",
+        "telepathicbond",
+        "telekinesis",
+        "disintegrate",
+        "mentalprison",
+        "sunbeam",
+        "powerwordstun",
+        "psychicscream"
+      ],
+      "catalog": [
+        {
+          "id": "disguiseself",
+          "name": "Disguise Self",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "witchbolt",
+          "name": "Witch Bolt",
+          "note": "To hit: d20 +10 · 1d12 lightning · Conc.",
+          "level": 1
+        },
+        {
+          "id": "magearmor",
+          "name": "Mage Armor",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "featherfall",
+          "name": "Feather Fall",
+          "note": "level 1",
+          "level": 1,
+          "cast": "Reaction"
+        },
+        {
+          "id": "silverybarbs",
+          "name": "Silvery Barbs",
+          "note": "level 1",
+          "level": 1,
+          "cast": "Reaction"
+        },
+        {
+          "id": "armsofhadar",
+          "name": "Arms of Hadar",
+          "note": "Str save DC 18 · 2d6 necrotic",
+          "level": 1
+        },
+        {
+          "id": "dissonantwhispers",
+          "name": "Dissonant Whispers",
+          "note": "Wis save DC 18 · 3d6 psychic",
+          "level": 1
+        },
+        {
+          "id": "detectthoughts",
+          "name": "Detect Thoughts",
+          "note": "Wis save DC 18 · Conc.",
+          "level": 2
+        },
+        {
+          "id": "invisibility",
+          "name": "Invisibility",
+          "note": "level 2 · Conc.",
+          "level": 2
+        },
+        {
+          "id": "knock",
+          "name": "Knock",
+          "note": "level 2",
+          "level": 2
+        },
+        {
+          "id": "tashasmindwhip",
+          "name": "Tasha's Mind Whip",
+          "note": "Int save DC 18 · 3d6 psychic",
+          "level": 2
+        },
+        {
+          "id": "mirrorimage",
+          "name": "Mirror Image",
+          "note": "level 2",
+          "level": 2
+        },
+        {
+          "id": "mistystep",
+          "name": "Misty Step",
+          "note": "level 2",
+          "level": 2,
+          "cast": "Bonus Action"
+        },
+        {
+          "id": "calmemotions",
+          "name": "Calm Emotions",
+          "note": "Cha save DC 18 · Conc.",
+          "level": 2
+        },
+        {
+          "id": "counterspell",
+          "name": "Counterspell",
+          "note": "level 3",
+          "level": 3,
+          "cast": "Reaction"
+        },
+        {
+          "id": "hungerofhadar",
+          "name": "Hunger of Hadar",
+          "note": "level 3 · Conc.",
+          "level": 3
+        },
+        {
+          "id": "sending",
+          "name": "Sending",
+          "note": "level 3",
+          "level": 3
+        },
+        {
+          "id": "icestorm",
+          "name": "Ice Storm",
+          "note": "Dex save DC 18",
+          "level": 4
+        },
+        {
+          "id": "blacktentacles",
+          "name": "Black Tentacles",
+          "note": "Dex save DC 18 · Conc.",
+          "level": 4
+        },
+        {
+          "id": "summonaberration",
+          "name": "Summon Aberration",
+          "note": "level 4 · Conc.",
+          "level": 4
+        },
+        {
+          "id": "synapticstatic",
+          "name": "Synaptic Static",
+          "note": "Int save DC 18 · 8d6 psychic",
+          "level": 5
+        },
+        {
+          "id": "animateobjects",
+          "name": "Animate Objects",
+          "note": "++10 to hit · Conc.",
+          "level": 5
+        },
+        {
+          "id": "telepathicbond",
+          "name": "Rary's Telepathic Bond",
+          "note": "level 5",
+          "level": 5
+        },
+        {
+          "id": "telekinesis",
+          "name": "Telekinesis",
+          "note": "Str (or Int) check vs 18 · Conc.",
+          "level": 5
+        },
+        {
+          "id": "disintegrate",
+          "name": "Disintegrate",
+          "note": "Dex save DC 18 · 10d6+40 force",
+          "level": 6
+        },
+        {
+          "id": "mentalprison",
+          "name": "Mental Prison",
+          "note": "Int save DC 18 · 5d10 psychic",
+          "level": 6
+        },
+        {
+          "id": "sunbeam",
+          "name": "Sunbeam",
+          "note": "Con save DC 18 · 6d8 radiant · Conc.",
+          "level": 6
+        },
+        {
+          "id": "powerwordstun",
+          "name": "Power Word Stun",
+          "note": "level 8",
+          "level": 8
+        },
+        {
+          "id": "psychicscream",
+          "name": "Psychic Scream",
+          "note": "Int save DC 18 · 14d6 psychic",
+          "level": 9
+        }
+      ]
+    },
+    "spellcastingCard": {
+      "type": "spellcasting",
+      "slotPools": [
+        "slot1",
+        "slot2",
+        "slot3",
+        "slot4",
+        "slot5",
+        "slot6",
+        "slot7",
+        "slot8",
+        "slot9"
+      ],
+      "cantrips": [
+        {
+          "ref": "prestidigitation",
+          "name": "Prestidigitation",
+          "sub": "cantrip"
+        },
+        {
+          "ref": "rayoffrost",
+          "name": "Ray of Frost",
+          "sub": "To hit: d20 +10 · 1d8 cold"
+        },
+        {
+          "ref": "mending",
+          "name": "Mending",
+          "sub": "cantrip"
+        },
+        {
+          "ref": "message",
+          "name": "Message",
+          "sub": "cantrip"
+        },
+        {
+          "ref": "moldearth",
+          "name": "Mold Earth",
+          "sub": "cantrip"
+        },
+        {
+          "ref": "sorcerousburst",
+          "name": "Sorcerous Burst",
+          "sub": "To hit: d20 +10 · 1d8"
+        },
+        {
+          "ref": "bladeward",
+          "name": "Blade Ward",
+          "sub": "cantrip"
+        },
+        {
+          "ref": "firebolt",
+          "name": "Fire Bolt",
+          "sub": "To hit: d20 +10   ·   1d10 fire"
+        },
+        {
+          "ref": "mindsliver",
+          "name": "Mind Sliver",
+          "sub": "Int save DC 18 · 1d6 psychic"
+        }
+      ],
+      "prepared": true
+    }
   }
 }

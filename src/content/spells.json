@@ -6464,5 +6464,273 @@
       "cleric",
       "wizard"
     ]
+  },
+  "moldearth": {
+    "name": "Mold Earth",
+    "level": 0,
+    "school": "transmutation",
+    "chips": [
+      {
+        "t": "30 ft"
+      }
+    ],
+    "body": [
+      "Manipulate a 5-ft cube of dirt or stone within 30 ft: excavate and move it, change its color or texture, or make it difficult terrain. The effect lasts until you cast the spell again."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "sorcerousburst": {
+    "name": "Sorcerous Burst",
+    "level": 0,
+    "school": "evocation",
+    "dice": "To hit: d20 {atk} · 1d8",
+    "chips": [
+      {
+        "t": "120 ft"
+      }
+    ],
+    "body": [
+      "Ranged spell attack ({atk}); on a hit, 1d8 of a damage type you choose (acid, cold, fire, lightning, poison, psychic, or thunder). On a damage die's max roll you may add another die (chaining). Scales to 2d8 at 5, 3d8 at 11, 4d8 at 17."
+    ],
+    "classes": [
+      "sorcerer"
+    ]
+  },
+  "bladeward": {
+    "name": "Blade Ward",
+    "level": 0,
+    "school": "abjuration",
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Until the end of your next turn, you have Resistance to bludgeoning, piercing, and slashing damage."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "mindsliver": {
+    "name": "Mind Sliver",
+    "level": 0,
+    "school": "enchantment",
+    "dice": "Int save DC {dc} · 1d6 psychic",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target makes an Intelligence save (DC {dc}); on a fail it takes 1d6 psychic and subtracts 1d4 from its next saving throw before the end of your next turn. Scales to 2d6 at 5, 3d6 at 11, 4d6 at 17."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "silverybarbs": {
+    "name": "Silvery Barbs",
+    "level": 1,
+    "school": "enchantment",
+    "chips": [
+      {
+        "t": "Reaction",
+        "c": "storm"
+      },
+      {
+        "t": "60 ft"
+      }
+    ],
+    "body": [
+      "Reaction when a creature you can see within 60 ft succeeds on an attack roll, ability check, or saving throw: it rerolls and must use the lower result, and a different creature you can see gains Advantage on its next attack/check/save before your next turn."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ],
+    "cast": "Reaction"
+  },
+  "armsofhadar": {
+    "name": "Arms of Hadar",
+    "level": 1,
+    "school": "conjuration",
+    "dice": "Str save DC {dc} · 2d6 necrotic",
+    "chips": [
+      {
+        "t": "10-ft radius",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Tendrils erupt in a 10-ft radius; each creature makes a Strength save (DC {dc}), taking 2d6 necrotic on a fail (half on success) and unable to take Reactions until its next turn. +1d6 per slot above 1st."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock"
+    ]
+  },
+  "dissonantwhispers": {
+    "name": "Dissonant Whispers",
+    "level": 1,
+    "school": "enchantment",
+    "dice": "Wis save DC {dc} · 3d6 psychic",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target makes a Wisdom save (DC {dc}); 3d6 psychic on a fail (half on success). On a fail it must immediately use its Reaction to move as far from you as it can. +1d6 per slot above 1st."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock"
+    ]
+  },
+  "tashasmindwhip": {
+    "name": "Tasha's Mind Whip",
+    "level": 2,
+    "school": "enchantment",
+    "dice": "Int save DC {dc} · 3d6 psychic",
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target makes an Intelligence save (DC {dc}); 3d6 psychic on a fail (half on success), and on a fail until the end of its next turn it can't take a Reaction, moves at half speed, and gets only one action (no bonus action). +1 target per slot above 2nd."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "hungerofhadar": {
+    "name": "Hunger of Hadar",
+    "level": 3,
+    "school": "conjuration",
+    "concentration": true,
+    "chips": [
+      {
+        "t": "150 ft"
+      },
+      {
+        "t": "20-ft void",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A lightless 20-ft void appears for 1 minute (Concentration): the area is darkness and Difficult Terrain. A creature that starts its turn there takes 2d6 cold; one that ends its turn there makes a Dexterity save or takes 2d6 acid."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock"
+    ]
+  },
+  "summonaberration": {
+    "name": "Summon Aberration",
+    "level": 4,
+    "school": "conjuration",
+    "concentration": true,
+    "chips": [
+      {
+        "t": "90 ft"
+      },
+      {
+        "t": "Aberrant Spirit",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Summon an Aberrant Spirit (Beholderkin, Slaad, or Star Spawn) that obeys you and acts on your turn for up to 1 hour (Concentration). Its statistics scale with the slot level."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "synapticstatic": {
+    "name": "Synaptic Static",
+    "level": 5,
+    "school": "enchantment",
+    "dice": "Int save DC {dc} · 8d6 psychic",
+    "chips": [
+      {
+        "t": "120 ft"
+      },
+      {
+        "t": "20-ft sphere",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Each creature in a 20-ft sphere makes an Intelligence save (DC {dc}); 8d6 psychic on a fail (half on success). On a fail its mind is addled for 1 minute, subtracting 1d6 from its attack rolls, ability checks, and Concentration saves."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "mentalprison": {
+    "name": "Mental Prison",
+    "level": 6,
+    "school": "illusion",
+    "dice": "Int save DC {dc} · 5d10 psychic",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target makes an Intelligence save (DC {dc}); on a fail it takes 5d10 psychic and is Restrained by an illusory cage only it perceives. If it tries to move, it takes 10d10 psychic and the spell ends."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "psychicscream": {
+    "name": "Psychic Scream",
+    "level": 9,
+    "school": "enchantment",
+    "dice": "Int save DC {dc} · 14d6 psychic",
+    "chips": [
+      {
+        "t": "90 ft"
+      },
+      {
+        "t": "up to 10 targets",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Up to ten creatures you can see make an Intelligence save (DC {dc}); 14d6 psychic and Stunned on a fail (half damage, no stun on success). A creature killed by this has its head explode. A Stunned creature repeats the save at the end of its turns."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
   }
 }

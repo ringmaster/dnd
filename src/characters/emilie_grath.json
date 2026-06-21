@@ -1,0 +1,958 @@
+{
+  "id": "emilie_grath",
+  "out": "emilie_grath.html",
+  "name": "Emilie Grath",
+  "bespoke": true,
+  "homebrewNote": "Imported from a D&D Beyond sheet (2014 rules · Aberrant Mind Sorcerer 18). Hand-authored; some details are summarized.",
+  "subtitle": "Half-Elf · Aberrant Mind Sorcerer · Lvl 18",
+  "title": "Emilie Grath",
+  "footer": "Aberrant Mind Sorcerer 18 · Haunted One",
+  "storageKey": "dnd_emilie",
+  "level": 18,
+  "hitDie": "d6",
+  "proficiencyBonus": 6,
+  "saves": [
+    "CON",
+    "CHA"
+  ],
+  "speed": 30,
+  "ac": {
+    "armor": {
+      "id": "emilie-ac",
+      "label": "Mage Armor + Ring of Protection",
+      "base": 16,
+      "addDex": true,
+      "note": "Mage Armor (13 + Dex), Ring of Protection (+1), and aberrant wards — AC 19",
+      "default": true
+    }
+  },
+  "hp": {
+    "max": 122
+  },
+  "studs": [
+    {
+      "ref": "stat_ac",
+      "label": "AC",
+      "id": "acVal"
+    },
+    {
+      "ref": "stat_init",
+      "label": "Init"
+    },
+    {
+      "ref": "stat_speed",
+      "label": "Speed"
+    },
+    {
+      "ref": "stat_prof",
+      "label": "Prof"
+    },
+    {
+      "ref": "stat_pass",
+      "label": "Pass.Per"
+    }
+  ],
+  "weapons": [
+    {
+      "id": "etherealdagger",
+      "name": "Ethereal Dagger",
+      "carried": true,
+      "ability": "DEX",
+      "dmgDice": "1d4",
+      "atkBonus": 1,
+      "dmgBonus": 1,
+      "props": [
+        "piercing",
+        "finesse",
+        "light",
+        "thrown 20/60",
+        "nick",
+        "magical"
+      ],
+      "ref": "etherealdagger"
+    },
+    {
+      "id": "glassweaversstaff",
+      "name": "Glassweaver's Staff",
+      "carried": true,
+      "ability": "CHA",
+      "dmgDice": "1d6",
+      "atkBonus": 0,
+      "props": [
+        "bludgeoning",
+        "versatile 1d8",
+        "topple",
+        "magical"
+      ],
+      "ref": "glassweaversstaff"
+    }
+  ],
+  "masteryMax": 0,
+  "rest": {
+    "short": [
+      "Recover short-rest features"
+    ],
+    "long": [
+      "HP → maximum",
+      "Spell slots → full",
+      "Sorcery Points → 18",
+      "All per-rest features reset"
+    ],
+    "shortToast": "Short rest taken.",
+    "longToast": "Long rest — fully restored."
+  },
+  "cards": [
+    {
+      "type": "abilities"
+    },
+    {
+      "type": "hitpoints"
+    },
+    {
+      "type": "attacks",
+      "extras": [
+        {
+          "ref": "rayoffrost",
+          "name": "Ray of Frost ⓘ",
+          "sub": "spell atk +10 · 4d8 cold · slows 10 ft"
+        },
+        {
+          "ref": "sorcerousburst",
+          "name": "Sorcerous Burst ⓘ",
+          "sub": "spell atk +10 · 4d8 (choose type) · chains"
+        },
+        {
+          "ref": "firebolt",
+          "name": "Fire Bolt ⓘ",
+          "sub": "spell atk +10 · 4d10 fire"
+        }
+      ]
+    },
+    {
+      "type": "spellcasting"
+    },
+    {
+      "type": "pools",
+      "title": "Resources",
+      "pools": "*",
+      "extras": [
+        {
+          "ref": "metamagic",
+          "name": "Metamagic ⓘ",
+          "sub": "Distant · Subtle · Twinned"
+        },
+        {
+          "ref": "psychicsorcery",
+          "name": "Psychic Sorcery ⓘ",
+          "sub": "cast Psionic spells subtly with sorcery points"
+        }
+      ]
+    },
+    {
+      "type": "skills"
+    },
+    {
+      "type": "inventory",
+      "magic": {
+        "ref": "etherealdagger",
+        "name": "Ethereal Dagger",
+        "tag": "attuned · magical",
+        "desc": "A dagger of crystallized ethereal force; finesse, light, thrown, with the Nick mastery."
+      },
+      "items": [
+        {
+          "name": "Ring of Protection",
+          "tag": "attuned · +1 AC & saves"
+        },
+        {
+          "name": "Glassweaver's Staff",
+          "tag": "arcane focus"
+        },
+        {
+          "name": "Cloud Flask",
+          "tag": "attuned · wondrous"
+        },
+        {
+          "name": "Dagger"
+        },
+        {
+          "name": "Embroidered Robes",
+          "tag": "glyph-stitched"
+        },
+        {
+          "name": "Staff · spell focus"
+        },
+        {
+          "name": "Spellbook & journal",
+          "tag": "her legacy"
+        },
+        {
+          "name": "Spell component pouch"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "title": "Features & Traits",
+      "list": [
+        {
+          "ref": "sorcery-spellcasting",
+          "name": "Spellcasting",
+          "sub": "Charisma · DC 18 · spell attack +10"
+        },
+        {
+          "ref": "aberrantmind",
+          "name": "Sorcerous Origin: Aberrant Mind",
+          "sub": "a mind touched by alien psionic power"
+        },
+        {
+          "ref": "psionicspells",
+          "name": "Psionic Spells",
+          "sub": "Aberrant · always-prepared psionic spells, castable with sorcery points"
+        },
+        {
+          "ref": "telepathicspeech",
+          "name": "Telepathic Speech",
+          "sub": "Aberrant · bonus action telepathic link (18 min)"
+        },
+        {
+          "ref": "psychicsorcery",
+          "name": "Psychic Sorcery",
+          "sub": "Aberrant · cast Psionic spells without components, subtly"
+        },
+        {
+          "ref": "psychicdefenses",
+          "name": "Psychic Defenses",
+          "sub": "Aberrant · resist psychic; advantage vs charmed & frightened"
+        },
+        {
+          "ref": "warpingimplosion",
+          "name": "Warping Implosion",
+          "sub": "Aberrant · teleport 120 ft + 3d10 force pull (1/long rest)"
+        },
+        {
+          "ref": "revelationinflesh",
+          "name": "Revelation in Flesh",
+          "sub": "Aberrant · spend sorcery points to transform (flight, swim, see invisible…)"
+        },
+        {
+          "ref": "fontofmagic",
+          "name": "Font of Magic",
+          "sub": "18 Sorcery Points · convert to/from slots"
+        },
+        {
+          "ref": "metamagic",
+          "name": "Metamagic",
+          "sub": "Distant Spell · Subtle Spell · Twinned Spell"
+        },
+        {
+          "ref": "magicinitiate",
+          "name": "Magic Initiate (Sorcerer)",
+          "sub": "feat · Blade Ward, Fire Bolt; Feather Fall 1×/long rest"
+        },
+        {
+          "ref": "feytouched",
+          "name": "Fey Touched",
+          "sub": "feat · +1 Cha; Misty Step & Silvery Barbs 1×/long rest"
+        },
+        {
+          "ref": "feyancestry",
+          "name": "Half-Elf: Fey Ancestry",
+          "sub": "advantage vs charm; magic can't put you to sleep"
+        },
+        {
+          "ref": "skillversatility",
+          "name": "Half-Elf: Skill Versatility & Darkvision",
+          "sub": "two bonus skills · darkvision 60 ft"
+        }
+      ]
+    },
+    {
+      "type": "background",
+      "hint": "Half-Elf · Haunted One · Chaotic Good",
+      "paras": [
+        "Emilie Grath is a 20-year-old half-elf sorcerer in Port Haven, Azuria — slim and otherworldly, with long jet-black hair, bright green eyes that glint with a hint of madness, and delicate features. She wears a simple black robe she embroidered with glyphs she found pretty in old books.",
+        "Raised in an orphanage alongside her friends Wex and Royce, she never learned what became of her parents; the question was always deflected. Self-taught after showing early talent, she takes odd jobs to buy books and spell components and rents a small room above a shop.",
+        "She wants to join the Magician's Coven and the Order of the Quartz Tower, and quietly studies the wizard Oronos Silvermane — copying his walk, his gestures, anything. Without a mentor, mimicry has become her way of learning.",
+        "<b>Bond:</b> I keep my thoughts and discoveries in a journal — my journal is my legacy. <b>Flaw:</b> I talk to spirits that no one else can see."
+      ]
+    }
+  ],
+  "ref": {
+    "etherealdagger": {
+      "title": "Ethereal Dagger",
+      "chips": [
+        {
+          "t": "Finesse · 1d4 piercing"
+        },
+        {
+          "t": "Nick · Thrown 20/60"
+        },
+        {
+          "t": "Magical",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "A crystallized shard of the ethereal plane. +10 to hit (Dex +3, proficiency +6, magic +1); 1d4 + 4 piercing. Finesse, light, and thrown (20/60).",
+        "Nick (mastery): the extra Light-weapon attack rides your Attack action rather than your Bonus Action."
+      ]
+    },
+    "glassweaversstaff": {
+      "title": "Glassweaver's Staff",
+      "chips": [
+        {
+          "t": "Versatile · 1d6 bludgeoning"
+        },
+        {
+          "t": "Topple",
+          "c": "storm"
+        },
+        {
+          "t": "Arcane focus"
+        }
+      ],
+      "body": [
+        "A spun-glass quarterstaff that doubles as her arcane focus. Versatile (1d8 in two hands).",
+        "Topple (mastery): on a hit, force a Constitution save or knock the target Prone."
+      ]
+    },
+    "sorcery-spellcasting": {
+      "title": "Spellcasting",
+      "chips": [
+        {
+          "t": "Charisma",
+          "c": "storm"
+        },
+        {
+          "t": "DC 18 · atk +10"
+        }
+      ],
+      "body": [
+        "You cast Sorcerer spells using Charisma: spell save DC 18, spell attack +10. As an 18th-level sorcerer you have slots up to 9th level and a wide list of known spells; cantrips are at will."
+      ]
+    },
+    "aberrantmind": {
+      "title": "Sorcerous Origin: Aberrant Mind",
+      "chips": [
+        {
+          "t": "Psionic",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "A psychic awakening — perhaps from an aberration, the Far Realm, or a strange dream — left alien power coiled in your mind. It grants always-prepared Psionic Spells and a growing suite of telepathic and reality-warping gifts."
+      ]
+    },
+    "psionicspells": {
+      "title": "Psionic Spells",
+      "chips": [
+        {
+          "t": "Always prepared",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You always have a set of Psionic Spells prepared (they don't count against any limit): Arms of Hadar, Dissonant Whispers, Calm Emotions, Detect Thoughts, Hunger of Hadar, Sending, Evard's Black Tentacles, Summon Aberration, Rary's Telepathic Bond, and Telekinesis. With Psychic Sorcery you can cast them by spending sorcery points instead of slots."
+      ]
+    },
+    "telepathicspeech": {
+      "title": "Telepathic Speech",
+      "body": [
+        "As a Bonus Action, choose one creature within 30 ft; for 18 minutes you can speak telepathically to each other while within 4 miles."
+      ]
+    },
+    "psychicsorcery": {
+      "title": "Psychic Sorcery",
+      "chips": [
+        {
+          "t": "Sorcery Points",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "When you cast a Psionic Spell, you can spend sorcery points (equal to its level) instead of a slot. Cast this way it needs no verbal, somatic, or non-consumed material components — entirely in your mind."
+      ]
+    },
+    "psychicdefenses": {
+      "title": "Psychic Defenses",
+      "chips": [
+        {
+          "t": "Resist psychic",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You have Resistance to psychic damage and Advantage on saving throws to avoid or end the Charmed and Frightened conditions."
+      ]
+    },
+    "warpingimplosion": {
+      "title": "Warping Implosion",
+      "pool": "warp",
+      "chips": [
+        {
+          "t": "Teleport 120 ft",
+          "c": "ember"
+        },
+        {
+          "t": "1/long rest"
+        }
+      ],
+      "body": [
+        "As an Action, teleport to an unoccupied space within 120 ft. Each creature within 30 ft of the space you left makes a Strength save (DC 18): 3d10 force and pulled toward your old space on a fail (half, no pull, on success). Recharge by finishing a long rest or spending 5 sorcery points."
+      ]
+    },
+    "revelationinflesh": {
+      "title": "Revelation in Flesh",
+      "chips": [
+        {
+          "t": "Bonus action",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "As a Bonus Action, spend 1+ sorcery points to transform your body for 10 minutes, gaining one benefit per point: see invisible creatures (120 ft), a swim speed and water breathing, a fly speed, or squeeze through tiny gaps as if Tiny."
+      ]
+    },
+    "fontofmagic": {
+      "title": "Font of Magic",
+      "pool": "sp",
+      "chips": [
+        {
+          "t": "18 Sorcery Points",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "You have 18 Sorcery Points, regained on a long rest. As a Bonus Action, convert sorcery points into spell slots or spell slots into sorcery points, and fuel Metamagic."
+      ]
+    },
+    "metamagic": {
+      "title": "Metamagic",
+      "chips": [
+        {
+          "t": "Distant"
+        },
+        {
+          "t": "Subtle"
+        },
+        {
+          "t": "Twinned"
+        }
+      ],
+      "body": [
+        "Distant Spell (1 SP): double a spell's range (or reach 30 ft for touch). Subtle Spell (1 SP): cast without verbal or somatic components. Twinned Spell (SP = level): a single-target spell targets a second creature."
+      ]
+    },
+    "magicinitiate": {
+      "title": "Magic Initiate (Sorcerer)",
+      "chips": [
+        {
+          "t": "Origin feat",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "You know the cantrips Blade Ward and Fire Bolt, and the 1st-level spell Feather Fall, castable once per long rest without a slot (or with one). Charisma is the spellcasting ability."
+      ]
+    },
+    "feytouched": {
+      "title": "Fey Touched",
+      "chips": [
+        {
+          "t": "+1 Cha",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Your Charisma increased by 1. You always have Misty Step and Silvery Barbs prepared and can cast each once per long rest without a slot (or with one), using Charisma."
+      ]
+    },
+    "feyancestry": {
+      "title": "Fey Ancestry",
+      "chips": [
+        {
+          "t": "vs Charm",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You have Advantage on saving throws against being Charmed, and magic can't put you to sleep."
+      ]
+    },
+    "skillversatility": {
+      "title": "Skill Versatility & Darkvision",
+      "chips": [
+        {
+          "t": "Darkvision 60 ft",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You gain proficiency in two skills of your choice (Insight and Intimidation), and you can see in dim light within 60 ft as if it were bright light, and in darkness as if dim light."
+      ]
+    }
+  },
+  "build": {
+    "species": "half-elf",
+    "background": "haunted-one",
+    "classes": [
+      {
+        "class": "sorcerer",
+        "subclass": "aberrant",
+        "level": 18
+      }
+    ],
+    "abilities": {
+      "STR": 8,
+      "DEX": 16,
+      "CON": 15,
+      "INT": 12,
+      "WIS": 11,
+      "CHA": 19
+    },
+    "sources": [
+      {
+        "id": "sorcerer-skills",
+        "name": "Skills",
+        "effects": {
+          "skills": [
+            "Insight",
+            "Intimidation",
+            "Investigation",
+            "Persuasion",
+            "Stealth",
+            "Survival"
+          ]
+        }
+      },
+      {
+        "id": "languages",
+        "name": "Languages",
+        "effects": {
+          "language": [
+            "Abyssal",
+            "Common",
+            "Draconic",
+            "Elvish",
+            "Infernal"
+          ]
+        }
+      },
+      {
+        "id": "sp",
+        "name": "Font of Magic",
+        "effects": {
+          "grantsPool": {
+            "id": "sp",
+            "label": "Sorcery Points",
+            "max": 18,
+            "rest": "long",
+            "ref": "fontofmagic",
+            "storm": true,
+            "note": "long rest",
+            "use": "Spend",
+            "reminder": "Sorcery Points: convert to slots or fuel Metamagic / Psychic Sorcery."
+          }
+        }
+      },
+      {
+        "id": "warp",
+        "name": "Warping Implosion",
+        "effects": {
+          "grantsPool": {
+            "id": "warp",
+            "label": "Warping Implosion",
+            "max": 1,
+            "rest": "long",
+            "ref": "warpingimplosion",
+            "storm": false,
+            "note": "long rest (or 5 SP)",
+            "use": "Use",
+            "reminder": "Warping Implosion: teleport 120 ft and pull nearby creatures (3d10 force)."
+          }
+        }
+      },
+      {
+        "id": "spellcasting",
+        "name": "Spellcasting (Sorcerer)",
+        "effects": {
+          "spellcasting": {
+            "ability": "CHA",
+            "slots": [
+              {
+                "id": "slot1",
+                "label": "Level 1 Slots",
+                "max": 4,
+                "rest": "long",
+                "ref": "spellslots1",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 1st-level spell slot.",
+                "slotLevel": 1
+              },
+              {
+                "id": "slot2",
+                "label": "Level 2 Slots",
+                "max": 3,
+                "rest": "long",
+                "ref": "spellslots2",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 2nd-level spell slot.",
+                "slotLevel": 2
+              },
+              {
+                "id": "slot3",
+                "label": "Level 3 Slots",
+                "max": 3,
+                "rest": "long",
+                "ref": "spellslots3",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 3rd-level spell slot.",
+                "slotLevel": 3
+              },
+              {
+                "id": "slot4",
+                "label": "Level 4 Slots",
+                "max": 3,
+                "rest": "long",
+                "ref": "spellslots4",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 4th-level spell slot.",
+                "slotLevel": 4
+              },
+              {
+                "id": "slot5",
+                "label": "Level 5 Slots",
+                "max": 3,
+                "rest": "long",
+                "ref": "spellslots5",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 5th-level spell slot.",
+                "slotLevel": 5
+              },
+              {
+                "id": "slot6",
+                "label": "Level 6 Slots",
+                "max": 1,
+                "rest": "long",
+                "ref": "spellslots6",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 6th-level spell slot.",
+                "slotLevel": 6
+              },
+              {
+                "id": "slot7",
+                "label": "Level 7 Slots",
+                "max": 1,
+                "rest": "long",
+                "ref": "spellslots7",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 7th-level spell slot.",
+                "slotLevel": 7
+              },
+              {
+                "id": "slot8",
+                "label": "Level 8 Slots",
+                "max": 1,
+                "rest": "long",
+                "ref": "spellslots8",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 8th-level spell slot.",
+                "slotLevel": 8
+              },
+              {
+                "id": "slot9",
+                "label": "Level 9 Slots",
+                "max": 1,
+                "rest": "long",
+                "ref": "spellslots9",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 9th-level spell slot.",
+                "slotLevel": 9
+              }
+            ],
+            "cantrips": [
+              {
+                "ref": "prestidigitation",
+                "name": "Prestidigitation",
+                "sub": "cantrip"
+              },
+              {
+                "ref": "rayoffrost",
+                "name": "Ray of Frost",
+                "sub": "To hit: d20 +10 · 1d8 cold"
+              },
+              {
+                "ref": "mending",
+                "name": "Mending",
+                "sub": "cantrip"
+              },
+              {
+                "ref": "message",
+                "name": "Message",
+                "sub": "cantrip"
+              },
+              {
+                "ref": "moldearth",
+                "name": "Mold Earth",
+                "sub": "cantrip"
+              },
+              {
+                "ref": "sorcerousburst",
+                "name": "Sorcerous Burst",
+                "sub": "To hit: d20 +10 · 1d8"
+              },
+              {
+                "ref": "bladeward",
+                "name": "Blade Ward",
+                "sub": "cantrip"
+              },
+              {
+                "ref": "firebolt",
+                "name": "Fire Bolt",
+                "sub": "To hit: d20 +10   ·   1d10 fire"
+              },
+              {
+                "ref": "mindsliver",
+                "name": "Mind Sliver",
+                "sub": "Int save DC 18 · 1d6 psychic"
+              }
+            ],
+            "prepared": {
+              "max": 15,
+              "default": [
+                "disguiseself",
+                "witchbolt",
+                "magearmor",
+                "featherfall",
+                "silverybarbs",
+                "armsofhadar",
+                "dissonantwhispers",
+                "detectthoughts",
+                "invisibility",
+                "knock",
+                "tashasmindwhip",
+                "mirrorimage",
+                "mistystep",
+                "calmemotions",
+                "counterspell",
+                "hungerofhadar",
+                "sending",
+                "icestorm",
+                "blacktentacles",
+                "summonaberration",
+                "synapticstatic",
+                "animateobjects",
+                "telepathicbond",
+                "telekinesis",
+                "disintegrate",
+                "mentalprison",
+                "sunbeam",
+                "powerwordstun",
+                "psychicscream"
+              ],
+              "catalog": [
+                {
+                  "id": "disguiseself",
+                  "name": "Disguise Self",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "witchbolt",
+                  "name": "Witch Bolt",
+                  "note": "To hit: d20 +10 · 1d12 lightning · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "magearmor",
+                  "name": "Mage Armor",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "featherfall",
+                  "name": "Feather Fall",
+                  "note": "level 1",
+                  "level": 1,
+                  "cast": "Reaction"
+                },
+                {
+                  "id": "silverybarbs",
+                  "name": "Silvery Barbs",
+                  "note": "level 1",
+                  "level": 1,
+                  "cast": "Reaction"
+                },
+                {
+                  "id": "armsofhadar",
+                  "name": "Arms of Hadar",
+                  "note": "Str save DC 18 · 2d6 necrotic",
+                  "level": 1
+                },
+                {
+                  "id": "dissonantwhispers",
+                  "name": "Dissonant Whispers",
+                  "note": "Wis save DC 18 · 3d6 psychic",
+                  "level": 1
+                },
+                {
+                  "id": "detectthoughts",
+                  "name": "Detect Thoughts",
+                  "note": "Wis save DC 18 · Conc.",
+                  "level": 2
+                },
+                {
+                  "id": "invisibility",
+                  "name": "Invisibility",
+                  "note": "level 2 · Conc.",
+                  "level": 2
+                },
+                {
+                  "id": "knock",
+                  "name": "Knock",
+                  "note": "level 2",
+                  "level": 2
+                },
+                {
+                  "id": "tashasmindwhip",
+                  "name": "Tasha's Mind Whip",
+                  "note": "Int save DC 18 · 3d6 psychic",
+                  "level": 2
+                },
+                {
+                  "id": "mirrorimage",
+                  "name": "Mirror Image",
+                  "note": "level 2",
+                  "level": 2
+                },
+                {
+                  "id": "mistystep",
+                  "name": "Misty Step",
+                  "note": "level 2",
+                  "level": 2,
+                  "cast": "Bonus Action"
+                },
+                {
+                  "id": "calmemotions",
+                  "name": "Calm Emotions",
+                  "note": "Cha save DC 18 · Conc.",
+                  "level": 2
+                },
+                {
+                  "id": "counterspell",
+                  "name": "Counterspell",
+                  "note": "level 3",
+                  "level": 3,
+                  "cast": "Reaction"
+                },
+                {
+                  "id": "hungerofhadar",
+                  "name": "Hunger of Hadar",
+                  "note": "level 3 · Conc.",
+                  "level": 3
+                },
+                {
+                  "id": "sending",
+                  "name": "Sending",
+                  "note": "level 3",
+                  "level": 3
+                },
+                {
+                  "id": "icestorm",
+                  "name": "Ice Storm",
+                  "note": "Dex save DC 18",
+                  "level": 4
+                },
+                {
+                  "id": "blacktentacles",
+                  "name": "Black Tentacles",
+                  "note": "Dex save DC 18 · Conc.",
+                  "level": 4
+                },
+                {
+                  "id": "summonaberration",
+                  "name": "Summon Aberration",
+                  "note": "level 4 · Conc.",
+                  "level": 4
+                },
+                {
+                  "id": "synapticstatic",
+                  "name": "Synaptic Static",
+                  "note": "Int save DC 18 · 8d6 psychic",
+                  "level": 5
+                },
+                {
+                  "id": "animateobjects",
+                  "name": "Animate Objects",
+                  "note": "++10 to hit · Conc.",
+                  "level": 5
+                },
+                {
+                  "id": "telepathicbond",
+                  "name": "Rary's Telepathic Bond",
+                  "note": "level 5",
+                  "level": 5
+                },
+                {
+                  "id": "telekinesis",
+                  "name": "Telekinesis",
+                  "note": "Str (or Int) check vs 18 · Conc.",
+                  "level": 5
+                },
+                {
+                  "id": "disintegrate",
+                  "name": "Disintegrate",
+                  "note": "Dex save DC 18 · 10d6+40 force",
+                  "level": 6
+                },
+                {
+                  "id": "mentalprison",
+                  "name": "Mental Prison",
+                  "note": "Int save DC 18 · 5d10 psychic",
+                  "level": 6
+                },
+                {
+                  "id": "sunbeam",
+                  "name": "Sunbeam",
+                  "note": "Con save DC 18 · 6d8 radiant · Conc.",
+                  "level": 6
+                },
+                {
+                  "id": "powerwordstun",
+                  "name": "Power Word Stun",
+                  "note": "level 8",
+                  "level": 8
+                },
+                {
+                  "id": "psychicscream",
+                  "name": "Psychic Scream",
+                  "note": "Int save DC 18 · 14d6 psychic",
+                  "level": 9
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
