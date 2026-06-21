@@ -1,0 +1,34 @@
+{
+  "$kind": "spell-schema",
+  "version": 1,
+  "note": "Describes one entry in src/content/spells.json (the spell library, keyed by spell id). Same field-spec format as character-schema.json: { type, desc, required?, enum?, items?, fields?, ref? }. Display/scaling fields (range, components, material, castTime, duration, ritual, upcast) are populated from Open5e via `npm run scrape` and hand-filled for post-SRD spells.",
+
+  "defs": {
+    "chip": {
+      "type": "object", "desc": "A small tag shown on the spell's ref modal.",
+      "fields": {
+        "t": { "type": "string", "required": true, "desc": "Tag text." },
+        "c": { "type": "enum", "enum": ["ember", "storm"], "desc": "Accent color — normalized at compile time (storm = Concentration/Ritual, ember = standout effect); structural facts render gray." }
+      }
+    }
+  },
+
+  "root": {
+    "name": { "type": "string", "required": true, "desc": "Display name." },
+    "level": { "type": "number", "required": true, "desc": "Spell level (0 = cantrip)." },
+    "school": { "type": "enum", "required": true, "enum": ["abjuration", "conjuration", "divination", "enchantment", "evocation", "illusion", "necromancy", "transmutation"], "desc": "School of magic." },
+    "classes": { "type": "array", "required": true, "items": { "type": "string" }, "desc": "Class lists the spell appears on (lowercase class ids)." },
+    "body": { "type": "array", "required": true, "items": { "type": "string" }, "desc": "House-style rules summary; {dc}/{atk}/{mod} are substituted at compile." },
+    "dice": { "type": "string", "desc": "Optional roll/summary line, e.g. 'Dex save DC · 8d6 fire'." },
+    "chips": { "type": "array", "items": { "ref": "chip" }, "desc": "Tags shown under the title (area, effect, etc.)." },
+    "concentration": { "type": "boolean", "desc": "Spell requires Concentration." },
+    "cast": { "type": "enum", "enum": ["Action", "Bonus Action", "Reaction"], "desc": "Combat-mode grouping for a non-Action casting time (drives the Attacks card). Distinct from the human-readable castTime." },
+    "range": { "type": "string", "desc": "Range, e.g. '150 feet', 'Touch', 'Self'." },
+    "components": { "type": "string", "desc": "Components, e.g. 'V, S, M'." },
+    "material": { "type": "string", "desc": "Material component text (when components include M)." },
+    "castTime": { "type": "string", "desc": "Human-readable casting time, e.g. '1 action', '1 minute'." },
+    "duration": { "type": "string", "desc": "Duration, e.g. 'Instantaneous', 'Concentration, up to 1 minute'." },
+    "ritual": { "type": "boolean", "desc": "Can be cast as a ritual." },
+    "upcast": { "type": "boolean", "desc": "Casting with a higher-level slot improves the spell (drives the ✦ upcast indicator on the cast button). Absent = no benefit from upcasting." }
+  }
+}

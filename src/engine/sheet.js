@@ -606,8 +606,17 @@ function castOptions(r){
     if(sp.level < (r.level||1)) return;
     slots.push({ pool:sp.id, level:sp.level, n:state[sp.id], max:sp.max });
   });
-  // base = a slot at the spell's own level (the main button); the rest are upcasts
-  return { free:free, base:slots[0]||null, ups:slots.slice(1) };
+  slots.sort(function(a,b){ return a.level-b.level; });
+  // Primary = the lowest slot you can actually spend right now, so when your
+  // level-3 slots are gone the button defaults to your lowest available 4th+.
+  // If every castable slot is depleted, fall back to the lowest level (shown
+  // disabled). Every other level — lower-and-used or higher — goes in the menu.
+  var baseIdx=-1;
+  for(var i=0;i<slots.length;i++){ if(slots[i].n>0){ baseIdx=i; break; } }
+  if(baseIdx<0) baseIdx=0;
+  var base=slots.length ? slots[baseIdx] : null;
+  var others=slots.filter(function(_,i){ return i!==baseIdx; });
+  return { free:free, base:base, others:others };
 }
 function castOptBtn(r, o, cls){
   var b=document.createElement("button"); b.type="button"; b.className="btn "+cls+(o.n>0?" ember":"");
@@ -620,7 +629,7 @@ function castOptBtn(r, o, cls){
 function renderCastFoot(r){
   refFoot.innerHTML="";
   var o=castOptions(r);
-  var any=(o.free&&o.free.n>0) || (o.base&&o.base.n>0) || o.ups.some(function(u){ return u.n>0; });
+  var any=(o.free&&o.free.n>0) || (o.base&&o.base.n>0) || o.others.some(function(u){ return u.n>0; });
   if(r.concentration && state.conc && state.conc!==r.concentration){
     var note=document.createElement("span"); note.className="uses-left cast-conc";
     note.textContent="Casting ends concentration on "+state.conc+".";
@@ -632,15 +641,18 @@ function renderCastFoot(r){
   if(o.base){
     var split=document.createElement("div"); split.className="cast-split";
     split.appendChild(castOptBtn(r, o.base, "cast-opt cast-main"));
-    if(o.ups.length){
+    if(o.others.length){
       var menu=document.createElement("div"); menu.className="cast-upcast";
-      var head=document.createElement("div"); head.className="cast-up-head"; head.textContent="Upcast — spend a higher slot"; menu.appendChild(head);
+      var head=document.createElement("div"); head.className="cast-up-head";
+      head.textContent= r.upcast ? "Other slots — higher levels improve this spell" : "Cast with another slot level"; menu.appendChild(head);
       var grid=document.createElement("div"); grid.className="cast-up-grid";
-      o.ups.forEach(function(u){ grid.appendChild(castOptBtn(r, u, "btn tiny cast-opt cast-up")); });
+      o.others.forEach(function(u){ grid.appendChild(castOptBtn(r, u, "btn tiny cast-opt cast-up")); });
       menu.appendChild(grid);
-      var disc=document.createElement("button"); disc.type="button"; disc.className="btn cast-disc";
-      disc.setAttribute("aria-expanded","false"); disc.setAttribute("aria-label","Show upcast options");
-      disc.innerHTML='<span class="cast-tri">▾</span>';
+      var disc=document.createElement("button"); disc.type="button"; disc.className="btn cast-disc"+(r.upcast?" has-upcast":"");
+      disc.setAttribute("aria-expanded","false");
+      disc.setAttribute("aria-label", r.upcast ? "Choose a slot level — upcasting improves this spell" : "Choose a slot level");
+      // ✦ marks a spell that gains something from a higher slot; bare ▾ otherwise
+      disc.innerHTML=(r.upcast?'<span class="cast-up-ic" title="Upcasting improves this spell">✦</span>':'')+'<span class="cast-tri">▾</span>';
       disc.addEventListener("click", function(){
         var open=menu.classList.toggle("open");
         disc.setAttribute("aria-expanded", open?"true":"false");
