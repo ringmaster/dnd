@@ -45,7 +45,17 @@
   function proficientSkills(){ var set={}, bg=CAT.backgrounds[state.background]; if(bg&&bg.effects&&bg.effects.skills) bg.effects.skills.forEach(function(s){set[s]=1;}); state.skills.forEach(function(s){set[s]=1;}); return Object.keys(set).sort(); }
   function featureLevel(name){ var fbl=classData().featuresByLevel||{}; for(var l=1;l<=20;l++){ if((fbl[String(l)]||[]).indexOf(name)>=0) return l; } return 1; }
   function needsExpertise(){ return featureReached("Deft Explorer")||featureReached("Scholar"); }
-  function reachedASIs(){ return ASI_LEVELS.filter(function(l){ return l<=state.level; }); }
+  function classAsiLevels(cls){ return (CAT.classes[cls]||{}).asiLevels || ASI_LEVELS; }
+  /* ASI "slots" — per class at its own ASI levels. Each slot has a stable key
+     (the level number for single-class back-compat; class:level for multiclass)
+     used for state.asis + the asi-<key> source id. */
+  function reachedASIs(){
+    var multi=state.classes.length>1, out=[];
+    state.classes.forEach(function(cl){ classAsiLevels(cl.cls).forEach(function(al){ if(al<=cl.level){
+      out.push(multi ? { key:cl.cls+":"+al, lvl:al, label:((CAT.classes[cl.cls]||{}).name||cl.cls)+" "+al }
+                     : { key:String(al), lvl:al, label:"Level "+al }); } }); });
+    return out;
+  }
   function asiDefault(){ return { mode:"asi2", a:(classData().priority||ABIL)[0], b:(classData().priority||ABIL)[1], feat:"" }; }
 
   function mod(s){ return Math.floor((s-10)/2); }
@@ -81,7 +91,7 @@
   }
   function asiIncreases(){
     var inc={};
-    reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return;
+    reachedASIs().forEach(function(slot){ var a=state.asis[slot.key]; if(!a) return;
       if(a.mode==="asi2" && a.a){ inc[a.a]=(inc[a.a]||0)+2; }
       else if(a.mode==="asi11"){ if(a.a) inc[a.a]=(inc[a.a]||0)+1; if(a.b) inc[a.b]=(inc[a.b]||0)+1; }
     });
@@ -147,7 +157,7 @@
     var bg = CAT.backgrounds[state.background];
     if(bg && bg.grantsFeat===id) return true;
     if(state.originFeat===id) return true;
-    return reachedASIs().some(function(l){ var a=state.asis[l]; return a && a.mode==="feat" && a.feat===id; });
+    return reachedASIs().some(function(slot){ var a=state.asis[slot.key]; return a && a.mode==="feat" && a.feat===id; });
   }
   function backgroundFeat(){ var bg=CAT.backgrounds[state.background]; return bg && bg.grantsFeat; }
   /* a species trait flagged as granting a bonus origin feat / skill (Human Versatile / Skillful) */
@@ -237,9 +247,9 @@
     // extra origin feat (Human Versatile, etc.)
     if(state.originFeat) out.push({ ref:state.originFeat, name:featName(state.originFeat), sub:"Origin feat" });
     // ASIs: feats and ability bumps
-    reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return;
-      if(a.mode==="feat" && a.feat) out.push({ ref:a.feat, name:featName(a.feat), sub:"Level "+l+" feat" });
-      else out.push({ ref:"", name:"Ability Score Improvement", sub:"Level "+l }); });
+    reachedASIs().forEach(function(slot){ var a=state.asis[slot.key]; if(!a) return;
+      if(a.mode==="feat" && a.feat) out.push({ ref:a.feat, name:featName(a.feat), sub:slot.label+" feat" });
+      else out.push({ ref:"", name:"Ability Score Improvement", sub:slot.label }); });
     return out;
   }
 
@@ -300,8 +310,8 @@
     (b.sources||[]).forEach(function(s){
       var id=s.id||"", eff=s.effects||{};
       if(/-skills$/.test(id) && eff.skills) state.skills=eff.skills.slice();
-      var am=/^asi-(\d+)$/.exec(id);
-      if(am){ var lv=+am[1];
+      var am=/^asi-(.+)$/.exec(id);   // key is the level (single-class) or class:level (multiclass)
+      if(am){ var lv=am[1];
         if(s.grantsFeat) state.asis[lv]={mode:"feat",feat:s.grantsFeat};
         else if(eff.abilityIncrease){ var k=Object.keys(eff.abilityIncrease);
           if(k.length===1 && eff.abilityIncrease[k[0]]===2) state.asis[lv]={mode:"asi2",a:k[0]};
@@ -408,10 +418,10 @@
     if(state.originFeat) sources.push({ id:"feat-"+state.originFeat, name:"Origin feat: "+(CAT.feats[state.originFeat]||{}).name, grantsFeat:state.originFeat });
     // hit dice are derived by compile from class + level — not authored here
     // ASIs at 4/8/12/16/19 (cumulative ability increases or feats)
-    reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return;
-      if(a.mode==="feat" && a.feat) sources.push({ id:"asi-"+l, name:"Level "+l+" feat: "+(CAT.feats[a.feat]||{}).name, grantsFeat:a.feat });
+    reachedASIs().forEach(function(slot){ var l=slot.key, a=state.asis[l]; if(!a) return;
+      if(a.mode==="feat" && a.feat) sources.push({ id:"asi-"+l, name:slot.label+" feat: "+(CAT.feats[a.feat]||{}).name, grantsFeat:a.feat });
       else { var inc={}; if(a.mode==="asi2"&&a.a) inc[a.a]=2; else if(a.mode==="asi11"){ if(a.a)inc[a.a]=(inc[a.a]||0)+1; if(a.b)inc[a.b]=(inc[a.b]||0)+1; }
-        if(Object.keys(inc).length) sources.push({ id:"asi-"+l, name:"Level "+l+": Ability Score Improvement", effects:{ abilityIncrease:inc } }); }
+        if(Object.keys(inc).length) sources.push({ id:"asi-"+l, name:slot.label+": Ability Score Improvement", effects:{ abilityIncrease:inc } }); }
     });
     return {
       species:state.species, background:state.background,
@@ -445,11 +455,11 @@
     if(featureReached("Fighting Style")&&ch.style){ var st=FIGHTING_STYLES.filter(function(x){return x.id===ch.style;})[0]; add(featureLevel("Fighting Style"),{cls:"choice", html:"<b>Fighting Style:</b> "+esc(st?st.name:"")}); }
     if(needsExpertise()&&ch.expertise) add(featureLevel(featureReached("Scholar")?"Scholar":"Deft Explorer"),{cls:"choice", html:"<b>Expertise:</b> "+esc(ch.expertise)});
     if(featureReached("Divine Order")&&ch.order) add(featureLevel("Divine Order"),{cls:"choice", html:"<b>Divine Order:</b> "+esc(ch.order==="thaumaturge"?"Thaumaturge":"Protector")});
-    reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return; var h;
+    reachedASIs().forEach(function(slot){ var a=state.asis[slot.key]; if(!a) return; var h;
       if(a.mode==="feat") h="<b>Feat:</b> "+esc(featName(a.feat)||"(choose one)");
       else if(a.mode==="asi2") h="<b>Ability Score Improvement:</b> +2 "+esc(a.a||"?");
       else h="<b>Ability Score Improvement:</b> +1 "+esc(a.a||"?")+", +1 "+esc(a.b||"?");
-      add(l,{cls:"choice", html:h});
+      add(slot.lvl,{cls:"choice", html:h});
     });
     return Object.keys(byLevel).map(Number).sort(function(a,b){return a-b;}).map(function(l){ return {title:"Level "+l, tag:cd.name||"", items:byLevel[l]}; });
   }
@@ -758,14 +768,14 @@
     var advCard = el("div",{class:"bcard"},[ el("h2",{text:"Advancement"}) ]);
     var reached = reachedASIs();
     advCard.appendChild(el("div",{class:"bsub",text: state.level<3 ? "Subclass unlocks at level 3." : (reached.length ? "Each ASI: +2 to one ability, +1 to two, or a feat." : "First Ability Score Improvement comes at level 4.")}));
-    reached.forEach(function(l){
-      if(!state.asis[l]) state.asis[l]=asiDefault();
-      var a=state.asis[l], detail;
+    reached.forEach(function(slot){
+      if(!state.asis[slot.key]) state.asis[slot.key]=asiDefault();
+      var a=state.asis[slot.key], detail;
       var modeSel=select(a.mode, [["asi2","+2 one"],["asi11","+1 / +1"],["feat","Feat"]], function(v){ a.mode=v; render(); });
       if(a.mode==="feat") detail=select(a.feat, featOptions(), function(v){ a.feat=v; render(); });
       else if(a.mode==="asi2") detail=select(a.a, ABIL.map(function(k){return [k,ABIL_NAME[k]];}), function(v){ a.a=v; render(); });
       else detail=el("span",{class:"adv-two"},[ select(a.a, ABIL.map(function(k){return [k,k];}), function(v){a.a=v;render();}), select(a.b, ABIL.map(function(k){return [k,k];}), function(v){a.b=v;render();}) ]);
-      advCard.appendChild(el("div",{class:"adv-row"},[ el("span",{class:"adv-lvl",text:"L"+l}), modeSel, detail ]));
+      advCard.appendChild(el("div",{class:"adv-row"},[ el("span",{class:"adv-lvl",text:slot.label.replace("Level ","L")}), modeSel, detail ]));
     });
 
     // derived panel
