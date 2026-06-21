@@ -1,0 +1,744 @@
+{
+  "id": "kaeral_vance",
+  "out": "kaeral_vance.html",
+  "name": "Kaeral Vance",
+  "subtitle": "Human · Fighter · Eldritch Knight · Lvl 4",
+  "title": "Kaeral Vance",
+  "footer": "Eldritch Knight — third-caster spell-blade",
+  "storageKey": "dnd_kaeral_vance",
+  "level": 4,
+  "hitDie": "d10",
+  "proficiencyBonus": 2,
+  "saves": [
+    "STR",
+    "CON"
+  ],
+  "speed": 30,
+  "ac": {
+    "armory": [
+      "chainmail"
+    ],
+    "shield": {
+      "label": "Shield",
+      "bonus": 2,
+      "note": "+2 AC",
+      "default": true
+    },
+    "style": {
+      "label": "Defense",
+      "bonus": 1,
+      "note": "+1 AC while armored",
+      "requiresArmor": true,
+      "default": true
+    }
+  },
+  "hp": {
+    "max": 36
+  },
+  "masteryMax": 3,
+  "masteryDefault": [
+    "longsword",
+    "dagger",
+    "handcrossbow"
+  ],
+  "rest": {
+    "short": [
+      "Spend Hit Dice to heal",
+      "Recover short-rest features"
+    ],
+    "long": [
+      "HP → maximum",
+      "Spell slots → full",
+      "Hit Dice → half restored",
+      "All per-rest features reset"
+    ],
+    "shortToast": "Short rest taken.",
+    "longToast": "Long rest — fully restored."
+  },
+  "studs": [
+    {
+      "ref": "stat_ac",
+      "label": "AC",
+      "id": "acVal"
+    },
+    {
+      "ref": "stat_init",
+      "label": "Init"
+    },
+    {
+      "ref": "stat_speed",
+      "label": "Speed"
+    },
+    {
+      "ref": "stat_prof",
+      "label": "Prof"
+    },
+    {
+      "ref": "stat_pass",
+      "label": "Pass.Per"
+    }
+  ],
+  "weapons": [
+    {
+      "id": "longsword",
+      "carried": true
+    },
+    {
+      "id": "dagger",
+      "carried": true
+    },
+    {
+      "id": "handcrossbow",
+      "carried": true
+    }
+  ],
+  "cards": [
+    {
+      "type": "abilities"
+    },
+    {
+      "type": "hitpoints"
+    },
+    {
+      "type": "attacks"
+    },
+    {
+      "type": "spellcasting"
+    },
+    {
+      "type": "skills"
+    },
+    {
+      "type": "pools",
+      "title": "Resources",
+      "pools": "*"
+    },
+    {
+      "type": "inventory",
+      "items": []
+    },
+    {
+      "type": "features",
+      "title": "Features & Traits",
+      "list": [
+        {
+          "ref": "fightingstyle",
+          "name": "Fighting Style",
+          "sub": "Level 1"
+        },
+        {
+          "ref": "secondwind",
+          "name": "Second Wind",
+          "sub": "Level 1"
+        },
+        {
+          "ref": "weaponmastery",
+          "name": "Weapon Mastery",
+          "sub": "Level 1"
+        },
+        {
+          "ref": "actionsurge",
+          "name": "Action Surge",
+          "sub": "Level 2"
+        },
+        {
+          "ref": "tacticalmind",
+          "name": "Tactical Mind",
+          "sub": "Level 2"
+        },
+        {
+          "ref": "spellcasting",
+          "name": "Spellcasting",
+          "sub": "Eldritch Knight"
+        },
+        {
+          "ref": "warbond",
+          "name": "War Bond",
+          "sub": "Eldritch Knight"
+        },
+        {
+          "ref": "skillful",
+          "name": "Skillful",
+          "sub": "Human"
+        },
+        {
+          "ref": "resourceful",
+          "name": "Resourceful",
+          "sub": "Human"
+        },
+        {
+          "ref": "versatile",
+          "name": "Versatile",
+          "sub": "Human"
+        },
+        {
+          "ref": "guard",
+          "name": "Background: Guard",
+          "sub": ""
+        },
+        {
+          "ref": "alert",
+          "name": "Alert",
+          "sub": "Guard origin feat"
+        },
+        {
+          "ref": "alert",
+          "name": "Alert",
+          "sub": "Level 4 feat"
+        }
+      ]
+    },
+    {
+      "type": "buildlog",
+      "title": "Build Log",
+      "hint": "every choice, level by level",
+      "levels": [
+        {
+          "title": "Level 1",
+          "tag": "Fighter",
+          "items": [
+            {
+              "html": "<b>Fighting Style</b> — You gain a Fighting Style feat of your choice (Defense, Dueling, Archery, Great Weapon Fighting, etc.) — record it on your sheet."
+            },
+            {
+              "html": "<b>Second Wind</b> — As a Bonus Action, regain 1d10 + your fighter level hit points. Regain your uses on a short or long rest."
+            },
+            {
+              "html": "<b>Weapon Mastery</b> — You can use the mastery property of three kinds of weapons of your choice; change the choices after a long rest. Pick them in the Weapon Mastery panel."
+            },
+            {
+              "html": "<b>Species: Human</b> — Skillful, Resourceful, Versatile · Speed 30"
+            },
+            {
+              "html": "<b>Ability scores:</b> Str 17, Dex 13, Con 14, Int 12, Wis 11, Cha 8 <span class=\"tag\">(background +2 STR / +1 WIS)</span>"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Background: Guard</b> — Origin feat Alert"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Skills (Fighter, choose 2):</b> Athletics, Perception"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Fighting Style:</b> Defense"
+            }
+          ]
+        },
+        {
+          "title": "Level 2",
+          "tag": "Fighter",
+          "items": [
+            {
+              "html": "<b>Action Surge</b> — On your turn, take one additional action — most often a second Attack action. Regain it on a short or long rest."
+            },
+            {
+              "html": "<b>Tactical Mind</b> — When you fail an ability check, you can expend a use of Second Wind to add 1d10 to the check. If it still fails, you don't lose the Second Wind use."
+            }
+          ]
+        },
+        {
+          "title": "Level 3",
+          "tag": "Fighter",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Subclass:</b> Eldritch Knight"
+            },
+            {
+              "html": "<b>Spellcasting</b> — You learn wizard spells, using Intelligence as your spellcasting ability. At level 3 you know two cantrips and three 1st-level spells, mostly from the Abjuration and Evocation schools."
+            },
+            {
+              "html": "<b>War Bond</b> — You can bond with up to two weapons over a 1-hour ritual during a Short or Long Rest; you can bond with only two at a time and a third bond breaks the oldest."
+            }
+          ]
+        },
+        {
+          "title": "Level 4",
+          "tag": "Fighter",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Feat:</b> Alert"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "build": {
+    "species": "human",
+    "background": "guard",
+    "classes": [
+      {
+        "class": "fighter",
+        "subclass": "eldritch-knight",
+        "level": 4
+      }
+    ],
+    "abilities": {
+      "STR": 15,
+      "DEX": 13,
+      "CON": 14,
+      "INT": 12,
+      "WIS": 10,
+      "CHA": 8
+    },
+    "sources": [
+      {
+        "id": "guard",
+        "name": "Background: Guard",
+        "include": "background:guard"
+      },
+      {
+        "id": "fighter-skills",
+        "name": "Fighter skills",
+        "effects": {
+          "skills": [
+            "Athletics",
+            "Perception"
+          ]
+        }
+      },
+      {
+        "id": "languages",
+        "name": "Languages",
+        "effects": {
+          "language": [
+            "Common",
+            "Draconic"
+          ]
+        }
+      },
+      {
+        "id": "skillful",
+        "name": "Human: Skillful",
+        "include": "species:human:skillful"
+      },
+      {
+        "id": "resourceful",
+        "name": "Human: Resourceful",
+        "include": "species:human:resourceful"
+      },
+      {
+        "id": "versatile",
+        "name": "Human: Versatile",
+        "include": "species:human:versatile"
+      },
+      {
+        "id": "fightingstyle",
+        "name": "Fighter: Fighting Style",
+        "include": "class:fighter:Fighting Style"
+      },
+      {
+        "id": "secondwind",
+        "name": "Fighter: Second Wind",
+        "include": "class:fighter:Second Wind"
+      },
+      {
+        "id": "weaponmastery",
+        "name": "Fighter: Weapon Mastery",
+        "include": "class:fighter:Weapon Mastery"
+      },
+      {
+        "id": "actionsurge",
+        "name": "Fighter: Action Surge",
+        "include": "class:fighter:Action Surge"
+      },
+      {
+        "id": "tacticalmind",
+        "name": "Fighter: Tactical Mind",
+        "include": "class:fighter:Tactical Mind"
+      },
+      {
+        "id": "sw",
+        "name": "Second Wind",
+        "effects": {
+          "grantsPool": {
+            "id": "sw",
+            "label": "Second Wind",
+            "max": 3,
+            "rest": "short",
+            "ref": "secondwind",
+            "storm": true,
+            "note": "short rest",
+            "use": "Use Second Wind",
+            "reminder": "Second Wind: roll 1d10 + your fighter level, then add it with Heal."
+          }
+        }
+      },
+      {
+        "id": "as",
+        "name": "Action Surge",
+        "effects": {
+          "grantsPool": {
+            "id": "as",
+            "label": "Action Surge",
+            "max": 1,
+            "rest": "short",
+            "ref": "actionsurge",
+            "storm": false,
+            "note": "short rest",
+            "use": "Use",
+            "reminder": "Action Surge — take one extra action this turn."
+          }
+        }
+      },
+      {
+        "id": "fighting-style",
+        "name": "Fighting Style: Defense",
+        "refId": "fightingstyle",
+        "ref": {
+          "title": "Fighting Style: Defense",
+          "chips": [
+            {
+              "t": "Combat feat"
+            }
+          ],
+          "body": [
+            "+1 AC while wearing armor."
+          ]
+        }
+      },
+      {
+        "id": "spellcasting",
+        "name": "Eldritch Knight: Spellcasting",
+        "effects": {
+          "spellcasting": {
+            "ability": "INT",
+            "progression": "third",
+            "list": "wizard",
+            "schools": [
+              "abjuration",
+              "evocation"
+            ],
+            "cantripsKnown": [
+              0,
+              0,
+              0,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "preparedKnown": [
+              0,
+              0,
+              0,
+              3,
+              4,
+              4,
+              4,
+              5,
+              6,
+              6,
+              7,
+              8,
+              8,
+              9,
+              10,
+              10,
+              11,
+              11,
+              11,
+              12,
+              13
+            ],
+            "anySchool": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              4
+            ]
+          }
+        },
+        "ref": {
+          "title": "Spellcasting",
+          "chips": [
+            {
+              "t": "Intelligence",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You learn wizard spells, using Intelligence as your spellcasting ability. At level 3 you know two cantrips and three 1st-level spells, mostly from the Abjuration and Evocation schools.",
+            "You prepare spells from those you know and cast them using Intelligence (spell save DC = 8 + Int modifier + Proficiency Bonus). You can cast prepared spells as rituals if they have the Ritual tag and you have them in hand."
+          ]
+        },
+        "refId": "spellcasting"
+      },
+      {
+        "id": "warbond",
+        "name": "Eldritch Knight: War Bond",
+        "ref": {
+          "title": "War Bond",
+          "body": [
+            "You can bond with up to two weapons over a 1-hour ritual during a Short or Long Rest; you can bond with only two at a time and a third bond breaks the oldest.",
+            "While a bonded weapon is on the same plane, you can summon it to your hand as a Bonus Action. You can't be disarmed of a bonded weapon unless you have the Incapacitated condition."
+          ]
+        },
+        "refId": "warbond"
+      },
+      {
+        "id": "asi-4",
+        "name": "Level 4 feat: Alert",
+        "grantsFeat": "alert"
+      },
+      {
+        "id": "spellcasting",
+        "name": "Spellcasting",
+        "effects": {
+          "spellcasting": {
+            "ability": "INT",
+            "slots": [
+              {
+                "id": "slot1",
+                "label": "Level 1 Slots",
+                "max": 3,
+                "rest": "long",
+                "ref": "spellslots1",
+                "storm": true,
+                "note": "long rest",
+                "use": "Spend a slot",
+                "reminder": "Spend a 1st-level spell slot.",
+                "slotLevel": 1
+              }
+            ],
+            "cantrips": [
+              {
+                "ref": "firebolt",
+                "name": "Fire Bolt",
+                "sub": "To hit: d20 +3   ·   1d10 fire"
+              },
+              {
+                "ref": "minorillusion",
+                "name": "Minor Illusion",
+                "sub": "cantrip"
+              }
+            ],
+            "prepared": {
+              "max": 4,
+              "default": [
+                "shield",
+                "magicmissile",
+                "thunderwave",
+                "charmperson"
+              ],
+              "catalog": [
+                {
+                  "id": "alarm",
+                  "name": "Alarm",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "burninghands",
+                  "name": "Burning Hands",
+                  "note": "Dex save DC 11 · 3d6 fire",
+                  "level": 1
+                },
+                {
+                  "id": "charmperson",
+                  "name": "Charm Person",
+                  "note": "Wis save DC 11",
+                  "level": 1
+                },
+                {
+                  "id": "colorspray",
+                  "name": "Color Spray",
+                  "note": "6d10 HP of creatures blinded",
+                  "level": 1
+                },
+                {
+                  "id": "comprehendlanguages",
+                  "name": "Comprehend Languages",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "detectmagic",
+                  "name": "Detect Magic",
+                  "note": "level 1 · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "disguiseself",
+                  "name": "Disguise Self",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "expeditiousretreat",
+                  "name": "Expeditious Retreat",
+                  "note": "level 1 · Conc.",
+                  "level": 1,
+                  "cast": "Bonus Action"
+                },
+                {
+                  "id": "falselife",
+                  "name": "False Life",
+                  "note": "temp HP 2d4 +4 +1",
+                  "level": 1
+                },
+                {
+                  "id": "featherfall",
+                  "name": "Feather Fall",
+                  "note": "level 1",
+                  "level": 1,
+                  "cast": "Reaction"
+                },
+                {
+                  "id": "findfamiliar",
+                  "name": "Find Familiar",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "floatingdisk",
+                  "name": "Floating Disk",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "fogcloud",
+                  "name": "Fog Cloud",
+                  "note": "level 1 · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "grease",
+                  "name": "Grease",
+                  "note": "Dex save DC 11 or fall prone",
+                  "level": 1
+                },
+                {
+                  "id": "hideouslaughter",
+                  "name": "Hideous Laughter",
+                  "note": "Wis save DC 11 · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "identify",
+                  "name": "Identify",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "illusoryscript",
+                  "name": "Illusory Script",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "jump",
+                  "name": "Jump",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "longstrider",
+                  "name": "Longstrider",
+                  "note": "+10 ft Speed",
+                  "level": 1
+                },
+                {
+                  "id": "magearmor",
+                  "name": "Mage Armor",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "magicmissile",
+                  "name": "Magic Missile",
+                  "note": "3 × 1d4+1 force",
+                  "level": 1
+                },
+                {
+                  "id": "protectionfromevilandgood",
+                  "name": "Protection from Evil and Good",
+                  "note": "level 1 · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "rayofsickness",
+                  "name": "Ray of Sickness",
+                  "note": "To hit: d20 +3 · 2d8 poison",
+                  "level": 1
+                },
+                {
+                  "id": "shield",
+                  "name": "Shield",
+                  "note": "level 1",
+                  "level": 1,
+                  "cast": "Reaction"
+                },
+                {
+                  "id": "silentimage",
+                  "name": "Silent Image",
+                  "note": "level 1 · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "sleep",
+                  "name": "Sleep",
+                  "note": "5d8 HP of creatures · Conc.",
+                  "level": 1
+                },
+                {
+                  "id": "thunderwave",
+                  "name": "Thunderwave",
+                  "note": "Con save DC 11 · 2d8 thunder",
+                  "level": 1
+                },
+                {
+                  "id": "unseenservant",
+                  "name": "Unseen Servant",
+                  "note": "level 1",
+                  "level": 1
+                },
+                {
+                  "id": "witchbolt",
+                  "name": "Witch Bolt",
+                  "note": "To hit: d20 +3 · 1d12 lightning · Conc.",
+                  "level": 1
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

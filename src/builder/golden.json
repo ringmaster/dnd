@@ -999,5 +999,296 @@
       ],
       "prepared": true
     }
+  },
+  "Kaeral Vance": {
+    "abilities": {
+      "STR": 17,
+      "DEX": 13,
+      "CON": 14,
+      "INT": 12,
+      "WIS": 11,
+      "CHA": 8
+    },
+    "skillProf": [
+      "Athletics",
+      "Perception"
+    ],
+    "skillExp": [],
+    "checkMods": {},
+    "initiativeBonus": 4,
+    "always": [],
+    "tools": [
+      "Gaming Set"
+    ],
+    "languages": {
+      "known": [
+        "Common",
+        "Draconic"
+      ],
+      "choices": 0
+    },
+    "pools": {
+      "insp": {
+        "label": "Heroic Inspiration",
+        "max": 1,
+        "rest": "long",
+        "ref": "inspiration",
+        "storm": true,
+        "note": "after a long rest",
+        "use": "Spend Inspiration",
+        "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
+      },
+      "sw": {
+        "label": "Second Wind",
+        "max": 3,
+        "rest": "short",
+        "ref": "secondwind",
+        "storm": true,
+        "note": "short rest",
+        "use": "Use Second Wind",
+        "reminder": "Second Wind: roll 1d10 + your fighter level, then add it with Heal."
+      },
+      "as": {
+        "label": "Action Surge",
+        "max": 1,
+        "rest": "short",
+        "ref": "actionsurge",
+        "storm": false,
+        "note": "short rest",
+        "use": "Use",
+        "reminder": "Action Surge — take one extra action this turn."
+      },
+      "slot1": {
+        "label": "Level 1 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots1",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 1st-level spell slot.",
+        "slotLevel": 1
+      },
+      "hd": {
+        "label": "Hit Dice",
+        "max": 4,
+        "rest": "long",
+        "ref": "hitdice",
+        "storm": false,
+        "note": "1d10+2 · short rest",
+        "use": "Use",
+        "reminder": "Hit Die: roll 1d10+2, then add it with Heal."
+      }
+    },
+    "spellcasting": {
+      "ability": "INT"
+    },
+    "prepared": {
+      "max": 4,
+      "default": [
+        "shield",
+        "magicmissile",
+        "thunderwave",
+        "charmperson"
+      ],
+      "catalog": [
+        {
+          "id": "alarm",
+          "name": "Alarm",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "burninghands",
+          "name": "Burning Hands",
+          "note": "Dex save DC 11 · 3d6 fire",
+          "level": 1
+        },
+        {
+          "id": "charmperson",
+          "name": "Charm Person",
+          "note": "Wis save DC 11",
+          "level": 1
+        },
+        {
+          "id": "colorspray",
+          "name": "Color Spray",
+          "note": "6d10 HP of creatures blinded",
+          "level": 1
+        },
+        {
+          "id": "comprehendlanguages",
+          "name": "Comprehend Languages",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "detectmagic",
+          "name": "Detect Magic",
+          "note": "level 1 · Conc.",
+          "level": 1
+        },
+        {
+          "id": "disguiseself",
+          "name": "Disguise Self",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "expeditiousretreat",
+          "name": "Expeditious Retreat",
+          "note": "level 1 · Conc.",
+          "level": 1,
+          "cast": "Bonus Action"
+        },
+        {
+          "id": "falselife",
+          "name": "False Life",
+          "note": "temp HP 2d4 +4 +1",
+          "level": 1
+        },
+        {
+          "id": "featherfall",
+          "name": "Feather Fall",
+          "note": "level 1",
+          "level": 1,
+          "cast": "Reaction"
+        },
+        {
+          "id": "findfamiliar",
+          "name": "Find Familiar",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "floatingdisk",
+          "name": "Floating Disk",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "fogcloud",
+          "name": "Fog Cloud",
+          "note": "level 1 · Conc.",
+          "level": 1
+        },
+        {
+          "id": "grease",
+          "name": "Grease",
+          "note": "Dex save DC 11 or fall prone",
+          "level": 1
+        },
+        {
+          "id": "hideouslaughter",
+          "name": "Hideous Laughter",
+          "note": "Wis save DC 11 · Conc.",
+          "level": 1
+        },
+        {
+          "id": "identify",
+          "name": "Identify",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "illusoryscript",
+          "name": "Illusory Script",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "jump",
+          "name": "Jump",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "longstrider",
+          "name": "Longstrider",
+          "note": "+10 ft Speed",
+          "level": 1
+        },
+        {
+          "id": "magearmor",
+          "name": "Mage Armor",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "magicmissile",
+          "name": "Magic Missile",
+          "note": "3 × 1d4+1 force",
+          "level": 1
+        },
+        {
+          "id": "protectionfromevilandgood",
+          "name": "Protection from Evil and Good",
+          "note": "level 1 · Conc.",
+          "level": 1
+        },
+        {
+          "id": "rayofsickness",
+          "name": "Ray of Sickness",
+          "note": "To hit: d20 +3 · 2d8 poison",
+          "level": 1
+        },
+        {
+          "id": "shield",
+          "name": "Shield",
+          "note": "level 1",
+          "level": 1,
+          "cast": "Reaction"
+        },
+        {
+          "id": "silentimage",
+          "name": "Silent Image",
+          "note": "level 1 · Conc.",
+          "level": 1
+        },
+        {
+          "id": "sleep",
+          "name": "Sleep",
+          "note": "5d8 HP of creatures · Conc.",
+          "level": 1
+        },
+        {
+          "id": "thunderwave",
+          "name": "Thunderwave",
+          "note": "Con save DC 11 · 2d8 thunder",
+          "level": 1
+        },
+        {
+          "id": "unseenservant",
+          "name": "Unseen Servant",
+          "note": "level 1",
+          "level": 1
+        },
+        {
+          "id": "witchbolt",
+          "name": "Witch Bolt",
+          "note": "To hit: d20 +3 · 1d12 lightning · Conc.",
+          "level": 1
+        }
+      ]
+    },
+    "spellcastingCard": {
+      "type": "spellcasting",
+      "slotPools": [
+        "slot1"
+      ],
+      "cantrips": [
+        {
+          "ref": "firebolt",
+          "name": "Fire Bolt",
+          "sub": "To hit: d20 +3   ·   1d10 fire"
+        },
+        {
+          "ref": "minorillusion",
+          "name": "Minor Illusion",
+          "sub": "cantrip"
+        }
+      ],
+      "prepared": true
+    }
   }
 }

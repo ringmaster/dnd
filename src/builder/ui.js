@@ -570,7 +570,7 @@
     var hr = hitRiderData(), cmn = checkModNote();
     var ch = {
       id: slug, out: slug+".html", name: state.name,
-      subtitle: ((CAT.species[state.species]||{}).name||"")+" · "+(state.classes.length>1 ? state.classes.map(function(cl){ return ((CAT.classes[cl.cls]||{}).name||cl.cls)+" "+cl.level; }).join(" / ") : ((CAT.classes[state.cls]||{}).name||state.cls))+" · Lvl "+state.level,
+      subtitle: ((CAT.species[state.species]||{}).name||"")+" · "+(state.classes.length>1 ? state.classes.map(function(cl){ return ((CAT.classes[cl.cls]||{}).name||cl.cls)+" "+cl.level; }).join(" / ") : (((CAT.classes[state.cls]||{}).name||state.cls)+(state.subclass&&CAT.subclasses[state.subclass] ? " · "+CAT.subclasses[state.subclass].name : "")))+" · Lvl "+state.level,
       portrait: slug+".png",
       title: state.name, footer: "Built with the character builder",
       storageKey: "dnd_"+slug, level: state.level, hitDie: d.hitDie,
