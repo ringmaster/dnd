@@ -152,7 +152,7 @@
     d.initiative = d.mods.DEX + (hasFeat("alert")?pb:0);
     var perProf = !!grantedSkills()["Perception"];
     d.passivePer = 10 + d.mods.WIS + (perProf?pb:0);
-    var sctx=casterCtx(); if(sctx && sctx.cd.spellAbility){ var sm=d.mods[sctx.cd.spellAbility]; d.spellDC=8+pb+sm; d.spellAtk=pb+sm; d.spellAbility=sctx.cd.spellAbility; }
+    var sp=primaryCaster(); if(sp && sp.ability){ var sm=d.mods[sp.ability]; d.spellDC=8+pb+sm; d.spellAtk=pb+sm; d.spellAbility=sp.ability; }
     d.speed = SPEED[state.species] || 30;
     d.hitDie = cd.hitDie || "d8";   // primary class hit die (single-class shorthand)
     return d;
@@ -174,23 +174,42 @@
   var FULL_SLOTS={1:[2],2:[3],3:[4,2],4:[4,3],5:[4,3,2],6:[4,3,3],7:[4,3,3,1],8:[4,3,3,2],9:[4,3,3,3,1],10:[4,3,3,3,2],11:[4,3,3,3,2,1],12:[4,3,3,3,2,1],13:[4,3,3,3,2,1,1],14:[4,3,3,3,2,1,1],15:[4,3,3,3,2,1,1,1],16:[4,3,3,3,2,1,1,1],17:[4,3,3,3,2,1,1,1,1],18:[4,3,3,3,3,1,1,1,1],19:[4,3,3,3,3,2,1,1,1],20:[4,3,3,3,3,2,2,1,1]};
   /* Warlock Pact Magic: {n: slot count, lvl: slot level} — every slot is the same level, recharged on a short rest. */
   var PACT_SLOTS={1:{n:1,lvl:1},2:{n:2,lvl:1},3:{n:2,lvl:2},4:{n:2,lvl:2},5:{n:2,lvl:3},6:{n:2,lvl:3},7:{n:2,lvl:4},8:{n:2,lvl:4},9:{n:2,lvl:5},10:{n:2,lvl:5},11:{n:3,lvl:5},12:{n:3,lvl:5},13:{n:3,lvl:5},14:{n:3,lvl:5},15:{n:3,lvl:5},16:{n:3,lvl:5},17:{n:4,lvl:5},18:{n:4,lvl:5},19:{n:4,lvl:5},20:{n:4,lvl:5}};
+  /* Third-caster slots (Eldritch Knight / Arcane Trickster), indexed by that class's level (none before 3). */
+  var THIRD_SLOTS={3:[2],4:[3],5:[3],6:[3],7:[4,2],8:[4,2],9:[4,2],10:[4,3],11:[4,3],12:[4,3],13:[4,3,2],14:[4,3,2],15:[4,3,2],16:[4,3,3],17:[4,3,3],18:[4,3,3],19:[4,3,3,1],20:[4,3,3,1]};
   function ordinalB(n){ var s=["th","st","nd","rd"],v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
   /* the (first) spellcasting class — for spell ability, cantrips, prepared list */
-  function casterCtx(){ for(var i=0;i<state.classes.length;i++){ var cl=state.classes[i], cd=CAT.classes[cl.cls]||{}; if(cd.spellAbility && cd.caster && cd.caster!=="none") return {cls:cl.cls, lvl:cl.level, cd:cd}; } return null; }
-  /* multiclass spellcaster level: full = level, half = floor(level/2), third = floor(level/3) */
-  function combinedCasterLevel(){ var t=0; state.classes.forEach(function(cl){ var cd=CAT.classes[cl.cls]||{}; if(cd.caster==="full") t+=cl.level; else if(cd.caster==="half") t+=Math.floor(cl.level/2); else if(cd.caster==="third") t+=Math.floor(cl.level/3); }); return t; }
+  /* Spellcasting is granted by features, not by the base class: every reached class feature OR
+     subclass grant that declares effects.spellcasting contributes a source. Each carries the class
+     level it scales with (full=lvl, half=lvl/2, third=lvl/3; pact is tracked separately). This is
+     what lets a subclass (Eldritch Knight, Arcane Trickster) add third-caster spellcasting. */
+  function casterSources(){
+    var out=[];
+    state.classes.forEach(function(cl){
+      var cf=(CAT.classFeatures||{})[cl.cls]||{};
+      for(var name in cf){ var sc=cf[name].effects&&cf[name].effects.spellcasting; if(sc && clsReached(name, cl)) out.push({cls:cl.cls, level:cl.level, sc:sc, feature:name}); }
+      var scLvl=(CAT.classes[cl.cls]||{}).subclassLevel||3;
+      if(cl.level>=scLvl && cl.subclass){ (((CAT.subclasses[cl.subclass]||{}).grants)||[]).forEach(function(g){ if(g.effects&&g.effects.spellcasting) out.push({cls:cl.cls, level:cl.level, sc:g.effects.spellcasting, feature:g.name}); }); }
+    });
+    return out;
+  }
+  /* the primary spellcasting source — drives spell ability, the cantrip/prepared pickers, and the spell list */
+  function primaryCaster(){ var s=casterSources(); if(!s.length) return null; var x=s[0]; return {cls:x.cls, level:x.level, ability:x.sc.ability, progression:x.sc.progression, list:x.sc.list, sc:x.sc}; }
+  /* multiclass spellcaster level: full = level, half = floor(level/2), third = floor(level/3); pact is separate */
+  function combinedCasterLevel(){ var t=0; casterSources().forEach(function(s){ var p=s.sc.progression; if(p==="full") t+=s.level; else if(p==="half") t+=Math.floor(s.level/2); else if(p==="third") t+=Math.floor(s.level/3); }); return t; }
+  function slotObj(lvl,n){ return {id:"slot"+lvl,label:"Level "+lvl+" Slots",max:n,rest:"long",ref:"spellslots"+lvl,storm:true,note:"long rest",use:"Spend a slot",reminder:"Spend a "+ordinalB(lvl)+"-level spell slot.",slotLevel:lvl}; }
+  function pactObj(pm){ return {id:"slot"+pm.lvl,label:"Pact Magic (Lvl "+pm.lvl+")",max:pm.n,rest:"short",ref:"spellslots"+pm.lvl,storm:true,note:"short rest",use:"Spend a slot",reminder:"Spend a "+ordinalB(pm.lvl)+"-level Pact Magic slot (recovers on a short rest).",slotLevel:pm.lvl}; }
   function spellSlotsFor(){
-    var ctx=casterCtx(); if(!ctx) return null;
-    var counts;
-    // Warlock Pact Magic (single-class): a few slots, all the same level, recovered on a short rest.
-    if(state.classes.length===1 && ctx.cd.caster==="pact"){
-      var pm=PACT_SLOTS[Math.min(ctx.lvl,20)]; if(!pm) return null;
-      return [{id:"slot"+pm.lvl,label:"Pact Magic (Lvl "+pm.lvl+")",max:pm.n,rest:"short",ref:"spellslots"+pm.lvl,storm:true,note:"short rest",use:"Spend a slot",reminder:"Spend a "+ordinalB(pm.lvl)+"-level Pact Magic slot (recovers on a short rest).",slotLevel:pm.lvl}];
+    var srcs=casterSources(); if(!srcs.length) return null;
+    var regular=srcs.filter(function(s){return s.sc.progression!=="pact";}), pacts=srcs.filter(function(s){return s.sc.progression==="pact";});
+    var pools=[];
+    if(regular.length===1 && !pacts.length){
+      var s=regular[0], table=s.sc.progression==="full"?FULL_SLOTS:s.sc.progression==="half"?HALF_SLOTS:s.sc.progression==="third"?THIRD_SLOTS:null;
+      if(table) (table[Math.min(s.level,20)]||[]).forEach(function(n,i){ pools.push(slotObj(i+1,n)); });
+    } else if(regular.length){                                   // multiclass: combine into the full-caster slot table
+      (FULL_SLOTS[Math.min(combinedCasterLevel(),20)]||[]).forEach(function(n,i){ pools.push(slotObj(i+1,n)); });
     }
-    if(state.classes.length>1){ counts=FULL_SLOTS[Math.min(combinedCasterLevel(),20)]||[]; }          // multiclass slot table
-    else { var table=ctx.cd.caster==="full"?FULL_SLOTS:ctx.cd.caster==="half"?HALF_SLOTS:null; if(!table) return null; counts=table[Math.min(ctx.lvl,20)]||[]; }
-    if(!counts.length) return null;
-    return counts.map(function(n,i){ var lvl=i+1; return {id:"slot"+lvl,label:"Level "+lvl+" Slots",max:n,rest:"long",ref:"spellslots"+lvl,storm:true,note:"long rest",use:"Spend a slot",reminder:"Spend a "+ordinalB(lvl)+"-level spell slot.",slotLevel:lvl}; });
+    pacts.forEach(function(s){ var pm=PACT_SLOTS[Math.min(s.level,20)]; if(pm) pools.push(pactObj(pm)); });   // pact magic stays separate
+    return pools.length?pools:null;
   }
   /* spells known/prepared by class + level */
   var PREP_FULL=[0,4,5,6,7,9,10,11,12,14,15,16,16,17,18,19,21,22,23,24,25];
@@ -202,16 +221,19 @@
     druid:function(l){return l>=10?4:(l>=4?3:2);}, sorcerer:function(l){return l>=10?6:(l>=4?5:4);},
     warlock:function(l){return l>=10?4:(l>=4?3:2);}, wizard:function(l){return l>=10?5:(l>=4?4:3);}
   };
-  function cantripsKnown(){ var ctx=casterCtx(); if(!ctx) return 0; var fn=CANTRIPS_KNOWN[ctx.cls], n=fn?fn(ctx.lvl):0; if(state.choices.order==="thaumaturge") n+=1; return n; }
-  function preparedCount(){ var ctx=casterCtx(); if(!ctx) return 0; var c=ctx.cd.caster, t=c==="full"?PREP_FULL:(c==="half"?PREP_HALF:(c==="pact"?PREP_PACT:null)); return t?t[Math.min(ctx.lvl,20)]:0; }
+  function cantripsKnown(){ var p=primaryCaster(); if(!p) return 0; var n; if(p.sc.cantripsKnown) n=p.sc.cantripsKnown[Math.min(p.level,20)]||0; else { var fn=CANTRIPS_KNOWN[p.list]; n=fn?fn(p.level):0; } if(state.choices.order==="thaumaturge") n+=1; return n; }
+  function preparedCount(){ var p=primaryCaster(); if(!p) return 0; if(p.sc.preparedKnown) return p.sc.preparedKnown[Math.min(p.level,20)]||0; var c=p.progression, t=c==="full"?PREP_FULL:(c==="half"?PREP_HALF:(c==="pact"?PREP_PACT:null)); return t?t[Math.min(p.level,20)]:0; }
   function maxSpellLevel(){ var s=spellSlotsFor()||[]; return s.reduce(function(m,p){ return Math.max(m, p.slotLevel||0); }, 0); }
-  function classCantrips(){ var ctx=casterCtx(); if(!ctx) return []; return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level===0 && (s.classes||[]).indexOf(ctx.cls)>=0; }).sort(); }
-  function classLeveledSpells(){ var ctx=casterCtx(); if(!ctx) return []; var mx=maxSpellLevel(); return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level>=1 && s.level<=mx && (s.classes||[]).indexOf(ctx.cls)>=0; }).sort(function(a,b){ var s=CAT.spells; return s[a].level-s[b].level || (s[a].name<s[b].name?-1:1); }); }
-  function spellSub(reg){ var d=derive(), ctx=casterCtx(), ab=ctx?ctx.cd.spellAbility:null, mod=ab?d.mods[ab]:0; var sg=function(n){return (n>=0?"+":"")+n;};
+  function classCantrips(){ var p=primaryCaster(); if(!p) return []; return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level===0 && (s.classes||[]).indexOf(p.list)>=0; }).sort(); }
+  /* leveled spells the caster may prepare: from its spell list, within slot range, and (for restricted
+     casters like Eldritch Knight / Arcane Trickster) limited to the allowed schools of magic */
+  function classLeveledSpells(){ var p=primaryCaster(); if(!p) return []; var mx=maxSpellLevel(); var sch=null; if(p.sc.schools){ sch={}; p.sc.schools.forEach(function(x){ sch[x]=1; }); }
+    return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; if(s.level<1||s.level>mx) return false; if((s.classes||[]).indexOf(p.list)<0) return false; if(sch && s.school && !sch[s.school]) return false; return true; }).sort(function(a,b){ var s=CAT.spells; return s[a].level-s[b].level || (s[a].name<s[b].name?-1:1); }); }
+  function spellSub(reg){ var d=derive(), p=primaryCaster(), ab=p?p.ability:null, mod=ab?d.mods[ab]:0; var sg=function(n){return (n>=0?"+":"")+n;};
     var s=reg.dice?String(reg.dice).replace(/\{dc\}/g,d.spellDC).replace(/\{atk\}/g,sg(d.spellAtk)).replace(/\{mod\}/g,sg(mod)):"";
     return (s || (reg.level===0?"cantrip":"level "+reg.level))+(reg.concentration?" · Conc.":""); }
   function spellEntries(){
-    var ctx=casterCtx(); var sc={ ability:ctx?ctx.cd.spellAbility:undefined };
+    var p=primaryCaster(); var sc={ ability:p?p.ability:undefined };
     var slots=spellSlotsFor(); if(slots) sc.slots=slots;
     if(state.cantrips.length) sc.cantrips=state.cantrips.map(function(id){ return { ref:id, name:CAT.spells[id].name, sub:spellSub(CAT.spells[id]) }; });
     var pc=preparedCount();
@@ -446,8 +468,8 @@
     if(sp) Object.keys(sp.traits).forEach(function(tr){ var src={ id:tr, name:(sp.name+": "+sp.traits[tr].name), include:"species:"+state.species+":"+tr };
       if(sp.traits[tr].grantsSkill && state.choices.skillful) src.effects={ skills:[state.choices.skillful] };   // Human Skillful's chosen skill
       sources.push(src); });
-    // class spellcasting (slots + chosen cantrips/prepared) + class features up to level
-    if(casterCtx() && spellSlotsFor()) sources.push({ id:"spellcasting", name:"Spellcasting", effects:{ spellcasting:spellEntries() } });
+    // class features up to level (their refs/effects; spellcasting features carry only a marker effect
+    // that the builder reads to detect casters — the full block is emitted last so it wins in compile)
     classFeatureSources().forEach(function(s){ sources.push(s); });
     classPoolSources().forEach(function(s){ sources.push(s); });
     // feature sub-choices that grant mechanics (override the generic class-feature ref)
@@ -468,6 +490,10 @@
       else { var inc={}; if(a.mode==="asi2"&&a.a) inc[a.a]=2; else if(a.mode==="asi11"){ if(a.a)inc[a.a]=(inc[a.a]||0)+1; if(a.b)inc[a.b]=(inc[a.b]||0)+1; }
         if(Object.keys(inc).length) sources.push({ id:"asi-"+l, name:slot.label+": Ability Score Improvement", effects:{ abilityIncrease:inc } }); }
     });
+    // The full spellcasting block (slots + chosen cantrips/prepared) is emitted LAST so that, in compile's
+    // last-assignment-wins effect merge, it overrides the marker-only effects.spellcasting on the class
+    // feature / subclass grant that the builder uses to detect casters.
+    if(primaryCaster() && spellSlotsFor()) sources.push({ id:"spellcasting", name:"Spellcasting", effects:{ spellcasting:spellEntries() } });
     return {
       species:state.species, background:state.background,
       classes: state.classes.map(function(c){ return { class:c.cls, subclass:c.subclass||undefined, level:c.level }; }),
@@ -516,7 +542,7 @@
   }
   function genCards(){
     var cd=classData(), cards=[ {type:"abilities"}, {type:"hitpoints"}, {type:"attacks"} ];
-    if(casterCtx()) cards.push({type:"spellcasting"});
+    if(primaryCaster()) cards.push({type:"spellcasting"});
     cards.push({type:"skills"});
     cards.push({type:"pools", title:"Resources", pools:"*"});
     if(eqWeaponIds().length || eqArmorIds().length || eqHasShield() || eqItems().length){
@@ -707,7 +733,7 @@
 
     // spells: cantrips + prepared from the class list (casters only)
     var spellCard=null;
-    if(casterCtx()){
+    if(primaryCaster()){
       spellCard=el("div",{class:"bcard"},[ el("h2",{text:"Spells"}) ]);
       var cKnown=cantripsKnown();
       if(cKnown){

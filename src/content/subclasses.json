@@ -1595,6 +1595,63 @@
             "You learn wizard spells, using Intelligence as your spellcasting ability. At level 3 you know two cantrips and three 1st-level spells, mostly from the Abjuration and Evocation schools.",
             "You prepare spells from those you know and cast them using Intelligence (spell save DC = 8 + Int modifier + Proficiency Bonus). You can cast prepared spells as rituals if they have the Ritual tag and you have them in hand."
           ]
+        },
+        "effects": {
+          "spellcasting": {
+            "ability": "INT",
+            "progression": "third",
+            "list": "wizard",
+            "schools": [
+              "abjuration",
+              "evocation"
+            ],
+            "cantripsKnown": [
+              0,
+              0,
+              0,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "preparedKnown": [
+              0,
+              0,
+              0,
+              3,
+              4,
+              4,
+              4,
+              5,
+              6,
+              6,
+              7,
+              8,
+              8,
+              9,
+              10,
+              10,
+              11,
+              11,
+              11,
+              12,
+              13
+            ]
+          }
         }
       },
       {
@@ -1918,6 +1975,63 @@
             "You learn Wizard spells using Intelligence as your spellcasting ability; your spell save DC is 8 + Intelligence modifier + Proficiency Bonus, and your attack bonus is Intelligence modifier + Proficiency Bonus.",
             "You know three cantrips, including Mage Hand, and prepare a limited number of 1st-level and higher Wizard spells, most of which must be from the Illusion or Enchantment schools."
           ]
+        },
+        "effects": {
+          "spellcasting": {
+            "ability": "INT",
+            "progression": "third",
+            "list": "wizard",
+            "schools": [
+              "illusion",
+              "enchantment"
+            ],
+            "cantripsKnown": [
+              0,
+              0,
+              0,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              3,
+              4,
+              4,
+              4,
+              4,
+              4,
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "preparedKnown": [
+              0,
+              0,
+              0,
+              3,
+              4,
+              4,
+              4,
+              5,
+              6,
+              6,
+              7,
+              8,
+              8,
+              9,
+              10,
+              10,
+              11,
+              11,
+              11,
+              12,
+              13
+            ]
+          }
         }
       },
       {

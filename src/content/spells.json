@@ -18,7 +18,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "chilltouch": {
     "name": "Chill Touch",
@@ -40,7 +41,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "dancinglights": {
     "name": "Dancing Lights",
@@ -62,7 +64,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "druidcraft": {
     "name": "Druidcraft",
@@ -78,7 +81,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "eldritchblast": {
     "name": "Eldritch Blast",
@@ -98,7 +102,8 @@
     ],
     "classes": [
       "warlock"
-    ]
+    ],
+    "school": "evocation"
   },
   "firebolt": {
     "name": "Fire Bolt",
@@ -119,7 +124,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "guidance": {
     "name": "Guidance",
@@ -132,7 +138,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "divination"
   },
   "light": {
     "name": "Light",
@@ -143,7 +150,8 @@
     "classes": [
       "wizard",
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "magehand": {
     "name": "Mage Hand",
@@ -158,7 +166,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "mending": {
     "name": "Mending",
@@ -178,7 +187,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "message": {
     "name": "Message",
@@ -195,7 +205,8 @@
       "wizard",
       "druid",
       "bard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "minorillusion": {
     "name": "Minor Illusion",
@@ -205,7 +216,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "poisonspray": {
     "name": "Poison Spray",
@@ -225,7 +237,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "prestidigitation": {
     "name": "Prestidigitation",
@@ -235,7 +248,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "produceflame": {
     "name": "Produce Flame",
@@ -252,7 +266,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "rayoffrost": {
     "name": "Ray of Frost",
@@ -273,7 +288,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "resistance": {
     "name": "Resistance",
@@ -286,7 +302,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "abjuration"
   },
   "sacredflame": {
     "name": "Sacred Flame",
@@ -306,7 +323,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "shillelagh": {
     "name": "Shillelagh",
@@ -326,7 +344,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "shockinggrasp": {
     "name": "Shocking Grasp",
@@ -347,7 +366,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "sparethedying": {
     "name": "Spare the Dying",
@@ -363,7 +383,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "necromancy"
   },
   "thaumaturgy": {
     "name": "Thaumaturgy",
@@ -378,7 +399,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "transmutation"
   },
   "tollthedead": {
     "name": "Toll the Dead",
@@ -395,7 +417,8 @@
     "classes": [
       "wizard",
       "cleric"
-    ]
+    ],
+    "school": "necromancy"
   },
   "truestrike": {
     "name": "True Strike",
@@ -418,7 +441,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "viciousmockery": {
     "name": "Vicious Mockery",
@@ -438,7 +462,8 @@
     ],
     "classes": [
       "bard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "wordofradiance": {
     "name": "Word of Radiance",
@@ -454,7 +479,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "alarm": {
     "name": "Alarm",
@@ -474,7 +500,8 @@
     "classes": [
       "ranger",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "animalfriendship": {
     "name": "Animal Friendship",
@@ -496,7 +523,8 @@
       "bard",
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "enchantment"
   },
   "bane": {
     "name": "Bane",
@@ -518,7 +546,8 @@
     "classes": [
       "bard",
       "cleric"
-    ]
+    ],
+    "school": "enchantment"
   },
   "bless": {
     "name": "Bless",
@@ -529,7 +558,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "enchantment"
   },
   "burninghands": {
     "name": "Burning Hands",
@@ -547,7 +577,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "charmperson": {
     "name": "Charm Person",
@@ -560,7 +591,8 @@
     "classes": [
       "wizard",
       "druid"
-    ]
+    ],
+    "school": "enchantment"
   },
   "colorspray": {
     "name": "Color Spray",
@@ -578,7 +610,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "command": {
     "name": "Command",
@@ -596,7 +629,8 @@
     "classes": [
       "cleric",
       "paladin"
-    ]
+    ],
+    "school": "enchantment"
   },
   "comprehendlanguages": {
     "name": "Comprehend Languages",
@@ -618,7 +652,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "createordestroywater": {
     "name": "Create or Destroy Water",
@@ -635,7 +670,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "curewounds": {
     "name": "Cure Wounds",
@@ -653,7 +689,8 @@
       "cleric",
       "ranger",
       "druid"
-    ]
+    ],
+    "school": "evocation"
   },
   "detectevilandgood": {
     "name": "Detect Evil and Good",
@@ -674,7 +711,8 @@
     "classes": [
       "cleric",
       "paladin"
-    ]
+    ],
+    "school": "divination"
   },
   "detectmagic": {
     "name": "Detect Magic",
@@ -695,7 +733,8 @@
       "cleric",
       "ranger",
       "druid"
-    ]
+    ],
+    "school": "divination"
   },
   "detectpoisonanddisease": {
     "name": "Detect Poison and Disease",
@@ -718,7 +757,8 @@
       "druid",
       "paladin",
       "ranger"
-    ]
+    ],
+    "school": "divination"
   },
   "disguiseself": {
     "name": "Disguise Self",
@@ -739,7 +779,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "divinefavor": {
     "name": "Divine Favor",
@@ -761,7 +802,8 @@
     "classes": [
       "paladin"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "evocation"
   },
   "ensnaringstrike": {
     "name": "Ensnaring Strike",
@@ -780,7 +822,8 @@
     "classes": [
       "ranger"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "conjuration"
   },
   "entangle": {
     "name": "Entangle",
@@ -794,7 +837,8 @@
     "classes": [
       "ranger",
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "expeditiousretreat": {
     "name": "Expeditious Retreat",
@@ -817,7 +861,8 @@
       "warlock",
       "wizard"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "transmutation"
   },
   "faeriefire": {
     "name": "Faerie Fire",
@@ -830,7 +875,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "evocation"
   },
   "falselife": {
     "name": "False Life",
@@ -848,7 +894,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "featherfall": {
     "name": "Feather Fall",
@@ -865,7 +912,8 @@
     "classes": [
       "wizard"
     ],
-    "cast": "Reaction"
+    "cast": "Reaction",
+    "school": "transmutation"
   },
   "findfamiliar": {
     "name": "Find Familiar",
@@ -884,7 +932,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "floatingdisk": {
     "name": "Floating Disk",
@@ -903,7 +952,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "fogcloud": {
     "name": "Fog Cloud",
@@ -917,7 +967,8 @@
       "wizard",
       "ranger",
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "goodberry": {
     "name": "Goodberry",
@@ -931,7 +982,8 @@
       "ranger",
       "druid"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "conjuration"
   },
   "grease": {
     "name": "Grease",
@@ -951,7 +1003,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "guidingbolt": {
     "name": "Guiding Bolt",
@@ -971,7 +1024,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "healingword": {
     "name": "Healing Word",
@@ -992,7 +1046,8 @@
       "cleric",
       "druid"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "evocation"
   },
   "hellishrebuke": {
     "name": "Hellish Rebuke",
@@ -1013,7 +1068,8 @@
     "classes": [
       "warlock"
     ],
-    "cast": "Reaction"
+    "cast": "Reaction",
+    "school": "evocation"
   },
   "heroism": {
     "name": "Heroism",
@@ -1035,7 +1091,8 @@
     "classes": [
       "bard",
       "paladin"
-    ]
+    ],
+    "school": "enchantment"
   },
   "hideouslaughter": {
     "name": "Hideous Laughter",
@@ -1057,7 +1114,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "huntersmark": {
     "name": "Hunter's Mark",
@@ -1076,7 +1134,8 @@
     "classes": [
       "ranger"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "divination"
   },
   "identify": {
     "name": "Identify",
@@ -1096,7 +1155,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "illusoryscript": {
     "name": "Illusory Script",
@@ -1117,7 +1177,8 @@
       "bard",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "inflictwounds": {
     "name": "Inflict Wounds",
@@ -1134,7 +1195,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "necromancy"
   },
   "jump": {
     "name": "Jump",
@@ -1153,7 +1215,8 @@
       "ranger",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "longstrider": {
     "name": "Longstrider",
@@ -1171,7 +1234,8 @@
       "wizard",
       "ranger",
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "magearmor": {
     "name": "Mage Armor",
@@ -1186,7 +1250,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "magicmissile": {
     "name": "Magic Missile",
@@ -1203,7 +1268,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "protectionfromevilandgood": {
     "name": "Protection from Evil and Good",
@@ -1226,7 +1292,8 @@
       "paladin",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "purifyfoodanddrink": {
     "name": "Purify Food and Drink",
@@ -1247,7 +1314,8 @@
       "cleric",
       "druid",
       "paladin"
-    ]
+    ],
+    "school": "transmutation"
   },
   "rayofsickness": {
     "name": "Ray of Sickness",
@@ -1265,7 +1333,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "sanctuary": {
     "name": "Sanctuary",
@@ -1282,7 +1351,8 @@
     "classes": [
       "cleric"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "abjuration"
   },
   "shield": {
     "name": "Shield",
@@ -1299,7 +1369,8 @@
     "classes": [
       "wizard"
     ],
-    "cast": "Reaction"
+    "cast": "Reaction",
+    "school": "abjuration"
   },
   "shieldoffaith": {
     "name": "Shield of Faith",
@@ -1317,7 +1388,8 @@
     "classes": [
       "cleric"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "abjuration"
   },
   "silentimage": {
     "name": "Silent Image",
@@ -1339,7 +1411,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "sleep": {
     "name": "Sleep",
@@ -1351,7 +1424,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "speakwithanimals": {
     "name": "Speak with Animals",
@@ -1372,7 +1446,8 @@
     "classes": [
       "ranger",
       "druid"
-    ]
+    ],
+    "school": "divination"
   },
   "thunderwave": {
     "name": "Thunderwave",
@@ -1392,7 +1467,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "unseenservant": {
     "name": "Unseen Servant",
@@ -1413,7 +1489,8 @@
       "bard",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "witchbolt": {
     "name": "Witch Bolt",
@@ -1436,7 +1513,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "acidarrow": {
     "name": "Acid Arrow",
@@ -1455,7 +1533,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "aid": {
     "name": "Aid",
@@ -1471,7 +1550,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "abjuration"
   },
   "alterself": {
     "name": "Alter Self",
@@ -1488,7 +1568,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "animalmessenger": {
     "name": "Animal Messenger",
@@ -1508,7 +1589,8 @@
       "bard",
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "enchantment"
   },
   "arcanelock": {
     "name": "Arcane Lock",
@@ -1523,7 +1605,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "augury": {
     "name": "Augury",
@@ -1540,7 +1623,8 @@
     "classes": [
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "barkskin": {
     "name": "Barkskin",
@@ -1557,7 +1641,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "transmutation"
   },
   "blindnessdeafness": {
     "name": "Blindness/Deafness",
@@ -1579,7 +1664,8 @@
       "cleric",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "blur": {
     "name": "Blur",
@@ -1596,7 +1682,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "calmemotions": {
     "name": "Calm Emotions",
@@ -1617,7 +1704,8 @@
     "classes": [
       "bard",
       "cleric"
-    ]
+    ],
+    "school": "enchantment"
   },
   "continualflame": {
     "name": "Continual Flame",
@@ -1633,7 +1721,8 @@
     "classes": [
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "crownofmadness": {
     "name": "Crown of Madness",
@@ -1656,7 +1745,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "darkness": {
     "name": "Darkness",
@@ -1677,7 +1767,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "darkvision": {
     "name": "Darkvision",
@@ -1695,7 +1786,8 @@
       "ranger",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "detectthoughts": {
     "name": "Detect Thoughts",
@@ -1714,7 +1806,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "enhanceability": {
     "name": "Enhance Ability",
@@ -1736,7 +1829,8 @@
       "cleric",
       "druid",
       "sorcerer"
-    ]
+    ],
+    "school": "transmutation"
   },
   "enlargereduce": {
     "name": "Enlarge/Reduce",
@@ -1753,7 +1847,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "enthrall": {
     "name": "Enthrall",
@@ -1773,7 +1868,8 @@
     "classes": [
       "bard",
       "warlock"
-    ]
+    ],
+    "school": "enchantment"
   },
   "findsteed": {
     "name": "Find Steed",
@@ -1791,7 +1887,8 @@
     ],
     "classes": [
       "paladin"
-    ]
+    ],
+    "school": "conjuration"
   },
   "findtraps": {
     "name": "Find Traps",
@@ -1808,7 +1905,8 @@
       "cleric",
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "divination"
   },
   "flamingsphere": {
     "name": "Flaming Sphere",
@@ -1829,7 +1927,8 @@
     "classes": [
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "gentlerepose": {
     "name": "Gentle Repose",
@@ -1848,7 +1947,8 @@
     "classes": [
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "gustofwind": {
     "name": "Gust of Wind",
@@ -1868,7 +1968,8 @@
       "ranger",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "heatmetal": {
     "name": "Heat Metal",
@@ -1889,7 +1990,8 @@
     "classes": [
       "bard",
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "holdperson": {
     "name": "Hold Person",
@@ -1902,7 +2004,8 @@
     "classes": [
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "invisibility": {
     "name": "Invisibility",
@@ -1924,7 +2027,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "knock": {
     "name": "Knock",
@@ -1944,7 +2048,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "lesserrestoration": {
     "name": "Lesser Restoration",
@@ -1960,7 +2065,8 @@
     "classes": [
       "cleric",
       "ranger"
-    ]
+    ],
+    "school": "abjuration"
   },
   "levitate": {
     "name": "Levitate",
@@ -1981,7 +2087,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "locateanimalsorplants": {
     "name": "Locate Animals or Plants",
@@ -1998,7 +2105,8 @@
       "bard",
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "divination"
   },
   "locateobject": {
     "name": "Locate Object",
@@ -2019,7 +2127,8 @@
       "paladin",
       "ranger",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "magicaura": {
     "name": "Magic Aura",
@@ -2034,7 +2143,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "magicmouth": {
     "name": "Magic Mouth",
@@ -2053,7 +2163,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "magicweapon": {
     "name": "Magic Weapon",
@@ -2074,7 +2185,8 @@
       "paladin",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "mirrorimage": {
     "name": "Mirror Image",
@@ -2089,7 +2201,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "mistystep": {
     "name": "Misty Step",
@@ -2105,7 +2218,8 @@
     "classes": [
       "wizard"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "conjuration"
   },
   "moonbeam": {
     "name": "Moonbeam",
@@ -2124,7 +2238,8 @@
       "cleric",
       "druid"
     ],
-    "cast": "Action"
+    "cast": "Action",
+    "school": "evocation"
   },
   "passwithouttrace": {
     "name": "Pass without Trace",
@@ -2141,7 +2256,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "abjuration"
   },
   "prayerofhealing": {
     "name": "Prayer of Healing",
@@ -2157,7 +2273,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "protectionfrompoison": {
     "name": "Protection from Poison",
@@ -2178,7 +2295,8 @@
       "druid",
       "paladin",
       "ranger"
-    ]
+    ],
+    "school": "abjuration"
   },
   "rayofenfeeblement": {
     "name": "Ray of Enfeeblement",
@@ -2199,7 +2317,8 @@
     "classes": [
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "ropetrick": {
     "name": "Rope Trick",
@@ -2217,7 +2336,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "scorchingray": {
     "name": "Scorching Ray",
@@ -2237,7 +2357,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "seeinvisibility": {
     "name": "See Invisibility",
@@ -2254,7 +2375,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "shatter": {
     "name": "Shatter",
@@ -2276,7 +2398,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "silence": {
     "name": "Silence",
@@ -2294,7 +2417,8 @@
     "classes": [
       "cleric",
       "ranger"
-    ]
+    ],
+    "school": "illusion"
   },
   "spiderclimb": {
     "name": "Spider Climb",
@@ -2315,7 +2439,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "spikegrowth": {
     "name": "Spike Growth",
@@ -2335,7 +2460,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "transmutation"
   },
   "spiritualweapon": {
     "name": "Spiritual Weapon",
@@ -2355,7 +2481,8 @@
     "classes": [
       "cleric"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "evocation"
   },
   "suggestion": {
     "name": "Suggestion",
@@ -2378,7 +2505,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "wardingbond": {
     "name": "Warding Bond",
@@ -2396,7 +2524,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "abjuration"
   },
   "web": {
     "name": "Web",
@@ -2408,7 +2537,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "zoneoftruth": {
     "name": "Zone of Truth",
@@ -2429,7 +2559,8 @@
       "bard",
       "cleric",
       "paladin"
-    ]
+    ],
+    "school": "enchantment"
   },
   "animatedead": {
     "name": "Animate Dead",
@@ -2448,7 +2579,8 @@
     "classes": [
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "auraoflife": {
     "name": "Aura of Life",
@@ -2465,7 +2597,8 @@
     "classes": [
       "cleric",
       "paladin"
-    ]
+    ],
+    "school": "abjuration"
   },
   "beaconofhope": {
     "name": "Beacon of Hope",
@@ -2482,7 +2615,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "abjuration"
   },
   "bestowcurse": {
     "name": "Bestow Curse",
@@ -2502,7 +2636,8 @@
       "bard",
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "blink": {
     "name": "Blink",
@@ -2519,7 +2654,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "calllightning": {
     "name": "Call Lightning",
@@ -2540,7 +2676,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "clairvoyance": {
     "name": "Clairvoyance",
@@ -2559,7 +2696,8 @@
       "cleric",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "conjureanimals": {
     "name": "Conjure Animals",
@@ -2579,7 +2717,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "conjuration"
   },
   "counterspell": {
     "name": "Counterspell",
@@ -2598,7 +2737,8 @@
       "warlock",
       "wizard"
     ],
-    "cast": "Reaction"
+    "cast": "Reaction",
+    "school": "abjuration"
   },
   "createfoodandwater": {
     "name": "Create Food and Water",
@@ -2614,7 +2754,8 @@
     "classes": [
       "cleric",
       "paladin"
-    ]
+    ],
+    "school": "conjuration"
   },
   "daylight": {
     "name": "Daylight",
@@ -2630,7 +2771,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "evocation"
   },
   "dispelmagic": {
     "name": "Dispel Magic",
@@ -2647,7 +2789,8 @@
       "cleric",
       "wizard",
       "druid"
-    ]
+    ],
+    "school": "abjuration"
   },
   "fear": {
     "name": "Fear",
@@ -2668,7 +2811,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "feigndeath": {
     "name": "Feign Death",
@@ -2689,7 +2833,8 @@
       "cleric",
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "fireball": {
     "name": "Fireball",
@@ -2710,7 +2855,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "fly": {
     "name": "Fly",
@@ -2729,7 +2875,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "gaseousform": {
     "name": "Gaseous Form",
@@ -2748,7 +2895,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "glyphofwarding": {
     "name": "Glyph of Warding",
@@ -2770,7 +2918,8 @@
       "bard",
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "haste": {
     "name": "Haste",
@@ -2788,7 +2937,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "hypnoticpattern": {
     "name": "Hypnotic Pattern",
@@ -2809,7 +2959,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "lightningbolt": {
     "name": "Lightning Bolt",
@@ -2830,7 +2981,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "magiccircle": {
     "name": "Magic Circle",
@@ -2849,7 +3001,8 @@
       "paladin",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "majorimage": {
     "name": "Major Image",
@@ -2871,7 +3024,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "masshealingword": {
     "name": "Mass Healing Word",
@@ -2889,7 +3043,8 @@
     "classes": [
       "cleric"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "evocation"
   },
   "meldintostone": {
     "name": "Meld into Stone",
@@ -2905,7 +3060,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "nondetection": {
     "name": "Nondetection",
@@ -2923,7 +3079,8 @@
       "bard",
       "ranger",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "phantomsteed": {
     "name": "Phantom Steed",
@@ -2938,7 +3095,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "plantgrowth": {
     "name": "Plant Growth",
@@ -2955,7 +3113,8 @@
       "bard",
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "transmutation"
   },
   "protectionfromenergy": {
     "name": "Protection from Energy",
@@ -2976,7 +3135,8 @@
       "ranger",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "removecurse": {
     "name": "Remove Curse",
@@ -2995,7 +3155,8 @@
       "paladin",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "revivify": {
     "name": "Revivify",
@@ -3014,7 +3175,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "necromancy"
   },
   "sending": {
     "name": "Sending",
@@ -3031,7 +3193,8 @@
       "bard",
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "sleetstorm": {
     "name": "Sleet Storm",
@@ -3051,7 +3214,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "slow": {
     "name": "Slow",
@@ -3070,7 +3234,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "speakwithdead": {
     "name": "Speak with Dead",
@@ -3086,7 +3251,8 @@
     "classes": [
       "bard",
       "cleric"
-    ]
+    ],
+    "school": "necromancy"
   },
   "speakwithplants": {
     "name": "Speak with Plants",
@@ -3103,7 +3269,8 @@
       "bard",
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "transmutation"
   },
   "spiritguardians": {
     "name": "Spirit Guardians",
@@ -3121,7 +3288,8 @@
     "classes": [
       "cleric"
     ],
-    "cast": "Action"
+    "cast": "Action",
+    "school": "conjuration"
   },
   "stinkingcloud": {
     "name": "Stinking Cloud",
@@ -3141,7 +3309,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "tongues": {
     "name": "Tongues",
@@ -3161,7 +3330,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "vampirictouch": {
     "name": "Vampiric Touch",
@@ -3181,7 +3351,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "waterbreathing": {
     "name": "Water Breathing",
@@ -3200,7 +3371,8 @@
       "ranger",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "waterwalk": {
     "name": "Water Walk",
@@ -3219,7 +3391,8 @@
       "druid",
       "ranger",
       "sorcerer"
-    ]
+    ],
+    "school": "transmutation"
   },
   "windwall": {
     "name": "Wind Wall",
@@ -3238,7 +3411,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "evocation"
   },
   "arcaneeye": {
     "name": "Arcane Eye",
@@ -3255,7 +3429,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "banishment": {
     "name": "Banishment",
@@ -3275,7 +3450,8 @@
       "wizard",
       "paladin"
     ],
-    "cast": "Action"
+    "cast": "Action",
+    "school": "abjuration"
   },
   "blacktentacles": {
     "name": "Black Tentacles",
@@ -3296,7 +3472,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "blight": {
     "name": "Blight",
@@ -3316,7 +3493,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "compulsion": {
     "name": "Compulsion",
@@ -3334,7 +3512,8 @@
     ],
     "classes": [
       "bard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "confusion": {
     "name": "Confusion",
@@ -3358,7 +3537,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "conjureminorelementals": {
     "name": "Conjure Minor Elementals",
@@ -3376,7 +3556,8 @@
     "classes": [
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "conjurewoodlandbeings": {
     "name": "Conjure Woodland Beings",
@@ -3394,7 +3575,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "conjuration"
   },
   "controlwater": {
     "name": "Control Water",
@@ -3413,7 +3595,8 @@
       "cleric",
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "deathward": {
     "name": "Death Ward",
@@ -3430,7 +3613,8 @@
     "classes": [
       "cleric",
       "paladin"
-    ]
+    ],
+    "school": "abjuration"
   },
   "dimensiondoor": {
     "name": "Dimension Door",
@@ -3449,7 +3633,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "divination": {
     "name": "Divination",
@@ -3465,7 +3650,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "divination"
   },
   "dominatebeast": {
     "name": "Dominate Beast",
@@ -3484,7 +3670,8 @@
     "classes": [
       "druid",
       "sorcerer"
-    ]
+    ],
+    "school": "enchantment"
   },
   "faithfulhound": {
     "name": "Faithful Hound",
@@ -3501,7 +3688,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "fireshield": {
     "name": "Fire Shield",
@@ -3517,7 +3705,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "freedomofmovement": {
     "name": "Freedom of Movement",
@@ -3536,7 +3725,8 @@
       "cleric",
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "abjuration"
   },
   "giantinsect": {
     "name": "Giant Insect",
@@ -3553,7 +3743,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "graspingvine": {
     "name": "Grasping Vine",
@@ -3573,7 +3764,8 @@
       "druid",
       "ranger"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "conjuration"
   },
   "greaterinvisibility": {
     "name": "Greater Invisibility",
@@ -3592,7 +3784,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "guardianoffaith": {
     "name": "Guardian of Faith",
@@ -3609,7 +3802,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "conjuration"
   },
   "hallucinatoryterrain": {
     "name": "Hallucinatory Terrain",
@@ -3628,7 +3822,8 @@
       "druid",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "icestorm": {
     "name": "Ice Storm",
@@ -3650,7 +3845,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "locatecreature": {
     "name": "Locate Creature",
@@ -3672,7 +3868,8 @@
       "paladin",
       "ranger",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "phantasmalkiller": {
     "name": "Phantasmal Killer",
@@ -3690,7 +3887,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "polymorph": {
     "name": "Polymorph",
@@ -3711,7 +3909,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "privatesanctum": {
     "name": "Private Sanctum",
@@ -3727,7 +3926,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "resilientsphere": {
     "name": "Resilient Sphere",
@@ -3745,7 +3945,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "secretchest": {
     "name": "Secret Chest",
@@ -3761,7 +3962,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "stoneshape": {
     "name": "Stone Shape",
@@ -3779,7 +3981,8 @@
       "cleric",
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "stoneskin": {
     "name": "Stoneskin",
@@ -3799,7 +4002,8 @@
       "ranger",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "walloffire": {
     "name": "Wall of Fire",
@@ -3819,7 +4023,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "animateobjects": {
     "name": "Animate Objects",
@@ -3842,7 +4047,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "antilifeshell": {
     "name": "Antilife Shell",
@@ -3859,7 +4065,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "abjuration"
   },
   "awaken": {
     "name": "Awaken",
@@ -3876,7 +4083,8 @@
     "classes": [
       "bard",
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "hand": {
     "name": "Bigby's Hand",
@@ -3898,7 +4106,8 @@
     "classes": [
       "wizard"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "evocation"
   },
   "cloudkill": {
     "name": "Cloudkill",
@@ -3920,7 +4129,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "commune": {
     "name": "Commune",
@@ -3936,7 +4146,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "divination"
   },
   "communewithnature": {
     "name": "Commune with Nature",
@@ -3953,7 +4164,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "divination"
   },
   "coneofcold": {
     "name": "Cone of Cold",
@@ -3972,7 +4184,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "conjureelemental": {
     "name": "Conjure Elemental",
@@ -3993,7 +4206,8 @@
     "classes": [
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "contactotherplane": {
     "name": "Contact Other Plane",
@@ -4011,7 +4225,8 @@
     "classes": [
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "contagion": {
     "name": "Contagion",
@@ -4030,7 +4245,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "necromancy"
   },
   "creation": {
     "name": "Creation",
@@ -4047,7 +4263,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "dispelevilandgood": {
     "name": "Dispel Evil and Good",
@@ -4065,7 +4282,8 @@
     "classes": [
       "cleric",
       "paladin"
-    ]
+    ],
+    "school": "abjuration"
   },
   "dominateperson": {
     "name": "Dominate Person",
@@ -4088,7 +4306,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "dream": {
     "name": "Dream",
@@ -4107,7 +4326,8 @@
       "bard",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "flamestrike": {
     "name": "Flame Strike",
@@ -4127,7 +4347,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "geas": {
     "name": "Geas",
@@ -4149,7 +4370,8 @@
       "druid",
       "paladin",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "greaterrestoration": {
     "name": "Greater Restoration",
@@ -4167,7 +4389,8 @@
       "bard",
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "abjuration"
   },
   "hallow": {
     "name": "Hallow",
@@ -4186,7 +4409,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "holdmonster": {
     "name": "Hold Monster",
@@ -4207,7 +4431,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "insectplague": {
     "name": "Insect Plague",
@@ -4230,7 +4455,8 @@
       "cleric",
       "druid",
       "sorcerer"
-    ]
+    ],
+    "school": "conjuration"
   },
   "legendlore": {
     "name": "Legend Lore",
@@ -4248,7 +4474,8 @@
       "bard",
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "masscurewounds": {
     "name": "Mass Cure Wounds",
@@ -4269,7 +4496,8 @@
       "bard",
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "evocation"
   },
   "mislead": {
     "name": "Mislead",
@@ -4287,7 +4515,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "modifymemory": {
     "name": "Modify Memory",
@@ -4306,7 +4535,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "passwall": {
     "name": "Passwall",
@@ -4322,7 +4552,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "planarbinding": {
     "name": "Planar Binding",
@@ -4342,7 +4573,8 @@
       "cleric",
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "raisedead": {
     "name": "Raise Dead",
@@ -4360,7 +4592,8 @@
       "bard",
       "cleric",
       "paladin"
-    ]
+    ],
+    "school": "necromancy"
   },
   "telepathicbond": {
     "name": "Rary's Telepathic Bond",
@@ -4377,7 +4610,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "reincarnate": {
     "name": "Reincarnate",
@@ -4393,7 +4627,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "necromancy"
   },
   "scrying": {
     "name": "Scrying",
@@ -4415,7 +4650,8 @@
       "druid",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "seeming": {
     "name": "Seeming",
@@ -4434,7 +4670,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "telekinesis": {
     "name": "Telekinesis",
@@ -4453,7 +4690,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "teleportationcircle": {
     "name": "Teleportation Circle",
@@ -4471,7 +4709,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "treestride": {
     "name": "Tree Stride",
@@ -4489,7 +4728,8 @@
     "classes": [
       "druid",
       "ranger"
-    ]
+    ],
+    "school": "conjuration"
   },
   "wallofforce": {
     "name": "Wall of Force",
@@ -4509,7 +4749,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "wallofstone": {
     "name": "Wall of Stone",
@@ -4528,7 +4769,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "bladebarrier": {
     "name": "Blade Barrier",
@@ -4546,7 +4788,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "chainlightning": {
     "name": "Chain Lightning",
@@ -4564,7 +4807,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "circleofdeath": {
     "name": "Circle of Death",
@@ -4583,7 +4827,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "conjurefey": {
     "name": "Conjure Fey",
@@ -4601,7 +4846,8 @@
     "classes": [
       "druid",
       "warlock"
-    ]
+    ],
+    "school": "conjuration"
   },
   "contingency": {
     "name": "Contingency",
@@ -4617,7 +4863,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "createundead": {
     "name": "Create Undead",
@@ -4635,7 +4882,8 @@
       "cleric",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "disintegrate": {
     "name": "Disintegrate",
@@ -4653,7 +4901,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "eyebite": {
     "name": "Eyebite",
@@ -4673,7 +4922,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "findthepath": {
     "name": "Find the Path",
@@ -4692,7 +4942,8 @@
       "bard",
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "divination"
   },
   "fleshtostone": {
     "name": "Flesh to Stone",
@@ -4711,7 +4962,8 @@
     "classes": [
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "forbiddance": {
     "name": "Forbiddance",
@@ -4728,7 +4980,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "abjuration"
   },
   "freezingsphere": {
     "name": "Freezing Sphere",
@@ -4745,7 +4998,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "globeofinvulnerability": {
     "name": "Globe of Invulnerability",
@@ -4763,7 +5017,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "guardsandwards": {
     "name": "Guards and Wards",
@@ -4781,7 +5036,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "harm": {
     "name": "Harm",
@@ -4798,7 +5054,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "necromancy"
   },
   "heal": {
     "name": "Heal",
@@ -4815,7 +5072,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "abjuration"
   },
   "heroesfeast": {
     "name": "Heroes' Feast",
@@ -4832,7 +5090,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "instantsummons": {
     "name": "Instant Summons",
@@ -4848,7 +5107,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "irresistibledance": {
     "name": "Irresistible Dance",
@@ -4867,7 +5127,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "magicjar": {
     "name": "Magic Jar",
@@ -4884,7 +5145,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "masssuggestion": {
     "name": "Mass Suggestion",
@@ -4904,7 +5166,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "moveearth": {
     "name": "Move Earth",
@@ -4923,7 +5186,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "planarally": {
     "name": "Planar Ally",
@@ -4939,7 +5203,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "conjuration"
   },
   "programmedillusion": {
     "name": "Programmed Illusion",
@@ -4956,7 +5221,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "sunbeam": {
     "name": "Sunbeam",
@@ -4976,7 +5242,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "transportviaplants": {
     "name": "Transport via Plants",
@@ -4992,7 +5259,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "trueseeing": {
     "name": "True Seeing",
@@ -5012,7 +5280,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "wallofice": {
     "name": "Wall of Ice",
@@ -5030,7 +5299,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "wallofthorns": {
     "name": "Wall of Thorns",
@@ -5048,7 +5318,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "windwalk": {
     "name": "Wind Walk",
@@ -5064,7 +5335,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "wordofrecall": {
     "name": "Word of Recall",
@@ -5080,7 +5352,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "conjuration"
   },
   "conjurecelestial": {
     "name": "Conjure Celestial",
@@ -5097,7 +5370,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "conjuration"
   },
   "delayedblastfireball": {
     "name": "Delayed Blast Fireball",
@@ -5116,7 +5390,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "divineword": {
     "name": "Divine Word",
@@ -5134,7 +5409,8 @@
     "classes": [
       "cleric"
     ],
-    "cast": "Bonus Action"
+    "cast": "Bonus Action",
+    "school": "evocation"
   },
   "etherealness": {
     "name": "Etherealness",
@@ -5154,7 +5430,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "fingerofdeath": {
     "name": "Finger of Death",
@@ -5173,7 +5450,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "firestorm": {
     "name": "Fire Storm",
@@ -5192,7 +5470,8 @@
       "cleric",
       "druid",
       "sorcerer"
-    ]
+    ],
+    "school": "evocation"
   },
   "forcecage": {
     "name": "Forcecage",
@@ -5211,7 +5490,8 @@
       "bard",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "magnificentmansion": {
     "name": "Magnificent Mansion",
@@ -5228,7 +5508,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "miragearcane": {
     "name": "Mirage Arcane",
@@ -5246,7 +5527,8 @@
       "bard",
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "planeshift": {
     "name": "Plane Shift",
@@ -5267,7 +5549,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "prismaticspray": {
     "name": "Prismatic Spray",
@@ -5286,7 +5569,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "projectimage": {
     "name": "Project Image",
@@ -5304,7 +5588,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "regenerate": {
     "name": "Regenerate",
@@ -5322,7 +5607,8 @@
       "bard",
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "resurrection": {
     "name": "Resurrection",
@@ -5339,7 +5625,8 @@
     "classes": [
       "bard",
       "cleric"
-    ]
+    ],
+    "school": "necromancy"
   },
   "reversegravity": {
     "name": "Reverse Gravity",
@@ -5359,7 +5646,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "sequester": {
     "name": "Sequester",
@@ -5375,7 +5663,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "simulacrum": {
     "name": "Simulacrum",
@@ -5391,7 +5680,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "symbol": {
     "name": "Symbol",
@@ -5410,7 +5700,8 @@
       "bard",
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "teleport": {
     "name": "Teleport",
@@ -5428,7 +5719,8 @@
       "bard",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "animalshapes": {
     "name": "Animal Shapes",
@@ -5446,7 +5738,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "transmutation"
   },
   "antimagicfield": {
     "name": "Antimagic Field",
@@ -5467,7 +5760,8 @@
     "classes": [
       "cleric",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "antipathysympathy": {
     "name": "Antipathy/Sympathy",
@@ -5488,7 +5782,8 @@
     "classes": [
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "clone": {
     "name": "Clone",
@@ -5504,7 +5799,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "controlweather": {
     "name": "Control Weather",
@@ -5526,7 +5822,8 @@
       "cleric",
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "demiplane": {
     "name": "Demiplane",
@@ -5543,7 +5840,8 @@
     "classes": [
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "dominatemonster": {
     "name": "Dominate Monster",
@@ -5564,7 +5862,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "earthquake": {
     "name": "Earthquake",
@@ -5587,7 +5886,8 @@
       "cleric",
       "druid",
       "sorcerer"
-    ]
+    ],
+    "school": "evocation"
   },
   "feeblemind": {
     "name": "Feeblemind",
@@ -5607,7 +5907,8 @@
       "druid",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "glibness": {
     "name": "Glibness",
@@ -5625,7 +5926,8 @@
       "bard",
       "sorcerer",
       "warlock"
-    ]
+    ],
+    "school": "enchantment"
   },
   "holyaura": {
     "name": "Holy Aura",
@@ -5645,7 +5947,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "abjuration"
   },
   "incendiarycloud": {
     "name": "Incendiary Cloud",
@@ -5667,7 +5970,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "maze": {
     "name": "Maze",
@@ -5685,7 +5989,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "mindblank": {
     "name": "Mind Blank",
@@ -5702,7 +6007,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "powerwordstun": {
     "name": "Power Word Stun",
@@ -5721,7 +6027,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "sunburst": {
     "name": "Sunburst",
@@ -5743,7 +6050,8 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "telepathy": {
     "name": "Telepathy",
@@ -5759,7 +6067,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "tsunami": {
     "name": "Tsunami",
@@ -5780,7 +6089,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "astralprojection": {
     "name": "Astral Projection",
@@ -5801,7 +6111,8 @@
       "cleric",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "necromancy"
   },
   "foresight": {
     "name": "Foresight",
@@ -5823,7 +6134,8 @@
       "druid",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "divination"
   },
   "gate": {
     "name": "Gate",
@@ -5845,7 +6157,8 @@
       "cleric",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   },
   "imprisonment": {
     "name": "Imprisonment",
@@ -5866,7 +6179,8 @@
     "classes": [
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "massheal": {
     "name": "Mass Heal",
@@ -5886,7 +6200,8 @@
     ],
     "classes": [
       "cleric"
-    ]
+    ],
+    "school": "evocation"
   },
   "meteorswarm": {
     "name": "Meteor Swarm",
@@ -5907,7 +6222,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "evocation"
   },
   "powerwordkill": {
     "name": "Power Word Kill",
@@ -5926,7 +6242,8 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "enchantment"
   },
   "prismaticwall": {
     "name": "Prismatic Wall",
@@ -5947,7 +6264,8 @@
     "classes": [
       "bard",
       "wizard"
-    ]
+    ],
+    "school": "abjuration"
   },
   "shapechange": {
     "name": "Shapechange",
@@ -5968,7 +6286,8 @@
     "classes": [
       "druid",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "stormofvengeance": {
     "name": "Storm of Vengeance",
@@ -5989,7 +6308,8 @@
     ],
     "classes": [
       "druid"
-    ]
+    ],
+    "school": "conjuration"
   },
   "timestop": {
     "name": "Time Stop",
@@ -6009,7 +6329,8 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "truepolymorph": {
     "name": "True Polymorph",
@@ -6033,7 +6354,8 @@
       "druid",
       "warlock",
       "wizard"
-    ]
+    ],
+    "school": "transmutation"
   },
   "trueresurrection": {
     "name": "True Resurrection",
@@ -6053,7 +6375,8 @@
     "classes": [
       "cleric",
       "druid"
-    ]
+    ],
+    "school": "necromancy"
   },
   "weird": {
     "name": "Weird",
@@ -6074,7 +6397,8 @@
     ],
     "classes": [
       "wizard"
-    ]
+    ],
+    "school": "illusion"
   },
   "wish": {
     "name": "Wish",
@@ -6094,6 +6418,7 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "school": "conjuration"
   }
 }

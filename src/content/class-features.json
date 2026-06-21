@@ -94,6 +94,27 @@
           "You gain a Fighting Style feat of your choice (Archery, Defense, Dueling, Two-Weapon Fighting, etc.) — record it on your sheet."
         ]
       }
+    },
+    "Spellcasting": {
+      "refId": "rangerspellcasting",
+      "effects": {
+        "spellcasting": {
+          "ability": "WIS",
+          "progression": "half",
+          "list": "ranger"
+        }
+      },
+      "ref": {
+        "title": "Spellcasting",
+        "chips": [
+          {
+            "t": "Wisdom"
+          }
+        ],
+        "body": [
+          "You prepare and cast spells from a Ranger/Paladin spell list that comes online at level 1 (half-caster slots), using Wisdom as your spellcasting ability — your spell save DC and spell attack are based on Wisdom. You regain expended spell slots when you finish a Long Rest."
+        ]
+      }
     }
   },
   "fighter": {
@@ -266,6 +287,27 @@
           "Whenever you finish a short rest, you can swap one prepared wizard spell for a different spell from your spellbook."
         ]
       }
+    },
+    "Spellcasting": {
+      "refId": "wizardspellcasting",
+      "effects": {
+        "spellcasting": {
+          "ability": "INT",
+          "progression": "full",
+          "list": "wizard"
+        }
+      },
+      "ref": {
+        "title": "Spellcasting",
+        "chips": [
+          {
+            "t": "Intelligence"
+          }
+        ],
+        "body": [
+          "You prepare and cast spells from the full spell list of your class, using Intelligence as your spellcasting ability — your spell save DC and spell attack are based on Intelligence. You regain expended spell slots when you finish a Long Rest."
+        ]
+      }
     }
   },
   "cleric": {
@@ -309,6 +351,27 @@
         ],
         "body": [
           "Whenever you use Turn Undead, you also deal radiant damage to each affected undead equal to a roll of your Wisdom modifier in d8s."
+        ]
+      }
+    },
+    "Spellcasting": {
+      "refId": "clericspellcasting",
+      "effects": {
+        "spellcasting": {
+          "ability": "WIS",
+          "progression": "full",
+          "list": "cleric"
+        }
+      },
+      "ref": {
+        "title": "Spellcasting",
+        "chips": [
+          {
+            "t": "Wisdom"
+          }
+        ],
+        "body": [
+          "You prepare and cast spells from the full spell list of your class, using Wisdom as your spellcasting ability — your spell save DC and spell attack are based on Wisdom. You regain expended spell slots when you finish a Long Rest."
         ]
       }
     }
@@ -650,6 +713,13 @@
         "body": [
           "You can cast Bard spells using Charisma as your spellcasting ability. Spell save DC = 8 + Proficiency Bonus + Charisma modifier; spell attack modifier = Proficiency Bonus + Charisma modifier. You prepare a number of leveled spells from the Bard list and may use an Arcane Focus as a Spellcasting Focus."
         ]
+      },
+      "effects": {
+        "spellcasting": {
+          "ability": "CHA",
+          "progression": "full",
+          "list": "bard"
+        }
       }
     },
     "Expertise": {
@@ -725,6 +795,13 @@
         "body": [
           "You cast Druid spells using Wisdom, with a focus as a Spellcasting Focus. You know two cantrips and prepare a number of leveled spells from the Druid list, changing your prepared list on a Long Rest."
         ]
+      },
+      "effects": {
+        "spellcasting": {
+          "ability": "WIS",
+          "progression": "full",
+          "list": "druid"
+        }
       }
     },
     "Wild Shape": {
@@ -800,6 +877,13 @@
         "body": [
           "You prepare and cast Paladin spells using Charisma as your spellcasting ability. You can change your prepared spells when you finish a Long Rest."
         ]
+      },
+      "effects": {
+        "spellcasting": {
+          "ability": "CHA",
+          "progression": "half",
+          "list": "paladin"
+        }
       }
     },
     "Weapon Mastery": {
@@ -908,6 +992,13 @@
         "body": [
           "You cast Sorcerer spells using Charisma as your spellcasting ability (DC 8 + proficiency bonus + Charisma modifier). You know a fixed number of cantrips and prepared spells, and cast using Sorcerer spell slots; you can change prepared spells on a Long Rest."
         ]
+      },
+      "effects": {
+        "spellcasting": {
+          "ability": "CHA",
+          "progression": "full",
+          "list": "sorcerer"
+        }
       }
     },
     "Font of Magic": {
@@ -991,6 +1082,13 @@
           "You cast Warlock spells using Charisma. Your Pact Magic spell slots are all the same level and you regain them on a Short or Long Rest.",
           "You know a set number of Warlock spells and cantrips, and can swap one known spell each time you gain a Warlock level. Use a spellcasting focus (such as your weapon or component pouch) for spells with material components."
         ]
+      },
+      "effects": {
+        "spellcasting": {
+          "ability": "CHA",
+          "progression": "pact",
+          "list": "warlock"
+        }
       }
     },
     "Magical Cunning": {
