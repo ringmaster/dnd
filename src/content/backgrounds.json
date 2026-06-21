@@ -1,4 +1,251 @@
 {
+  "acolyte": {
+    "name": "Acolyte",
+    "grantsFeat": "magicinitiate-cleric",
+    "effects": {
+      "skills": [
+        "Insight",
+        "Religion"
+      ],
+      "tools": [
+        "Calligrapher's Supplies"
+      ],
+      "abilityIncrease": {
+        "WIS": 2,
+        "CON": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Acolyte",
+      "chips": [
+        {
+          "t": "Magic Initiate (Cleric)",
+          "c": "ember"
+        },
+        {
+          "t": "Insight · Religion",
+          "c": "storm"
+        },
+        {
+          "t": "Calligrapher's Supplies"
+        }
+      ],
+      "body": [
+        "A life of temple service. Acolyte grants the Magic Initiate (Cleric) Origin feat, proficiency in Insight and Religion, Calligrapher's Supplies, and a +2 / +1 ability boost."
+      ]
+    }
+  },
+  "artisan": {
+    "name": "Artisan",
+    "grantsFeat": "crafter",
+    "effects": {
+      "skills": [
+        "Investigation",
+        "Persuasion"
+      ],
+      "tools": [
+        "Artisan's Tools"
+      ],
+      "abilityIncrease": {
+        "INT": 2,
+        "DEX": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Artisan",
+      "chips": [
+        {
+          "t": "Crafter",
+          "c": "ember"
+        },
+        {
+          "t": "Investigation · Persuasion",
+          "c": "storm"
+        },
+        {
+          "t": "Artisan's Tools"
+        }
+      ],
+      "body": [
+        "1-2 terse sentences summarizing: grants the Crafter Origin feat, Investigation & Persuasion, Artisan's Tools, and a +2/+1 ability boost."
+      ]
+    }
+  },
+  "charlatan": {
+    "name": "Charlatan",
+    "grantsFeat": "skilled",
+    "effects": {
+      "skills": [
+        "Deception",
+        "Sleight of Hand"
+      ],
+      "tools": [
+        "Forgery Kit"
+      ],
+      "abilityIncrease": {
+        "CHA": 2,
+        "DEX": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Charlatan",
+      "chips": [
+        {
+          "t": "Skilled",
+          "c": "ember"
+        },
+        {
+          "t": "Deception · Sleight of Hand",
+          "c": "storm"
+        },
+        {
+          "t": "Forgery Kit"
+        }
+      ],
+      "body": [
+        "Grants the Skilled Origin feat, Deception & Sleight of Hand, a Forgery Kit, and a +2/+1 ability boost."
+      ]
+    }
+  },
+  "criminal": {
+    "name": "Criminal",
+    "grantsFeat": "alert",
+    "effects": {
+      "skills": [
+        "Deception",
+        "Stealth"
+      ],
+      "tools": [
+        "Thieves' Tools",
+        "Gaming Set"
+      ],
+      "abilityIncrease": {
+        "DEX": 2,
+        "INT": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Criminal",
+      "chips": [
+        {
+          "t": "Alert",
+          "c": "ember"
+        },
+        {
+          "t": "Deception · Stealth",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "A life on the wrong side of the law. Criminal grants the Alert Origin feat, proficiency in Deception and Stealth, Thieves' Tools and a Gaming Set, and a +2 / +1 ability boost."
+      ]
+    }
+  },
+  "entertainer": {
+    "name": "Entertainer",
+    "grantsFeat": "musician",
+    "effects": {
+      "skills": [
+        "Acrobatics",
+        "Performance"
+      ],
+      "tools": [
+        "Musical Instrument"
+      ],
+      "abilityIncrease": {
+        "CHA": 2,
+        "DEX": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Entertainer",
+      "chips": [
+        {
+          "t": "Musician",
+          "c": "ember"
+        },
+        {
+          "t": "Acrobatics · Performance",
+          "c": "storm"
+        },
+        {
+          "t": "Musical Instrument"
+        }
+      ],
+      "body": [
+        "1-2 terse sentences: grants the Musician Origin feat, Acrobatics & Performance, a Musical Instrument, and a +2/+1 ability boost."
+      ]
+    }
+  },
+  "farmer": {
+    "name": "Farmer",
+    "grantsFeat": "tough",
+    "effects": {
+      "skills": [
+        "Animal Handling",
+        "Nature"
+      ],
+      "tools": [
+        "Carpenter's Tools"
+      ],
+      "abilityIncrease": {
+        "CON": 2,
+        "WIS": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Farmer",
+      "chips": [
+        {
+          "t": "Tough",
+          "c": "ember"
+        },
+        {
+          "t": "Animal Handling · Nature",
+          "c": "storm"
+        },
+        {
+          "t": "Carpenter's Tools"
+        }
+      ],
+      "body": [
+        "1-2 terse sentences: grants the Tough Origin feat, Animal Handling & Nature, Carpenter's Tools, and a +2/+1 ability boost."
+      ]
+    }
+  },
+  "guard": {
+    "name": "Guard",
+    "grantsFeat": "alert",
+    "effects": {
+      "skills": [
+        "Athletics",
+        "Perception"
+      ],
+      "abilityIncrease": {
+        "STR": 2,
+        "WIS": 1
+      },
+      "tools": [
+        "Gaming Set"
+      ]
+    },
+    "ref": {
+      "title": "Background: Guard",
+      "chips": [
+        {
+          "t": "Alert",
+          "c": "ember"
+        },
+        {
+          "t": "Athletics · Perception",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "A life standing watch. Guard grants the Alert Origin feat, proficiency in Athletics and Perception, a Gaming Set tool proficiency, and a +2 / +1 ability boost."
+      ]
+    }
+  },
   "guide": {
     "name": "Guide",
     "grantsFeat": "magicinitiate",
@@ -32,6 +279,114 @@
       ],
       "body": [
         "A life spent leading travelers through trackless wilds. Guide grants the Magic Initiate (Druid) Origin feat, proficiency in Stealth and Survival, proficiency with Cartographer's Tools, and a +2 / +1 ability boost."
+      ]
+    }
+  },
+  "hermit": {
+    "name": "Hermit",
+    "grantsFeat": "healer",
+    "effects": {
+      "skills": [
+        "Medicine",
+        "Religion"
+      ],
+      "tools": [
+        "Herbalism Kit"
+      ],
+      "abilityIncrease": {
+        "WIS": 2,
+        "CON": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Hermit",
+      "chips": [
+        {
+          "t": "Healer",
+          "c": "ember"
+        },
+        {
+          "t": "Medicine · Religion",
+          "c": "storm"
+        },
+        {
+          "t": "Herbalism Kit"
+        }
+      ],
+      "body": [
+        "1-2 terse sentences: grants the Healer Origin feat, Medicine & Religion, an Herbalism Kit, and a +2/+1 ability boost."
+      ]
+    }
+  },
+  "merchant": {
+    "name": "Merchant",
+    "grantsFeat": "lucky",
+    "effects": {
+      "skills": [
+        "Animal Handling",
+        "Persuasion"
+      ],
+      "tools": [
+        "Navigator's Tools"
+      ],
+      "abilityIncrease": {
+        "CHA": 2,
+        "CON": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Merchant",
+      "chips": [
+        {
+          "t": "Lucky",
+          "c": "ember"
+        },
+        {
+          "t": "Animal Handling · Persuasion",
+          "c": "storm"
+        },
+        {
+          "t": "Navigator's Tools"
+        }
+      ],
+      "body": [
+        "Grants the Lucky Origin feat, Animal Handling & Persuasion, Navigator's Tools, and a +2/+1 ability boost."
+      ]
+    }
+  },
+  "noble": {
+    "name": "Noble",
+    "grantsFeat": "skilled",
+    "effects": {
+      "skills": [
+        "History",
+        "Persuasion"
+      ],
+      "tools": [
+        "Gaming Set"
+      ],
+      "abilityIncrease": {
+        "CHA": 2,
+        "INT": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Noble",
+      "chips": [
+        {
+          "t": "Skilled",
+          "c": "ember"
+        },
+        {
+          "t": "History · Persuasion",
+          "c": "storm"
+        },
+        {
+          "t": "Gaming Set"
+        }
+      ],
+      "body": [
+        "Grants the Skilled Origin feat, History & Persuasion, a Gaming Set, and a +2/+1 ability boost."
       ]
     }
   },
@@ -71,31 +426,67 @@
       ]
     }
   },
-  "acolyte": {
-    "name": "Acolyte",
-    "grantsFeat": "magicinitiate-cleric",
+  "sailor": {
+    "name": "Sailor",
+    "grantsFeat": "tavernbrawler",
     "effects": {
       "skills": [
-        "Insight",
-        "Religion"
+        "Acrobatics",
+        "Perception"
+      ],
+      "tools": [
+        "Navigator's Tools"
+      ],
+      "abilityIncrease": {
+        "DEX": 2,
+        "WIS": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Sailor",
+      "chips": [
+        {
+          "t": "Tavern Brawler",
+          "c": "ember"
+        },
+        {
+          "t": "Acrobatics · Perception",
+          "c": "storm"
+        },
+        {
+          "t": "Navigator's Tools"
+        }
+      ],
+      "body": [
+        "1-2 terse sentences: grants the Tavern Brawler Origin feat, Acrobatics & Perception, Navigator's Tools, and a +2/+1 ability boost."
+      ]
+    }
+  },
+  "scribe": {
+    "name": "Scribe",
+    "grantsFeat": "skilled",
+    "effects": {
+      "skills": [
+        "Investigation",
+        "Perception"
       ],
       "tools": [
         "Calligrapher's Supplies"
       ],
       "abilityIncrease": {
-        "WIS": 2,
-        "CON": 1
+        "INT": 2,
+        "DEX": 1
       }
     },
     "ref": {
-      "title": "Background: Acolyte",
+      "title": "Background: Scribe",
       "chips": [
         {
-          "t": "Magic Initiate (Cleric)",
+          "t": "Skilled",
           "c": "ember"
         },
         {
-          "t": "Insight · Religion",
+          "t": "Investigation · Perception",
           "c": "storm"
         },
         {
@@ -103,74 +494,79 @@
         }
       ],
       "body": [
-        "A life of temple service. Acolyte grants the Magic Initiate (Cleric) Origin feat, proficiency in Insight and Religion, Calligrapher's Supplies, and a +2 / +1 ability boost."
+        "1-2 terse sentences: grants the Skilled Origin feat, Investigation & Perception, Calligrapher's Supplies, and a +2/+1 ability boost."
       ]
     }
   },
-  "guard": {
-    "name": "Guard",
-    "grantsFeat": "alert",
+  "soldier": {
+    "name": "Soldier",
+    "grantsFeat": "savageattacker",
     "effects": {
       "skills": [
         "Athletics",
-        "Perception"
+        "Intimidation"
+      ],
+      "tools": [
+        "Gaming Set"
       ],
       "abilityIncrease": {
         "STR": 2,
-        "WIS": 1
-      },
-      "tools": [
-        "Gaming Set"
-      ]
-    },
-    "ref": {
-      "title": "Background: Guard",
-      "chips": [
-        {
-          "t": "Alert",
-          "c": "ember"
-        },
-        {
-          "t": "Athletics · Perception",
-          "c": "storm"
-        }
-      ],
-      "body": [
-        "A life standing watch. Guard grants the Alert Origin feat, proficiency in Athletics and Perception, a Gaming Set tool proficiency, and a +2 / +1 ability boost."
-      ]
-    }
-  },
-  "criminal": {
-    "name": "Criminal",
-    "grantsFeat": "alert",
-    "effects": {
-      "skills": [
-        "Deception",
-        "Stealth"
-      ],
-      "tools": [
-        "Thieves' Tools",
-        "Gaming Set"
-      ],
-      "abilityIncrease": {
-        "DEX": 2,
-        "INT": 1
+        "CON": 1
       }
     },
     "ref": {
-      "title": "Background: Criminal",
+      "title": "Background: Soldier",
       "chips": [
         {
-          "t": "Alert",
+          "t": "Savage Attacker",
           "c": "ember"
         },
         {
-          "t": "Deception · Stealth",
+          "t": "Athletics · Intimidation",
           "c": "storm"
+        },
+        {
+          "t": "Gaming Set"
         }
       ],
       "body": [
-        "A life on the wrong side of the law. Criminal grants the Alert Origin feat, proficiency in Deception and Stealth, Thieves' Tools and a Gaming Set, and a +2 / +1 ability boost."
+        "1-2 terse sentences: grants the Savage Attacker Origin feat, Athletics & Intimidation, a Gaming Set, and a +2/+1 ability boost."
+      ]
+    }
+  },
+  "wayfarer": {
+    "name": "Wayfarer",
+    "grantsFeat": "lucky",
+    "effects": {
+      "skills": [
+        "Insight",
+        "Stealth"
+      ],
+      "tools": [
+        "Thieves' Tools"
+      ],
+      "abilityIncrease": {
+        "DEX": 2,
+        "WIS": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Wayfarer",
+      "chips": [
+        {
+          "t": "Lucky",
+          "c": "ember"
+        },
+        {
+          "t": "Insight · Stealth",
+          "c": "storm"
+        },
+        {
+          "t": "Thieves' Tools"
+        }
+      ],
+      "body": [
+        "1-2 terse sentences: grants the Lucky Origin feat, Insight & Stealth, Thieves' Tools, and a +2/+1 ability boost."
       ]
     }
   }

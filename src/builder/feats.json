@@ -1,15 +1,66 @@
 {
-  "magicinitiate": {
-    "name": "Magic Initiate (Druid)",
-    "refId": "magicinitiate",
-    "magicInitiate": {
-      "list": "Druid",
-      "ability": "WIS",
-      "cantrips": [
-        "guidance",
-        "message"
+  "alert": {
+    "name": "Alert",
+    "refId": "alert",
+    "ref": {
+      "title": "Alert (Origin Feat)",
+      "chips": [
+        {
+          "t": "+Prof to Initiative",
+          "c": "ember"
+        },
+        {
+          "t": "Initiative swap",
+          "c": "storm"
+        }
       ],
-      "spell": "speakwithanimals"
+      "body": [
+        "Initiative Proficiency: you add your Proficiency Bonus to Initiative.",
+        "Initiative Swap: right after rolling Initiative, you may trade your result with a willing ally's — push the right teammate to the top of the order, or drop your control before the enemy acts."
+      ]
+    },
+    "effects": {
+      "initiativeBonus": "prof"
+    }
+  },
+  "crafter": {
+    "name": "Crafter",
+    "refId": "crafter",
+    "ref": {
+      "title": "Crafter (Origin Feat)",
+      "chips": [
+        {
+          "t": "Artisan's Tools",
+          "c": "ember"
+        },
+        {
+          "t": "20% discount",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "You gain proficiency with three Artisan's Tools of your choice. When buying nonmagical gear, you receive a 20% discount, and you can craft items in half the normal time."
+      ]
+    }
+  },
+  "healer": {
+    "name": "Healer",
+    "refId": "healer",
+    "ref": {
+      "title": "Healer (Origin Feat)",
+      "chips": [
+        {
+          "t": "Healer's Kit",
+          "c": "storm"
+        },
+        {
+          "t": "Battle Medic",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "With a Healer's Kit you can use an action to let a creature spend a Hit Die to heal. You reroll 1s on all healing dice you roll."
+      ]
     }
   },
   "lucky": {
@@ -48,28 +99,30 @@
       }
     }
   },
-  "alert": {
-    "name": "Alert",
-    "refId": "alert",
-    "ref": {
-      "title": "Alert (Origin Feat)",
-      "chips": [
-        {
-          "t": "+Prof to Initiative",
-          "c": "ember"
-        },
-        {
-          "t": "Initiative swap",
-          "c": "storm"
-        }
+  "magicinitiate": {
+    "name": "Magic Initiate (Druid)",
+    "refId": "magicinitiate",
+    "magicInitiate": {
+      "list": "Druid",
+      "ability": "WIS",
+      "cantrips": [
+        "guidance",
+        "message"
       ],
-      "body": [
-        "Initiative Proficiency: you add your Proficiency Bonus to Initiative.",
-        "Initiative Swap: right after rolling Initiative, you may trade your result with a willing ally's — push the right teammate to the top of the order, or drop your control before the enemy acts."
-      ]
-    },
-    "effects": {
-      "initiativeBonus": "prof"
+      "spell": "speakwithanimals"
+    }
+  },
+  "magicinitiate-cleric": {
+    "name": "Magic Initiate (Cleric)",
+    "refId": "magicinitiate",
+    "magicInitiate": {
+      "list": "Cleric",
+      "ability": "WIS",
+      "cantrips": [
+        "light",
+        "resistance"
+      ],
+      "spell": "healingword"
     }
   },
   "magicinitiate-wiz": {
@@ -85,17 +138,56 @@
       "spell": "detectmagic"
     }
   },
-  "magicinitiate-cleric": {
-    "name": "Magic Initiate (Cleric)",
-    "refId": "magicinitiate",
-    "magicInitiate": {
-      "list": "Cleric",
-      "ability": "WIS",
-      "cantrips": [
-        "light",
-        "resistance"
+  "musician": {
+    "name": "Musician",
+    "refId": "musician",
+    "ref": {
+      "title": "Musician (Origin Feat)",
+      "chips": [
+        {
+          "t": "Musical Instruments",
+          "c": "ember"
+        },
+        {
+          "t": "Heroic Inspiration",
+          "c": "storm"
+        }
       ],
-      "spell": "healingword"
+      "body": [
+        "You gain proficiency with three Musical Instruments of your choice. After completing a long or short rest, you can play an instrument to grant Heroic Inspiration to allies (max equal to your Proficiency Bonus) who hear you."
+      ]
+    }
+  },
+  "resilient": {
+    "name": "Resilient",
+    "refId": "resilient",
+    "ref": {
+      "title": "Resilient",
+      "chips": [
+        {
+          "t": "+1 ability · save prof",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Increase one ability by 1 and gain proficiency in saving throws using that ability."
+      ]
+    }
+  },
+  "savageattacker": {
+    "name": "Savage Attacker",
+    "refId": "savageattacker",
+    "ref": {
+      "title": "Savage Attacker (Origin Feat)",
+      "chips": [
+        {
+          "t": "Weapon Damage",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "Once per turn when you hit with a weapon attack, you can roll the weapon's damage dice twice and use the higher total."
+      ]
     }
   },
   "shadowtouched": {
@@ -114,19 +206,55 @@
       ]
     }
   },
-  "resilient": {
-    "name": "Resilient",
-    "refId": "resilient",
+  "skilled": {
+    "name": "Skilled",
+    "refId": "skilled",
     "ref": {
-      "title": "Resilient",
+      "title": "Skilled (Origin Feat)",
       "chips": [
         {
-          "t": "+1 ability · save prof",
+          "t": "Three Skills or Tools",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "You gain proficiency in any three skills or tools of your choice."
+      ]
+    }
+  },
+  "tavernbrawler": {
+    "name": "Tavern Brawler",
+    "refId": "tavernbrawler",
+    "ref": {
+      "title": "Tavern Brawler (Origin Feat)",
+      "chips": [
+        {
+          "t": "1d4 Unarmed Strike",
+          "c": "ember"
+        },
+        {
+          "t": "Shove/Prone",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Your unarmed strike deals 1d4 damage. When you hit with an unarmed strike or improvised weapon, you can shove or knock the target prone. You reroll 1s on unarmed and improvised weapon damage, and you're proficient with Improvised Weapons."
+      ]
+    }
+  },
+  "tough": {
+    "name": "Tough",
+    "refId": "tough",
+    "ref": {
+      "title": "Tough (Origin Feat)",
+      "chips": [
+        {
+          "t": "Hit Points",
           "c": "ember"
         }
       ],
       "body": [
-        "Increase one ability by 1 and gain proficiency in saving throws using that ability."
+        "Your hit point maximum increases by an amount equal to twice your level. Whenever you gain a level, your hit point maximum increases by 2."
       ]
     }
   }

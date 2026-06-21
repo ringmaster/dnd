@@ -1,65 +1,209 @@
 {
-  "human": {
-    "name": "Human",
+  "aasimar": {
+    "name": "Aasimar",
     "traits": {
-      "skillful": {
-        "name": "Skillful",
+      "darkvision": {
+        "name": "Darkvision",
         "ref": {
-          "title": "Human: Skillful",
+          "title": "Darkvision",
           "chips": [
             {
-              "t": "+1 skill"
+              "t": "60 ft",
+              "c": "storm"
             }
           ],
           "body": [
-            "You gain proficiency in one additional skill of your choice from any list."
-          ]
-        },
-        "grantsSkill": true
-      },
-      "resourceful": {
-        "name": "Resourceful",
-        "effects": {
-          "grantsPool": {
-            "id": "insp",
-            "label": "Heroic Inspiration",
-            "max": 1,
-            "rest": "long",
-            "ref": "inspiration",
-            "storm": true,
-            "note": "after a long rest",
-            "use": "Spend Inspiration",
-            "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
-          }
-        },
-        "ref": {
-          "title": "Human: Resourceful",
-          "chips": [
-            {
-              "t": "Heroic Inspiration",
-              "c": "ember"
-            }
-          ],
-          "body": [
-            "You gain Heroic Inspiration whenever you finish a long rest, if you don't already have it. Spend it to reroll a d20."
+            "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light."
           ]
         }
       },
-      "versatile": {
-        "name": "Versatile",
+      "celestialresistance": {
+        "name": "Celestial Resistance",
         "ref": {
-          "title": "Human: Versatile",
+          "title": "Celestial Resistance",
           "chips": [
             {
-              "t": "Origin feat",
+              "t": "Necrotic",
+              "c": "storm"
+            },
+            {
+              "t": "Radiant",
               "c": "ember"
             }
           ],
           "body": [
-            "You gain one Origin feat of your choice, on top of the feat from your background."
+            "You have Resistance to Necrotic and Radiant damage."
+          ]
+        }
+      },
+      "healinghands": {
+        "name": "Healing Hands",
+        "ref": {
+          "title": "Healing Hands",
+          "pool": "hh",
+          "chips": [
+            {
+              "t": "Magic action"
+            },
+            {
+              "t": "Touch",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "As a Magic action, touch a creature to heal it. You restore a number of Hit Points equal to the number of d4s rolled equal to your Proficiency Bonus.",
+            "Uses equal to your Proficiency Bonus, regained on a long rest."
           ]
         },
-        "grantsOriginFeat": true
+        "effects": {
+          "grantsPool": {
+            "id": "hh",
+            "label": "Healing Hands",
+            "max": "prof",
+            "rest": "long",
+            "ref": "healinghands",
+            "storm": false,
+            "note": "long rest",
+            "use": "Use",
+            "reminder": "Healing Hands — touch to heal d4s equal to your Proficiency Bonus."
+          }
+        }
+      },
+      "lightbearer": {
+        "name": "Light Bearer",
+        "ref": {
+          "title": "Light Bearer",
+          "chips": [
+            {
+              "t": "Cantrip"
+            },
+            {
+              "t": "Charisma",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You know the Light cantrip. Charisma is your spellcasting ability for it."
+          ]
+        }
+      },
+      "celestialrevelation": {
+        "name": "Celestial Revelation",
+        "ref": {
+          "title": "Celestial Revelation",
+          "chips": [
+            {
+              "t": "Level 3+"
+            },
+            {
+              "t": "1 minute",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "Starting at 3rd level, you can use a Magic action once per long rest to transform for 1 minute, gaining one of the following benefits:",
+            "Radiant Soul: Gain 30-foot Flying Speed, and your damage rolls gain a bonus equal to your Proficiency Bonus when you deal Radiant or Fire damage.",
+            "Necrotic Shroud: gain the ability to see in darkness (including magical darkness) for 1 mile, and your weapon damage rolls gain a bonus equal to your Proficiency Bonus when you deal Necrotic or Cold damage.",
+            "Protective Wings: gain Resistance to all damage, and whenever an ally you can see within 30 feet of you takes damage, you can use your Reaction to halve that damage."
+          ]
+        }
+      }
+    }
+  },
+  "dragonborn": {
+    "name": "Dragonborn",
+    "traits": {
+      "draconicancestry": {
+        "name": "Draconic Ancestry",
+        "ref": {
+          "title": "Draconic Ancestry",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "choice"
+            }
+          ],
+          "body": [
+            "When you create your character, choose a kind of dragon. Your Breath Weapon's damage type and your Damage Resistance are determined by the dragon type you choose: acid, cold, fire, lightning, or poison."
+          ]
+        }
+      },
+      "breathweapon": {
+        "name": "Breath Weapon",
+        "ref": {
+          "title": "Breath Weapon",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "action"
+            }
+          ],
+          "body": [
+            "When you take the Attack action, you can replace one attack with an exhalation of destructive energy. Each creature in a 15-foot cone or 30-foot line (your choice) must make a Dexterity saving throw (DC 8 + your Constitution modifier + your Proficiency Bonus). A creature takes 1d10 damage of the type determined by your Draconic Ancestry on a failed save, or half as much on a successful one. The damage increases when you reach certain levels: 2d10 at 5th level, 3d10 at 11th level, and 4d10 at 17th level."
+          ]
+        },
+        "effects": {
+          "grantsPool": {
+            "id": "breathweapon",
+            "label": "Breath Weapon",
+            "max": "prof",
+            "rest": "long",
+            "ref": "breathweapon",
+            "storm": false,
+            "note": "long rest",
+            "use": "Use",
+            "reminder": "Replace one attack with Breath Weapon"
+          }
+        }
+      },
+      "damageresistance": {
+        "name": "Damage Resistance",
+        "ref": {
+          "title": "Damage Resistance",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "passive"
+            }
+          ],
+          "body": [
+            "You have resistance to the damage type determined by your Draconic Ancestry."
+          ]
+        }
+      },
+      "darkvision": {
+        "name": "Darkvision",
+        "ref": {
+          "title": "Darkvision",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "passive"
+            }
+          ],
+          "body": [
+            "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+          ]
+        }
+      },
+      "draconicflight": {
+        "name": "Draconic Flight",
+        "ref": {
+          "title": "Draconic Flight",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "bonus action"
+            },
+            {
+              "t": "tag",
+              "c": "5th level"
+            }
+          ],
+          "body": [
+            "Starting at 5th level, as a bonus action, you can sprout a pair of wings from your back for 10 minutes. Once you use this trait, you can't use it again until you finish a long rest. While your wings are out, you have a flying speed equal to your walking speed."
+          ]
+        }
       }
     }
   },
@@ -141,6 +285,214 @@
       }
     }
   },
+  "elf": {
+    "name": "Elf",
+    "traits": {
+      "darkvision": {
+        "name": "Darkvision",
+        "ref": {
+          "title": "Elf: Darkvision",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light."
+          ]
+        }
+      },
+      "feyAncestry": {
+        "name": "Fey Ancestry",
+        "ref": {
+          "title": "Elf: Fey Ancestry",
+          "chips": [
+            {
+              "t": "vs Charmed",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You have Advantage on saving throws you make to avoid or end the Charmed condition."
+          ]
+        }
+      },
+      "keenSenses": {
+        "name": "Keen Senses",
+        "ref": {
+          "title": "Elf: Keen Senses",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You have proficiency in one skill of your choice: Insight, Perception, or Survival."
+          ]
+        }
+      },
+      "trance": {
+        "name": "Trance",
+        "ref": {
+          "title": "Elf: Trance",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You don't sleep. Instead, you meditate deeply for 4 hours to finish a Long Rest and gain the same benefit a human does from 8 hours of sleep."
+          ]
+        }
+      },
+      "elvenLineage": {
+        "name": "Elven Lineage",
+        "ref": {
+          "title": "Elf: Elven Lineage",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "At 1st level, choose your elven lineage: Drow gain Dancing Lights cantrip and later access to Faerie Fire and Darkness with superior darkvision (120 ft). High Elf gain Prestidigitation cantrip (swappable) and later access to Detect Magic and Misty Step. Wood Elf gain Druidcraft cantrip and later access to Longstrider and Pass without Trace, plus your Speed increases by 5 feet."
+          ]
+        }
+      }
+    }
+  },
+  "gnome": {
+    "name": "Gnome",
+    "traits": {
+      "darkvision": {
+        "name": "Darkvision",
+        "ref": {
+          "title": "Gnome: Darkvision",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+          ]
+        }
+      },
+      "gnomishCunning": {
+        "name": "Gnomish Cunning",
+        "ref": {
+          "title": "Gnome: Gnomish Cunning",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You have Advantage on Intelligence, Wisdom, and Charisma saving throws."
+          ]
+        }
+      },
+      "gnomishLineage": {
+        "name": "Gnomish Lineage",
+        "ref": {
+          "title": "Gnome: Gnomish Lineage",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "At 1st level, choose Forest Gnome or Rock Gnome. Forest Gnomes know Minor Illusion and can cast Speak with Animals without using a spell slot a number of times equal to your Proficiency Bonus per long rest. Rock Gnomes know Mending and Prestidigitation, and can build a tiny clockwork device that provides a benefit you define."
+          ]
+        }
+      }
+    }
+  },
+  "goliath": {
+    "name": "Goliath",
+    "traits": {
+      "giantancestry": {
+        "name": "Giant Ancestry",
+        "ref": {
+          "title": "Giant Ancestry",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You carry the blood of giants. Choose one supernatural boon from your giant lineage: Cloud's Jaunt (teleport 30 feet as a bonus action), Fire's Burn (add 1d10 fire damage to melee attacks), Frost's Chill (1d6 cold damage and reduce target's speed by 10 feet), Hill's Tumble (prone target on melee hit), Stone's Endurance (reduce incoming damage as a reaction), or Storm's Thunder (1d8 thunder damage when hit by an attack)."
+          ]
+        },
+        "effects": {
+          "grantsPool": {
+            "id": "giantancestry",
+            "label": "Giant Ancestry",
+            "max": "prof",
+            "rest": "long",
+            "ref": "giantancestry",
+            "storm": false,
+            "note": "long rest",
+            "use": "Use your chosen supernatural boon",
+            "reminder": "You may use this a number of times equal to your Proficiency Bonus"
+          }
+        }
+      },
+      "largeform": {
+        "name": "Large Form",
+        "ref": {
+          "title": "Large Form",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "Starting at 5th level, you can use a bonus action to grow to Large for 10 minutes once per long rest. You gain advantage on Strength checks, and your speed increases by 10 feet."
+          ]
+        }
+      },
+      "powerfulbuild": {
+        "name": "Powerful Build",
+        "ref": {
+          "title": "Powerful Build",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You count as one size larger for carrying capacity. You have advantage on saving throws against being grappled or shoved."
+          ]
+        }
+      },
+      "speed": {
+        "name": "Speed",
+        "ref": {
+          "title": "Speed",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "Your walking speed is 35 feet."
+          ]
+        }
+      }
+    }
+  },
   "halfling": {
     "name": "Halfling",
     "traits": {
@@ -185,6 +537,198 @@
           ],
           "body": [
             "You can move through the space of any creature that is a size larger than you, though it isn't difficult terrain for you."
+          ]
+        }
+      }
+    }
+  },
+  "human": {
+    "name": "Human",
+    "traits": {
+      "skillful": {
+        "name": "Skillful",
+        "ref": {
+          "title": "Human: Skillful",
+          "chips": [
+            {
+              "t": "+1 skill"
+            }
+          ],
+          "body": [
+            "You gain proficiency in one additional skill of your choice from any list."
+          ]
+        },
+        "grantsSkill": true
+      },
+      "resourceful": {
+        "name": "Resourceful",
+        "effects": {
+          "grantsPool": {
+            "id": "insp",
+            "label": "Heroic Inspiration",
+            "max": 1,
+            "rest": "long",
+            "ref": "inspiration",
+            "storm": true,
+            "note": "after a long rest",
+            "use": "Spend Inspiration",
+            "reminder": "Heroic Inspiration: reroll any d20 and keep either result."
+          }
+        },
+        "ref": {
+          "title": "Human: Resourceful",
+          "chips": [
+            {
+              "t": "Heroic Inspiration",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You gain Heroic Inspiration whenever you finish a long rest, if you don't already have it. Spend it to reroll a d20."
+          ]
+        }
+      },
+      "versatile": {
+        "name": "Versatile",
+        "ref": {
+          "title": "Human: Versatile",
+          "chips": [
+            {
+              "t": "Origin feat",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You gain one Origin feat of your choice, on top of the feat from your background."
+          ]
+        },
+        "grantsOriginFeat": true
+      }
+    }
+  },
+  "orc": {
+    "name": "Orc",
+    "traits": {
+      "adrenalineRush": {
+        "name": "Adrenaline Rush",
+        "ref": {
+          "title": "Adrenaline Rush",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Bonus Action, take the Dash action and gain Temporary Hit Points equal to your Proficiency Bonus."
+          ]
+        },
+        "effects": {
+          "grantsPool": {
+            "id": "adrenalineRush",
+            "label": "Adrenaline Rush",
+            "max": "prof",
+            "rest": "short",
+            "ref": "adrenalineRush",
+            "storm": true,
+            "note": "short rest",
+            "use": "Use as a Bonus Action to take the Dash action and gain Temporary Hit Points equal to your Proficiency Bonus",
+            "reminder": "Gain Temporary Hit Points equal to your Proficiency Bonus when used"
+          }
+        }
+      },
+      "darkvision": {
+        "name": "Darkvision",
+        "ref": {
+          "title": "Darkvision",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You can see in dim light within 120 feet of you as if it were bright light, and in darkness as if it were dim light."
+          ]
+        }
+      },
+      "relentlessEndurance": {
+        "name": "Relentless Endurance",
+        "ref": {
+          "title": "Relentless Endurance",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "When reduced to 0 Hit Points but not killed outright, you can drop to 1 Hit Point instead. You can use this trait once per Long Rest."
+          ]
+        }
+      },
+      "powerfulBuild": {
+        "name": "Powerful Build",
+        "ref": {
+          "title": "Powerful Build",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You count as one size larger for carrying capacity. You have Advantage on saving throws against being grappled or shoved."
+          ]
+        }
+      }
+    }
+  },
+  "tiefling": {
+    "name": "Tiefling",
+    "traits": {
+      "darkvision": {
+        "name": "Darkvision",
+        "ref": {
+          "title": "Tiefling: Darkvision",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light."
+          ]
+        }
+      },
+      "fiendishLegacy": {
+        "name": "Fiendish Legacy",
+        "ref": {
+          "title": "Tiefling: Fiendish Legacy",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "At 1st level, choose one legacy: Abyssal (Poison resistance, Poison Spray cantrip; Ray of Sickness and Hold Person spells at higher levels), Chthonic (Necrotic resistance, Chill Touch cantrip; False Life and Ray of Enfeeblement spells at higher levels), or Infernal (Fire resistance, Fire Bolt cantrip; Hellish Rebuke and Darkness spells at higher levels). Your spellcasting ability for these spells is Intelligence, Wisdom, or Charisma of your choice."
+          ]
+        }
+      },
+      "otherworldlyPresence": {
+        "name": "Otherworldly Presence",
+        "ref": {
+          "title": "Tiefling: Otherworldly Presence",
+          "chips": [
+            {
+              "t": "tag",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You know the Thaumaturgy cantrip, and you cast it with the same spellcasting ability you chose for your Fiendish Legacy."
           ]
         }
       }
