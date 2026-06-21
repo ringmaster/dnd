@@ -145,8 +145,20 @@ export function compile(input, cat){
   if (c.ac && typeof c.ac.armor === "string"){ const id = c.ac.armor; c.ac.armor = Object.assign({ id }, ARMOR[id]); }
   if (c.ac && Array.isArray(c.ac.armory)) c.ac.armory = c.ac.armory.map(x => typeof x === "string" ? Object.assign({ id:x }, ARMOR[x]) : x);
   // stamp explicit identity so a compiled (build-stripped) character still
-  // names its class/species/subclass — never inferred from stats
-  if (c.build) c.identity = { species: c.build.species || null, class: c.build.class || null, subclass: c.build.subclass || null, background: c.build.background || null };
+  // names its class/species/subclass — never inferred from stats. `classes`
+  // carries the full multiclass breakdown; class/subclass fall back to the first.
+  if (c.build) {
+    const mc = Array.isArray(c.build.classes) ? c.build.classes : null;
+    c.identity = {
+      species: c.build.species || null,
+      class: c.build.class || (mc && mc[0] && mc[0].class) || null,
+      subclass: c.build.subclass || (mc && mc[0] && mc[0].subclass) || null,
+      background: c.build.background || null,
+      classes: mc,
+    };
+  }
+  // proficiency bonus follows total character level (sum of multiclass levels)
+  if (c.proficiencyBonus == null && c.level) c.proficiencyBonus = Math.floor((c.level - 1) / 4) + 2;
   const sources = expandGrants((c.build && c.build.sources) || [], cat);
   if (!sources.length) return c;
   const eff = effectsOf(sources, cat);
@@ -182,11 +194,21 @@ export function compile(input, cat){
   if (tools.size) c.tools = [...tools].sort();
   if (langChoices || langNames.size) c.languages = { known: [...langNames], choices: langChoices };
   if (Object.keys(pools).length) c.pools = pools;
-  // hit dice are implied by class + level — synthesize the pool unless authored
-  if (c.hitDie && c.level && !(c.pools && c.pools.hd)) {
-    const heal = "1" + c.hitDie + sg(abilMod(c.abilities || {}, "CON"));
-    c.pools = c.pools || {};
-    c.pools.hd = { label: "Hit Dice", max: c.level, rest: "long", ref: "hitdice", storm: false, note: heal + " · short rest", use: "Use", reminder: "Hit Die: roll " + heal + ", then add it with Heal." };
+  // hit dice are implied by class + level — synthesize the pool unless authored.
+  // hitDice (array of {die,count}) supports multiclass (e.g. 10d10 + 6d6); a
+  // single hitDie + level is the single-class shorthand.
+  if (!(c.pools && c.pools.hd)) {
+    const con = abilMod(c.abilities || {}, "CON");
+    let pool = null;
+    if (Array.isArray(c.hitDice) && c.hitDice.length) {
+      const total = c.hitDice.reduce((n, h) => n + (h.count || 0), 0);
+      const mix = c.hitDice.map(h => h.count + h.die).join(" + ");
+      pool = { label: "Hit Dice", max: total, rest: "long", ref: "hitdice", storm: false, note: mix + " (" + sg(con) + " each) · short rest", use: "Use", reminder: "Hit Die: spend one, roll its die " + sg(con) + ", then add it with Heal." };
+    } else if (c.hitDie && c.level) {
+      const heal = "1" + c.hitDie + sg(con);
+      pool = { label: "Hit Dice", max: c.level, rest: "long", ref: "hitdice", storm: false, note: heal + " · short rest", use: "Use", reminder: "Hit Die: roll " + heal + ", then add it with Heal." };
+    }
+    if (pool) { c.pools = c.pools || {}; c.pools.hd = pool; }
   }
 
   const sc = (c.cards||[]).find(x => x.type === "spellcasting");
