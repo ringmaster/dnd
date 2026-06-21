@@ -17,14 +17,26 @@
   ],
   "speed": 30,
   "ac": {
-    "armor": {
-      "id": "emilie-ac",
-      "label": "Mage Armor + Ring of Protection",
-      "base": 16,
-      "addDex": true,
-      "note": "Mage Armor (13 + Dex), Ring of Protection (+1), and aberrant wards — AC 19",
+    "mageArmor": {
+      "id": "magearmor",
+      "label": "Mage Armor",
+      "base": 13,
+      "note": "spell · base AC 13 + Dex",
       "default": true
-    }
+    },
+    "accessories": [
+      {
+        "id": "ringofprotection",
+        "label": "Ring of Protection",
+        "note": "attuned · +1 AC & all saves",
+        "ac": 1,
+        "save": 1,
+        "ref": "ringofprotection",
+        "default": true
+      }
+    ],
+    "bonus": 2,
+    "bonusNote": "aberrant wards"
   },
   "hp": {
     "max": 122
@@ -161,16 +173,9 @@
       },
       "items": [
         {
-          "name": "Ring of Protection",
-          "tag": "attuned · +1 AC & saves"
-        },
-        {
-          "name": "Glassweaver's Staff",
-          "tag": "arcane focus"
-        },
-        {
           "name": "Cloud Flask",
-          "tag": "attuned · wondrous"
+          "tag": "attuned · wondrous",
+          "ref": "cloudflask"
         },
         {
           "name": "Dagger"
@@ -279,6 +284,31 @@
     }
   ],
   "ref": {
+    "ringofprotection": {
+      "title": "Ring of Protection",
+      "chips": [
+        { "t": "+1 AC", "c": "storm" },
+        { "t": "+1 all saves", "c": "storm" },
+        { "t": "Attunement", "c": "ember" }
+      ],
+      "body": [
+        "A magic ring (requires attunement). While worn, you gain a +1 bonus to AC and a +1 bonus to all saving throws.",
+        "Toggle it from the Armor Class panel or your Inventory; donning or doffing it updates both your AC and your saves."
+      ]
+    },
+    "cloudflask": {
+      "title": "Cloud Flask",
+      "chips": [
+        { "t": "Wondrous · Very Rare", "c": "ember" },
+        { "t": "Attunement", "c": "ember" }
+      ],
+      "body": [
+        "A silver-and-glass flask of swirling cloud stuff. As an Action, pour it out to raise a magical shelter; returning the shelter to the flask reverts it to cloud form and vacuums it back inside.",
+        "<b>Cloud Shelter (initial):</b> a 10-ft-radius dome of cloud — comfortable interior regardless of weather, opaque from outside but transparent from inside, holding up to 10 Medium-or-smaller creatures. Only those inside at creation may enter or leave; spells and magic can't pass through it. It lasts 8 hours, has 20 HP, and can be destroyed by attacks or spells.",
+        "<b>Investment:</b> through a ritual you feed materials or spell slots into the flask to enhance the shelter — furniture and wood expand its Size and Interior; stone and metal add Fortification and Durability; gems grant Aesthetics and Magic Resistance; spell slots add Magic Effects (slots needed scale by level: one 6th, two 5th, four 4th, eight 3rd, sixteen 2nd, or thirty-two 1st per magical investment).",
+        "<b>Evolution:</b> on leveling up you perform a change ritual to advance any two evolution states. Size climbs from the 10-ft dome to a Cabin (30 ft), House (60 ft), then Mansion (100 ft); Fortification rises 20 → 40 → 60 → 80 HP; Durability extends 8 hr → 24 hr → 48 hr → permanent; Structure, Interior Design, Magic Effects, and Aesthetics each have their own tiers, plus a Special state for custom forms. You can always evoke any earlier evolution instead of the latest."
+      ]
+    },
     "etherealdagger": {
       "title": "Ethereal Dagger",
       "chips": [

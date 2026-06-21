@@ -27,7 +27,7 @@ function abilMod(k){ return mod(CHARACTER.abilities[k]); }
 function fmt(n){ return (n>=0?"+":"")+n; }
 function checkMod(k){ return (CHARACTER.checkMods && CHARACTER.checkMods[k]) || 0; }   // e.g. Otherworldly Glamour
 function abilCheckMod(k){ return abilMod(k) + checkMod(k); }
-function saveMod(k){ return abilMod(k) + (CHARACTER.saves.indexOf(k)>=0?PB:0); }
+function saveMod(k){ return abilMod(k) + (CHARACTER.saves.indexOf(k)>=0?PB:0) + (typeof wornSaveBonus==="function"?wornSaveBonus():0); }
 function skillMod(s){ return abilMod(s.ability) + (s.prof?PB:0) + (s.exp?PB:0) + checkMod(s.ability); }
 
 function weaponAbil(w){
@@ -52,9 +52,12 @@ function critDmg(w){
 function computeAC(){
   var dex=abilMod("DEX"), arm=(typeof equippedArmor==="function"?equippedArmor():null), base;
   if(arm){ var dexAdd = arm.addDex ? (arm.dexCap!=null ? Math.min(dex, arm.dexCap) : dex) : 0; base = arm.base + dexAdd; }
+  else if(typeof mageArmorActive==="function" && mageArmorActive()){ base = MAGE_ARMOR.base + dex; }
   else { base = 10 + dex; if(typeof AC_UNARMORED!=="undefined" && AC_UNARMORED && AC_UNARMORED.ability) base += abilMod(AC_UNARMORED.ability); }
   if(state.shield && SHIELD) base += SHIELD.bonus;
   if(state.style && AC_STYLE && arm) base += AC_STYLE.bonus;
+  if(typeof wornAcBonus==="function") base += wornAcBonus();
+  if(typeof AC_FLAT!=="undefined") base += AC_FLAT;
   return base;
 }
 function passivePerception(){ var s=findSkill("Perception"); return 10 + (s ? skillMod(s) : abilMod("WIS")); }

@@ -6,9 +6,23 @@ var ARMORY = (CHARACTER.ac && CHARACTER.ac.armory) ? CHARACTER.ac.armory.slice()
 var SHIELD = (CHARACTER.ac && CHARACTER.ac.shield) || null;
 var AC_STYLE = (CHARACTER.ac && CHARACTER.ac.style) || null;
 var AC_UNARMORED = (CHARACTER.ac && CHARACTER.ac.unarmored) || null;   // Monk/Barbarian: 10 + Dex + another ability while unarmored
+var MAGE_ARMOR = (CHARACTER.ac && CHARACTER.ac.mageArmor) || null;     // a spell, not gear: while active and unarmored, base AC becomes (base + Dex)
+var ACCESSORIES = (CHARACTER.ac && CHARACTER.ac.accessories) || [];    // worn items (e.g. Ring of Protection) that add to AC and/or saves
+var AC_FLAT = (CHARACTER.ac && CHARACTER.ac.bonus) || 0;               // always-on AC bonus (e.g. homebrew wards)
+var AC_FLAT_NOTE = (CHARACTER.ac && CHARACTER.ac.bonusNote) || "";
 function armorById(id){ for(var i=0;i<ARMORY.length;i++){ if(ARMORY[i].id===id) return ARMORY[i]; } return null; }
 function armorDefaultId(){ for(var i=0;i<ARMORY.length;i++){ if(ARMORY[i].default!==false) return ARMORY[i].id; } return ""; }
 function equippedArmor(){ var id = (typeof state==="object" && state) ? state.armorId : armorDefaultId(); return id ? armorById(id) : null; }
+/* Mage Armor is a togglable spell: it only sets your base AC while you wear no physical armor. */
+function mageArmorOn(){ return !!MAGE_ARMOR && ((typeof state==="object" && state) ? !!state.mageArmor : MAGE_ARMOR.default!==false); }
+function mageArmorActive(){ return mageArmorOn() && !equippedArmor(); }
+/* worn accessories (Ring of Protection, etc.) — default-on ids when state isn't ready yet */
+function accessoryDefaultIds(){ return ACCESSORIES.filter(function(a){ return a.default!==false; }).map(function(a){ return a.id; }); }
+function wornIds(){ return (typeof state==="object" && state && Array.isArray(state.worn)) ? state.worn : accessoryDefaultIds(); }
+function accessoryWorn(id){ return wornIds().indexOf(id)>=0; }
+function wornBonus(key){ var ids=wornIds(), n=0; ACCESSORIES.forEach(function(a){ if(ids.indexOf(a.id)>=0) n+=(a[key]||0); }); return n; }
+function wornAcBonus(){ return wornBonus("ac"); }
+function wornSaveBonus(){ return wornBonus("save"); }
 function handCount(w){ return (w && (w.props||[]).indexOf("two-handed")>=0) ? 2 : 1; }
 function handsUsed(){ var n=0; (state.carried||[]).forEach(function(id){ var w=wById(id); if(w) n+=handCount(w); }); if(state.shield && SHIELD) n+=1; return n; }
 function handsFree(){ return 2 - handsUsed(); }
@@ -19,24 +33,33 @@ function effSpeed(){ var s=CHARACTER.speed, arm=equippedArmor(); if(arm && arm.s
 function acBreakdown(){
   var parts=[], dex=abilMod("DEX"), arm=equippedArmor();
   if(arm){ parts.push(arm.label.toLowerCase()+" "+arm.base+(arm.addDex?(" + Dex "+fmt(arm.dexCap!=null?Math.min(dex,arm.dexCap):dex)):"")); }
+  else if(mageArmorActive()) parts.push(MAGE_ARMOR.label.toLowerCase()+" "+MAGE_ARMOR.base+" + Dex "+fmt(dex));
   else parts.push("10 + Dex "+fmt(dex));
   if(state.shield && SHIELD) parts.push("shield "+fmt(SHIELD.bonus));
   if(state.style && AC_STYLE && arm) parts.push(AC_STYLE.label+" "+fmt(AC_STYLE.bonus));
+  ACCESSORIES.forEach(function(a){ if(accessoryWorn(a.id) && a.ac) parts.push(a.label.toLowerCase()+" "+fmt(a.ac)); });
+  if(AC_FLAT) parts.push((AC_FLAT_NOTE||"bonus")+" "+fmt(AC_FLAT));
   return parts.join(" + ")+" = "+computeAC();
 }
 
 /* ----- reference content: auto ability modals + character-specific entries ----- */
 var REF = {};
-ABIL_ORDER.forEach(function(k){
-  var sv=saveMod(k), chk=abilCheckMod(k);
-  var body=["Ability score "+CHARACTER.abilities[k]+" ("+fmt(abilMod(k))+" modifier).","Governs: "+GOVERNS[k]+"."];
-  var chips = CHARACTER.saves.indexOf(k)>=0 ? [{t:"Save proficiency",c:"storm"}] : [];
-  if(checkMod(k)){
-    chips=chips.concat([{t:fmt(checkMod(k))+" to checks",c:"ember"}]);
-    if(CHARACTER.checkModNote && CHARACTER.checkModNote[k]) body.push(CHARACTER.checkModNote[k]+", so a bare "+ABIL_NAME[k]+" check is d20 "+fmt(chk)+".");
-  }
-  REF["abil_"+k]={ title:ABIL_NAME[k], dice:"Check: d20 "+fmt(chk)+"   ·   Save: d20 "+fmt(sv), chips:chips, body:body };
-});
+/* (re)build the per-ability modals; called again when a save-affecting item (e.g. a Ring of Protection) is toggled */
+function buildAbilityRefs(){
+  var saveItem=(typeof wornSaveBonus==="function"?wornSaveBonus():0);
+  ABIL_ORDER.forEach(function(k){
+    var sv=saveMod(k), chk=abilCheckMod(k);
+    var body=["Ability score "+CHARACTER.abilities[k]+" ("+fmt(abilMod(k))+" modifier).","Governs: "+GOVERNS[k]+"."];
+    var chips = CHARACTER.saves.indexOf(k)>=0 ? [{t:"Save proficiency",c:"storm"}] : [];
+    if(saveItem) chips=chips.concat([{t:fmt(saveItem)+" to saves",c:"storm"}]);
+    if(checkMod(k)){
+      chips=chips.concat([{t:fmt(checkMod(k))+" to checks",c:"ember"}]);
+      if(CHARACTER.checkModNote && CHARACTER.checkModNote[k]) body.push(CHARACTER.checkModNote[k]+", so a bare "+ABIL_NAME[k]+" check is d20 "+fmt(chk)+".");
+    }
+    REF["abil_"+k]={ title:ABIL_NAME[k], dice:"Check: d20 "+fmt(chk)+"   ·   Save: d20 "+fmt(sv), chips:chips, body:body };
+  });
+}
+buildAbilityRefs();
 /* generic derived stat modals — computed, not hand-authored (a character may still override) */
 (function(){
   var initB=CHARACTER.initiativeBonus||0, dex=abilMod("DEX");
@@ -141,6 +164,7 @@ function spellSlotsAvail(level, freePool){
 /* ----- state ----- */
 var defaults = { hpMax:CHARACTER.hp.max, hpCur:CHARACTER.hp.max, temp:0, dsSucc:0, dsFail:0, view:"attacks", conc:"",
                  armorId:armorDefaultId(), shield:!!(SHIELD&&SHIELD.default===true), style:!!(AC_STYLE&&AC_STYLE.default!==false),
+                 mageArmor:!!(MAGE_ARMOR&&MAGE_ARMOR.default!==false), worn:accessoryDefaultIds(),
                  masteries:(CHARACTER.masteryDefault||[]).slice(), carried:defaultCarried() };
 Object.keys(CHARACTER.pools).forEach(function(id){ defaults[id]=CHARACTER.pools[id].max; });
 if(CHARACTER.prepared) defaults.prepared = CHARACTER.prepared.default.slice();
@@ -269,6 +293,13 @@ function renderInvEquip(){
     var on=!!state.shield;
     el.appendChild(invRow(on?"Held":"Hold", on, equipShield,
       '<span class="iw-n">'+esc(SHIELD.label)+'</span><span class="iw-m">+'+SHIELD.bonus+' AC · 1 hand</span>'));
+  }
+  if(ACCESSORIES.length){
+    var ha=document.createElement("div"); ha.className="inv-sub"; ha.textContent="Worn · tap to don or doff"; el.appendChild(ha);
+    ACCESSORIES.forEach(function(a){ var won=accessoryWorn(a.id);
+      el.appendChild(invRow(won?"Worn":"Wear", won, function(){ toggleAccessory(a.id); },
+        '<span class="iw-n">'+esc(a.label)+'</span><span class="iw-m">'+esc(a.note||("+"+(a.ac||0)+" AC"))+'</span>', a.ref));
+    });
   }
   var hf=document.createElement("div"); hf.className="inv-hands"; hf.textContent="Hands: "+handsUsed()+" / 2 used"; el.appendChild(hf);
 }
@@ -675,6 +706,13 @@ function acToggleBtn(label, note, onClick){
 function equipArmor(id){ state.armorId = (state.armorId===id) ? "" : id; persist(); renderACStud(); paintAC(); renderInvEquip(); }
 function equipShield(){ if(!state.shield && handsFree()<1){ toast("No free hand for a shield — stow a weapon first."); return; } state.shield=!state.shield; persist(); renderACStud(); paintAC(); renderInvEquip(); renderAttacks(); renderCombat(); }
 function toggleStyle(){ state.style=!state.style; persist(); renderACStud(); paintAC(); }
+function toggleMageArmor(){ state.mageArmor=!state.mageArmor; persist(); renderACStud(); paintAC(); }
+/* worn accessories drive AC (live) and saves (rebuild ability modals + re-render abilities) */
+function toggleAccessory(id){
+  if(!Array.isArray(state.worn)) state.worn=accessoryDefaultIds();
+  var i=state.worn.indexOf(id); if(i>=0) state.worn.splice(i,1); else state.worn.push(id);
+  persist(); buildAbilityRefs(); renderAbilities(); renderACStud(); paintAC(); renderInvEquip();
+}
 function openAC(trigger){
   resetGlossary(); lastTrigger=trigger||null; currentRefPool=null;
   refTitle.textContent="Armor Class"; refChips.innerHTML=""; refChips.style.display="none"; refDice.style.display="block"; refBody.innerHTML="";
@@ -682,8 +720,10 @@ function openAC(trigger){
   linkifyTerms(intro);
   if(ARMORY.length>1){ var h=document.createElement("div"); h.className="hp-label"; h.style.cssText="text-align:left;margin:.5rem 0 .3rem"; h.textContent="Armor · equip one"; refBody.appendChild(h); }
   ARMORY.forEach(function(a){ refBody.appendChild(acToggleBtn(a.label, a.note, function(){ equipArmor(a.id); })); });
+  if(MAGE_ARMOR) refBody.appendChild(acToggleBtn(MAGE_ARMOR.label, MAGE_ARMOR.note||"spell · base AC "+MAGE_ARMOR.base+" + Dex", toggleMageArmor));
   if(SHIELD) refBody.appendChild(acToggleBtn(SHIELD.label, SHIELD.note||"+"+SHIELD.bonus+" AC", equipShield));
   if(AC_STYLE) refBody.appendChild(acToggleBtn(AC_STYLE.label, AC_STYLE.note||"+"+AC_STYLE.bonus+" AC", toggleStyle));
+  ACCESSORIES.forEach(function(a){ refBody.appendChild(acToggleBtn(a.label, a.note||"+"+(a.ac||0)+" AC", function(){ toggleAccessory(a.id); })); });
   refFoot.innerHTML='<span class="uses-left" id="acBreak"></span>'; refOverlay.classList.add("show"); paintAC(); document.getElementById("refClose").focus();
 }
 function paintAC(){
@@ -691,8 +731,10 @@ function paintAC(){
   refDice.textContent="AC "+computeAC();
   var btns=refBody.querySelectorAll(".ac-toggle"), i=0;
   ARMORY.forEach(function(a){ var b=btns[i++]; if(b) b.classList.toggle("on", state.armorId===a.id); });
+  if(MAGE_ARMOR){ var bm=btns[i++]; if(bm){ bm.classList.toggle("on", mageArmorOn()); bm.classList.toggle("inactive", !!equippedArmor()); } }
   if(SHIELD){ var bs=btns[i++]; if(bs) bs.classList.toggle("on", !!state.shield); }
   if(AC_STYLE){ var by=btns[i++]; if(by){ by.classList.toggle("on", !!state.style); by.classList.toggle("inactive", !equippedArmor()); } }
+  ACCESSORIES.forEach(function(a){ var ba=btns[i++]; if(ba) ba.classList.toggle("on", accessoryWorn(a.id)); });
   var brk=document.getElementById("acBreak"); if(brk) brk.textContent=acBreakdown();
 }
 
@@ -977,6 +1019,9 @@ function editChar(){
   else state.carried=state.carried.filter(function(id){ return OWNED.indexOf(id)>=0; });
   while(handsUsed()>2 && state.carried.length){ state.carried.pop(); }   // trim an over-capacity loadout (e.g. migrated saves)
   if(CHARACTER.prepared && !Array.isArray(state.prepared)) state.prepared=defaults.prepared.slice();
+  if(!Array.isArray(state.worn)) state.worn=defaults.worn.slice();
+  else state.worn=state.worn.filter(function(id){ for(var i=0;i<ACCESSORIES.length;i++){ if(ACCESSORIES[i].id===id) return true; } return false; });
+  buildAbilityRefs();   // saves depend on worn accessories loaded from storage
   renderAbilities(); renderSkills();
   renderPools(); renderHP(); renderDeath(); renderACStud(); renderMasterySummary(); renderAttacks(); renderInventory();
   if(CHARACTER.prepared) renderPrepared();

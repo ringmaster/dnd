@@ -116,7 +116,12 @@ var CARD = {
     if(card.magic){ html+='<button class="inv-magic" data-ref="'+esc(card.magic.ref)+'" type="button"><b>'+esc(card.magic.name)+'</b><span class="mtag">'+esc(card.magic.tag)+'</span><span class="desc">'+esc(card.magic.desc)+'</span></button>'; }
     html+='<div id="invEquip"></div>';
     html+='<div class="inv-sub">Weapons · tap to draw or stow · ⓘ for rules</div><div id="invWeapons"></div>';
-    html+=(card.items||[]).map(function(it){ return '<div class="inv-row"><span class="iname">'+esc(it.name)+'</span><span class="itag">'+esc(it.tag)+'</span></div>'; }).join("");
+    html+=(card.items||[]).map(function(it){
+      var inner='<span class="iname">'+esc(it.name)+'</span><span class="itag">'+esc(it.tag)+'</span>'+(it.ref?'<span class="info-tag">ⓘ</span>':'');
+      return it.ref
+        ? '<button class="inv-row inv-row-ref" type="button" data-ref="'+esc(it.ref)+'">'+inner+'</button>'
+        : '<div class="inv-row">'+inner+'</div>';
+    }).join("");
     return html;
   },
   features: function(card){
