@@ -433,17 +433,10 @@ function runSearch(){
    demand and cached (Cache API), it works offline after first use. */
 var RULES=null, RULES_LOADING=false;
 function rulesBase(){ return location.pathname.replace(/[^/]*$/, "") + "rules/"; }
-function cachedJson(u){
-  if(typeof caches!=="undefined" && caches.open){
-    return caches.open("dnd-rules-v1").then(function(c){
-      return c.match(u).then(function(hit){
-        if(hit) return hit.json();
-        return fetch(u).then(function(r){ if(r && r.ok){ try{ c.put(u, r.clone()); }catch(e){} return r.json(); } throw new Error("fetch failed"); });
-      });
-    });
-  }
-  return fetch(u).then(function(r){ return r.json(); });
-}
+// The service worker (sw.js) owns offline caching of the corpus in a versioned
+// cache that busts on each rebuild, so here we just fetch — the SW serves from
+// cache when offline and refreshes when a new build ships.
+function cachedJson(u){ return fetch(u).then(function(r){ if(!(r && r.ok)) throw new Error("fetch failed"); return r.json(); }); }
 function loadRules(){
   if(RULES) return Promise.resolve(RULES);
   return cachedJson(rulesBase()+"index.json").then(function(j){ RULES=(j&&j.entries)||[]; return RULES; }).catch(function(){ RULES=[]; return RULES; });
@@ -991,3 +984,11 @@ function editChar(){
   renderConc();
   setStatus("saved");
 })();
+
+// Register the offline service worker (precaches the rules corpus + this sheet
+// for full offline use). No-ops on file:// or where unsupported.
+if (typeof navigator !== "undefined" && navigator.serviceWorker && location.protocol.indexOf("http") === 0) {
+  var regSW = function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); };
+  if (document.readyState === "complete") regSW();
+  else window.addEventListener("load", regSW);
+}
