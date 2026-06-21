@@ -44,7 +44,7 @@
   ];
   function proficientSkills(){ var set={}, bg=CAT.backgrounds[state.background]; if(bg&&bg.effects&&bg.effects.skills) bg.effects.skills.forEach(function(s){set[s]=1;}); state.skills.forEach(function(s){set[s]=1;}); return Object.keys(set).sort(); }
   function featureLevel(name){ var fbl=classData().featuresByLevel||{}; for(var l=1;l<=20;l++){ if((fbl[String(l)]||[]).indexOf(name)>=0) return l; } return 1; }
-  function needsExpertise(){ return featureReached("Deft Explorer")||featureReached("Scholar"); }
+  function needsExpertise(){ return featureReached("Deft Explorer")||featureReached("Scholar")||featureReached("Expertise"); }
   function classAsiLevels(cls){ return (CAT.classes[cls]||{}).asiLevels || ASI_LEVELS; }
   /* ASI "slots" — per class at its own ASI levels. Each slot has a stable key
      (the level number for single-class back-compat; class:level for multiclass)
@@ -168,6 +168,8 @@
   /* ----- spell slots by character level + class features ----- */
   var HALF_SLOTS={1:[2],2:[2],3:[3],4:[3],5:[4,2],6:[4,2],7:[4,3],8:[4,3],9:[4,3,2],10:[4,3,2],11:[4,3,3],12:[4,3,3],13:[4,3,3,1],14:[4,3,3,1],15:[4,3,3,2],16:[4,3,3,2],17:[4,3,3,3,1],18:[4,3,3,3,1],19:[4,3,3,3,2],20:[4,3,3,3,2]};
   var FULL_SLOTS={1:[2],2:[3],3:[4,2],4:[4,3],5:[4,3,2],6:[4,3,3],7:[4,3,3,1],8:[4,3,3,2],9:[4,3,3,3,1],10:[4,3,3,3,2],11:[4,3,3,3,2,1],12:[4,3,3,3,2,1],13:[4,3,3,3,2,1,1],14:[4,3,3,3,2,1,1],15:[4,3,3,3,2,1,1,1],16:[4,3,3,3,2,1,1,1],17:[4,3,3,3,2,1,1,1,1],18:[4,3,3,3,3,1,1,1,1],19:[4,3,3,3,3,2,1,1,1],20:[4,3,3,3,3,2,2,1,1]};
+  /* Warlock Pact Magic: {n: slot count, lvl: slot level} — every slot is the same level, recharged on a short rest. */
+  var PACT_SLOTS={1:{n:1,lvl:1},2:{n:2,lvl:1},3:{n:2,lvl:2},4:{n:2,lvl:2},5:{n:2,lvl:3},6:{n:2,lvl:3},7:{n:2,lvl:4},8:{n:2,lvl:4},9:{n:2,lvl:5},10:{n:2,lvl:5},11:{n:3,lvl:5},12:{n:3,lvl:5},13:{n:3,lvl:5},14:{n:3,lvl:5},15:{n:3,lvl:5},16:{n:3,lvl:5},17:{n:4,lvl:5},18:{n:4,lvl:5},19:{n:4,lvl:5},20:{n:4,lvl:5}};
   function ordinalB(n){ var s=["th","st","nd","rd"],v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
   /* the (first) spellcasting class — for spell ability, cantrips, prepared list */
   function casterCtx(){ for(var i=0;i<state.classes.length;i++){ var cl=state.classes[i], cd=CAT.classes[cl.cls]||{}; if(cd.spellAbility && cd.caster && cd.caster!=="none") return {cls:cl.cls, lvl:cl.level, cd:cd}; } return null; }
@@ -176,6 +178,11 @@
   function spellSlotsFor(){
     var ctx=casterCtx(); if(!ctx) return null;
     var counts;
+    // Warlock Pact Magic (single-class): a few slots, all the same level, recovered on a short rest.
+    if(state.classes.length===1 && ctx.cd.caster==="pact"){
+      var pm=PACT_SLOTS[Math.min(ctx.lvl,20)]; if(!pm) return null;
+      return [{id:"slot"+pm.lvl,label:"Pact Magic (Lvl "+pm.lvl+")",max:pm.n,rest:"short",ref:"spellslots"+pm.lvl,storm:true,note:"short rest",use:"Spend a slot",reminder:"Spend a "+ordinalB(pm.lvl)+"-level Pact Magic slot (recovers on a short rest).",slotLevel:pm.lvl}];
+    }
     if(state.classes.length>1){ counts=FULL_SLOTS[Math.min(combinedCasterLevel(),20)]||[]; }          // multiclass slot table
     else { var table=ctx.cd.caster==="full"?FULL_SLOTS:ctx.cd.caster==="half"?HALF_SLOTS:null; if(!table) return null; counts=table[Math.min(ctx.lvl,20)]||[]; }
     if(!counts.length) return null;
@@ -184,9 +191,16 @@
   /* spells known/prepared by class + level */
   var PREP_FULL=[0,4,5,6,7,9,10,11,12,14,15,16,16,17,18,19,21,22,23,24,25];
   var PREP_HALF=[0,2,3,4,5,6,6,7,7,9,9,10,10,11,11,12,12,14,14,15,15];
-  function cantripsKnown(){ var ctx=casterCtx(); if(!ctx) return 0; var c=ctx.cls, l=ctx.lvl, n=0; if(c==="wizard"||c==="cleric") n=l<4?3:(l<10?4:5); if(state.choices.order==="thaumaturge") n+=1; return n; }
-  function preparedCount(){ var ctx=casterCtx(); if(!ctx) return 0; var t=ctx.cd.caster==="full"?PREP_FULL:(ctx.cd.caster==="half"?PREP_HALF:null); return t?t[Math.min(ctx.lvl,20)]:0; }
-  function maxSpellLevel(){ return (spellSlotsFor()||[]).length; }
+  var PREP_PACT=[0,2,3,4,5,6,7,8,9,10,10,11,11,12,12,13,13,14,14,15,15];
+  /* cantrips known by class & level (2024 PHB). Half-casters (paladin/ranger) and barbarian get none. */
+  var CANTRIPS_KNOWN={
+    bard:function(l){return l>=10?4:(l>=4?3:2);}, cleric:function(l){return l>=10?5:(l>=4?4:3);},
+    druid:function(l){return l>=10?4:(l>=4?3:2);}, sorcerer:function(l){return l>=10?6:(l>=4?5:4);},
+    warlock:function(l){return l>=10?4:(l>=4?3:2);}, wizard:function(l){return l>=10?5:(l>=4?4:3);}
+  };
+  function cantripsKnown(){ var ctx=casterCtx(); if(!ctx) return 0; var fn=CANTRIPS_KNOWN[ctx.cls], n=fn?fn(ctx.lvl):0; if(state.choices.order==="thaumaturge") n+=1; return n; }
+  function preparedCount(){ var ctx=casterCtx(); if(!ctx) return 0; var c=ctx.cd.caster, t=c==="full"?PREP_FULL:(c==="half"?PREP_HALF:(c==="pact"?PREP_PACT:null)); return t?t[Math.min(ctx.lvl,20)]:0; }
+  function maxSpellLevel(){ var s=spellSlotsFor()||[]; return s.reduce(function(m,p){ return Math.max(m, p.slotLevel||0); }, 0); }
   function classCantrips(){ var ctx=casterCtx(); if(!ctx) return []; return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level===0 && (s.classes||[]).indexOf(ctx.cls)>=0; }).sort(); }
   function classLeveledSpells(){ var ctx=casterCtx(); if(!ctx) return []; var mx=maxSpellLevel(); return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level>=1 && s.level<=mx && (s.classes||[]).indexOf(ctx.cls)>=0; }).sort(function(a,b){ var s=CAT.spells; return s[a].level-s[b].level || (s[a].name<s[b].name?-1:1); }); }
   function spellSub(reg){ var d=derive(), ctx=casterCtx(), ab=ctx?ctx.cd.spellAbility:null, mod=ab?d.mods[ab]:0; var sg=function(n){return (n>=0?"+":"")+n;};
@@ -220,6 +234,22 @@
     ],
     monk: [
       { feature:"Ki", id:"ki", label:"Ki / Focus Points", ref:"ki", storm:true, rest:"short", note:"short rest", use:"Spend Ki", max:function(l){return l;}, reminder:"Spend Ki: Flurry of Blows, Patient Defense, or Step of the Wind." }
+    ],
+    barbarian: [
+      { feature:"Rage", id:"rage", label:"Rage", ref:"rage", storm:true, rest:"long", note:"long rest", use:"Rage", max:function(l){return l>=17?6:(l>=12?5:(l>=6?4:(l>=3?3:2)));}, reminder:"Rage: Bonus Action — resistance to bludgeoning/piercing/slashing and bonus melee damage." }
+    ],
+    bard: [
+      { feature:"Bardic Inspiration", id:"bi", label:"Bardic Inspiration", ref:"bardicinspiration", storm:true, rest:"long", note:"long rest (short at 5th)", use:"Inspire", max:function(l,d){return Math.max(1, d.mods.CHA);}, reminder:"Bardic Inspiration: Bonus Action — give an ally a die to add to a check, attack, or save." }
+    ],
+    sorcerer: [
+      { feature:"Font of Magic", id:"sp", label:"Sorcery Points", ref:"fontofmagic", storm:true, rest:"long", note:"long rest", use:"Spend", max:function(l){return l;}, reminder:"Sorcery Points: convert to spell slots or fuel Metamagic." }
+    ],
+    paladin: [
+      { feature:"Lay on Hands", id:"loh", label:"Lay on Hands (HP pool)", ref:"layonhands", storm:false, rest:"long", note:"long rest", use:"Heal", max:function(l){return 5*l;}, reminder:"Lay on Hands: as a Bonus Action, spend points to heal (or 5 to cure a disease/poison)." },
+      { feature:"Channel Divinity", id:"cd", label:"Channel Divinity", ref:"channeldivinity", storm:false, rest:"short", note:"regain on a short rest", use:"Use", max:function(l){return l>=11?3:2;}, reminder:"Channel Divinity: fuel your Oath's options." }
+    ],
+    druid: [
+      { feature:"Wild Shape", id:"ws", label:"Wild Shape", ref:"wildshape", storm:true, rest:"short", note:"regain on short/long rest", use:"Transform", max:function(l){return l>=17?4:(l>=6?3:2);}, reminder:"Wild Shape: Bonus Action — transform into a known beast form." }
     ]
   };
   /* is a class feature reached in any class (or a specific class) at its level */
@@ -232,9 +262,10 @@
     return out;
   }
   function classPoolSources(){
-    var out=[];
+    var out=[], d=derive();   // some pools size off an ability modifier (e.g. Bardic Inspiration = CHA)
     state.classes.forEach(function(cl){ (CLASS_POOLS[cl.cls]||[]).forEach(function(cp){ if(!clsReached(cp.feature, cl)) return;
-      out.push({ id:cp.id, name:cp.feature, effects:{ grantsPool:{ id:cp.id, label:cp.label, max:cp.max(cl.level), rest:cp.rest, ref:cp.ref, storm:cp.storm, note:cp.note, use:cp.use, reminder:cp.reminder } } }); }); });
+      var mx=cp.max(cl.level, d); if(mx<=0) return;
+      out.push({ id:cp.id, name:cp.feature, effects:{ grantsPool:{ id:cp.id, label:cp.label, max:mx, rest:cp.rest, ref:cp.ref, storm:cp.storm, note:cp.note, use:cp.use, reminder:cp.reminder } } }); }); });
     return out;
   }
   function featureList(){
@@ -462,7 +493,7 @@
       subclassGrants().forEach(function(g){ add(3,{html:"<b>"+esc(g.name)+"</b>"+(g.ref&&g.ref.body?(" — "+esc(g.ref.body[0])):"")}); }); }
     var ch=state.choices;
     if(featureReached("Fighting Style")&&ch.style){ var st=FIGHTING_STYLES.filter(function(x){return x.id===ch.style;})[0]; add(featureLevel("Fighting Style"),{cls:"choice", html:"<b>Fighting Style:</b> "+esc(st?st.name:"")}); }
-    if(needsExpertise()&&ch.expertise) add(featureLevel(featureReached("Scholar")?"Scholar":"Deft Explorer"),{cls:"choice", html:"<b>Expertise:</b> "+esc(ch.expertise)});
+    if(needsExpertise()&&ch.expertise) add(featureLevel(featureReached("Scholar")?"Scholar":featureReached("Deft Explorer")?"Deft Explorer":"Expertise"),{cls:"choice", html:"<b>Expertise:</b> "+esc(ch.expertise)});
     if(featureReached("Divine Order")&&ch.order) add(featureLevel("Divine Order"),{cls:"choice", html:"<b>Divine Order:</b> "+esc(ch.order==="thaumaturge"?"Thaumaturge":"Protector")});
     reachedASIs().forEach(function(slot){ var a=state.asis[slot.key]; if(!a) return; var h;
       if(a.mode==="feat") h="<b>Feat:</b> "+esc(featName(a.feat)||"(choose one)");

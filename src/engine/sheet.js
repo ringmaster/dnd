@@ -526,9 +526,12 @@ function castOptions(r){
   if(r.freePool && POOL_MAX[r.freePool]!=null){
     opts.push({ pool:r.freePool, free:true, label:"Free cast — no slot", n:state[r.freePool], max:POOL_MAX[r.freePool] });
   }
+  var firstSlot=true;
   slotPoolsList().forEach(function(sp){
     if(sp.level < (r.level||1)) return;
-    opts.push({ pool:sp.id, level:sp.level, label:ordinal(sp.level)+"-level slot", n:state[sp.id], max:sp.max });
+    // First available slot keeps the full label; higher (upcast) slots are abbreviated to just the ordinal to save space.
+    opts.push({ pool:sp.id, level:sp.level, label:firstSlot?ordinal(sp.level)+"-level slot":ordinal(sp.level), n:state[sp.id], max:sp.max });
+    firstSlot=false;
   });
   return opts;
 }

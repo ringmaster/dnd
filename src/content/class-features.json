@@ -515,5 +515,498 @@
         ]
       }
     }
+  },
+  "barbarian": {
+    "Rage": {
+      "refId": "rage",
+      "ref": {
+        "title": "Rage",
+        "chips": [
+          {
+            "t": "Bonus Action",
+            "c": "ember"
+          },
+          {
+            "t": "Resistance",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "As a Bonus Action, enter a Rage for up to 10 minutes: you gain Resistance to Bludgeoning, Piercing, and Slashing damage, add your Rage Damage bonus to Strength-based melee attacks, and have Advantage on Strength checks and saves.",
+          "While not wearing Heavy armor, you can't cast or concentrate on spells; the Rage ends early if you don't attack a hostile creature or take damage by your turn, and you can extend it as a Bonus Action."
+        ]
+      }
+    },
+    "Unarmored Defense": {
+      "refId": "unarmoreddefense",
+      "ref": {
+        "title": "Unarmored Defense",
+        "body": [
+          "While not wearing armor, your base AC equals 10 + your Dexterity modifier + your Constitution modifier; you can use a Shield and still gain this benefit."
+        ]
+      }
+    },
+    "Weapon Mastery": {
+      "refId": "weaponmastery",
+      "ref": {
+        "title": "Weapon Mastery",
+        "body": [
+          "You can use the mastery property of two kinds of Simple or Martial Melee weapons of your choice, such as Greataxes and Handaxes.",
+          "You can change your choices when you finish a Long Rest, and the number of weapons increases as you gain Barbarian levels."
+        ]
+      }
+    },
+    "Danger Sense": {
+      "refId": "dangersense",
+      "ref": {
+        "title": "Danger Sense",
+        "chips": [
+          {
+            "t": "Advantage",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "You have Advantage on Dexterity saving throws unless you have the Incapacitated condition.",
+          "You don't gain this benefit against effects you can't see."
+        ]
+      }
+    },
+    "Reckless Attack": {
+      "refId": "recklessattack",
+      "ref": {
+        "title": "Reckless Attack",
+        "chips": [
+          {
+            "t": "Advantage",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "When you make your first attack roll on your turn, you can attack recklessly to gain Advantage on Strength-based melee attack rolls this turn, but attack rolls against you have Advantage until your next turn."
+        ]
+      }
+    },
+    "Primal Knowledge": {
+      "refId": "primalknowledge",
+      "effects": {
+        "skills": [
+          "Intimidation"
+        ]
+      },
+      "ref": {
+        "title": "Primal Knowledge",
+        "body": [
+          "You gain proficiency in another skill of your choice from the Barbarian list.",
+          "While raging, you can channel primal power into certain ability checks, making the following skills use Strength instead of their normal ability: Acrobatics, Intimidation, Perception, Stealth, and Survival."
+        ]
+      }
+    },
+    "Extra Attack": {
+      "refId": "extraattack",
+      "ref": {
+        "title": "Extra Attack",
+        "body": [
+          "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+        ]
+      }
+    },
+    "Fast Movement": {
+      "refId": "fastmovement",
+      "ref": {
+        "title": "Fast Movement",
+        "chips": [
+          {
+            "t": "+10 ft.",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "Your Speed increases by 10 feet while you aren't wearing Heavy armor."
+        ]
+      }
+    }
+  },
+  "bard": {
+    "Bardic Inspiration": {
+      "refId": "bardicinspiration",
+      "ref": {
+        "title": "Bardic Inspiration",
+        "chips": [
+          {
+            "t": "Bonus Action",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "As a Bonus Action, give a creature within 60 ft (other than yourself) a Bardic Inspiration die (d6). Within 1 hour, before it makes a d20 Test, roll the die and add it to the result. Uses equal your Charisma modifier (min 1), regained on a Long Rest; the die grows to d8 at 5th, d10 at 10th, d12 at 15th."
+        ]
+      }
+    },
+    "Spellcasting": {
+      "refId": "bardspellcasting",
+      "ref": {
+        "title": "Spellcasting",
+        "body": [
+          "You can cast Bard spells using Charisma as your spellcasting ability. Spell save DC = 8 + Proficiency Bonus + Charisma modifier; spell attack modifier = Proficiency Bonus + Charisma modifier. You prepare a number of leveled spells from the Bard list and may use an Arcane Focus as a Spellcasting Focus."
+        ]
+      }
+    },
+    "Expertise": {
+      "refId": "expertise",
+      "ref": {
+        "title": "Expertise",
+        "body": [
+          "Choose two of your skill proficiencies to gain Expertise, doubling your Proficiency Bonus for ability checks you make with them. At 9th level you choose two more."
+        ]
+      }
+    },
+    "Jack of All Trades": {
+      "refId": "jackofalltrades",
+      "effects": {
+        "checkBonus": {}
+      },
+      "ref": {
+        "title": "Jack of All Trades",
+        "body": [
+          "Add half your Proficiency Bonus (round down) to any ability check you make that doesn't already include your Proficiency Bonus."
+        ]
+      }
+    },
+    "Font of Inspiration": {
+      "refId": "fontofinspiration",
+      "ref": {
+        "title": "Font of Inspiration",
+        "body": [
+          "You regain all expended Bardic Inspiration uses on a Short Rest or a Long Rest. You can also expend a spell slot (no action required) to regain one expended use of Bardic Inspiration."
+        ]
+      }
+    }
+  },
+  "druid": {
+    "Druidic": {
+      "refId": "druidic",
+      "effects": {
+        "languages": [
+          "Druidic"
+        ]
+      },
+      "ref": {
+        "title": "Druidic",
+        "body": [
+          "You know Druidic, the secret language of druids, which you can use to leave and decipher hidden messages and which others can't decipher without magic. You always have the Speak with Animals spell prepared."
+        ]
+      }
+    },
+    "Primal Order": {
+      "refId": "primalorder",
+      "ref": {
+        "title": "Primal Order",
+        "chips": [
+          {
+            "t": "Level 1 Choice"
+          }
+        ],
+        "body": [
+          "Choose Magician or Warden. Magician: you know one extra cantrip from the Druid list, and your Wisdom modifier is added to the Intelligence (Arcana or Nature) checks you make. Warden: you gain Martial weapon proficiency and training with Medium armor."
+        ]
+      }
+    },
+    "Spellcasting": {
+      "refId": "druidspellcasting",
+      "ref": {
+        "title": "Spellcasting",
+        "chips": [
+          {
+            "t": "Wisdom",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "You cast Druid spells using Wisdom, with a focus as a Spellcasting Focus. You know two cantrips and prepare a number of leveled spells from the Druid list, changing your prepared list on a Long Rest."
+        ]
+      }
+    },
+    "Wild Shape": {
+      "refId": "wildshape",
+      "ref": {
+        "title": "Wild Shape",
+        "chips": [
+          {
+            "t": "2 Uses",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "As a Bonus Action you transform into a Beast form you have learned, with stats from the Wild Shape rules, for a number of hours equal to half your druid level. You regain expended uses on a Short or Long Rest, and add forms as you level."
+        ]
+      }
+    },
+    "Wild Companion": {
+      "refId": "wildcompanion",
+      "ref": {
+        "title": "Wild Companion",
+        "chips": [
+          {
+            "t": "Level 2"
+          }
+        ],
+        "body": [
+          "You can expend a Wild Shape use to cast Find Familiar without Material components. The familiar is a Fey instead of its normal type and vanishes after a number of hours equal to half your druid level."
+        ]
+      }
+    },
+    "Wild Resurgence": {
+      "refId": "wildresurgence",
+      "ref": {
+        "title": "Wild Resurgence",
+        "chips": [
+          {
+            "t": "Level 5"
+          }
+        ],
+        "body": [
+          "Once per turn you can spend a Wild Shape use to regain one expended Druid spell slot (no higher than level 1). You can also expend a level 1+ spell slot to regain one Wild Shape use, once per Long Rest if you have none left."
+        ]
+      }
+    }
+  },
+  "paladin": {
+    "Lay on Hands": {
+      "refId": "layonhands",
+      "ref": {
+        "title": "Lay on Hands",
+        "chips": [
+          {
+            "t": "Bonus Action",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "You have a pool of healing equal to five times your Paladin level. As a Bonus Action, touch a creature and draw from the pool to restore Hit Points or expend 5 points to neutralize one disease or poison."
+        ]
+      }
+    },
+    "Spellcasting": {
+      "refId": "paladinspellcasting",
+      "ref": {
+        "title": "Spellcasting",
+        "chips": [
+          {
+            "t": "Charisma",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "You prepare and cast Paladin spells using Charisma as your spellcasting ability. You can change your prepared spells when you finish a Long Rest."
+        ]
+      }
+    },
+    "Weapon Mastery": {
+      "refId": "weaponmastery",
+      "ref": {
+        "title": "Weapon Mastery",
+        "body": [
+          "You can use the mastery properties of two kinds of weapons of your choice with which you have proficiency. You can change your choices when you finish a Long Rest."
+        ]
+      }
+    },
+    "Fighting Style": {
+      "refId": "fightingstyle",
+      "ref": {
+        "title": "Fighting Style",
+        "body": [
+          "You gain a Fighting Style feat of your choice, or you may instead take the Blessed Warrior feat to learn two Cleric cantrips. You can replace this feat's benefit when you gain a Paladin level."
+        ]
+      }
+    },
+    "Paladin's Smite": {
+      "refId": "paladinssmite",
+      "ref": {
+        "title": "Paladin's Smite",
+        "chips": [
+          {
+            "t": "Divine Smite",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "You always have the Divine Smite spell prepared, and you can cast it once without a spell slot. You regain the ability to cast it this way on a Long Rest."
+        ]
+      }
+    },
+    "Channel Divinity": {
+      "refId": "channeldivinity",
+      "ref": {
+        "title": "Channel Divinity",
+        "chips": [
+          {
+            "t": "Divine Power",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "You can channel divine energy to fuel magical effects. You have a number of uses equal to your subclass features, regaining one use on a Short Rest and all uses on a Long Rest."
+        ]
+      }
+    },
+    "Extra Attack": {
+      "refId": "extraattack",
+      "ref": {
+        "title": "Extra Attack",
+        "body": [
+          "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+        ]
+      }
+    },
+    "Faithful Steed": {
+      "refId": "faithfulsteed",
+      "ref": {
+        "title": "Faithful Steed",
+        "chips": [
+          {
+            "t": "Find Steed",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "You always have the Find Steed spell prepared, and you can cast it once without a spell slot, regaining that use on a Long Rest. You can also cast it normally using spell slots."
+        ]
+      }
+    }
+  },
+  "sorcerer": {
+    "Innate Sorcery": {
+      "refId": "innatesorcery",
+      "ref": {
+        "title": "Innate Sorcery",
+        "chips": [
+          {
+            "t": "Bonus Action",
+            "c": "ember"
+          },
+          {
+            "t": "1 min",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "As a Bonus Action you unleash your innate magic for 1 minute, twice per Long Rest. While active, the save DC of your Sorcerer spells increases by 1 and you have Advantage on attack rolls of the Sorcerer spells you cast."
+        ]
+      }
+    },
+    "Spellcasting": {
+      "refId": "sorcererspellcasting",
+      "ref": {
+        "title": "Spellcasting",
+        "chips": [
+          {
+            "t": "Charisma",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "You cast Sorcerer spells using Charisma as your spellcasting ability (DC 8 + proficiency bonus + Charisma modifier). You know a fixed number of cantrips and prepared spells, and cast using Sorcerer spell slots; you can change prepared spells on a Long Rest."
+        ]
+      }
+    },
+    "Font of Magic": {
+      "refId": "fontofmagic",
+      "ref": {
+        "title": "Font of Magic",
+        "chips": [
+          {
+            "t": "Sorcery Points",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "You gain Sorcery Points equal to your Sorcerer level (regained on a Long Rest). As a Bonus Action you can convert Sorcery Points into spell slots, or convert spell slots back into Sorcery Points."
+        ]
+      }
+    },
+    "Metamagic": {
+      "refId": "metamagic",
+      "ref": {
+        "title": "Metamagic",
+        "chips": [
+          {
+            "t": "Sorcery Points",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "You learn two Metamagic options (e.g. Twinned, Quickened, Subtle, Careful, Distant, Empowered, Heightened, Extended, Seeking, Transmuted Spell). You can use only one Metamagic on a given spell unless noted, spending Sorcery Points to fuel it; you learn more options at higher levels and can swap one on a level-up."
+        ]
+      }
+    },
+    "Sorcerous Restoration": {
+      "refId": "sorcerousrestoration",
+      "ref": {
+        "title": "Sorcerous Restoration",
+        "chips": [
+          {
+            "t": "Short Rest",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "When you finish a Short Rest, you can regain Sorcery Points equal to half your Sorcerer level (rounded down). Once you do so, you can't again until you finish a Long Rest."
+        ]
+      }
+    }
+  },
+  "warlock": {
+    "Eldritch Invocations": {
+      "refId": "eldritchinvocations",
+      "ref": {
+        "title": "Eldritch Invocations",
+        "chips": [
+          {
+            "t": "Special abilities",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "You learn special magical lore. You start knowing one invocation; you learn more at higher levels, and can replace one whenever you gain a Warlock level.",
+          "Options include Pact of the Blade (summon a magic weapon you wield with Charisma), Pact of the Tome (a Book of Shadows granting three cantrips), Pact of the Chain (cast Find Familiar with extra forms), Agonizing Blast (add Charisma modifier to a cantrip's damage), and Devil's Sight (see in normal and magical darkness out to 120 feet)."
+        ]
+      }
+    },
+    "Pact Magic": {
+      "refId": "pactmagic",
+      "ref": {
+        "title": "Pact Magic",
+        "chips": [
+          {
+            "t": "Charisma",
+            "c": "ember"
+          },
+          {
+            "t": "Slots recharge on rest",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "You cast Warlock spells using Charisma. Your Pact Magic spell slots are all the same level and you regain them on a Short or Long Rest.",
+          "You know a set number of Warlock spells and cantrips, and can swap one known spell each time you gain a Warlock level. Use a spellcasting focus (such as your weapon or component pouch) for spells with material components."
+        ]
+      }
+    },
+    "Magical Cunning": {
+      "refId": "magicalcunning",
+      "ref": {
+        "title": "Magical Cunning",
+        "chips": [
+          {
+            "t": "1/long rest",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "As a Magic action you can regain expended Pact Magic spell slots (up to half your maximum, round down). Once used, you can't do so again until you finish a Long Rest."
+        ]
+      }
+    }
   }
 }

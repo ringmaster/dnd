@@ -302,7 +302,10 @@
     },
     "subclassLevel": 3,
     "subclasses": [
-      "assassin"
+      "assassin",
+      "arcane-trickster",
+      "soulknife",
+      "thief"
     ],
     "featuresByLevel": {
       "1": [
@@ -378,7 +381,10 @@
     },
     "subclassLevel": 3,
     "subclasses": [
-      "shadow"
+      "shadow",
+      "open-hand",
+      "mercy",
+      "elements"
     ],
     "featuresByLevel": {
       "1": [
@@ -411,6 +417,381 @@
       "8": [
         "Ability Score Improvement"
       ]
+    }
+  },
+  "barbarian": {
+    "name": "Barbarian",
+    "desc": "A fury-fueled warrior who channels primal Rage into devastating melee and raw resilience.",
+    "hitDie": "d12",
+    "saves": [
+      "STR",
+      "CON"
+    ],
+    "primary": [
+      "STR"
+    ],
+    "priority": [
+      "STR",
+      "CON",
+      "DEX",
+      "WIS",
+      "CHA",
+      "INT"
+    ],
+    "caster": "none",
+    "weaponMastery": 2,
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "Animal Handling",
+        "Athletics",
+        "Intimidation",
+        "Nature",
+        "Perception",
+        "Survival"
+      ]
+    },
+    "subclassLevel": 3,
+    "subclasses": [
+      "berserker",
+      "wild-heart",
+      "world-tree",
+      "zealot"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Rage",
+        "Unarmored Defense",
+        "Weapon Mastery"
+      ],
+      "2": [
+        "Danger Sense",
+        "Reckless Attack"
+      ],
+      "3": [
+        "Barbarian Subclass",
+        "Primal Knowledge"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Extra Attack",
+        "Fast Movement"
+      ]
+    }
+  },
+  "bard": {
+    "name": "Bard",
+    "desc": "A charismatic magician whose music and words inspire allies, command magic, and bend any skill.",
+    "hitDie": "d8",
+    "saves": [
+      "DEX",
+      "CHA"
+    ],
+    "primary": [
+      "CHA"
+    ],
+    "priority": [
+      "CHA",
+      "DEX",
+      "CON",
+      "WIS",
+      "INT",
+      "STR"
+    ],
+    "caster": "full",
+    "spellAbility": "CHA",
+    "skillChoices": {
+      "count": 3,
+      "from": [
+        "Acrobatics",
+        "Animal Handling",
+        "Arcana",
+        "Athletics",
+        "Deception",
+        "History",
+        "Insight",
+        "Intimidation",
+        "Investigation",
+        "Medicine",
+        "Nature",
+        "Perception",
+        "Performance",
+        "Persuasion",
+        "Religion",
+        "Sleight of Hand",
+        "Stealth",
+        "Survival"
+      ]
+    },
+    "subclassLevel": 3,
+    "subclasses": [
+      "dance",
+      "glamour",
+      "lore",
+      "valor"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Bardic Inspiration",
+        "Spellcasting"
+      ],
+      "2": [
+        "Expertise",
+        "Jack of All Trades"
+      ],
+      "3": [
+        "Bard Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Font of Inspiration"
+      ]
+    }
+  },
+  "druid": {
+    "name": "Druid",
+    "desc": "A guardian of the wilds who wields primal magic and transforms into beasts via Wild Shape.",
+    "hitDie": "d8",
+    "saves": [
+      "INT",
+      "WIS"
+    ],
+    "primary": [
+      "WIS"
+    ],
+    "priority": [
+      "WIS",
+      "CON",
+      "DEX",
+      "INT",
+      "CHA",
+      "STR"
+    ],
+    "caster": "full",
+    "spellAbility": "WIS",
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "Arcana",
+        "Animal Handling",
+        "Insight",
+        "Medicine",
+        "Nature",
+        "Perception",
+        "Religion",
+        "Survival"
+      ]
+    },
+    "subclassLevel": 3,
+    "subclasses": [
+      "land",
+      "moon",
+      "sea",
+      "stars"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Druidic",
+        "Primal Order",
+        "Spellcasting"
+      ],
+      "2": [
+        "Wild Shape",
+        "Wild Companion"
+      ],
+      "3": [
+        "Druid Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Wild Resurgence"
+      ]
+    }
+  },
+  "paladin": {
+    "name": "Paladin",
+    "desc": "A holy warrior bound by an oath, blending martial might, divine spells, and searing smites.",
+    "hitDie": "d10",
+    "saves": [
+      "WIS",
+      "CHA"
+    ],
+    "primary": [
+      "STR",
+      "CHA"
+    ],
+    "priority": [
+      "STR",
+      "CHA",
+      "CON",
+      "DEX",
+      "WIS",
+      "INT"
+    ],
+    "caster": "half",
+    "spellAbility": "CHA",
+    "weaponMastery": 2,
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "Athletics",
+        "Insight",
+        "Intimidation",
+        "Medicine",
+        "Persuasion",
+        "Religion"
+      ]
+    },
+    "subclassLevel": 3,
+    "subclasses": [
+      "devotion",
+      "glory",
+      "ancients",
+      "vengeance"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Lay on Hands",
+        "Spellcasting",
+        "Weapon Mastery"
+      ],
+      "2": [
+        "Fighting Style",
+        "Paladin's Smite"
+      ],
+      "3": [
+        "Channel Divinity",
+        "Paladin Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Extra Attack",
+        "Faithful Steed"
+      ]
+    }
+  },
+  "sorcerer": {
+    "name": "Sorcerer",
+    "desc": "An innate spellcaster channeling raw magic in the blood, reshaping spells with Metamagic.",
+    "hitDie": "d6",
+    "saves": [
+      "CON",
+      "CHA"
+    ],
+    "primary": [
+      "CHA"
+    ],
+    "priority": [
+      "CHA",
+      "CON",
+      "DEX",
+      "WIS",
+      "INT",
+      "STR"
+    ],
+    "caster": "full",
+    "spellAbility": "CHA",
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "Arcana",
+        "Deception",
+        "Insight",
+        "Intimidation",
+        "Persuasion",
+        "Religion"
+      ]
+    },
+    "subclassLevel": 3,
+    "subclasses": [
+      "aberrant",
+      "clockwork",
+      "draconic",
+      "wild-magic"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Innate Sorcery",
+        "Spellcasting"
+      ],
+      "2": [
+        "Font of Magic"
+      ],
+      "3": [
+        "Metamagic",
+        "Sorcerer Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Sorcerous Restoration"
+      ]
+    }
+  },
+  "warlock": {
+    "name": "Warlock",
+    "desc": "A wielder of eldritch power granted by an otherworldly patron, fueled by short-rest Pact Magic.",
+    "hitDie": "d8",
+    "saves": [
+      "WIS",
+      "CHA"
+    ],
+    "primary": [
+      "CHA"
+    ],
+    "priority": [
+      "CHA",
+      "CON",
+      "DEX",
+      "WIS",
+      "INT",
+      "STR"
+    ],
+    "caster": "pact",
+    "spellAbility": "CHA",
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "Arcana",
+        "Deception",
+        "History",
+        "Intimidation",
+        "Investigation",
+        "Nature",
+        "Religion"
+      ]
+    },
+    "subclassLevel": 3,
+    "subclasses": [
+      "archfey",
+      "celestial",
+      "fiend",
+      "great-old-one"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Eldritch Invocations",
+        "Pact Magic"
+      ],
+      "2": [
+        "Magical Cunning"
+      ],
+      "3": [
+        "Warlock Subclass"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": []
     }
   }
 }

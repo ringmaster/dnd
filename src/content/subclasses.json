@@ -473,5 +473,1654 @@
         }
       }
     ]
+  },
+  "berserker": {
+    "name": "Path of the Berserker",
+    "desc": "A barbarian who channels rage into a relentless, bloody frenzy.",
+    "features": [
+      "Frenzy"
+    ],
+    "grants": [
+      {
+        "id": "frenzy",
+        "name": "Frenzy",
+        "ref": {
+          "title": "Frenzy",
+          "chips": [
+            {
+              "t": "Bonus damage",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "While raging, the first time each turn you hit a creature with a weapon or Unarmed Strike and deal damage, you can deal extra Force damage; the extra damage equals a number of d6s equal to your Rage Damage bonus."
+          ]
+        }
+      }
+    ]
+  },
+  "wild-heart": {
+    "name": "Path of the Wild Heart",
+    "desc": "A barbarian who draws on a spiritual bond with the natural world and its beasts.",
+    "features": [
+      "Animal Speaker",
+      "Rage of the Wilds"
+    ],
+    "grants": [
+      {
+        "id": "animalspeaker",
+        "name": "Animal Speaker",
+        "ref": {
+          "title": "Animal Speaker",
+          "chips": [
+            {
+              "t": "Ritual",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You can cast Beast Sense and Speak with Animals, but only as Rituals.",
+            "You can cast them in this way a number of times equal to your Rage uses, and you regain expended uses on a Long Rest."
+          ]
+        }
+      },
+      {
+        "id": "rageofthewilds",
+        "name": "Rage of the Wilds",
+        "ref": {
+          "title": "Rage of the Wilds",
+          "chips": [
+            {
+              "t": "Choose when you Rage",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "When you Rage, you invoke an animal spirit for a benefit that lasts until the Rage ends: Bear gives you Resistance to every damage type except Force, Necrotic, Psychic, and Radiant.",
+            "Eagle lets you take the Dash and Disengage actions as a Bonus Action, and Wolf lets allies within 5 feet of you have Advantage on melee attack rolls against enemies within 5 feet of you."
+          ]
+        }
+      }
+    ]
+  },
+  "world-tree": {
+    "name": "Path of the World Tree",
+    "desc": "A barbarian who draws on the cosmic World Tree Yggdrasil for vitality and protection.",
+    "features": [
+      "Vitality of the Tree"
+    ],
+    "grants": [
+      {
+        "id": "vitalityofthetree",
+        "name": "Vitality of the Tree",
+        "ref": {
+          "title": "Vitality of the Tree",
+          "chips": [
+            {
+              "t": "Temp HP",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "When you enter your Rage, you gain Temporary Hit Points equal to your Barbarian level.",
+            "At the start of each of your turns while raging, you can choose another creature within 10 feet and give it Temporary HP equal to a roll of your Barbarian Hit Point die (a d12)."
+          ]
+        }
+      }
+    ]
+  },
+  "zealot": {
+    "name": "Path of the Zealot",
+    "desc": "A barbarian who rages as a divine warrior fueled by a god's fervor.",
+    "features": [
+      "Divine Fury",
+      "Warrior of the Gods"
+    ],
+    "grants": [
+      {
+        "id": "divinefury",
+        "name": "Divine Fury",
+        "ref": {
+          "title": "Divine Fury",
+          "chips": [
+            {
+              "t": "Bonus damage",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "While raging, the first time each turn you hit a creature with a weapon or Unarmed Strike, you deal extra Necrotic or Radiant damage (your choice) equal to 1d6 + half your Barbarian level (rounded down)."
+          ]
+        }
+      },
+      {
+        "id": "warriorofthegods",
+        "name": "Warrior of the Gods",
+        "ref": {
+          "title": "Warrior of the Gods",
+          "chips": [
+            {
+              "t": "Healing pool",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You have a pool of four d12s that you can spend to heal yourself; as a Bonus Action, you can expend dice from the pool to regain that many Hit Points.",
+            "The pool regains all expended dice when you finish a Long Rest, and it grows as you gain Barbarian levels."
+          ]
+        }
+      }
+    ]
+  },
+  "dance": {
+    "name": "College of Dance",
+    "desc": "A bard whose body is an instrument, weaving magic through graceful motion.",
+    "features": [
+      "Dazzling Footwork"
+    ],
+    "grants": [
+      {
+        "id": "dazzlingfootwork",
+        "name": "Dazzling Footwork",
+        "ref": {
+          "title": "Dazzling Footwork",
+          "body": [
+            "While you aren't wearing armor or wielding a Shield, your Unarmored Defense is 10 + Dex modifier + Cha modifier. When you expend a Bardic Inspiration, you also gain the benefits of a Bonus Action Dash and Disengage, your Speed increases by 10 ft, and your next unarmed strike deals Bardic Inspiration die + Dex modifier Bludgeoning damage and uses Dex for its attack and damage."
+          ]
+        }
+      }
+    ]
+  },
+  "glamour": {
+    "name": "College of Glamour",
+    "desc": "A bard touched by the fey, wielding beauty and majesty to charm and command.",
+    "features": [
+      "Beguiling Magic",
+      "Mantle of Inspiration"
+    ],
+    "grants": [
+      {
+        "id": "beguilingmagic",
+        "name": "Beguiling Magic",
+        "ref": {
+          "title": "Beguiling Magic",
+          "body": [
+            "You always have the Charm Person and Mirror Image spells prepared. Immediately after casting an Enchantment or Illusion spell with a spell slot, you can force one creature within 60 ft (Wisdom save vs your spell DC) to be Charmed or Frightened until the end of your next turn. You can use this once per Short or Long Rest, or by expending a Bardic Inspiration."
+          ]
+        }
+      },
+      {
+        "id": "mantleofinspiration",
+        "name": "Mantle of Inspiration",
+        "ref": {
+          "title": "Mantle of Inspiration",
+          "chips": [
+            {
+              "t": "Bonus Action",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Bonus Action, expend a Bardic Inspiration to grant yourself and creatures of your choice within 60 ft a number of Temporary Hit Points equal to twice your Bardic Inspiration die's max. Each creature that gains them can immediately use its Reaction to move up to its Speed without provoking Opportunity Attacks."
+          ]
+        }
+      }
+    ]
+  },
+  "lore": {
+    "name": "College of Lore",
+    "desc": "A bard whose knowledge cuts as sharply as any blade.",
+    "features": [
+      "Bonus Proficiencies",
+      "Cutting Words"
+    ],
+    "grants": [
+      {
+        "id": "loreprofs",
+        "name": "Bonus Proficiencies",
+        "effects": {
+          "skills": [
+            "Arcana",
+            "History",
+            "Investigation"
+          ]
+        },
+        "ref": {
+          "title": "Bonus Proficiencies",
+          "body": [
+            "You gain proficiency in three skills of your choice (here: Arcana, History, Investigation)."
+          ]
+        }
+      },
+      {
+        "id": "cuttingwords",
+        "name": "Cutting Words",
+        "ref": {
+          "title": "Cutting Words",
+          "chips": [
+            {
+              "t": "Reaction",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Reaction when a creature you can see within 60 ft makes a damage roll or succeeds on a d20 Test, expend a Bardic Inspiration and roll the die, subtracting the number rolled from the creature's roll. You can do so after the roll but before its effects apply."
+          ]
+        }
+      }
+    ]
+  },
+  "valor": {
+    "name": "College of Valor",
+    "desc": "A daring bard who inspires heroism on the battlefield through song and steel.",
+    "features": [
+      "Combat Inspiration",
+      "Martial Training"
+    ],
+    "grants": [
+      {
+        "id": "combatinspiration",
+        "name": "Combat Inspiration",
+        "ref": {
+          "title": "Combat Inspiration",
+          "body": [
+            "A creature with your Bardic Inspiration can roll that die and add it to a weapon damage roll it makes, or use its Reaction to add it to its Armor Class against one attack (deciding after the attacker hits but before damage is rolled)."
+          ]
+        }
+      },
+      {
+        "id": "martialtraining",
+        "name": "Martial Training",
+        "effects": {
+          "tools": []
+        },
+        "ref": {
+          "title": "Martial Training",
+          "body": [
+            "You gain proficiency with Martial weapons and training with Medium armor and Shields. You can also use a Simple or Martial weapon as your Spellcasting Focus for Bard spells."
+          ]
+        }
+      }
+    ]
+  },
+  "land": {
+    "name": "Circle of the Land",
+    "desc": "A druid drawing on the magic of a chosen terrain.",
+    "features": [
+      "Circle of the Land",
+      "Land's Aid"
+    ],
+    "grants": [
+      {
+        "id": "circleoftheland",
+        "name": "Circle of the Land",
+        "ref": {
+          "title": "Circle of the Land",
+          "chips": [
+            {
+              "t": "Level 3",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "Choose a land type (Arid, Polar, Temperate, or Tropical); you always have its associated spells prepared, and they don't count against your prepared total. You can change the land and its spells on a Long Rest, gaining more spells at levels 5, 7, and 9."
+          ]
+        }
+      },
+      {
+        "id": "landsaid",
+        "name": "Land's Aid",
+        "ref": {
+          "title": "Land's Aid",
+          "chips": [
+            {
+              "t": "Wild Shape",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "As a Magic action, expend a Wild Shape use to target a creature within 60 feet: deal 2d6 Necrotic damage to it (Constitution save for half) or restore 2d6 Hit Points to it. The dice increase as you level."
+          ]
+        }
+      }
+    ]
+  },
+  "moon": {
+    "name": "Circle of the Moon",
+    "desc": "A druid who masters the savage forms of the wild.",
+    "features": [
+      "Circle Forms"
+    ],
+    "grants": [
+      {
+        "id": "circleforms",
+        "name": "Circle Forms",
+        "ref": {
+          "title": "Circle Forms",
+          "chips": [
+            {
+              "t": "Wild Shape",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "When you Wild Shape you can take more dangerous forms (CR up to your druid level / 3), and while transformed you gain temporary Hit Points equal to three times your druid level. You can also expend a spell slot to add 1d8 per slot level to a melee attack's damage while transformed."
+          ]
+        }
+      }
+    ]
+  },
+  "sea": {
+    "name": "Circle of the Sea",
+    "desc": "A druid channeling the surging power of ocean and storm.",
+    "features": [
+      "Wrath of the Sea"
+    ],
+    "grants": [
+      {
+        "id": "wrathofthesea",
+        "name": "Wrath of the Sea",
+        "ref": {
+          "title": "Wrath of the Sea",
+          "chips": [
+            {
+              "t": "Wild Shape",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Bonus Action, expend a Wild Shape use to surround yourself with a watery aura for 10 minutes. As a Magic action while it lasts, force a creature within 30 feet to make a Constitution save, taking Cold damage (your level's dice) and being pushed up to 15 feet on a failure."
+          ]
+        }
+      }
+    ]
+  },
+  "stars": {
+    "name": "Circle of the Stars",
+    "desc": "A druid who draws on the power of constellations.",
+    "features": [
+      "Star Map",
+      "Starry Form"
+    ],
+    "grants": [
+      {
+        "id": "starmap",
+        "name": "Star Map",
+        "ref": {
+          "title": "Star Map",
+          "chips": [
+            {
+              "t": "Level 3"
+            }
+          ],
+          "body": [
+            "You craft a Star Map as a Spellcasting Focus; you always have the Guidance and Guiding Bolt spells prepared, and can cast Guiding Bolt a number of times equal to your Wisdom modifier per Long Rest without a slot."
+          ]
+        }
+      },
+      {
+        "id": "starryform",
+        "name": "Starry Form",
+        "ref": {
+          "title": "Starry Form",
+          "chips": [
+            {
+              "t": "Wild Shape",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Bonus Action, expend a Wild Shape use to glow with starlight for 10 minutes, choosing a constellation: Archer (ranged radiant attack), Chalice (healing when you cast a spell to restore HP), or Dragon (treat d20 rolls of 9 or lower as 10 on Intelligence/Wisdom checks and Constitution saves for concentration)."
+          ]
+        }
+      }
+    ]
+  },
+  "devotion": {
+    "name": "Oath of Devotion",
+    "desc": "A paladin sworn to the ideals of justice, honor, and order.",
+    "features": [
+      "Sacred Weapon",
+      "Oath of Devotion Spells"
+    ],
+    "grants": [
+      {
+        "id": "sacredweapon",
+        "name": "Channel Divinity: Sacred Weapon",
+        "ref": {
+          "title": "Sacred Weapon",
+          "chips": [
+            {
+              "t": "Channel Divinity",
+              "c": "ember"
+            },
+            {
+              "t": "Bonus Action",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "As a Bonus Action, expend a use of Channel Divinity to imbue one weapon for 10 minutes, adding your Charisma modifier to its attack rolls (minimum +1). The weapon emits Bright Light, counts as magical, and you can end the effect early (no action)."
+          ]
+        }
+      },
+      {
+        "id": "devotionspells",
+        "name": "Oath of Devotion Spells",
+        "ref": {
+          "title": "Oath of Devotion Spells",
+          "body": [
+            "You always have these oath spells prepared: Protection from Evil and Good and Shield of Faith (3rd); Aid and Zone of Truth (5th); Beacon of Hope and Dispel Magic (9th); Freedom of Movement and Guardian of Faith (13th); Commune and Flame Strike (17th)."
+          ]
+        }
+      }
+    ]
+  },
+  "glory": {
+    "name": "Oath of Glory",
+    "desc": "A paladin who strives for heroic feats worthy of legend.",
+    "features": [
+      "Peerless Athlete",
+      "Inspiring Smite",
+      "Oath of Glory Spells"
+    ],
+    "grants": [
+      {
+        "id": "peerlessathlete",
+        "name": "Channel Divinity: Peerless Athlete",
+        "ref": {
+          "title": "Peerless Athlete",
+          "chips": [
+            {
+              "t": "Channel Divinity",
+              "c": "ember"
+            },
+            {
+              "t": "Bonus Action",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "As a Bonus Action, expend a use of Channel Divinity to gain Advantage on Strength (Athletics) and Dexterity (Acrobatics) checks for 1 hour. Your carrying capacity doubles and you can jump an extra 10 feet on a running jump."
+          ]
+        }
+      },
+      {
+        "id": "inspiringsmite",
+        "name": "Channel Divinity: Inspiring Smite",
+        "ref": {
+          "title": "Inspiring Smite",
+          "chips": [
+            {
+              "t": "Channel Divinity",
+              "c": "ember"
+            },
+            {
+              "t": "Bonus Action",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Immediately after dealing damage with Divine Smite, use a Bonus Action and expend a use of Channel Divinity to distribute Temporary Hit Points totaling 2d8 plus your Paladin level among creatures of your choice within 30 feet."
+          ]
+        }
+      },
+      {
+        "id": "gloryspells",
+        "name": "Oath of Glory Spells",
+        "ref": {
+          "title": "Oath of Glory Spells",
+          "body": [
+            "You always have these oath spells prepared: Guiding Bolt and Heroism (3rd); Enhance Ability and Magic Weapon (5th); Haste and Protection from Energy (9th); Compulsion and Freedom of Movement (13th); Legend Lore and Yolande's Regal Presence (17th)."
+          ]
+        }
+      }
+    ]
+  },
+  "ancients": {
+    "name": "Oath of the Ancients",
+    "desc": "A paladin who safeguards the light of life and beauty against encroaching darkness.",
+    "features": [
+      "Nature's Wrath",
+      "Oath of the Ancients Spells"
+    ],
+    "grants": [
+      {
+        "id": "natureswrath",
+        "name": "Channel Divinity: Nature's Wrath",
+        "ref": {
+          "title": "Nature's Wrath",
+          "chips": [
+            {
+              "t": "Channel Divinity",
+              "c": "storm"
+            },
+            {
+              "t": "Magic Action",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Magic action, expend a use of Channel Divinity to force each creature in a 15-foot Emanation to make a Strength save or be Restrained. A creature repeats the save at the end of each of its turns, ending the effect on a success; it lasts up to 1 minute."
+          ]
+        }
+      },
+      {
+        "id": "ancientsspells",
+        "name": "Oath of the Ancients Spells",
+        "ref": {
+          "title": "Oath of the Ancients Spells",
+          "body": [
+            "You always have these oath spells prepared: Ensnaring Strike and Speak with Animals (3rd); Misty Step and Moonbeam (5th); Plant Growth and Protection from Energy (9th); Ice Storm and Stoneskin (13th); Commune with Nature and Tree Stride (17th)."
+          ]
+        }
+      }
+    ]
+  },
+  "vengeance": {
+    "name": "Oath of Vengeance",
+    "desc": "A paladin who delivers punishment to those who commit grievous wrongs.",
+    "features": [
+      "Vow of Enmity",
+      "Oath of Vengeance Spells"
+    ],
+    "grants": [
+      {
+        "id": "vowofenmity",
+        "name": "Channel Divinity: Vow of Enmity",
+        "ref": {
+          "title": "Vow of Enmity",
+          "chips": [
+            {
+              "t": "Channel Divinity",
+              "c": "ember"
+            },
+            {
+              "t": "Bonus Action",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "As a Bonus Action, expend a use of Channel Divinity to mark one creature you can see within 30 feet for 1 minute. You have Advantage on attack rolls against it, and the mark moves to a new creature if the marked one drops to 0 Hit Points before the effect ends."
+          ]
+        }
+      },
+      {
+        "id": "vengeancespells",
+        "name": "Oath of Vengeance Spells",
+        "ref": {
+          "title": "Oath of Vengeance Spells",
+          "body": [
+            "You always have these oath spells prepared: Bane and Hunter's Mark (3rd); Hold Person and Misty Step (5th); Haste and Protection from Energy (9th); Banishment and Dimension Door (13th); Hold Monster and Scrying (17th)."
+          ]
+        }
+      }
+    ]
+  },
+  "aberrant": {
+    "name": "Aberrant Sorcery",
+    "desc": "A sorcerer whose power flows from an alien, psionic influence on body and mind.",
+    "features": [
+      "Telepathic Speech",
+      "Psionic Sorcery"
+    ],
+    "grants": [
+      {
+        "id": "telepathicspeech",
+        "name": "Telepathic Speech",
+        "ref": {
+          "title": "Telepathic Speech",
+          "chips": [
+            {
+              "t": "Bonus Action",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "As a Bonus Action, choose one creature you can see within 30 feet to form a telepathic link for a number of minutes equal to your Sorcerer level. You and that creature can communicate telepathically while within a number of miles equal to your Charisma modifier (minimum 1)."
+          ]
+        }
+      },
+      {
+        "id": "psionicsorcery",
+        "name": "Psionic Sorcery",
+        "ref": {
+          "title": "Psionic Sorcery",
+          "chips": [
+            {
+              "t": "Aberrant Spells",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You always have prepared a set of Aberrant spells (Arms of Hadar, Calm Emotions, Detect Thoughts, Hunger of Hadar, Sending, and more granted at later levels). When you cast one of these spells with a spell slot, you can instead spend Sorcery Points equal to the spell's level to cast it, and that casting requires no Verbal or Somatic components."
+          ]
+        }
+      }
+    ]
+  },
+  "clockwork": {
+    "name": "Clockwork Sorcery",
+    "desc": "A sorcerer drawing power from the cosmic forces of order that govern the universe.",
+    "features": [
+      "Restore Balance",
+      "Clockwork Spells"
+    ],
+    "grants": [
+      {
+        "id": "clockworkspells",
+        "name": "Clockwork Magic",
+        "ref": {
+          "title": "Clockwork Magic",
+          "chips": [
+            {
+              "t": "Clockwork Spells",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You always have prepared a set of Clockwork spells (Aid, Alarm, Lesser Restoration, Protection from Evil and Good, and more granted at later levels). These spells don't count against your number of prepared spells."
+          ]
+        }
+      },
+      {
+        "id": "restorebalance",
+        "name": "Restore Balance",
+        "ref": {
+          "title": "Restore Balance",
+          "chips": [
+            {
+              "t": "Reaction",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "When a creature within 60 feet you can see is about to roll a d20 with Advantage or Disadvantage, you can take a Reaction to prevent that roll from being affected by either. Usable a number of times equal to your Charisma modifier (minimum 1) per Long Rest."
+          ]
+        }
+      }
+    ]
+  },
+  "draconic": {
+    "name": "Draconic Sorcery",
+    "desc": "A sorcerer whose magic springs from the power of dragons in their bloodline.",
+    "features": [
+      "Draconic Resilience",
+      "Dragon Ancestor"
+    ],
+    "grants": [
+      {
+        "id": "dragonancestor",
+        "name": "Dragon Ancestor",
+        "ref": {
+          "title": "Dragon Ancestor",
+          "chips": [
+            {
+              "t": "Draconic Spells",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You always have prepared a set of draconic-themed spells (Alter Self, Chromatic Orb, Command, Dragon's Breath, and more granted at later levels). You also learn to speak, read, and write Draconic."
+          ]
+        },
+        "effects": {
+          "languages": [
+            "Draconic"
+          ]
+        }
+      },
+      {
+        "id": "draconicresilience",
+        "name": "Draconic Resilience",
+        "ref": {
+          "title": "Draconic Resilience",
+          "chips": [
+            {
+              "t": "+HP & AC",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "Your hit point maximum increases by 1 per Sorcerer level. While you aren't wearing armor, your base AC equals 10 + Dexterity modifier + Charisma modifier."
+          ]
+        }
+      }
+    ]
+  },
+  "wild-magic": {
+    "name": "Wild Magic Sorcery",
+    "desc": "A sorcerer whose magic is unpredictable, springing from the raw forces of chaos.",
+    "features": [
+      "Wild Magic Surge",
+      "Tides of Chaos"
+    ],
+    "grants": [
+      {
+        "id": "wildmagicsurge",
+        "name": "Wild Magic Surge",
+        "ref": {
+          "title": "Wild Magic Surge",
+          "chips": [
+            {
+              "t": "d20",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Once per turn, when you cast a Sorcerer spell with a spell slot, you can roll on the Wild Magic Surge table for a random magical effect. The effect's spells require no components and don't count against your prepared spells."
+          ]
+        }
+      },
+      {
+        "id": "tidesofchaos",
+        "name": "Tides of Chaos",
+        "ref": {
+          "title": "Tides of Chaos",
+          "chips": [
+            {
+              "t": "Advantage",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You can give yourself Advantage on one D20 Test before you roll, once per Long Rest. If you then cast a Sorcerer spell with a spell slot before this regains, you must roll on the Wild Magic Surge table immediately after, and doing so restores this use."
+          ]
+        }
+      }
+    ]
+  },
+  "archfey": {
+    "name": "Archfey Patron",
+    "desc": "A warlock bound to a lord or lady of the fey.",
+    "features": [
+      "Steps of the Fey"
+    ],
+    "grants": [
+      {
+        "id": "archfeyspells",
+        "name": "Archfey Spells",
+        "ref": {
+          "title": "Archfey Spells",
+          "chips": [
+            {
+              "t": "Always prepared",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You always have certain spells prepared: Calm Emotions, Faerie Fire, Misty Step, Phantasmal Force, Blink, Plant Growth, Dominate Beast, Greater Invisibility, Dominate Person, and Seeming.",
+            "These don't count against the number of spells you know."
+          ]
+        }
+      },
+      {
+        "id": "stepsofthefey",
+        "name": "Steps of the Fey",
+        "ref": {
+          "title": "Steps of the Fey",
+          "chips": [
+            {
+              "t": "Misty Step",
+              "c": "storm"
+            },
+            {
+              "t": "Prof. bonus/long rest",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You can cast Misty Step without expending a spell slot a number of times equal to your Proficiency Bonus per Long Rest.",
+            "When you teleport this way, choose Refreshing Step (you or a creature you can see gains temporary HP equal to 1d10 + your Charisma modifier) or Taunting Step (each creature within 5 feet of your starting space has Disadvantage on attacks against anyone but you until your next turn)."
+          ]
+        }
+      }
+    ]
+  },
+  "celestial": {
+    "name": "Celestial Patron",
+    "desc": "A warlock empowered by a being of the Upper Planes.",
+    "features": [
+      "Healing Light",
+      "Celestial Bonus Cantrips"
+    ],
+    "grants": [
+      {
+        "id": "celestialspells",
+        "name": "Celestial Spells",
+        "ref": {
+          "title": "Celestial Spells",
+          "chips": [
+            {
+              "t": "Always prepared",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You always have certain spells prepared: Aid, Cure Wounds, Guiding Bolt, Lesser Restoration, Daylight, Revivify, Guardian of Faith, Wall of Fire, Greater Restoration, and Summon Celestial.",
+            "These don't count against the number of spells you know."
+          ]
+        }
+      },
+      {
+        "id": "celestialbonuscantrips",
+        "name": "Bonus Cantrips",
+        "ref": {
+          "title": "Bonus Cantrips",
+          "body": [
+            "You learn the Light and Sacred Flame cantrips. They count as Warlock cantrips for you but don't count against your number known."
+          ]
+        }
+      },
+      {
+        "id": "healinglight",
+        "name": "Healing Light",
+        "ref": {
+          "title": "Healing Light",
+          "chips": [
+            {
+              "t": "Bonus action",
+              "c": "storm"
+            },
+            {
+              "t": "Pool of d6s",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You have a pool of d6s equal to 1 + your Warlock level for healing. As a Bonus Action, heal a creature within 60 feet by spending dice (up to your Charisma modifier, minimum 1) and restoring that total in hit points.",
+            "You regain all expended dice when you finish a Long Rest."
+          ]
+        }
+      }
+    ]
+  },
+  "fiend": {
+    "name": "Fiend Patron",
+    "desc": "A warlock bound to a powerful devil or demon.",
+    "features": [
+      "Dark One's Blessing"
+    ],
+    "grants": [
+      {
+        "id": "fiendspells",
+        "name": "Fiend Spells",
+        "ref": {
+          "title": "Fiend Spells",
+          "chips": [
+            {
+              "t": "Always prepared",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You always have certain spells prepared: Burning Hands, Command, Scorching Ray, Suggestion, Fireball, Stinking Cloud, Fire Shield, Wall of Fire, Geas, and Insect Plague.",
+            "These don't count against the number of spells you know."
+          ]
+        }
+      },
+      {
+        "id": "darkonesblessing",
+        "name": "Dark One's Blessing",
+        "ref": {
+          "title": "Dark One's Blessing",
+          "chips": [
+            {
+              "t": "Temp HP",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "When you reduce an enemy to 0 HP (or one dies within 10 feet of you), you gain temporary hit points equal to your Charisma modifier + your Warlock level (minimum 1).",
+            "You also gain this benefit immediately when you take this feature."
+          ]
+        }
+      }
+    ]
+  },
+  "great-old-one": {
+    "name": "Great Old One Patron",
+    "desc": "A warlock tied to an alien entity of madness and secrets.",
+    "features": [
+      "Awakened Mind",
+      "Psychic Spells"
+    ],
+    "grants": [
+      {
+        "id": "greatoldonespells",
+        "name": "Psychic Spells",
+        "ref": {
+          "title": "Psychic Spells",
+          "chips": [
+            {
+              "t": "Always prepared",
+              "c": "ember"
+            },
+            {
+              "t": "Subtle casting",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You always have certain spells prepared: Detect Thoughts, Dissonant Whispers, Phantasmal Force, Tasha's Hideous Laughter, Clairvoyance, Hunger of Hadar, Sending, Telekinesis, Modify Memory, and Rary's Telepathic Bond.",
+            "When you cast a Warlock spell that deals damage, you can change its damage type to Psychic. You can also cast Enchantment and Illusion spells without verbal or somatic components."
+          ]
+        }
+      },
+      {
+        "id": "awakenedmind",
+        "name": "Awakened Mind",
+        "ref": {
+          "title": "Awakened Mind",
+          "chips": [
+            {
+              "t": "Telepathy",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You can telepathically speak to any creature you can see within 30 feet. You don't need to share a language, but the creature must understand at least one language to comprehend you."
+          ]
+        }
+      }
+    ]
+  },
+  "hunter": {
+    "name": "Hunter",
+    "desc": "A ranger specialized in slaying specific threats with deadly precision.",
+    "features": [
+      "Hunter's Lore",
+      "Hunter's Prey"
+    ],
+    "grants": [
+      {
+        "id": "hunterslore",
+        "name": "Hunter's Lore",
+        "ref": {
+          "title": "Hunter's Lore",
+          "body": [
+            "While a creature is marked by your Hunter's Mark, you know whether it has any Immunities, Resistances, or Vulnerabilities, and what they are."
+          ]
+        }
+      },
+      {
+        "id": "huntersprey",
+        "name": "Hunter's Prey",
+        "ref": {
+          "title": "Hunter's Prey",
+          "chips": [
+            {
+              "t": "Extra damage",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You gain one of two options. Colossus Slayer: once per turn when you hit a creature with a weapon, deal an extra 1d8 damage if it is below its hit point maximum. Horde Breaker: once per turn when you make an attack, make a second attack with the same weapon against a different creature within 5 feet of the first."
+          ]
+        }
+      }
+    ]
+  },
+  "gloom-stalker": {
+    "name": "Gloom Stalker",
+    "desc": "A ranger who haunts the darkest places, striking from ambush before foes can react.",
+    "features": [
+      "Dread Ambusher",
+      "Umbral Sight"
+    ],
+    "grants": [
+      {
+        "id": "dreadambusher",
+        "name": "Dread Ambusher",
+        "ref": {
+          "title": "Dread Ambusher",
+          "chips": [
+            {
+              "t": "Initiative bonus",
+              "c": "storm"
+            },
+            {
+              "t": "Extra attack",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You can add your Wisdom modifier to your Initiative rolls. At the start of your first turn in combat, your Speed increases by 10 feet until that turn ends, and you can make one extra weapon attack if you take the Attack action, dealing an extra 1d8 damage on a hit. You can use this benefit a number of times equal to your Wisdom modifier (minimum once), regaining all uses on a Long Rest."
+          ]
+        }
+      },
+      {
+        "id": "umbralsight",
+        "name": "Umbral Sight",
+        "ref": {
+          "title": "Umbral Sight",
+          "chips": [
+            {
+              "t": "Darkvision 60 ft",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You gain Darkvision out to 60 feet, or extend it by 60 feet if you already have it. While entirely in Darkness, you are Invisible to any creature that relies on Darkvision to see you."
+          ]
+        }
+      }
+    ]
+  },
+  "beast-master": {
+    "name": "Beast Master",
+    "desc": "A ranger bonded to a primal spirit beast that fights at their side.",
+    "features": [
+      "Primal Companion"
+    ],
+    "grants": [
+      {
+        "id": "primalcompanion",
+        "name": "Primal Companion",
+        "ref": {
+          "title": "Primal Companion",
+          "chips": [
+            {
+              "t": "Spirit beast",
+              "c": "storm"
+            },
+            {
+              "t": "Bonus action command",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "You magically summon a primal Beast (Beast of the Land, Sea, or Sky) that obeys your commands and acts on your turn. In combat it acts right after you on your Initiative; without a command it only takes the Dodge action, but you can use a Bonus Action to command it to take any action plus the Disengage, Dodge, or Help action. When you take the Attack action, you can forgo one attack to command it to take the Attack action. It adds your Proficiency Bonus to AC, attack, and damage rolls, and to any check or save it makes; its HP equals five times your ranger level. If it drops to 0 HP it isn't destroyed, and you can revive it by spending a spell slot or a Magic action over an hour."
+          ]
+        }
+      }
+    ]
+  },
+  "champion": {
+    "name": "Champion",
+    "desc": "A fighter who relies on raw physical excellence.",
+    "features": [
+      "Improved Critical",
+      "Remarkable Athlete"
+    ],
+    "grants": [
+      {
+        "id": "improvedcritical",
+        "name": "Improved Critical",
+        "ref": {
+          "title": "Improved Critical",
+          "chips": [
+            {
+              "t": "Crit on 19-20",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Your attack rolls with weapons and Unarmed Strikes can score a critical hit on a roll of 19 or 20."
+          ]
+        }
+      },
+      {
+        "id": "remarkableathlete",
+        "name": "Remarkable Athlete",
+        "ref": {
+          "title": "Remarkable Athlete",
+          "body": [
+            "You have Advantage on Initiative rolls and Strength (Athletics) checks. Once per turn, immediately after a Strength-based attack that hits, you can move up to half your Speed without provoking Opportunity Attacks."
+          ]
+        }
+      }
+    ]
+  },
+  "eldritch-knight": {
+    "name": "Eldritch Knight",
+    "desc": "A fighter who augments martial skill with wizard magic.",
+    "features": [
+      "Spellcasting",
+      "War Bond"
+    ],
+    "grants": [
+      {
+        "id": "spellcasting",
+        "name": "Spellcasting",
+        "ref": {
+          "title": "Spellcasting",
+          "chips": [
+            {
+              "t": "Intelligence",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You learn wizard spells, using Intelligence as your spellcasting ability. At level 3 you know two cantrips and three 1st-level spells, mostly from the Abjuration and Evocation schools.",
+            "You prepare spells from those you know and cast them using Intelligence (spell save DC = 8 + Int modifier + Proficiency Bonus). You can cast prepared spells as rituals if they have the Ritual tag and you have them in hand."
+          ]
+        }
+      },
+      {
+        "id": "warbond",
+        "name": "War Bond",
+        "ref": {
+          "title": "War Bond",
+          "body": [
+            "You can bond with up to two weapons over a 1-hour ritual during a Short or Long Rest; you can bond with only two at a time and a third bond breaks the oldest.",
+            "While a bonded weapon is on the same plane, you can summon it to your hand as a Bonus Action. You can't be disarmed of a bonded weapon unless you have the Incapacitated condition."
+          ]
+        }
+      }
+    ]
+  },
+  "psi-warrior": {
+    "name": "Psi Warrior",
+    "desc": "A fighter who channels psionic energy to augment body and mind.",
+    "features": [
+      "Psionic Power"
+    ],
+    "grants": [
+      {
+        "id": "psionicpower",
+        "name": "Psionic Power",
+        "ref": {
+          "title": "Psionic Power",
+          "chips": [
+            {
+              "t": "Psionic Energy Dice",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "You have Psionic Energy Dice (starting as four d6s) that fuel your powers; you regain one die on a Short Rest and all of them on a Long Rest. As die size and number increase by level.",
+            "Protective Field (Reaction): when you or a creature within 30 feet takes damage, expend a die to reduce it by the die roll + your Intelligence modifier (min 1).",
+            "Psionic Strike: once per turn when you hit a target within 30 feet with an attack, expend a die to deal extra Force damage equal to the die roll + your Intelligence modifier.",
+            "Telekinetic Movement: as a Magic action, expend a die to move a Large or smaller object or willing creature, or a loose object, up to 30 feet; you can do this once for free between rests."
+          ]
+        }
+      }
+    ]
+  },
+  "evoker": {
+    "name": "Evoker",
+    "desc": "A wizard who masters destructive elemental magic.",
+    "features": [
+      "Evocation Savant",
+      "Potent Cantrip"
+    ],
+    "grants": [
+      {
+        "id": "evocationsavant",
+        "name": "Evocation Savant",
+        "ref": {
+          "title": "Evocation Savant",
+          "body": [
+            "You always have a number of Evocation spells prepared equal to your proficiency bonus (free, not counting against your prepared limit). Whenever you finish a Long Rest, you can swap one such spell for another Evocation spell from the wizard list."
+          ]
+        }
+      },
+      {
+        "id": "potentcantrip",
+        "name": "Potent Cantrip",
+        "chips": [
+          {
+            "t": "Cantrips",
+            "c": "ember"
+          }
+        ],
+        "ref": {
+          "title": "Potent Cantrip",
+          "body": [
+            "When a creature succeeds on a saving throw against your cantrip, it still takes half the cantrip's damage (if any) and suffers no other effect from the cantrip."
+          ]
+        }
+      }
+    ]
+  },
+  "abjurer": {
+    "name": "Abjurer",
+    "desc": "A wizard who masters protective magic and wards.",
+    "features": [
+      "Abjuration Savant",
+      "Arcane Ward"
+    ],
+    "grants": [
+      {
+        "id": "abjurationsavant",
+        "name": "Abjuration Savant",
+        "ref": {
+          "title": "Abjuration Savant",
+          "body": [
+            "You always have a number of Abjuration spells prepared equal to your proficiency bonus (free, not counting against your prepared limit). Whenever you finish a Long Rest, you can swap one such spell for another Abjuration spell from the wizard list."
+          ]
+        }
+      },
+      {
+        "id": "arcaneward",
+        "name": "Arcane Ward",
+        "chips": [
+          {
+            "t": "Ward",
+            "c": "storm"
+          }
+        ],
+        "ref": {
+          "title": "Arcane Ward",
+          "body": [
+            "When you cast an Abjuration spell of level 1+, you can create a magical ward with Hit Points equal to twice your wizard level + your Intelligence modifier; it lasts until you finish a Long Rest.",
+            "While the ward has HP, any damage you take is subtracted from the ward first. Casting an Abjuration spell of level 1+ restores HP to the ward equal to twice the spell's level."
+          ]
+        }
+      }
+    ]
+  },
+  "illusionist": {
+    "name": "Illusionist",
+    "desc": "A wizard who masters deceptive illusions and false sensations.",
+    "features": [
+      "Illusion Savant",
+      "Improved Illusions"
+    ],
+    "grants": [
+      {
+        "id": "illusionsavant",
+        "name": "Illusion Savant",
+        "ref": {
+          "title": "Illusion Savant",
+          "body": [
+            "You always have a number of Illusion spells prepared equal to your proficiency bonus (free, not counting against your prepared limit). Whenever you finish a Long Rest, you can swap one such spell for another Illusion spell from the wizard list."
+          ]
+        }
+      },
+      {
+        "id": "improvedillusions",
+        "name": "Improved Illusions",
+        "chips": [
+          {
+            "t": "Illusion",
+            "c": "storm"
+          }
+        ],
+        "ref": {
+          "title": "Improved Illusions",
+          "body": [
+            "You know the Minor Illusion cantrip; if you already know it, you learn another wizard cantrip. You can cast it without its verbal component, and with one casting you can create both a sound and an image.",
+            "When you cast an Illusion spell that has a range of 10+ feet, you can increase its range by 60 feet."
+          ]
+        }
+      }
+    ]
+  },
+  "light": {
+    "name": "Light Domain",
+    "desc": "A cleric who wields radiant fire and blinding light against darkness.",
+    "features": [
+      "Light Domain Spells",
+      "Radiance of the Dawn",
+      "Warding Flare"
+    ],
+    "grants": [
+      {
+        "id": "lightdomainspells",
+        "name": "Light Domain Spells",
+        "ref": {
+          "title": "Light Domain Spells",
+          "body": [
+            "You always have these prepared (free): Burning Hands, Faerie Fire, Scorching Ray, See Invisibility, Daylight, Fireball, and more at higher levels.",
+            "You also know the Light cantrip if you don't already."
+          ]
+        }
+      },
+      {
+        "id": "radianceofthedawn",
+        "name": "Channel Divinity: Radiance of the Dawn",
+        "chips": [
+          {
+            "t": "2d10+lvl radiant",
+            "c": "ember"
+          }
+        ],
+        "ref": {
+          "title": "Radiance of the Dawn",
+          "body": [
+            "As a Magic action, expend a use of Channel Divinity to dispel any magical Darkness within 30 feet.",
+            "Each enemy there makes a Constitution save, taking 2d10 + your cleric level Radiant damage (half on a success)."
+          ]
+        }
+      },
+      {
+        "id": "wardingflare",
+        "name": "Warding Flare",
+        "ref": {
+          "title": "Warding Flare",
+          "body": [
+            "When a creature you can see within 30 feet attacks you, you can use a Reaction to impose Disadvantage on that attack roll.",
+            "You can use this a number of times equal to your Wisdom modifier (min 1), regaining all uses on a Long Rest."
+          ]
+        }
+      }
+    ]
+  },
+  "trickery": {
+    "name": "Trickery Domain",
+    "desc": "A cleric who serves their deity through deception, illusion, and stealth.",
+    "features": [
+      "Trickery Domain Spells",
+      "Invoke Duplicity",
+      "Blessing of the Trickster"
+    ],
+    "grants": [
+      {
+        "id": "trickerydomainspells",
+        "name": "Trickery Domain Spells",
+        "ref": {
+          "title": "Trickery Domain Spells",
+          "body": [
+            "You always have these prepared (free): Charm Person, Disguise Self, Mirror Image, Pass Without Trace, Hypnotic Pattern, Nondetection, and more at higher levels."
+          ]
+        }
+      },
+      {
+        "id": "invokeduplicity",
+        "name": "Channel Divinity: Invoke Duplicity",
+        "chips": [
+          {
+            "t": "illusory double",
+            "c": "storm"
+          }
+        ],
+        "ref": {
+          "title": "Invoke Duplicity",
+          "body": [
+            "As a Bonus Action, expend a use of Channel Divinity to create an illusory duplicate of yourself within 30 feet that lasts 1 minute.",
+            "You can cast spells as though you were in its space, gain Advantage on attacks against creatures within 5 feet of it, and move it up to 30 feet as a Bonus Action."
+          ]
+        }
+      },
+      {
+        "id": "blessingofthetrickster",
+        "name": "Blessing of the Trickster",
+        "ref": {
+          "title": "Blessing of the Trickster",
+          "body": [
+            "As a Magic action, you can touch a willing creature (other than yourself) to give it Advantage on Dexterity (Stealth) checks.",
+            "This blessing lasts 1 hour or until you use this feature again."
+          ]
+        }
+      }
+    ]
+  },
+  "war": {
+    "name": "War Domain",
+    "desc": "A cleric who fights as a martial champion of their deity.",
+    "features": [
+      "War Domain Spells",
+      "Guided Strike",
+      "War Priest"
+    ],
+    "grants": [
+      {
+        "id": "wardomainspells",
+        "name": "War Domain Spells",
+        "ref": {
+          "title": "War Domain Spells",
+          "body": [
+            "You always have these prepared (free): Magic Weapon, Shield of Faith, Spiritual Weapon, Magic Circle, Spirit Guardians, and more at higher levels."
+          ]
+        }
+      },
+      {
+        "id": "guidedstrike",
+        "name": "Channel Divinity: Guided Strike",
+        "chips": [
+          {
+            "t": "+10 to hit",
+            "c": "ember"
+          }
+        ],
+        "ref": {
+          "title": "Guided Strike",
+          "body": [
+            "When you make an attack roll, you can expend a use of Channel Divinity to gain a +10 bonus to that roll, potentially turning a miss into a hit.",
+            "You make this choice after seeing the d20 but before knowing the outcome."
+          ]
+        }
+      },
+      {
+        "id": "warpriest",
+        "name": "War Priest",
+        "ref": {
+          "title": "War Priest",
+          "body": [
+            "When you take the Attack action, you can make one extra attack with a weapon as part of that action.",
+            "You can use this a number of times equal to your Wisdom modifier (min 1), regaining all uses on a Long Rest."
+          ]
+        }
+      }
+    ]
+  },
+  "arcane-trickster": {
+    "name": "Arcane Trickster",
+    "desc": "A rogue who enhances stealth and trickery with Illusion and Enchantment magic.",
+    "features": [
+      "Spellcasting",
+      "Mage Hand Legerdemain"
+    ],
+    "grants": [
+      {
+        "id": "spellcasting",
+        "name": "Spellcasting",
+        "chips": [
+          {
+            "t": "Intelligence"
+          }
+        ],
+        "ref": {
+          "title": "Spellcasting",
+          "body": [
+            "You learn Wizard spells using Intelligence as your spellcasting ability; your spell save DC is 8 + Intelligence modifier + Proficiency Bonus, and your attack bonus is Intelligence modifier + Proficiency Bonus.",
+            "You know three cantrips, including Mage Hand, and prepare a limited number of 1st-level and higher Wizard spells, most of which must be from the Illusion or Enchantment schools."
+          ]
+        }
+      },
+      {
+        "id": "magehandlegerdemain",
+        "name": "Mage Hand Legerdemain",
+        "ref": {
+          "title": "Mage Hand Legerdemain",
+          "body": [
+            "When you cast Mage Hand, you can make the spectral hand invisible, and you can use it to perform additional tasks: stow or retrieve an object in a creature's container, and make Sleight of Hand checks using Thieves' Tools.",
+            "You can control the hand as a Bonus Action, and it can carry out these tasks at a distance equal to the spell's range."
+          ]
+        }
+      }
+    ]
+  },
+  "soulknife": {
+    "name": "Soulknife",
+    "desc": "A rogue who strikes with psychic blades manifested from the power of the mind.",
+    "features": [
+      "Psionic Power",
+      "Psychic Blades"
+    ],
+    "grants": [
+      {
+        "id": "psionicpower",
+        "name": "Psionic Power",
+        "ref": {
+          "title": "Psionic Power",
+          "body": [
+            "You have a pool of Psionic Energy dice, equal to twice your Proficiency Bonus, each a d6 (the die size increases as you gain levels).",
+            "Psi-Bolstered Knack: when you fail an ability check using a skill or tool proficiency, you can roll a Psionic Energy die and add it to the check, possibly turning failure into success (the die is expended only if it succeeds). Psychic Whispers: you can expend a die to grant telepathic communication for a number of hours equal to the roll. You regain all dice on a Long Rest, and regain one as a Bonus Action once per Short Rest."
+          ]
+        }
+      },
+      {
+        "id": "psychicblades",
+        "name": "Psychic Blades",
+        "chips": [
+          {
+            "t": "Psychic",
+            "c": "storm"
+          }
+        ],
+        "ref": {
+          "title": "Psychic Blades",
+          "body": [
+            "When you take the Attack action, you can manifest a psychic blade and make a melee or thrown (range 60 ft.) attack with it, using Dexterity, dealing 1d6 psychic damage on a hit. The blade vanishes after the attack.",
+            "Immediately after attacking with it, you can manifest a second psychic blade as a Bonus Action, dealing 1d4 psychic damage on a hit. These blades count as simple melee weapons for your features, such as Sneak Attack."
+          ]
+        }
+      }
+    ]
+  },
+  "thief": {
+    "name": "Thief",
+    "desc": "A rogue of unmatched speed, stealth, and larceny.",
+    "features": [
+      "Fast Hands",
+      "Second-Story Work"
+    ],
+    "grants": [
+      {
+        "id": "fasthands",
+        "name": "Fast Hands",
+        "chips": [
+          {
+            "t": "Bonus action",
+            "c": "ember"
+          }
+        ],
+        "ref": {
+          "title": "Fast Hands",
+          "body": [
+            "You can use the Bonus Action granted by Cunning Action to make a Sleight of Hand check, use Thieves' Tools to disarm a trap or open a lock, or take the Utilize action."
+          ]
+        }
+      },
+      {
+        "id": "secondstorywork",
+        "name": "Second-Story Work",
+        "ref": {
+          "title": "Second-Story Work",
+          "body": [
+            "Climbing no longer costs you extra movement, and when you make a running jump, the distance increases by a number of feet equal to your Dexterity modifier."
+          ]
+        }
+      }
+    ]
+  },
+  "open-hand": {
+    "name": "Warrior of the Open Hand",
+    "desc": "A monk who masters the classic martial arts of unarmed combat.",
+    "features": [
+      "Open Hand Technique"
+    ],
+    "grants": [
+      {
+        "id": "openhandtechnique",
+        "name": "Open Hand Technique",
+        "ref": {
+          "title": "Open Hand Technique",
+          "chips": [
+            {
+              "t": "Flurry rider",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Whenever you hit a creature with an attack granted by Flurry of Blows, you can impose one effect on that target.",
+            "Add Reactions (target can't take Reactions until your next turn's start), Prone (Dex save or knocked prone), or Push (Str save or pushed 15 ft away)."
+          ]
+        }
+      }
+    ]
+  },
+  "mercy": {
+    "name": "Warrior of Mercy",
+    "desc": "A monk who manipulates the life force of others to heal wounds or inflict them.",
+    "features": [
+      "Hand of Harm",
+      "Hand of Healing",
+      "Implements of Mercy"
+    ],
+    "grants": [
+      {
+        "id": "handofharm",
+        "name": "Hand of Harm",
+        "ref": {
+          "title": "Hand of Harm",
+          "chips": [
+            {
+              "t": "1 Focus",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Once per turn when you hit with an Unarmed Strike and deal damage, you can spend 1 Focus Point to deal extra Necrotic damage equal to one roll of your Martial Arts die plus your Wisdom modifier.",
+            "You can use this only once per turn."
+          ]
+        }
+      },
+      {
+        "id": "handofhealing",
+        "name": "Hand of Healing",
+        "ref": {
+          "title": "Hand of Healing",
+          "chips": [
+            {
+              "t": "1 Focus",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Magic action, spend 1 Focus Point to touch a creature and restore Hit Points equal to a roll of your Martial Arts die plus your Wisdom modifier.",
+            "When you use Flurry of Blows, you can replace one of the strikes with Hand of Healing without spending a Focus Point for the healing."
+          ]
+        }
+      },
+      {
+        "id": "implementsofmercy",
+        "name": "Implements of Mercy",
+        "effects": {
+          "skills": [
+            "Insight",
+            "Medicine"
+          ],
+          "tools": [
+            "Herbalism Kit"
+          ]
+        },
+        "ref": {
+          "title": "Implements of Mercy",
+          "body": [
+            "You gain proficiency in the Insight and Medicine skills and with the Herbalism Kit."
+          ]
+        }
+      }
+    ]
+  },
+  "elements": {
+    "name": "Warrior of the Elements",
+    "desc": "A monk who channels the primal forces of the elements through martial techniques.",
+    "features": [
+      "Elemental Attunement"
+    ],
+    "grants": [
+      {
+        "id": "elementalattunement",
+        "name": "Elemental Attunement",
+        "ref": {
+          "title": "Elemental Attunement",
+          "chips": [
+            {
+              "t": "1 Focus",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "As a Bonus action, spend 1 Focus Point to gain Reach (+10 ft) on Unarmed Strikes and change their damage type to Acid, Cold, Fire, Lightning, or Thunder. These benefits last 10 minutes.",
+            "While attuned, once per turn when you hit a creature with an Unarmed Strike, you can move it 10 ft toward or away from you (no save) if it is Large or smaller."
+          ]
+        }
+      }
+    ]
   }
 }
