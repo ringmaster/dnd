@@ -640,7 +640,15 @@ function renderCastFoot(r){
   if(o.free) wrap.appendChild(castOptBtn(r, o.free, "cast-opt cast-full"));
   if(o.base){
     var split=document.createElement("div"); split.className="cast-split";
-    split.appendChild(castOptBtn(r, o.base, "cast-opt cast-main"));
+    var mainBtn=castOptBtn(r, o.base, "cast-opt cast-main");
+    // Heads-up when every slot at the spell's own level is spent, so the default
+    // button would burn a higher slot than the spell needs.
+    if(o.base.level > (r.level||1)){
+      mainBtn.classList.add("over-slot");
+      var lbl=mainBtn.querySelector(".cast-lbl");
+      if(lbl) lbl.insertAdjacentHTML("afterbegin", '<span class="cast-warn" title="No '+esc(ordinal(r.level||1))+'-level slot left — this spends a higher '+esc(ordinal(o.base.level))+'-level slot.">⚠</span> ');
+    }
+    split.appendChild(mainBtn);
     if(o.others.length){
       var menu=document.createElement("div"); menu.className="cast-upcast";
       var head=document.createElement("div"); head.className="cast-up-head";

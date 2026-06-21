@@ -114,6 +114,8 @@
   .btn.cast-disc.has-upcast{border-color:var(--ember)}
   .cast-tri{font-size:.7rem;line-height:1;color:var(--ash)}
   .cast-up-ic{font-size:.82rem;line-height:1;color:var(--ember-bright)}   /* ✦ = upcasting this spell does something */
+  .cast-warn{color:#e8c15a}   /* ⚠ = no slot at the spell's level left; this burns a higher one */
+  .btn.cast-main.over-slot{border-color:#e8c15a}
   .cast-upcast{display:none;flex-direction:column;gap:.45rem;padding:.55rem .6rem;background:rgba(0,0,0,.18);border:1px solid var(--iron);border-radius:8px}
   .cast-upcast.open{display:flex}
   .cast-up-head{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ash)}
