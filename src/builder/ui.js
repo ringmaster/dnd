@@ -225,9 +225,15 @@
   function preparedCount(){ var p=primaryCaster(); if(!p) return 0; if(p.sc.preparedKnown) return p.sc.preparedKnown[Math.min(p.level,20)]||0; var c=p.progression, t=c==="full"?PREP_FULL:(c==="half"?PREP_HALF:(c==="pact"?PREP_PACT:null)); return t?t[Math.min(p.level,20)]:0; }
   function maxSpellLevel(){ var s=spellSlotsFor()||[]; return s.reduce(function(m,p){ return Math.max(m, p.slotLevel||0); }, 0); }
   function classCantrips(){ var p=primaryCaster(); if(!p) return []; return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; return s.level===0 && (s.classes||[]).indexOf(p.list)>=0; }).sort(); }
-  /* leveled spells the caster may prepare: from its spell list, within slot range, and (for restricted
-     casters like Eldritch Knight / Arcane Trickster) limited to the allowed schools of magic */
-  function classLeveledSpells(){ var p=primaryCaster(); if(!p) return []; var mx=maxSpellLevel(); var sch=null; if(p.sc.schools){ sch={}; p.sc.schools.forEach(function(x){ sch[x]=1; }); }
+  /* how many spells from OUTSIDE the caster's restricted schools it may prepare (Eldritch Knight /
+     Arcane Trickster get one "any school" pick at levels 3/8/14/20); 0 = strict, Infinity = no limit */
+  function anySchoolCap(){ var p=primaryCaster(); if(!p||!p.sc.schools) return Infinity; return p.sc.anySchool?(p.sc.anySchool[Math.min(p.level,20)]||0):0; }
+  function offSchool(id){ var p=primaryCaster(); if(!p||!p.sc.schools) return false; var sc=CAT.spells[id]&&CAT.spells[id].school; return !!(sc && p.sc.schools.indexOf(sc)<0); }
+  /* leveled spells the caster may prepare: from its spell list, within slot range. School-restricted
+     casters only see their allowed schools UNLESS they have any-school picks available, in which case
+     the full list is shown and the off-school count is capped at selection time. */
+  function classLeveledSpells(){ var p=primaryCaster(); if(!p) return []; var mx=maxSpellLevel();
+    var sch=null; if(p.sc.schools && anySchoolCap()<=0){ sch={}; p.sc.schools.forEach(function(x){ sch[x]=1; }); }
     return Object.keys(CAT.spells).filter(function(id){ var s=CAT.spells[id]; if(s.level<1||s.level>mx) return false; if((s.classes||[]).indexOf(p.list)<0) return false; if(sch && s.school && !sch[s.school]) return false; return true; }).sort(function(a,b){ var s=CAT.spells; return s[a].level-s[b].level || (s[a].name<s[b].name?-1:1); }); }
   function spellSub(reg){ var d=derive(), p=primaryCaster(), ab=p?p.ability:null, mod=ab?d.mods[ab]:0; var sg=function(n){return (n>=0?"+":"")+n;};
     var s=reg.dice?String(reg.dice).replace(/\{dc\}/g,d.spellDC).replace(/\{atk\}/g,sg(d.spellAtk)).replace(/\{mod\}/g,sg(mod)):"";
@@ -748,14 +754,21 @@
       }
       var pc=preparedCount();
       if(pc){
-        spellCard.appendChild(el("div",{class:"bsub",text:"Prepared spells ("+state.prepared.length+"/"+pc+") — up to spell level "+maxSpellLevel()+":"}));
+        var cap=anySchoolCap(), offNote=(cap>0 && cap<Infinity) ? " · up to "+cap+" from any school" : "";
+        spellCard.appendChild(el("div",{class:"bsub",text:"Prepared spells ("+state.prepared.length+"/"+pc+") — up to spell level "+maxSpellLevel()+offNote+":"}));
         var pw=el("div",{class:"bchips"});
-        classLeveledSpells().forEach(function(id){ var s=CAT.spells[id], on=state.prepared.indexOf(id)>=0;
-          pw.appendChild(el("button",{class:"bchip"+(on?" on":""), type:"button", text:s.name+" · L"+s.level, onclick:function(){
-            var i=state.prepared.indexOf(id); if(i>=0) state.prepared.splice(i,1); else { if(state.prepared.length>=pc) return; state.prepared.push(id); } render();
+        classLeveledSpells().forEach(function(id){ var s=CAT.spells[id], on=state.prepared.indexOf(id)>=0, off=offSchool(id);
+          pw.appendChild(el("button",{class:"bchip"+(on?" on":"")+(off?" alt":""), type:"button", text:s.name+" · L"+s.level+(off?" ✦":""), onclick:function(){
+            var i=state.prepared.indexOf(id);
+            if(i>=0){ state.prepared.splice(i,1); }
+            else { if(state.prepared.length>=pc) return;
+              if(off && state.prepared.filter(offSchool).length>=cap) return;   // off-school any-school cap reached
+              state.prepared.push(id); }
+            render();
           }}));
         });
         spellCard.appendChild(pw);
+        if(cap>0 && cap<Infinity) spellCard.appendChild(el("div",{class:"bhint",text:"✦ = outside your school restriction (limited to "+cap+")."}));
       }
     }
 
