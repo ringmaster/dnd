@@ -19,7 +19,7 @@
     skills:[], originFeat:"", asis:{}, masteries:[], cantrips:[], prepared:[],
     equipment:[],          // unified inventory: {kind:'weapon'|'armor'|'shield'|'item', id?, name}
     languages:[],          // known languages (resolved, not "choices")
-    choices:{ style:"", expertise:"", order:"", skillful:"" },
+    choices:{ style:"", expertise:[], order:"", skillful:"" },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
   };
@@ -44,7 +44,11 @@
   ];
   function proficientSkills(){ var set={}, bg=CAT.backgrounds[state.background]; if(bg&&bg.effects&&bg.effects.skills) bg.effects.skills.forEach(function(s){set[s]=1;}); state.skills.forEach(function(s){set[s]=1;}); return Object.keys(set).sort(); }
   function featureLevel(name){ var fbl=classData().featuresByLevel||{}; for(var l=1;l<=20;l++){ if((fbl[String(l)]||[]).indexOf(name)>=0) return l; } return 1; }
-  function needsExpertise(){ return featureReached("Deft Explorer")||featureReached("Scholar")||featureReached("Expertise"); }
+  /* How many Expertise skills the character may choose: Deft Explorer/Scholar grant 1 each;
+     a Rogue/Bard "Expertise" feature grants 2 each time it's gained (Rogue 1 & 6, Bard 2 & 9). */
+  function expertiseCount(){ var n=0; state.classes.forEach(function(cl){ var fbl=(CAT.classes[cl.cls]||{}).featuresByLevel||{};
+    for(var l=1;l<=cl.level;l++) (fbl[String(l)]||[]).forEach(function(nm){ if(nm==="Deft Explorer"||nm==="Scholar") n+=1; else if(nm==="Expertise") n+=2; }); }); return n; }
+  function needsExpertise(){ return expertiseCount()>0; }
   function classAsiLevels(cls){ return (CAT.classes[cls]||{}).asiLevels || ASI_LEVELS; }
   /* ASI "slots" — per class at its own ASI levels. Each slot has a stable key
      (the level number for single-class back-compat; class:level for multiclass)
@@ -346,7 +350,7 @@
     var invCard=(ch.cards||[]).find(function(c){ return c && c.type==="inventory"; });
     if(invCard && Array.isArray(invCard.items)) invCard.items.forEach(function(it){ if(it && it.name && !gearNames[baseName(it.name)]) state.equipment.push({kind:"item", name:it.name, tag:it.tag}); });
     state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[]; state.languages=[];
-    state.choices={style:"",expertise:"",order:"",skillful:""};
+    state.choices={style:"",expertise:[],order:"",skillful:""};
     (b.sources||[]).forEach(function(s){
       var id=s.id||"", eff=s.effects||{};
       if(/-skills$/.test(id) && eff.skills) state.skills=eff.skills.slice();
@@ -358,7 +362,7 @@
           else state.asis[lv]={mode:"asi11",a:k[0],b:k[1]||k[0]}; } }
       else if(s.grantsFeat) state.originFeat=s.grantsFeat;   // extra origin feat (Human Versatile, etc.) however it's tagged
       if(id==="fighting-style" && s.name){ var fm=/Fighting Style:\s*(.+)$/.exec(s.name); if(fm){ var st=FIGHTING_STYLES.filter(function(x){return x.name===fm[1].trim();})[0]; if(st) state.choices.style=st.id; } }
-      if(eff.expertise) state.choices.expertise=eff.expertise[0];   // from Deft Explorer / Scholar / however tagged
+      if(eff.expertise) state.choices.expertise=eff.expertise.slice();   // all chosen Expertise skills (Deft Explorer/Scholar = 1, Rogue/Bard = 2 each)
       if(eff.skills && id===speciesSkillTrait()) state.choices.skillful=eff.skills[0];   // Human Skillful's chosen skill
       if(id==="divine-order" && s.name) state.choices.order=/Thaumaturge/i.test(s.name)?"thaumaturge":"protector";
       if(eff.spellcasting){ var spc=eff.spellcasting;   // spellcasting source, however its id is tagged (e.g. ranger-spellcasting)
@@ -387,7 +391,7 @@
   function decompose(ch){
     var bgEff=(CAT.backgrounds[state.background]||{}).effects||{};
     if(Array.isArray(ch.skillProf)){ var bgSk=bgEff.skills||[]; state.skills=ch.skillProf.filter(function(s){ return bgSk.indexOf(s)<0; }); }
-    if(Array.isArray(ch.skillExp) && ch.skillExp.length) state.choices.expertise=ch.skillExp[0];
+    if(Array.isArray(ch.skillExp) && ch.skillExp.length) state.choices.expertise=ch.skillExp.slice();
     if(Array.isArray(ch.cantrips)) state.cantrips=ch.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
     if(ch.prepared && Array.isArray(ch.prepared.default)) state.prepared=ch.prepared.default.slice();
     if(ch.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}, bgInc=bgEff.abilityIncrease||{};
@@ -449,7 +453,8 @@
     // feature sub-choices that grant mechanics (override the generic class-feature ref)
     var ch=state.choices;
     if(featureReached("Fighting Style") && ch.style){ var st=FIGHTING_STYLES.filter(function(x){return x.id===ch.style;})[0]; if(st) sources.push({ id:"fighting-style", name:"Fighting Style: "+st.name, refId:"fightingstyle", ref:{ title:"Fighting Style: "+st.name, chips:[{t:"Combat feat"}], body:[st.note+"."] } }); }
-    if(needsExpertise() && ch.expertise) sources.push({ id:"expertise", name:"Expertise: "+ch.expertise, effects:{ expertise:[ch.expertise] } });
+    var xpSkills=(Array.isArray(ch.expertise)?ch.expertise:(ch.expertise?[ch.expertise]:[])).filter(Boolean);
+    if(needsExpertise() && xpSkills.length) sources.push({ id:"expertise", name:"Expertise: "+xpSkills.join(", "), effects:{ expertise:xpSkills.slice() } });
     if(featureReached("Divine Order") && ch.order){ var od = ch.order==="thaumaturge" ? {t:"Thaumaturge", b:"You know an extra cleric cantrip and add your Wisdom modifier to Intelligence (Arcana or Religion) checks."} : {t:"Protector", b:"You gain proficiency with martial weapons and heavy armor."}; sources.push({ id:"divine-order", name:"Divine Order: "+od.t, refId:"divineorder", ref:{ title:"Divine Order: "+od.t, body:[od.b] } }); }
     // subclass features (gained at level 3+)
     var scName=(CAT.subclasses[state.subclass]||{}).name||"";
@@ -493,7 +498,8 @@
       subclassGrants().forEach(function(g){ add(3,{html:"<b>"+esc(g.name)+"</b>"+(g.ref&&g.ref.body?(" — "+esc(g.ref.body[0])):"")}); }); }
     var ch=state.choices;
     if(featureReached("Fighting Style")&&ch.style){ var st=FIGHTING_STYLES.filter(function(x){return x.id===ch.style;})[0]; add(featureLevel("Fighting Style"),{cls:"choice", html:"<b>Fighting Style:</b> "+esc(st?st.name:"")}); }
-    if(needsExpertise()&&ch.expertise) add(featureLevel(featureReached("Scholar")?"Scholar":featureReached("Deft Explorer")?"Deft Explorer":"Expertise"),{cls:"choice", html:"<b>Expertise:</b> "+esc(ch.expertise)});
+    var xpLog=(Array.isArray(ch.expertise)?ch.expertise:(ch.expertise?[ch.expertise]:[])).filter(Boolean);
+    if(needsExpertise()&&xpLog.length) add(featureLevel(featureReached("Scholar")?"Scholar":featureReached("Deft Explorer")?"Deft Explorer":"Expertise"),{cls:"choice", html:"<b>Expertise:</b> "+esc(xpLog.join(", "))});
     if(featureReached("Divine Order")&&ch.order) add(featureLevel("Divine Order"),{cls:"choice", html:"<b>Divine Order:</b> "+esc(ch.order==="thaumaturge"?"Thaumaturge":"Protector")});
     reachedASIs().forEach(function(slot){ var a=state.asis[slot.key]; if(!a) return; var h;
       if(a.mode==="feat") h="<b>Feat:</b> "+esc(featName(a.feat)||"(choose one)");
@@ -638,7 +644,7 @@
       var cdi = CAT.classes[cl.cls] || {}, scLvl = cdi.subclassLevel || 3;
       var subOpts = cl.level < scLvl ? [["","— lvl "+scLvl+" —"]] : [["","— none —"]].concat((cdi.subclasses||[]).map(function(s){ return [s,(CAT.subclasses[s]||{}).name||titleCase(s)]; }));
       var row = el("div",{class:"cls-row"},[
-        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:"",order:"",skillful:state.choices.skillful}; } render(); }),
+        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:[],order:"",skillful:state.choices.skillful}; } render(); }),
         select(String(cl.level), Array.from({length:20},function(_,n){return [String(n+1),"Lvl "+(n+1)];}), function(v){ cl.level=parseInt(v,10); render(); }),
         select(cl.subclass, subOpts, function(v){ cl.subclass=v; render(); }),
         (i>0 ? el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove class", text:"✕", onclick:function(){ state.classes.splice(i,1); render(); }}) : el("span",{class:"cls-tag", text:"primary"}))
@@ -845,7 +851,14 @@
     var choiceCard=null, choiceFields=[];
     if(speciesSkillTrait()) choiceFields.push(selField((CAT.species[state.species].name)+" Skillful — extra skill", state.choices.skillful, [["","— choose a skill —"]].concat(Object.keys(SKILL_ABIL).sort().map(function(s){return [s,s+" ("+SKILL_ABIL[s]+")"];})), function(v){ state.choices.skillful=v; render(); }, "", "Human Skillful grants proficiency in one skill of your choice."));
     if(featureReached("Fighting Style")) choiceFields.push(selField("Fighting Style", state.choices.style, [["","— choose —"]].concat(FIGHTING_STYLES.map(function(s){return [s.id,s.name];})), function(v){ state.choices.style=v; render(); }, "", FIGHTING_STYLES.map(function(s){return s.name+" — "+s.note;})));
-    if(needsExpertise()){ var ps=proficientSkills(); choiceFields.push(selField("Expertise", state.choices.expertise, [["","— choose a proficient skill —"]].concat(ps.map(function(s){return [s,s];})), function(v){ state.choices.expertise=v; render(); }, ps.length?"":"Pick class skills first.")); }
+    if(needsExpertise()){ var ps=proficientSkills(), xcnt=expertiseCount();
+      if(!Array.isArray(state.choices.expertise)) state.choices.expertise=state.choices.expertise?[state.choices.expertise]:[];
+      for(var ei=0; ei<xcnt; ei++){ (function(idx){
+        var taken={}; state.choices.expertise.forEach(function(s,j){ if(j!==idx && s) taken[s]=1; });   // no duplicate Expertise picks
+        var opts=[["","— choose a proficient skill —"]].concat(ps.filter(function(s){ return !taken[s]; }).map(function(s){ return [s,s]; }));
+        choiceFields.push(selField("Expertise"+(xcnt>1?" "+(idx+1):""), state.choices.expertise[idx]||"", opts, function(v){ state.choices.expertise[idx]=v; render(); }, ps.length?"":"Pick class skills first."));
+      })(ei); }
+    }
     if(featureReached("Divine Order")) choiceFields.push(selField("Divine Order", state.choices.order, [["","— choose —"],["protector","Protector — martial weapons & heavy armor"],["thaumaturge","Thaumaturge — extra cantrip & Arcana bonus"]], function(v){ state.choices.order=v; render(); }));
     if(choiceFields.length) choiceCard=el("div",{class:"bcard"},[el("h2",{text:"Feature Choices"})].concat(choiceFields));
 
