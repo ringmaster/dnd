@@ -150,6 +150,7 @@ const uiJs = read(path.join(SRC, "builder", "ui.js"));
 // the legality checker is shared with the round-trip test; inline it (export stripped) so the builder
 // can surface a live Completeness panel from the same rules the test enforces
 const legalityJs = read(path.join(SRC, "builder", "legality.mjs")).replace(/^export\s+/gm, "");
+const schemaJson = read(path.join(SRC, "builder", "character-schema.json")).replace(/<\/script/gi, "<\\/script");
 const catJson = JSON.stringify(CAT).replace(/<\/script/gi, "<\\/script");
 const builderHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -280,6 +281,8 @@ ${styles}
   .jt-key.idx{color:var(--ash-dim);font-family:ui-monospace,Menlo,monospace;border:none;cursor:default;min-width:1.1rem;text-align:right}
   .jt-x{flex:none;background:none;border:1px solid var(--iron);color:var(--ash);border-radius:5px;padding:.05rem .32rem;font-size:.7rem;cursor:pointer;line-height:1.4}
   .jt-add{align-self:flex-start;margin-top:.1rem}
+  .jt-enum{flex:0 1 auto;min-width:0;max-width:100%;padding:.18rem .3rem;font-size:.76rem}
+  .jt-add-sel{max-width:15rem}
   .jt-row > .jt-node,.jt-row > .jt-scalar{flex:1 1 auto;min-width:0}
 </style>
 </head>
@@ -289,6 +292,7 @@ ${styles}
     <div id="builder"></div>
   </div>
   <script>var CAT = ${catJson};</script>
+  <script>var CHARACTER_SCHEMA = ${schemaJson};</script>
   <script>${legalityJs.replace(/<\/script/gi, "<\\/script")}</script>
   <script>${uiJs.replace(/<\/script/gi, "<\\/script")}</script>
 </body>
