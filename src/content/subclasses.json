@@ -314,5 +314,164 @@
         }
       }
     ]
+  },
+  "assassin": {
+    "name": "Assassin",
+    "desc": "A rogue who turns surprise into a killing edge.",
+    "features": [
+      "Assassinate",
+      "Assassin's Tools"
+    ],
+    "grants": [
+      {
+        "id": "assassinate",
+        "name": "Assassinate",
+        "ref": {
+          "title": "Assassinate",
+          "chips": [
+            {
+              "t": "Surprise → crit",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "Advantage on attacks against any creature that hasn't taken a turn yet; any hit against a surprised creature is a critical hit."
+          ]
+        }
+      },
+      {
+        "id": "assassinstools",
+        "name": "Assassin's Tools",
+        "effects": {
+          "tools": [
+            "Disguise Kit",
+            "Poisoner's Kit"
+          ]
+        },
+        "ref": {
+          "title": "Assassin's Tools",
+          "body": [
+            "You gain proficiency with the Disguise Kit and the Poisoner's Kit."
+          ]
+        }
+      }
+    ]
+  },
+  "shadow": {
+    "name": "Shadow",
+    "desc": "A monk who weaves shadow and ki into stealth and misdirection.",
+    "features": [
+      "Shadow Arts",
+      "Shadow Step"
+    ],
+    "grants": [
+      {
+        "id": "shadowarts",
+        "name": "Shadow Arts",
+        "ref": {
+          "title": "Shadow Arts",
+          "chips": [
+            {
+              "t": "2 Ki",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "Spend 2 Ki to cast Darkness, Darkvision, Pass without Trace, or Silence without material components. You also gain the Minor Illusion cantrip."
+          ]
+        }
+      },
+      {
+        "id": "shadowstep",
+        "name": "Shadow Step",
+        "ref": {
+          "title": "Shadow Step",
+          "body": [
+            "When in dim light or darkness, Bonus Action teleport up to 60 ft to another spot in dim light or darkness; Advantage on the next melee attack this turn."
+          ]
+        }
+      }
+    ]
+  },
+  "twilight": {
+    "name": "Twilight Domain",
+    "desc": "A cleric of the boundary between night and day, a beacon in the dark.",
+    "features": [
+      "Eyes of Night",
+      "Vigilant Blessing",
+      "Twilight Sanctuary",
+      "Steps of Night",
+      "Divine Strike"
+    ],
+    "grants": [
+      {
+        "id": "eyesofnight",
+        "name": "Eyes of Night",
+        "ref": {
+          "title": "Eyes of Night",
+          "chips": [
+            {
+              "t": "300 ft darkvision",
+              "c": "storm"
+            }
+          ],
+          "body": [
+            "Darkvision out to 300 ft, shareable with willing creatures (Wis-mod number) for 1 hour after a long rest."
+          ]
+        }
+      },
+      {
+        "id": "vigilantblessing",
+        "name": "Vigilant Blessing",
+        "ref": {
+          "title": "Vigilant Blessing",
+          "body": [
+            "As an Action, give a creature Advantage on its next Initiative roll."
+          ]
+        }
+      },
+      {
+        "id": "twilightsanctuary",
+        "name": "Channel Divinity: Twilight Sanctuary",
+        "ref": {
+          "title": "Twilight Sanctuary",
+          "chips": [
+            {
+              "t": "30-ft sphere",
+              "c": "ember"
+            }
+          ],
+          "body": [
+            "A 30-ft sphere of dim light moves with you for 1 minute. Creatures ending their turn inside get temp HP (1d6 + cleric level) or end a charm/fright effect."
+          ]
+        }
+      },
+      {
+        "id": "stepsofnight",
+        "name": "Steps of Night",
+        "ref": {
+          "title": "Steps of Night",
+          "body": [
+            "In dim light or darkness, Bonus Action: fly speed equal to your walking speed for 1 minute. Uses = Proficiency Bonus per long rest."
+          ]
+        }
+      },
+      {
+        "id": "divinestrike",
+        "name": "Divine Strike",
+        "effects": {},
+        "ref": {
+          "title": "Divine Strike",
+          "chips": [
+            {
+              "t": "+1d8 radiant"
+            }
+          ],
+          "body": [
+            "Once per turn, a weapon hit deals an extra 1d8 radiant damage."
+          ]
+        }
+      }
+    ]
   }
 }

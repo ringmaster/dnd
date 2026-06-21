@@ -126,7 +126,16 @@
         "Extra Attack",
         "Tactical Shift"
       ]
-    }
+    },
+    "asiLevels": [
+      4,
+      6,
+      8,
+      12,
+      14,
+      16,
+      19
+    ]
   },
   "wizard": {
     "name": "Wizard",
@@ -224,7 +233,8 @@
       "life",
       "light",
       "trickery",
-      "war"
+      "war",
+      "twilight"
     ],
     "featuresByLevel": {
       "1": [
@@ -242,6 +252,164 @@
       ],
       "5": [
         "Sear Undead"
+      ]
+    }
+  },
+  "rogue": {
+    "name": "Rogue",
+    "desc": "A skirmisher and skill expert who strikes from advantage and slips away.",
+    "hitDie": "d8",
+    "saves": [
+      "DEX",
+      "INT"
+    ],
+    "primary": [
+      "DEX"
+    ],
+    "priority": [
+      "DEX",
+      "WIS",
+      "CON",
+      "INT",
+      "CHA",
+      "STR"
+    ],
+    "caster": "none",
+    "asiLevels": [
+      4,
+      8,
+      10,
+      12,
+      16,
+      19
+    ],
+    "weaponMastery": 2,
+    "skillChoices": {
+      "count": 4,
+      "from": [
+        "Acrobatics",
+        "Athletics",
+        "Deception",
+        "Insight",
+        "Intimidation",
+        "Investigation",
+        "Perception",
+        "Performance",
+        "Persuasion",
+        "Sleight of Hand",
+        "Stealth"
+      ]
+    },
+    "subclassLevel": 3,
+    "subclasses": [
+      "assassin"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Expertise",
+        "Sneak Attack",
+        "Thieves' Cant",
+        "Weapon Mastery"
+      ],
+      "2": [
+        "Cunning Action"
+      ],
+      "3": [
+        "Rogue Subclass",
+        "Steady Aim"
+      ],
+      "4": [
+        "Ability Score Improvement"
+      ],
+      "5": [
+        "Cunning Strike"
+      ],
+      "6": [
+        "Expertise"
+      ],
+      "7": [
+        "Evasion",
+        "Reliable Talent"
+      ],
+      "8": [
+        "Ability Score Improvement"
+      ]
+    }
+  },
+  "monk": {
+    "name": "Monk",
+    "desc": "A martial artist channeling inner ki into lightning-fast unarmed strikes and uncanny mobility.",
+    "hitDie": "d8",
+    "saves": [
+      "STR",
+      "DEX"
+    ],
+    "primary": [
+      "DEX",
+      "WIS"
+    ],
+    "priority": [
+      "DEX",
+      "WIS",
+      "CON",
+      "STR",
+      "INT",
+      "CHA"
+    ],
+    "caster": "none",
+    "asiLevels": [
+      4,
+      8,
+      12,
+      16,
+      19
+    ],
+    "weaponMastery": 0,
+    "skillChoices": {
+      "count": 2,
+      "from": [
+        "Acrobatics",
+        "Athletics",
+        "History",
+        "Insight",
+        "Religion",
+        "Stealth"
+      ]
+    },
+    "subclassLevel": 3,
+    "subclasses": [
+      "shadow"
+    ],
+    "featuresByLevel": {
+      "1": [
+        "Martial Arts",
+        "Unarmored Defense"
+      ],
+      "2": [
+        "Ki",
+        "Unarmored Movement"
+      ],
+      "3": [
+        "Monk Subclass",
+        "Deflect Missiles"
+      ],
+      "4": [
+        "Ability Score Improvement",
+        "Slow Fall"
+      ],
+      "5": [
+        "Extra Attack",
+        "Stunning Strike"
+      ],
+      "6": [
+        "Ki-Empowered Strikes"
+      ],
+      "7": [
+        "Evasion",
+        "Stillness of Mind"
+      ],
+      "8": [
+        "Ability Score Improvement"
       ]
     }
   }

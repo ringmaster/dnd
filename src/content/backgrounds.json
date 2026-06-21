@@ -139,5 +139,39 @@
         "A life standing watch. Guard grants the Alert Origin feat, proficiency in Athletics and Perception, a Gaming Set tool proficiency, and a +2 / +1 ability boost."
       ]
     }
+  },
+  "criminal": {
+    "name": "Criminal",
+    "grantsFeat": "alert",
+    "effects": {
+      "skills": [
+        "Deception",
+        "Stealth"
+      ],
+      "tools": [
+        "Thieves' Tools",
+        "Gaming Set"
+      ],
+      "abilityIncrease": {
+        "DEX": 2,
+        "INT": 1
+      }
+    },
+    "ref": {
+      "title": "Background: Criminal",
+      "chips": [
+        {
+          "t": "Alert",
+          "c": "ember"
+        },
+        {
+          "t": "Deception · Stealth",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "A life on the wrong side of the law. Criminal grants the Alert Origin feat, proficiency in Deception and Stealth, Thieves' Tools and a Gaming Set, and a +2 / +1 ability boost."
+      ]
+    }
   }
 }

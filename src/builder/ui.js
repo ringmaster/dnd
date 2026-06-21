@@ -217,6 +217,9 @@
     ],
     cleric: [
       { feature:"Channel Divinity", id:"cd", label:"Channel Divinity", ref:"channeldivinity", storm:false, rest:"short", note:"regain 1 on a short rest", use:"Use", max:function(l){return l>=18?4:(l>=6?3:2);}, reminder:"Channel Divinity: Divine Spark or Turn Undead." }
+    ],
+    monk: [
+      { feature:"Ki", id:"ki", label:"Ki / Focus Points", ref:"ki", storm:true, rest:"short", note:"short rest", use:"Spend Ki", max:function(l){return l;}, reminder:"Spend Ki: Flurry of Blows, Patient Defense, or Step of the Wind." }
     ]
   };
   /* is a class feature reached in any class (or a specific class) at its level */

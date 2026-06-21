@@ -312,5 +312,208 @@
         ]
       }
     }
+  },
+  "rogue": {
+    "Expertise": {
+      "refId": "expertise",
+      "ref": {
+        "title": "Expertise",
+        "chips": [
+          {
+            "t": "Double prof",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "Double your Proficiency Bonus on two chosen skill proficiencies (more at higher levels)."
+        ]
+      }
+    },
+    "Sneak Attack": {
+      "refId": "sneakattack",
+      "ref": {
+        "title": "Sneak Attack",
+        "chips": [
+          {
+            "t": "Once per turn",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "Once per turn, deal extra damage (scaling with level) when you hit with a Finesse or Ranged weapon and have Advantage, or an ally is adjacent to the target and you don't have Disadvantage."
+        ]
+      }
+    },
+    "Thieves' Cant": {
+      "ref": {
+        "title": "Thieves' Cant",
+        "chips": [],
+        "body": [
+          "A secret mix of dialect, jargon, and code that lets you hide messages in seemingly normal conversation."
+        ]
+      }
+    },
+    "Weapon Mastery": {
+      "ref": {
+        "title": "Weapon Mastery",
+        "chips": [],
+        "body": [
+          "You gain the mastery property of a number of weapons you're proficient with."
+        ]
+      }
+    },
+    "Cunning Action": {
+      "refId": "cunningaction",
+      "ref": {
+        "title": "Cunning Action",
+        "body": [
+          "A Bonus Action each turn to Dash, Disengage, or Hide."
+        ]
+      }
+    },
+    "Steady Aim": {
+      "refId": "steadyaim",
+      "ref": {
+        "title": "Steady Aim",
+        "body": [
+          "Bonus Action (if you haven't moved): Advantage on your next attack this turn; your speed becomes 0 until end of turn."
+        ]
+      }
+    },
+    "Cunning Strike": {
+      "ref": {
+        "title": "Cunning Strike",
+        "chips": [],
+        "body": [
+          "When you Sneak Attack, trade dice for effects like Poison, Trip, or Withdraw."
+        ]
+      }
+    },
+    "Evasion": {
+      "ref": {
+        "title": "Evasion",
+        "chips": [],
+        "body": [
+          "When a Dex save halves damage, you take none on a success and half on a failure."
+        ]
+      }
+    },
+    "Reliable Talent": {
+      "ref": {
+        "title": "Reliable Talent",
+        "chips": [],
+        "body": [
+          "Treat any d20 of 9 or lower as a 10 on ability checks using a skill you're proficient with."
+        ]
+      }
+    }
+  },
+  "monk": {
+    "Martial Arts": {
+      "refId": "martialarts",
+      "ref": {
+        "title": "Martial Arts",
+        "chips": [
+          {
+            "t": "Dex-based",
+            "c": "storm"
+          }
+        ],
+        "body": [
+          "Use Dex for unarmed strikes and monk weapons; roll a Martial Arts die for their damage; make one unarmed strike as a Bonus Action after the Attack action."
+        ]
+      }
+    },
+    "Unarmored Defense": {
+      "ref": {
+        "title": "Unarmored Defense (Monk)",
+        "chips": [
+          {
+            "t": "10 + Dex + Wis"
+          }
+        ],
+        "body": [
+          "While unarmored and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier."
+        ]
+      }
+    },
+    "Ki": {
+      "refId": "ki",
+      "ref": {
+        "title": "Ki / Monk's Focus",
+        "chips": [
+          {
+            "t": "Save = 8+Prof+Wis",
+            "c": "ember"
+          }
+        ],
+        "body": [
+          "Spend Ki to fuel Flurry of Blows, Patient Defense, and Step of the Wind. Regain on a short or long rest."
+        ]
+      }
+    },
+    "Unarmored Movement": {
+      "refId": "unarmoredmovement",
+      "ref": {
+        "title": "Unarmored Movement",
+        "body": [
+          "Your speed increases while unarmored and not wielding a shield (already in your Speed)."
+        ]
+      }
+    },
+    "Deflect Missiles": {
+      "refId": "deflectmissiles",
+      "ref": {
+        "title": "Deflect Missiles",
+        "body": [
+          "Reaction when hit by a ranged weapon attack: reduce the damage by 1d10 + Dex + monk level; if reduced to 0, catch and optionally throw it back for 1 Ki."
+        ]
+      }
+    },
+    "Slow Fall": {
+      "refId": "slowfall",
+      "ref": {
+        "title": "Slow Fall",
+        "body": [
+          "Reaction when you fall: reduce the falling damage by 5 × your monk level."
+        ]
+      }
+    },
+    "Extra Attack": {
+      "ref": {
+        "title": "Extra Attack",
+        "chips": [],
+        "body": [
+          "You can attack twice whenever you take the Attack action on your turn."
+        ]
+      }
+    },
+    "Stunning Strike": {
+      "ref": {
+        "title": "Stunning Strike",
+        "chips": [],
+        "body": [
+          "Spend 1 Ki on a hit to force a Con save or stun the target until your next turn."
+        ]
+      }
+    },
+    "Ki-Empowered Strikes": {
+      "ref": {
+        "title": "Ki-Empowered Strikes",
+        "chips": [],
+        "body": [
+          "Your unarmed strikes count as magical for overcoming resistance."
+        ]
+      }
+    },
+    "Stillness of Mind": {
+      "ref": {
+        "title": "Stillness of Mind",
+        "chips": [],
+        "body": [
+          "Action to end one effect on yourself causing you to be Charmed or Frightened."
+        ]
+      }
+    }
   }
 }
