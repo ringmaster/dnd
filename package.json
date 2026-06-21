@@ -10,7 +10,8 @@
     "roundtrip": "node src/builder/roundtrip.mjs",
     "schema": "node src/builder/schema-validate.mjs src/characters/*.json",
     "schema:docs": "node src/builder/schema-docs.mjs",
-    "rules": "node src/builder/rules-index.mjs"
+    "rules": "node src/builder/rules-index.mjs",
+    "scrape": "node src/builder/scrape.mjs"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2"

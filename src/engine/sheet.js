@@ -871,7 +871,9 @@ function openRef(id, trigger){
   refChips.innerHTML="";
   chips.forEach(function(c){ var s=document.createElement("span"); s.className="chip"+(c.c?(" "+c.c):""); s.textContent=c.t; refChips.appendChild(s); });
   refChips.style.display=chips.length?"flex":"none";
-  refBody.innerHTML=""; bodyParas(refBody, r.body);
+  refBody.innerHTML="";
+  if(r.info){ var info=document.createElement("div"); info.className="spell-meta"; info.textContent=r.info; refBody.appendChild(info); }
+  bodyParas(refBody, r.body);
   if(wpn && wpn.dmgDice) appendHitRiders(refBody);
   refFoot.innerHTML="";
   if(r.level!=null){

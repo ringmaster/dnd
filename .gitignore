@@ -8,6 +8,9 @@
 # macOS
 .DS_Store
 
+# Scraper raw response cache (src/builder/scrape.mjs) — enriched output is committed
+/.cache/
+
 # Editor cruft
 *.swp
 *~

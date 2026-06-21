@@ -35,6 +35,19 @@ function expandGrants(sources, cat){
 }
 const sg = n => (n >= 0 ? "+" : "") + n;
 function subst(s, t){ return s == null ? s : String(s).replace(/\{dc\}/g, t.dc).replace(/\{atk\}/g, t.atk).replace(/\{mod\}/g, t.mod); }
+// One consistent "casting · range · components · duration" line for a spell,
+// shown wherever a known spell is displayed. Same shape used by the corpus.
+function spellInfoLine(reg){
+  const parts = [];
+  if (reg.castTime) parts.push("Cast " + reg.castTime);
+  if (reg.range) parts.push("Range " + reg.range);
+  let comp = reg.components || "";
+  if (reg.material) comp = (comp ? comp + " " : "") + "(" + reg.material + ")";
+  if (comp) parts.push("Components " + comp);
+  if (reg.duration) parts.push("Duration " + reg.duration);
+  if (reg.ritual) parts.push("Ritual");
+  return parts.join("  ·  ");
+}
 function spellRef(reg, t, classLabel){
   // Lead chip names the spell the way it appears on this character: "Cleric 3",
   // "Wizard cantrip", or just "Level 3" when no class on the sheet grants it.
@@ -48,6 +61,8 @@ function spellRef(reg, t, classLabel){
   if (reg.level >= 1) ref.level = reg.level;
   if (reg.dice) ref.dice = subst(reg.dice, t);
   if (reg.concentration) ref.concentration = reg.name;
+  const info = spellInfoLine(reg);
+  if (info) ref.info = info;
   return ref;
 }
 function matRef(r, t){

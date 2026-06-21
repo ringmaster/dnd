@@ -19,7 +19,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "chilltouch": {
     "name": "Chill Touch",
@@ -42,7 +46,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "dancinglights": {
     "name": "Dancing Lights",
@@ -65,7 +73,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A bit of phosphorus or wychwood, or a glowworm.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "druidcraft": {
     "name": "Druidcraft",
@@ -82,7 +95,11 @@
     "classes": [
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "eldritchblast": {
     "name": "Eldritch Blast",
@@ -103,7 +120,11 @@
     "classes": [
       "warlock"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "firebolt": {
     "name": "Fire Bolt",
@@ -125,7 +146,11 @@
     "classes": [
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "guidance": {
     "name": "Guidance",
@@ -139,7 +164,11 @@
       "cleric",
       "druid"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "light": {
     "name": "Light",
@@ -151,7 +180,12 @@
       "wizard",
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Touch",
+    "components": "V, M",
+    "material": "A firefly or phosphorescent moss.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "magehand": {
     "name": "Mage Hand",
@@ -167,7 +201,11 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "mending": {
     "name": "Mending",
@@ -188,7 +226,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Two lodestones.",
+    "castTime": "1 minute",
+    "duration": "Instantaneous"
   },
   "message": {
     "name": "Message",
@@ -206,7 +249,12 @@
       "druid",
       "bard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A short piece of copper wire.",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "minorillusion": {
     "name": "Minor Illusion",
@@ -217,7 +265,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "30 feet",
+    "components": "S, M",
+    "material": "A bit of fleece.",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "poisonspray": {
     "name": "Poison Spray",
@@ -238,7 +291,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "10 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "prestidigitation": {
     "name": "Prestidigitation",
@@ -249,7 +306,11 @@
     "classes": [
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "10 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "produceflame": {
     "name": "Produce Flame",
@@ -267,7 +328,11 @@
     "classes": [
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "10 minutes"
   },
   "rayoffrost": {
     "name": "Ray of Frost",
@@ -289,7 +354,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "resistance": {
     "name": "Resistance",
@@ -303,7 +372,12 @@
       "cleric",
       "druid"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A miniature cloak.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "sacredflame": {
     "name": "Sacred Flame",
@@ -324,7 +398,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "shillelagh": {
     "name": "Shillelagh",
@@ -345,7 +423,12 @@
     "classes": [
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Mistletoe, a shamrock leaf, and a club or quarterstaff.",
+    "castTime": "1 bonus action",
+    "duration": "1 minute"
   },
   "shockinggrasp": {
     "name": "Shocking Grasp",
@@ -367,7 +450,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "sparethedying": {
     "name": "Spare the Dying",
@@ -384,7 +471,11 @@
       "cleric",
       "druid"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "thaumaturgy": {
     "name": "Thaumaturgy",
@@ -400,7 +491,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "tollthedead": {
     "name": "Toll the Dead",
@@ -418,7 +513,11 @@
       "wizard",
       "cleric"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "truestrike": {
     "name": "True Strike",
@@ -442,7 +541,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "30 feet",
+    "components": "S",
+    "castTime": "1 action",
+    "duration": "Up to 1 round"
   },
   "viciousmockery": {
     "name": "Vicious Mockery",
@@ -463,7 +566,11 @@
     "classes": [
       "bard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "wordofradiance": {
     "name": "Word of Radiance",
@@ -480,7 +587,12 @@
     "classes": [
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "5 feet",
+    "components": "V, M",
+    "material": "a holy symbol",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "alarm": {
     "name": "Alarm",
@@ -501,7 +613,13 @@
       "ranger",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A tiny bell and a piece of fine silver wire.",
+    "castTime": "1 minute",
+    "duration": "8 hours",
+    "ritual": true
   },
   "animalfriendship": {
     "name": "Animal Friendship",
@@ -524,7 +642,12 @@
       "druid",
       "ranger"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A morsel of food.",
+    "castTime": "1 action",
+    "duration": "24 hours"
   },
   "bane": {
     "name": "Bane",
@@ -547,7 +670,12 @@
       "bard",
       "cleric"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A drop of blood.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "bless": {
     "name": "Bless",
@@ -559,7 +687,12 @@
     "classes": [
       "cleric"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A sprinkling of holy water.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "burninghands": {
     "name": "Burning Hands",
@@ -578,7 +711,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "charmperson": {
     "name": "Charm Person",
@@ -592,7 +729,11 @@
       "wizard",
       "druid"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "colorspray": {
     "name": "Color Spray",
@@ -611,7 +752,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A pinch of powder or sand that is colored red, yellow, and blue.",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "command": {
     "name": "Command",
@@ -630,7 +776,11 @@
       "cleric",
       "paladin"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "comprehendlanguages": {
     "name": "Comprehend Languages",
@@ -653,7 +803,13 @@
       "warlock",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A pinch of soot and salt.",
+    "castTime": "1 action",
+    "duration": "1 hour",
+    "ritual": true
   },
   "createordestroywater": {
     "name": "Create or Destroy Water",
@@ -671,7 +827,12 @@
       "cleric",
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A drop of water if creating water, or a few grains of sand if destroying it.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "curewounds": {
     "name": "Cure Wounds",
@@ -690,7 +851,11 @@
       "ranger",
       "druid"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "detectevilandgood": {
     "name": "Detect Evil and Good",
@@ -712,7 +877,11 @@
       "cleric",
       "paladin"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "detectmagic": {
     "name": "Detect Magic",
@@ -734,7 +903,12 @@
       "ranger",
       "druid"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes",
+    "ritual": true
   },
   "detectpoisonanddisease": {
     "name": "Detect Poison and Disease",
@@ -758,7 +932,13 @@
       "paladin",
       "ranger"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A yew leaf.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes",
+    "ritual": true
   },
   "disguiseself": {
     "name": "Disguise Self",
@@ -780,7 +960,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "divinefavor": {
     "name": "Divine Favor",
@@ -803,7 +987,11 @@
       "paladin"
     ],
     "cast": "Bonus Action",
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 bonus action",
+    "duration": "Up to 1 minute"
   },
   "ensnaringstrike": {
     "name": "Ensnaring Strike",
@@ -823,7 +1011,11 @@
       "ranger"
     ],
     "cast": "Bonus Action",
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Self",
+    "components": "V",
+    "castTime": "1 bonus action",
+    "duration": "Concentration, up to 1 minute"
   },
   "entangle": {
     "name": "Entangle",
@@ -838,7 +1030,11 @@
       "ranger",
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "90 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "expeditiousretreat": {
     "name": "Expeditious Retreat",
@@ -862,7 +1058,11 @@
       "wizard"
     ],
     "cast": "Bonus Action",
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 bonus action",
+    "duration": "Up to 10 minutes"
   },
   "faeriefire": {
     "name": "Faerie Fire",
@@ -876,7 +1076,11 @@
       "druid",
       "ranger"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "falselife": {
     "name": "False Life",
@@ -895,7 +1099,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A small amount of alcohol or distilled spirits.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "featherfall": {
     "name": "Feather Fall",
@@ -913,7 +1122,12 @@
       "wizard"
     ],
     "cast": "Reaction",
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "60 feet",
+    "components": "V, M",
+    "material": "A small feather or a piece of down.",
+    "castTime": "1 reaction",
+    "duration": "1 minute"
   },
   "findfamiliar": {
     "name": "Find Familiar",
@@ -933,7 +1147,13 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "material": "10 gp worth of charcoal, incense, and herbs that must be consumed by fire in a brass brazier",
+    "castTime": "1 hour",
+    "duration": "Instantaneous",
+    "ritual": true
   },
   "floatingdisk": {
     "name": "Floating Disk",
@@ -953,7 +1173,13 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A drop of mercury.",
+    "castTime": "1 action",
+    "duration": "1 hour",
+    "ritual": true
   },
   "fogcloud": {
     "name": "Fog Cloud",
@@ -968,7 +1194,11 @@
       "ranger",
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "goodberry": {
     "name": "Goodberry",
@@ -983,7 +1213,12 @@
       "druid"
     ],
     "cast": "Bonus Action",
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A sprig of mistletoe.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "grease": {
     "name": "Grease",
@@ -1004,7 +1239,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A bit of pork rind or butter.",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "guidingbolt": {
     "name": "Guiding Bolt",
@@ -1025,7 +1265,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "healingword": {
     "name": "Healing Word",
@@ -1047,7 +1291,11 @@
       "druid"
     ],
     "cast": "Bonus Action",
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 bonus action",
+    "duration": "Instantaneous"
   },
   "hellishrebuke": {
     "name": "Hellish Rebuke",
@@ -1069,7 +1317,11 @@
       "warlock"
     ],
     "cast": "Reaction",
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 reaction, which you take in response to being damaged by a creature within 60 feet of you that you can see",
+    "duration": "Instantaneous"
   },
   "heroism": {
     "name": "Heroism",
@@ -1092,7 +1344,11 @@
       "bard",
       "paladin"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "hideouslaughter": {
     "name": "Hideous Laughter",
@@ -1115,7 +1371,12 @@
       "bard",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "Tiny tarts and a feather that is waved in the air.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "huntersmark": {
     "name": "Hunter's Mark",
@@ -1135,7 +1396,11 @@
       "ranger"
     ],
     "cast": "Bonus Action",
-    "school": "divination"
+    "school": "divination",
+    "range": "90 feet",
+    "components": "V",
+    "castTime": "1 bonus action",
+    "duration": "Up to 1 hour"
   },
   "identify": {
     "name": "Identify",
@@ -1156,7 +1421,13 @@
       "bard",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A pearl worth at least 100gp and an owl feather.",
+    "castTime": "1 minute",
+    "duration": "Instantaneous",
+    "ritual": true
   },
   "illusoryscript": {
     "name": "Illusory Script",
@@ -1178,7 +1449,13 @@
       "warlock",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Touch",
+    "components": "S, M",
+    "material": "A lead-based ink worth at least 10gp, which this spell consumes.",
+    "castTime": "1 minute",
+    "duration": "10 days",
+    "ritual": true
   },
   "inflictwounds": {
     "name": "Inflict Wounds",
@@ -1196,7 +1473,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "jump": {
     "name": "Jump",
@@ -1216,7 +1497,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A grasshopper's hind leg.",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "longstrider": {
     "name": "Longstrider",
@@ -1235,7 +1521,12 @@
       "ranger",
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A pinch of dirt.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "magearmor": {
     "name": "Mage Armor",
@@ -1251,7 +1542,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A piece of cured leather.",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "magicmissile": {
     "name": "Magic Missile",
@@ -1269,7 +1565,11 @@
     "classes": [
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "protectionfromevilandgood": {
     "name": "Protection from Evil and Good",
@@ -1293,7 +1593,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Holy water or powdered silver and iron, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "purifyfoodanddrink": {
     "name": "Purify Food and Drink",
@@ -1315,7 +1620,12 @@
       "druid",
       "paladin"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "10 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous",
+    "ritual": true
   },
   "rayofsickness": {
     "name": "Ray of Sickness",
@@ -1334,7 +1644,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "sanctuary": {
     "name": "Sanctuary",
@@ -1352,7 +1666,12 @@
       "cleric"
     ],
     "cast": "Bonus Action",
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A small silver mirror.",
+    "castTime": "1 bonus action",
+    "duration": "1 minute"
   },
   "shield": {
     "name": "Shield",
@@ -1370,7 +1689,11 @@
       "wizard"
     ],
     "cast": "Reaction",
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 reaction",
+    "duration": "1 round"
   },
   "shieldoffaith": {
     "name": "Shield of Faith",
@@ -1389,7 +1712,12 @@
       "cleric"
     ],
     "cast": "Bonus Action",
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A small parchment with a bit of holy text written on it.",
+    "castTime": "1 bonus action",
+    "duration": "Up to 10 minutes"
   },
   "silentimage": {
     "name": "Silent Image",
@@ -1412,7 +1740,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A bit of fleece.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "sleep": {
     "name": "Sleep",
@@ -1425,7 +1758,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "material": "A pinch of fine sand, rose petals, or a cricket.",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "speakwithanimals": {
     "name": "Speak with Animals",
@@ -1447,7 +1785,12 @@
       "ranger",
       "druid"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "10 minutes",
+    "ritual": true
   },
   "thunderwave": {
     "name": "Thunderwave",
@@ -1468,7 +1811,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "unseenservant": {
     "name": "Unseen Servant",
@@ -1490,7 +1837,13 @@
       "warlock",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A piece of string and a bit of wood.",
+    "castTime": "1 action",
+    "duration": "1 hour",
+    "ritual": true
   },
   "witchbolt": {
     "name": "Witch Bolt",
@@ -1514,7 +1867,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "a twig from a tree struck by lightning",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 minute"
   },
   "acidarrow": {
     "name": "Acid Arrow",
@@ -1534,7 +1892,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "material": "Powdered rhubarb leaf and an adder's stomach.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "aid": {
     "name": "Aid",
@@ -1551,7 +1914,12 @@
     "classes": [
       "cleric"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A tiny strip of white cloth.",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "alterself": {
     "name": "Alter Self",
@@ -1569,7 +1937,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "animalmessenger": {
     "name": "Animal Messenger",
@@ -1590,7 +1962,13 @@
       "druid",
       "ranger"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A morsel of food.",
+    "castTime": "1 action",
+    "duration": "24 hours",
+    "ritual": true
   },
   "arcanelock": {
     "name": "Arcane Lock",
@@ -1606,7 +1984,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Gold dust worth at least 25gp, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "Until dispelled"
   },
   "augury": {
     "name": "Augury",
@@ -1624,7 +2007,13 @@
       "cleric",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "Specially marked sticks, bones, or similar tokens worth at least 25gp.",
+    "castTime": "1 minute",
+    "duration": "Instantaneous",
+    "ritual": true
   },
   "barkskin": {
     "name": "Barkskin",
@@ -1642,7 +2031,12 @@
       "druid",
       "ranger"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A handful of oak bark.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "blindnessdeafness": {
     "name": "Blindness/Deafness",
@@ -1665,7 +2059,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "blur": {
     "name": "Blur",
@@ -1683,7 +2081,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Self",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "calmemotions": {
     "name": "Calm Emotions",
@@ -1705,7 +2107,11 @@
       "bard",
       "cleric"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "continualflame": {
     "name": "Continual Flame",
@@ -1722,7 +2128,12 @@
       "cleric",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Ruby dust worth 50 gp, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "Until dispelled"
   },
   "crownofmadness": {
     "name": "Crown of Madness",
@@ -1746,7 +2157,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 minute"
   },
   "darkness": {
     "name": "Darkness",
@@ -1768,7 +2183,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, M",
+    "material": "Bat fur and a drop of pitch or piece of coal.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "darkvision": {
     "name": "Darkvision",
@@ -1787,7 +2207,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Either a pinch of dried carrot or an agate.",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "detectthoughts": {
     "name": "Detect Thoughts",
@@ -1807,7 +2232,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A copper coin.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "enhanceability": {
     "name": "Enhance Ability",
@@ -1830,7 +2260,12 @@
       "druid",
       "sorcerer"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Fur or a feather from a beast.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "enlargereduce": {
     "name": "Enlarge/Reduce",
@@ -1848,7 +2283,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A pinch iron powder.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "enthrall": {
     "name": "Enthrall",
@@ -1869,7 +2309,11 @@
       "bard",
       "warlock"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "findsteed": {
     "name": "Find Steed",
@@ -1888,7 +2332,11 @@
     "classes": [
       "paladin"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "10 minutes",
+    "duration": "Instantaneous"
   },
   "findtraps": {
     "name": "Find Traps",
@@ -1906,7 +2354,11 @@
       "druid",
       "ranger"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "flamingsphere": {
     "name": "Flaming Sphere",
@@ -1928,7 +2380,12 @@
       "druid",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A bit of tallow, a pinch of brimstone, and a dusting of powdered iron.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "gentlerepose": {
     "name": "Gentle Repose",
@@ -1948,7 +2405,13 @@
       "cleric",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A pinch of salt and one copper piece placed on each of the corpse's eyes, which must remain there for the duration.",
+    "castTime": "1 action",
+    "duration": "10 days",
+    "ritual": true
   },
   "gustofwind": {
     "name": "Gust of Wind",
@@ -1969,7 +2432,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A legume seed.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "heatmetal": {
     "name": "Heat Metal",
@@ -1991,7 +2459,12 @@
       "bard",
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A piece of iron and a flame.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "holdperson": {
     "name": "Hold Person",
@@ -2005,7 +2478,12 @@
       "cleric",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A small, straight piece of iron.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "invisibility": {
     "name": "Invisibility",
@@ -2028,7 +2506,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "An eyelash encased in gum arabic.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "knock": {
     "name": "Knock",
@@ -2049,7 +2532,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "lesserrestoration": {
     "name": "Lesser Restoration",
@@ -2066,7 +2553,11 @@
       "cleric",
       "ranger"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "levitate": {
     "name": "Levitate",
@@ -2088,7 +2579,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "Either a small leather loop or a piece of golden wire bent into a cup shape with a long shank on one end.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "locateanimalsorplants": {
     "name": "Locate Animals or Plants",
@@ -2106,7 +2602,13 @@
       "druid",
       "ranger"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A bit of fur from a bloodhound.",
+    "castTime": "1 action",
+    "duration": "Instantaneous",
+    "ritual": true
   },
   "locateobject": {
     "name": "Locate Object",
@@ -2128,7 +2630,12 @@
       "ranger",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A forked twig.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "magicaura": {
     "name": "Magic Aura",
@@ -2144,7 +2651,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "a small square of silk",
+    "castTime": "1 action",
+    "duration": "24 hours"
   },
   "magicmouth": {
     "name": "Magic Mouth",
@@ -2164,7 +2676,13 @@
       "bard",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A small bit of honeycomb and jade dust worth at least 10 gp, which the spell consumes",
+    "castTime": "1 minute",
+    "duration": "Until dispelled",
+    "ritual": true
   },
   "magicweapon": {
     "name": "Magic Weapon",
@@ -2186,7 +2704,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 bonus action",
+    "duration": "Up to 1 hour"
   },
   "mirrorimage": {
     "name": "Mirror Image",
@@ -2202,7 +2724,11 @@
     "classes": [
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "mistystep": {
     "name": "Misty Step",
@@ -2219,7 +2745,11 @@
       "wizard"
     ],
     "cast": "Bonus Action",
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Self",
+    "components": "V",
+    "castTime": "1 bonus action",
+    "duration": "Instantaneous"
   },
   "moonbeam": {
     "name": "Moonbeam",
@@ -2239,7 +2769,12 @@
       "druid"
     ],
     "cast": "Action",
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "Several seeds of any moonseed plant and a piece of opalescent feldspar.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "passwithouttrace": {
     "name": "Pass without Trace",
@@ -2257,7 +2792,12 @@
       "druid",
       "ranger"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "Ashes from a burned leaf of mistletoe and a sprig of spruce.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "prayerofhealing": {
     "name": "Prayer of Healing",
@@ -2274,7 +2814,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "30 feet",
+    "components": "V",
+    "castTime": "10 minutes",
+    "duration": "Instantaneous"
   },
   "protectionfrompoison": {
     "name": "Protection from Poison",
@@ -2296,7 +2840,11 @@
       "paladin",
       "ranger"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "rayofenfeeblement": {
     "name": "Ray of Enfeeblement",
@@ -2318,7 +2866,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "ropetrick": {
     "name": "Rope Trick",
@@ -2337,7 +2889,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Powdered corn extract and a twisted loop of parchment.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "scorchingray": {
     "name": "Scorching Ray",
@@ -2358,7 +2915,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "seeinvisibility": {
     "name": "See Invisibility",
@@ -2376,7 +2937,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A dash of talc and a small amount of silver powder.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "shatter": {
     "name": "Shatter",
@@ -2399,7 +2965,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A burst of mica.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "silence": {
     "name": "Silence",
@@ -2418,7 +2989,12 @@
       "cleric",
       "ranger"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes",
+    "ritual": true
   },
   "spiderclimb": {
     "name": "Spider Climb",
@@ -2440,7 +3016,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A drop of bitumen and a spider.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "spikegrowth": {
     "name": "Spike Growth",
@@ -2461,7 +3042,12 @@
       "druid",
       "ranger"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "Seven sharp spines or seven twigs cut peak.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "spiritualweapon": {
     "name": "Spiritual Weapon",
@@ -2482,7 +3068,11 @@
       "cleric"
     ],
     "cast": "Bonus Action",
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 bonus action",
+    "duration": "1 minute"
   },
   "suggestion": {
     "name": "Suggestion",
@@ -2506,7 +3096,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, M",
+    "material": "A snake's tongue and either a bit of honeycomb or a drop of sweet oil.",
+    "castTime": "1 action",
+    "duration": "Up to 8 hours"
   },
   "wardingbond": {
     "name": "Warding Bond",
@@ -2525,7 +3120,12 @@
     "classes": [
       "cleric"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A pair of platinum rings worth at least 50gp each, which you and the target must wear for the duration.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "web": {
     "name": "Web",
@@ -2538,7 +3138,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A bit of spiderweb.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "zoneoftruth": {
     "name": "Zone of Truth",
@@ -2560,7 +3165,11 @@
       "cleric",
       "paladin"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "10 minutes"
   },
   "animatedead": {
     "name": "Animate Dead",
@@ -2580,7 +3189,12 @@
       "cleric",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "material": "A drop of blood, a piece of flesh, and a pinch of bone dust.",
+    "castTime": "1 minute",
+    "duration": "Instantaneous"
   },
   "auraoflife": {
     "name": "Aura of Life",
@@ -2598,7 +3212,11 @@
       "cleric",
       "paladin"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self (30-foot radius)",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 10 minutes"
   },
   "beaconofhope": {
     "name": "Beacon of Hope",
@@ -2616,7 +3234,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "bestowcurse": {
     "name": "Bestow Curse",
@@ -2637,7 +3259,11 @@
       "cleric",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "blink": {
     "name": "Blink",
@@ -2655,7 +3281,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 minute"
   },
   "calllightning": {
     "name": "Call Lightning",
@@ -2677,7 +3307,11 @@
     "classes": [
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "clairvoyance": {
     "name": "Clairvoyance",
@@ -2697,7 +3331,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "1 mile",
+    "components": "V, S, M",
+    "material": "A focus worth at least 100gp, either a jeweled horn for hearing or a glass eye for seeing.",
+    "castTime": "10 minutes",
+    "duration": "Up to 10 minutes"
   },
   "conjureanimals": {
     "name": "Conjure Animals",
@@ -2718,7 +3357,11 @@
       "druid",
       "ranger"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "counterspell": {
     "name": "Counterspell",
@@ -2738,7 +3381,11 @@
       "wizard"
     ],
     "cast": "Reaction",
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "60 feet",
+    "components": "S",
+    "castTime": "1 reaction, which you take when you see a creature within 60 feet of you casting a spell",
+    "duration": "Instantaneous"
   },
   "createfoodandwater": {
     "name": "Create Food and Water",
@@ -2755,7 +3402,11 @@
       "cleric",
       "paladin"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "daylight": {
     "name": "Daylight",
@@ -2772,7 +3423,11 @@
       "cleric",
       "druid"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "dispelmagic": {
     "name": "Dispel Magic",
@@ -2790,7 +3445,11 @@
       "wizard",
       "druid"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "fear": {
     "name": "Fear",
@@ -2812,7 +3471,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A white feather or the heart of a hen.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "feigndeath": {
     "name": "Feign Death",
@@ -2834,7 +3498,13 @@
       "druid",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "a pinch of graveyard dirt",
+    "castTime": "1 action",
+    "duration": "1 hour",
+    "ritual": true
   },
   "fireball": {
     "name": "Fireball",
@@ -2856,7 +3526,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "A tiny ball of bat guano and sulfur.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "fly": {
     "name": "Fly",
@@ -2876,7 +3551,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A wing feather from any bird.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "gaseousform": {
     "name": "Gaseous Form",
@@ -2896,7 +3576,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A bit of gauze and a wisp of smoke.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "glyphofwarding": {
     "name": "Glyph of Warding",
@@ -2919,7 +3604,12 @@
       "cleric",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Incense and powdered diamond worth at least 200 gp, which the spell consumes.",
+    "castTime": "1 hour",
+    "duration": "Until dispelled or triggered"
   },
   "haste": {
     "name": "Haste",
@@ -2938,7 +3628,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A shaving of licorice root.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "hypnoticpattern": {
     "name": "Hypnotic Pattern",
@@ -2960,7 +3655,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "120 feet",
+    "components": "S, M",
+    "material": "A glowing stick of incense or a crystal vial filled with phosphorescent material.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "lightningbolt": {
     "name": "Lightning Bolt",
@@ -2982,7 +3682,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A bit of fur and a rod of amber, crystal, or glass.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "magiccircle": {
     "name": "Magic Circle",
@@ -3002,7 +3707,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "material": "Holy water or powdered silver and iron worth at least 100 gp, which the spell consumes.",
+    "castTime": "1 minute",
+    "duration": "1 hour"
   },
   "majorimage": {
     "name": "Major Image",
@@ -3025,7 +3735,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A bit of fleece.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "masshealingword": {
     "name": "Mass Healing Word",
@@ -3044,7 +3759,11 @@
       "cleric"
     ],
     "cast": "Bonus Action",
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 bonus action",
+    "duration": "Instantaneous"
   },
   "meldintostone": {
     "name": "Meld into Stone",
@@ -3061,7 +3780,12 @@
       "cleric",
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "8 hours",
+    "ritual": true
   },
   "nondetection": {
     "name": "Nondetection",
@@ -3080,7 +3804,12 @@
       "ranger",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A pinch of diamond dust worth 25 gp sprinkled over the target, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "phantomsteed": {
     "name": "Phantom Steed",
@@ -3096,7 +3825,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 minute",
+    "duration": "1 hour",
+    "ritual": true
   },
   "plantgrowth": {
     "name": "Plant Growth",
@@ -3114,7 +3848,11 @@
       "druid",
       "ranger"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "150 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "protectionfromenergy": {
     "name": "Protection from Energy",
@@ -3136,7 +3874,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "removecurse": {
     "name": "Remove Curse",
@@ -3156,7 +3898,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "revivify": {
     "name": "Revivify",
@@ -3176,7 +3922,12 @@
     "classes": [
       "cleric"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Diamonds worth 300gp, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "sending": {
     "name": "Sending",
@@ -3194,7 +3945,12 @@
       "cleric",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Unlimited",
+    "components": "V, S, M",
+    "material": "A short piece of fine copper wire.",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "sleetstorm": {
     "name": "Sleet Storm",
@@ -3215,7 +3971,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "A pinch of dust and a few drops of water.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "slow": {
     "name": "Slow",
@@ -3235,7 +3996,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A drop of molasses.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "speakwithdead": {
     "name": "Speak with Dead",
@@ -3252,7 +4018,12 @@
       "bard",
       "cleric"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "material": "Burning incense.",
+    "castTime": "1 action",
+    "duration": "10 minutes"
   },
   "speakwithplants": {
     "name": "Speak with Plants",
@@ -3270,7 +4041,11 @@
       "druid",
       "ranger"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "10 minutes"
   },
   "spiritguardians": {
     "name": "Spirit Guardians",
@@ -3289,7 +4064,12 @@
       "cleric"
     ],
     "cast": "Action",
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A holy symbol.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "stinkingcloud": {
     "name": "Stinking Cloud",
@@ -3310,7 +4090,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "material": "A rotten egg or several skunk cabbage leaves.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "tongues": {
     "name": "Tongues",
@@ -3331,7 +4116,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Touch",
+    "components": "V, M",
+    "material": "A small clay model of a ziggurat.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "vampirictouch": {
     "name": "Vampiric Touch",
@@ -3352,7 +4142,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "waterbreathing": {
     "name": "Water Breathing",
@@ -3372,7 +4166,13 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A short piece of reed or straw.",
+    "castTime": "1 action",
+    "duration": "24 hours",
+    "ritual": true
   },
   "waterwalk": {
     "name": "Water Walk",
@@ -3392,7 +4192,12 @@
       "ranger",
       "sorcerer"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "castTime": "1 action",
+    "duration": "1 hour",
+    "ritual": true
   },
   "windwall": {
     "name": "Wind Wall",
@@ -3412,7 +4217,12 @@
       "druid",
       "ranger"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A tiny fan and a feather of exotic origin.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "arcaneeye": {
     "name": "Arcane Eye",
@@ -3430,7 +4240,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A bit of bat fur.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "banishment": {
     "name": "Banishment",
@@ -3451,7 +4266,12 @@
       "paladin"
     ],
     "cast": "Action",
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "An item distasteful to the target.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "blacktentacles": {
     "name": "Black Tentacles",
@@ -3473,7 +4293,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "material": "A piece of tentacle from a giant octopus or a giant squid",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "blight": {
     "name": "Blight",
@@ -3494,7 +4319,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "compulsion": {
     "name": "Compulsion",
@@ -3513,7 +4342,11 @@
     "classes": [
       "bard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "confusion": {
     "name": "Confusion",
@@ -3538,7 +4371,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "material": "Three walnut shells.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "conjureminorelementals": {
     "name": "Conjure Minor Elementals",
@@ -3557,7 +4395,11 @@
       "druid",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "90 feet",
+    "components": "V, S",
+    "castTime": "1 minute",
+    "duration": "Up to 1 hour"
   },
   "conjurewoodlandbeings": {
     "name": "Conjure Woodland Beings",
@@ -3576,7 +4418,12 @@
       "druid",
       "ranger"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "One holly berry per creature summoned.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "controlwater": {
     "name": "Control Water",
@@ -3596,7 +4443,12 @@
       "druid",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "material": "A drop of water and a pinch of dust.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "deathward": {
     "name": "Death Ward",
@@ -3614,7 +4466,11 @@
       "cleric",
       "paladin"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "dimensiondoor": {
     "name": "Dimension Door",
@@ -3634,7 +4490,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "500 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "divination": {
     "name": "Divination",
@@ -3651,7 +4511,13 @@
     "classes": [
       "cleric"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "Incense and a sacrificial offering appropriate to your religion, together worth at least 25gp, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "Instantaneous",
+    "ritual": true
   },
   "dominatebeast": {
     "name": "Dominate Beast",
@@ -3671,7 +4537,11 @@
       "druid",
       "sorcerer"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "faithfulhound": {
     "name": "Faithful Hound",
@@ -3689,7 +4559,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A tiny silver whistle, a piece of bone, and a thread",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "fireshield": {
     "name": "Fire Shield",
@@ -3706,7 +4581,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A little phosphorus or a firefly.",
+    "castTime": "1 action",
+    "duration": "10 minutes"
   },
   "freedomofmovement": {
     "name": "Freedom of Movement",
@@ -3726,7 +4606,12 @@
       "druid",
       "ranger"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A leather strap, bound around the arm or a similar appendage.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "giantinsect": {
     "name": "Giant Insect",
@@ -3744,7 +4629,11 @@
     "classes": [
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "graspingvine": {
     "name": "Grasping Vine",
@@ -3765,7 +4654,11 @@
       "ranger"
     ],
     "cast": "Bonus Action",
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 bonus action",
+    "duration": "Concentration, up to 1 minute"
   },
   "greaterinvisibility": {
     "name": "Greater Invisibility",
@@ -3785,7 +4678,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "guardianoffaith": {
     "name": "Guardian of Faith",
@@ -3803,7 +4700,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "hallucinatoryterrain": {
     "name": "Hallucinatory Terrain",
@@ -3823,7 +4724,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "material": "A stone, a twig, and a bit of green plant.",
+    "castTime": "10 minutes",
+    "duration": "24 hours"
   },
   "icestorm": {
     "name": "Ice Storm",
@@ -3846,7 +4752,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "material": "A pinch of dust and a few drops of water.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "locatecreature": {
     "name": "Locate Creature",
@@ -3869,7 +4780,12 @@
       "ranger",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A bit of fur from a bloodhound.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "phantasmalkiller": {
     "name": "Phantasmal Killer",
@@ -3888,7 +4804,11 @@
     "classes": [
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "polymorph": {
     "name": "Polymorph",
@@ -3910,7 +4830,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A caterpillar cocoon.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "privatesanctum": {
     "name": "Private Sanctum",
@@ -3927,7 +4852,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A thin sheet of lead, a piece of opaque glass, a wad of cotton or cloth, and powdered chrysolite.",
+    "castTime": "10 minutes",
+    "duration": "24 hours"
   },
   "resilientsphere": {
     "name": "Resilient Sphere",
@@ -3946,7 +4876,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A hemispherical piece of clear crystal and a matching hemispherical piece of gum arabic.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "secretchest": {
     "name": "Secret Chest",
@@ -3963,7 +4898,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "An exquisite chest, 3 feet by 2 feet by 2 feet, constructed from rare materials worth at least 5,000 gp, and a Tiny replica made from the same materials worth at least 50 gp.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "stoneshape": {
     "name": "Stone Shape",
@@ -3982,7 +4922,12 @@
       "druid",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Soft clay, to be crudely worked into the desired shape for the stone object.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "stoneskin": {
     "name": "Stoneskin",
@@ -4003,7 +4948,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Diamond dust worth 100 gp, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "walloffire": {
     "name": "Wall of Fire",
@@ -4024,7 +4974,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A small piece of phosphorus.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "animateobjects": {
     "name": "Animate Objects",
@@ -4048,7 +5003,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "antilifeshell": {
     "name": "Antilife Shell",
@@ -4066,7 +5025,11 @@
     "classes": [
       "druid"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "awaken": {
     "name": "Awaken",
@@ -4084,7 +5047,12 @@
       "bard",
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "An agate worth at least 1,000 gp, which the spell consumes.",
+    "castTime": "8 hours",
+    "duration": "Instantaneous"
   },
   "hand": {
     "name": "Bigby's Hand",
@@ -4107,7 +5075,12 @@
       "wizard"
     ],
     "cast": "Bonus Action",
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "an eggshell and a snakeskin glove",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 minute"
   },
   "cloudkill": {
     "name": "Cloudkill",
@@ -4130,7 +5103,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "commune": {
     "name": "Commune",
@@ -4147,7 +5124,13 @@
     "classes": [
       "cleric"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "Incense and a vial of holy or unholy water.",
+    "castTime": "1 minute",
+    "duration": "1 minute",
+    "ritual": true
   },
   "communewithnature": {
     "name": "Commune with Nature",
@@ -4165,7 +5148,12 @@
       "druid",
       "ranger"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 minute",
+    "duration": "Instantaneous",
+    "ritual": true
   },
   "coneofcold": {
     "name": "Cone of Cold",
@@ -4185,7 +5173,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A small crystal or glass cone.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "conjureelemental": {
     "name": "Conjure Elemental",
@@ -4207,7 +5200,12 @@
       "druid",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "material": "Burning incense for air, soft clay for earth, sulfur and phosphorus for fire, or water and sand for water.",
+    "castTime": "1 minute",
+    "duration": "Up to 1 hour"
   },
   "contactotherplane": {
     "name": "Contact Other Plane",
@@ -4226,7 +5224,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V",
+    "castTime": "1 minute",
+    "duration": "1 minute",
+    "ritual": true
   },
   "contagion": {
     "name": "Contagion",
@@ -4246,7 +5249,11 @@
       "cleric",
       "druid"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "7 days"
   },
   "creation": {
     "name": "Creation",
@@ -4264,7 +5271,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A tiny piece of matter of the same type of the item you plan to create.",
+    "castTime": "1 minute",
+    "duration": "Special"
   },
   "dispelevilandgood": {
     "name": "Dispel Evil and Good",
@@ -4283,7 +5295,12 @@
       "cleric",
       "paladin"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "Holy water or powdered silver and iron.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "dominateperson": {
     "name": "Dominate Person",
@@ -4307,7 +5324,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "dream": {
     "name": "Dream",
@@ -4327,7 +5348,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Special",
+    "components": "V, S, M",
+    "material": "A handful of sand, a dab of ink, and a writing quill plucked from a sleeping bird.",
+    "castTime": "1 minute",
+    "duration": "8 hours"
   },
   "flamestrike": {
     "name": "Flame Strike",
@@ -4348,7 +5374,12 @@
     "classes": [
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "Pinch of sulfur.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "geas": {
     "name": "Geas",
@@ -4371,7 +5402,11 @@
       "paladin",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 minute",
+    "duration": "30 days"
   },
   "greaterrestoration": {
     "name": "Greater Restoration",
@@ -4390,7 +5425,12 @@
       "cleric",
       "druid"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Diamond dust worth at least 100gp, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "hallow": {
     "name": "Hallow",
@@ -4410,7 +5450,12 @@
     "classes": [
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Herbs, oils, and incense worth at least 1,000 gp, which the spell consumes.",
+    "castTime": "24 hours",
+    "duration": "Until dispelled"
   },
   "holdmonster": {
     "name": "Hold Monster",
@@ -4432,7 +5477,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "material": "A small piece of iron.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "insectplague": {
     "name": "Insect Plague",
@@ -4456,7 +5506,12 @@
       "druid",
       "sorcerer"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "material": "A few grains of sugar, some kernels of grain, and a smear of fat.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "legendlore": {
     "name": "Legend Lore",
@@ -4475,7 +5530,12 @@
       "cleric",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "Incense worth 250 inches that fate consumes and four sticks of ivory worth 50 gp each.",
+    "castTime": "10 minutes",
+    "duration": "Instantaneous"
   },
   "masscurewounds": {
     "name": "Mass Cure Wounds",
@@ -4497,7 +5557,11 @@
       "cleric",
       "druid"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "mislead": {
     "name": "Mislead",
@@ -4516,7 +5580,11 @@
       "bard",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Self",
+    "components": "S",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "modifymemory": {
     "name": "Modify Memory",
@@ -4536,7 +5604,11 @@
       "bard",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "passwall": {
     "name": "Passwall",
@@ -4553,7 +5625,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A pinch of sesame seeds.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "planarbinding": {
     "name": "Planar Binding",
@@ -4574,7 +5651,12 @@
       "druid",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A jewel worth at least 1,000 gp, which the spell consumes.",
+    "castTime": "1 hour",
+    "duration": "24 hours"
   },
   "raisedead": {
     "name": "Raise Dead",
@@ -4593,7 +5675,12 @@
       "cleric",
       "paladin"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A diamond worth at least 500gp, which the spell consumes.",
+    "castTime": "1 hour",
+    "duration": "Instantaneous"
   },
   "telepathicbond": {
     "name": "Rary's Telepathic Bond",
@@ -4611,7 +5698,13 @@
       "bard",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "Pieces of eggshell from two different kinds of creatures",
+    "castTime": "1 action",
+    "duration": "1 hour",
+    "ritual": true
   },
   "reincarnate": {
     "name": "Reincarnate",
@@ -4628,7 +5721,12 @@
     "classes": [
       "druid"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Rare oils and unguents worth at least 1,000 gp, which the spell consumes.",
+    "castTime": "1 hour",
+    "duration": "Instantaneous"
   },
   "scrying": {
     "name": "Scrying",
@@ -4651,7 +5749,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A focus worth at least 1,000 gp, such as a crystal ball, a silver mirror, or a font filled with holy water.",
+    "castTime": "10 minutes",
+    "duration": "Up to 10 minutes"
   },
   "seeming": {
     "name": "Seeming",
@@ -4671,7 +5774,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "telekinesis": {
     "name": "Telekinesis",
@@ -4691,7 +5798,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "teleportationcircle": {
     "name": "Teleportation Circle",
@@ -4710,7 +5821,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "10 feet",
+    "components": "V, M",
+    "material": "Rare chalks and inks infused with precious gems with 50 gp, which the spell consumes.",
+    "castTime": "1 minute",
+    "duration": "1 round"
   },
   "treestride": {
     "name": "Tree Stride",
@@ -4729,7 +5845,11 @@
       "druid",
       "ranger"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "wallofforce": {
     "name": "Wall of Force",
@@ -4750,7 +5870,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A pinch of powder made by crushing a clear gemstone.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "wallofstone": {
     "name": "Wall of Stone",
@@ -4770,7 +5895,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A small block of granite.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "bladebarrier": {
     "name": "Blade Barrier",
@@ -4789,7 +5919,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "90 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "chainlightning": {
     "name": "Chain Lightning",
@@ -4808,7 +5942,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "A bit of fur; a piece of amber, glass, or a crystal rod; and three silver pins.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "circleofdeath": {
     "name": "Circle of Death",
@@ -4828,7 +5967,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "The powder of a crushed black pearl worth at least 500 gp.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "conjurefey": {
     "name": "Conjure Fey",
@@ -4847,7 +5991,11 @@
       "druid",
       "warlock"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "90 feet",
+    "components": "V, S",
+    "castTime": "1 minute",
+    "duration": "Up to 1 hour"
   },
   "contingency": {
     "name": "Contingency",
@@ -4864,7 +6012,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A statuette of yourself carved from ivory and decorated with gems worth at least 1,500 gp.",
+    "castTime": "10 minutes",
+    "duration": "10 days"
   },
   "createundead": {
     "name": "Create Undead",
@@ -4883,7 +6036,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "material": "One clay pot filled with grave dirt, one clay pot filled with brackish water, and one 150 gp black onyx stone for each corpse.",
+    "castTime": "1 minute",
+    "duration": "Instantaneous"
   },
   "disintegrate": {
     "name": "Disintegrate",
@@ -4902,7 +6060,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A lodestone and a pinch of dust.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "eyebite": {
     "name": "Eyebite",
@@ -4923,7 +6086,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "findthepath": {
     "name": "Find the Path",
@@ -4943,7 +6110,12 @@
       "cleric",
       "druid"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A set of divinatory tools-such as bones, ivory sticks, cards, teeth, or carved runes-worth 100gp and an object from the location you wish to find.",
+    "castTime": "1 minute",
+    "duration": "Up to 24 hours"
   },
   "fleshtostone": {
     "name": "Flesh to Stone",
@@ -4963,7 +6135,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A pinch of lime, water, and earth.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "forbiddance": {
     "name": "Forbiddance",
@@ -4981,7 +6158,13 @@
     "classes": [
       "cleric"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A sprinkling of holy water, rare incense, and powdered ruby worth at least 1,000 gp.",
+    "castTime": "10 minutes",
+    "duration": "24 hours",
+    "ritual": true
   },
   "freezingsphere": {
     "name": "Freezing Sphere",
@@ -4999,7 +6182,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "material": "A small crystal sphere.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "globeofinvulnerability": {
     "name": "Globe of Invulnerability",
@@ -5018,7 +6206,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A glass or crystal bead that shatters when the spell ends.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "guardsandwards": {
     "name": "Guards and Wards",
@@ -5037,7 +6230,12 @@
       "bard",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Burning incense, a small measure of brimstone and oil, a knotted string, a small amount of umber hulk blood, and a small silver rod worth at least 10 gp.",
+    "castTime": "10 minutes",
+    "duration": "24 hours"
   },
   "harm": {
     "name": "Harm",
@@ -5055,7 +6253,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "heal": {
     "name": "Heal",
@@ -5073,7 +6275,11 @@
       "cleric",
       "druid"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "heroesfeast": {
     "name": "Heroes' Feast",
@@ -5091,7 +6297,12 @@
       "cleric",
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A gem-encrusted bowl worth at least 1,000gp, which the spell consumes.",
+    "castTime": "10 minutes",
+    "duration": "Instantaneous"
   },
   "instantsummons": {
     "name": "Instant Summons",
@@ -5108,7 +6319,13 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A sapphire worth 1,000 gp.",
+    "castTime": "1 minute",
+    "duration": "Until dispelled",
+    "ritual": true
   },
   "irresistibledance": {
     "name": "Irresistible Dance",
@@ -5128,7 +6345,11 @@
       "bard",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "30 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "magicjar": {
     "name": "Magic Jar",
@@ -5146,7 +6367,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A gem, crystal, reliquary, or some other ornamental container worth at least 500 gp.",
+    "castTime": "1 minute",
+    "duration": "Until dispelled"
   },
   "masssuggestion": {
     "name": "Mass Suggestion",
@@ -5167,7 +6393,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, M",
+    "material": "A snake's tongue and either a bit of honeycomb or a drop of sweet oil.",
+    "castTime": "1 action",
+    "duration": "24 hours"
   },
   "moveearth": {
     "name": "Move Earth",
@@ -5187,7 +6418,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "An iron blade and a small bag containing a mixture of soils-clay, loam, and sand.",
+    "castTime": "1 action",
+    "duration": "Up to 2 hours"
   },
   "planarally": {
     "name": "Planar Ally",
@@ -5204,7 +6440,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "10 minutes",
+    "duration": "Instantaneous"
   },
   "programmedillusion": {
     "name": "Programmed Illusion",
@@ -5222,7 +6462,12 @@
       "bard",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A bit of fleece and jade dust worth at least 25 gp.",
+    "castTime": "1 action",
+    "duration": "Until dispelled"
   },
   "sunbeam": {
     "name": "Sunbeam",
@@ -5243,7 +6488,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A magnifying glass.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "transportviaplants": {
     "name": "Transport via Plants",
@@ -5260,7 +6510,11 @@
     "classes": [
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "10 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "trueseeing": {
     "name": "True Seeing",
@@ -5281,7 +6535,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "An ointment for the eyes that costs 25gp; is made from mushroom powder, saffron, and fat; and is consumed by the spell.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "wallofice": {
     "name": "Wall of Ice",
@@ -5300,7 +6559,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A small piece of quartz.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "wallofthorns": {
     "name": "Wall of Thorns",
@@ -5319,7 +6583,12 @@
     "classes": [
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "material": "A handful of thorns.",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "windwalk": {
     "name": "Wind Walk",
@@ -5336,7 +6605,12 @@
     "classes": [
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "Fire and holy water.",
+    "castTime": "1 minute",
+    "duration": "8 hours"
   },
   "wordofrecall": {
     "name": "Word of Recall",
@@ -5353,7 +6627,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "5 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "conjurecelestial": {
     "name": "Conjure Celestial",
@@ -5371,7 +6649,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "90 feet",
+    "components": "V, S",
+    "castTime": "1 minute",
+    "duration": "Up to 1 hour"
   },
   "delayedblastfireball": {
     "name": "Delayed Blast Fireball",
@@ -5391,7 +6673,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "A tiny ball of bat guano and sulfur.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "divineword": {
     "name": "Divine Word",
@@ -5410,7 +6697,11 @@
       "cleric"
     ],
     "cast": "Bonus Action",
-    "school": "evocation"
+    "school": "evocation",
+    "range": "30 feet",
+    "components": "V",
+    "castTime": "1 bonus action",
+    "duration": "Instantaneous"
   },
   "etherealness": {
     "name": "Etherealness",
@@ -5431,7 +6722,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "8 hours"
   },
   "fingerofdeath": {
     "name": "Finger of Death",
@@ -5451,7 +6746,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "firestorm": {
     "name": "Fire Storm",
@@ -5471,7 +6770,11 @@
       "druid",
       "sorcerer"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "150 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "forcecage": {
     "name": "Forcecage",
@@ -5491,7 +6794,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "100 feet",
+    "components": "V, S, M",
+    "material": "Ruby dust worth 1,500 gp.",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "magnificentmansion": {
     "name": "Magnificent Mansion",
@@ -5509,7 +6817,12 @@
       "bard",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "material": "A miniature portal carved from ivory, a small piece of polished marble, and a tiny silver spoon, each item worth at least 5 gp.",
+    "castTime": "1 minute",
+    "duration": "24 hours"
   },
   "miragearcane": {
     "name": "Mirage Arcane",
@@ -5528,7 +6841,11 @@
       "druid",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Sight",
+    "components": "V, S",
+    "castTime": "10 minutes",
+    "duration": "10 days"
   },
   "planeshift": {
     "name": "Plane Shift",
@@ -5550,7 +6867,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A forked, metal rod worth at least 250 gp, attuned to a particular plane of existence.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "prismaticspray": {
     "name": "Prismatic Spray",
@@ -5570,7 +6892,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "projectimage": {
     "name": "Project Image",
@@ -5589,7 +6915,12 @@
       "bard",
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "500 miles",
+    "components": "V, S, M",
+    "material": "A small replica of you made from materials worth at least 5 gp.",
+    "castTime": "1 action",
+    "duration": "Up to 24 hours"
   },
   "regenerate": {
     "name": "Regenerate",
@@ -5608,7 +6939,12 @@
       "cleric",
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A prayer wheel and holy water.",
+    "castTime": "1 minute",
+    "duration": "1 hour"
   },
   "resurrection": {
     "name": "Resurrection",
@@ -5626,7 +6962,12 @@
       "bard",
       "cleric"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A diamond worth at least 1,000gp, which the spell consumes.",
+    "castTime": "1 hour",
+    "duration": "Instantaneous"
   },
   "reversegravity": {
     "name": "Reverse Gravity",
@@ -5647,7 +6988,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "100 feet",
+    "components": "V, S, M",
+    "material": "A lodestone and iron filings.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "sequester": {
     "name": "Sequester",
@@ -5664,7 +7010,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A powder composed of diamond, emerald, ruby, and sapphire dust worth at least 5,000 gp, which the spell consumes.",
+    "castTime": "1 action",
+    "duration": "Until dispelled"
   },
   "simulacrum": {
     "name": "Simulacrum",
@@ -5681,7 +7032,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Snow or ice in quantities sufficient to made a life-size copy of the duplicated creature; some hair, fingernail clippings, or other piece of that creature's body placed inside the snow or ice; and powdered ruby worth 1,500 gp, sprinkled over the duplicate and consumed by the spell.",
+    "castTime": "12 hours",
+    "duration": "Until dispelled"
   },
   "symbol": {
     "name": "Symbol",
@@ -5701,7 +7057,12 @@
       "cleric",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "Mercury, phosphorus, and powdered diamond and opal with a total value of at least 1,000 gp, which the spell consumes.",
+    "castTime": "1 minute",
+    "duration": "Until dispelled or triggered"
   },
   "teleport": {
     "name": "Teleport",
@@ -5720,7 +7081,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "10 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "animalshapes": {
     "name": "Animal Shapes",
@@ -5739,7 +7104,11 @@
     "classes": [
       "druid"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 24 hours"
   },
   "antimagicfield": {
     "name": "Antimagic Field",
@@ -5761,7 +7130,12 @@
       "cleric",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A pinch of powdered iron or iron filings.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "antipathysympathy": {
     "name": "Antipathy/Sympathy",
@@ -5783,7 +7157,12 @@
       "druid",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "Either a lump of alum soaked in vinegar for the antipathy effect or a drop of honey for the sympathy effect.",
+    "castTime": "1 hour",
+    "duration": "10 days"
   },
   "clone": {
     "name": "Clone",
@@ -5800,7 +7179,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A diamond worth at least 1,000 gp and at least 1 cubic inch of flesh of the creature that is to be cloned, which the spell consumes, and a vessel worth at least 2,000 gp that has a sealable lid and is large enough to hold a Medium creature, such as a huge urn, coffin, mud-filled cyst in the ground, or crystal container filled with salt water.",
+    "castTime": "1 hour",
+    "duration": "Instantaneous"
   },
   "controlweather": {
     "name": "Control Weather",
@@ -5823,7 +7207,12 @@
       "druid",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "Burning incense and bits of earth and wood mixed in water.",
+    "castTime": "10 minutes",
+    "duration": "Up to 8 hours"
   },
   "demiplane": {
     "name": "Demiplane",
@@ -5841,7 +7230,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "S",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "dominatemonster": {
     "name": "Dominate Monster",
@@ -5863,7 +7256,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "earthquake": {
     "name": "Earthquake",
@@ -5887,7 +7284,12 @@
       "druid",
       "sorcerer"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "500 feet",
+    "components": "V, S, M",
+    "material": "A pinch of dirt, a piece of rock, and a lump of clay.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "feeblemind": {
     "name": "Feeblemind",
@@ -5908,7 +7310,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "A handful of clay, crystal, glass, or mineral spheres.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "glibness": {
     "name": "Glibness",
@@ -5927,7 +7334,11 @@
       "sorcerer",
       "warlock"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "Self",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "1 hour"
   },
   "holyaura": {
     "name": "Holy Aura",
@@ -5948,7 +7359,12 @@
     "classes": [
       "cleric"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A tiny reliquary worth at least 1,000gp containing a sacred relic, such as a scrap of cloth from a saint's robe or a piece of parchment from a religious text.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "incendiarycloud": {
     "name": "Incendiary Cloud",
@@ -5971,7 +7387,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "150 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "maze": {
     "name": "Maze",
@@ -5990,7 +7410,11 @@
     "classes": [
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 10 minutes"
   },
   "mindblank": {
     "name": "Mind Blank",
@@ -6008,7 +7432,11 @@
       "bard",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "Touch",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "24 hours"
   },
   "powerwordstun": {
     "name": "Power Word Stun",
@@ -6028,7 +7456,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "sunburst": {
     "name": "Sunburst",
@@ -6051,7 +7483,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "Fire and a piece of sunstone.",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "telepathy": {
     "name": "Telepathy",
@@ -6068,7 +7505,12 @@
     "classes": [
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Unlimited",
+    "components": "V, S, M",
+    "material": "a pair of linked silver rings",
+    "castTime": "1 action",
+    "duration": "24 hours"
   },
   "tsunami": {
     "name": "Tsunami",
@@ -6090,7 +7532,11 @@
     "classes": [
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Sight",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 6 rounds"
   },
   "astralprojection": {
     "name": "Astral Projection",
@@ -6112,7 +7558,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "material": "For each creature you affect with this spell, you must provide one jacinth worth at least 1,000gp and one ornately carved bar of silver worth at least 100gp, all of which the spell consumes.",
+    "castTime": "1 hour",
+    "duration": "Special"
   },
   "foresight": {
     "name": "Foresight",
@@ -6135,7 +7586,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "divination"
+    "school": "divination",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A hummingbird feather.",
+    "castTime": "1 minute",
+    "duration": "8 hours"
   },
   "gate": {
     "name": "Gate",
@@ -6158,7 +7614,12 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "A diamond worth at least 5,000gp.",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "imprisonment": {
     "name": "Imprisonment",
@@ -6180,7 +7641,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A vellum depiction or a carved statuette in the likeness of the target, and a special component that varies according to the version of the spell you choose, worth at least 500gp per Hit Die of the target.",
+    "castTime": "1 minute",
+    "duration": "Until dispelled"
   },
   "massheal": {
     "name": "Mass Heal",
@@ -6201,7 +7667,11 @@
     "classes": [
       "cleric"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "meteorswarm": {
     "name": "Meteor Swarm",
@@ -6223,7 +7693,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "evocation"
+    "school": "evocation",
+    "range": "1 mile",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "powerwordkill": {
     "name": "Power Word Kill",
@@ -6243,7 +7717,11 @@
       "warlock",
       "wizard"
     ],
-    "school": "enchantment"
+    "school": "enchantment",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "prismaticwall": {
     "name": "Prismatic Wall",
@@ -6265,7 +7743,11 @@
       "bard",
       "wizard"
     ],
-    "school": "abjuration"
+    "school": "abjuration",
+    "range": "60 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "10 minutes"
   },
   "shapechange": {
     "name": "Shapechange",
@@ -6287,7 +7769,12 @@
       "druid",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A jade circlet worth at least 1,500 gp, which you must place on your head before you cast the spell.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "stormofvengeance": {
     "name": "Storm of Vengeance",
@@ -6309,7 +7796,11 @@
     "classes": [
       "druid"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Sight",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "timestop": {
     "name": "Time Stop",
@@ -6330,7 +7821,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "Self",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "truepolymorph": {
     "name": "True Polymorph",
@@ -6355,7 +7850,12 @@
       "warlock",
       "wizard"
     ],
-    "school": "transmutation"
+    "school": "transmutation",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "material": "A drop of mercury, a dollop of gum arabic, and a wisp of smoke.",
+    "castTime": "1 action",
+    "duration": "Up to 1 hour"
   },
   "trueresurrection": {
     "name": "True Resurrection",
@@ -6376,7 +7876,12 @@
       "cleric",
       "druid"
     ],
-    "school": "necromancy"
+    "school": "necromancy",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "A sprinkle of holy water and diamonds worth at least 25,000gp, which the spell consumes.",
+    "castTime": "1 hour",
+    "duration": "Instantaneous"
   },
   "weird": {
     "name": "Weird",
@@ -6398,7 +7903,11 @@
     "classes": [
       "wizard"
     ],
-    "school": "illusion"
+    "school": "illusion",
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Up to 1 minute"
   },
   "wish": {
     "name": "Wish",
@@ -6419,7 +7928,11 @@
       "sorcerer",
       "wizard"
     ],
-    "school": "conjuration"
+    "school": "conjuration",
+    "range": "Self",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "auraofvitality": {
     "name": "Aura of Vitality",
@@ -6442,7 +7955,11 @@
       "cleric",
       "druid",
       "paladin"
-    ]
+    ],
+    "range": "Self (30-foot radius)",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 minute"
   },
   "tinyhut": {
     "name": "Leomund's Tiny Hut",
@@ -6463,7 +7980,13 @@
       "bard",
       "cleric",
       "wizard"
-    ]
+    ],
+    "range": "Self",
+    "components": "V, S, M",
+    "material": "A small crystal bead.",
+    "castTime": "1 minute",
+    "duration": "8 hours",
+    "ritual": true
   },
   "moldearth": {
     "name": "Mold Earth",
@@ -6481,7 +8004,11 @@
       "druid",
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "range": "30 feet",
+    "components": "S",
+    "castTime": "1 action",
+    "duration": "Instantaneous or 1 hour"
   },
   "sorcerousburst": {
     "name": "Sorcerous Burst",
@@ -6498,7 +8025,11 @@
     ],
     "classes": [
       "sorcerer"
-    ]
+    ],
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "bladeward": {
     "name": "Blade Ward",
@@ -6518,7 +8049,11 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "range": "Self",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "mindsliver": {
     "name": "Mind Sliver",
@@ -6538,7 +8073,11 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "silverybarbs": {
     "name": "Silvery Barbs",
@@ -6561,7 +8100,11 @@
       "sorcerer",
       "wizard"
     ],
-    "cast": "Reaction"
+    "cast": "Reaction",
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 reaction",
+    "duration": "Instantaneous"
   },
   "armsofhadar": {
     "name": "Arms of Hadar",
@@ -6580,7 +8123,11 @@
     "classes": [
       "sorcerer",
       "warlock"
-    ]
+    ],
+    "range": "Self (10-foot radius)",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "dissonantwhispers": {
     "name": "Dissonant Whispers",
@@ -6600,7 +8147,11 @@
       "bard",
       "sorcerer",
       "warlock"
-    ]
+    ],
+    "range": "60 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "tashasmindwhip": {
     "name": "Tasha's Mind Whip",
@@ -6620,7 +8171,11 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "range": "90 feet",
+    "components": "V",
+    "castTime": "1 action",
+    "duration": "1 round"
   },
   "hungerofhadar": {
     "name": "Hunger of Hadar",
@@ -6642,7 +8197,12 @@
     "classes": [
       "sorcerer",
       "warlock"
-    ]
+    ],
+    "range": "150 feet",
+    "components": "V, S, M",
+    "material": "a pickled octopus tentacle",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 minute"
   },
   "summonaberration": {
     "name": "Summon Aberration",
@@ -6665,7 +8225,12 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "range": "60 feet",
+    "components": "V, S, M",
+    "material": "a pickled tentacle and a vial of bile worth 400+ GP",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 hour"
   },
   "synapticstatic": {
     "name": "Synaptic Static",
@@ -6689,7 +8254,11 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "range": "120 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   },
   "mentalprison": {
     "name": "Mental Prison",
@@ -6709,7 +8278,11 @@
       "sorcerer",
       "warlock",
       "wizard"
-    ]
+    ],
+    "range": "60 feet",
+    "components": "S",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 minute"
   },
   "psychicscream": {
     "name": "Psychic Scream",
@@ -6731,6 +8304,10 @@
     "classes": [
       "sorcerer",
       "wizard"
-    ]
+    ],
+    "range": "90 feet",
+    "components": "S",
+    "castTime": "1 action",
+    "duration": "Instantaneous"
   }
 }

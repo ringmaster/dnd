@@ -231,6 +231,9 @@
   .inv-row:last-child{border-bottom:none}
   .inv-row .iname{font-family:"Cinzel",serif;font-size:.84rem;color:var(--bone)}
   .inv-row .itag{font-size:.72rem;color:var(--ash-dim);text-align:right;white-space:nowrap}
+  button.inv-row-ref{width:100%;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;min-height:44px}
+  button.inv-row-ref:active .iname{color:var(--ember-bright)}
+  .inv-row .info-tag{margin-left:.1rem}
 
   /* ---------- Weapon mastery selector ---------- */
   .wm-row{display:flex;align-items:flex-start;gap:.7rem;width:100%;text-align:left;background:transparent;border:none;border-bottom:1px dashed var(--iron);padding:.7rem .15rem;cursor:pointer;color:var(--bone);min-height:44px}
@@ -259,6 +262,7 @@
   .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
   .chip{font-size:.7rem;letter-spacing:.03em;background:#1a1e26;border:1px solid var(--iron);border-radius:20px;padding:.2rem .6rem;color:var(--ash)}
   .chip.storm{border-color:var(--storm);color:var(--storm)} .chip.ember{border-color:var(--ember);color:var(--ember-bright)}
+  .spell-meta{font-size:.78rem;color:var(--ash);line-height:1.5;margin:.1rem 0 .5rem;padding-bottom:.5rem;border-bottom:1px solid var(--iron)}
   .modal-body p{margin:.5rem 0;font-size:.92rem;color:var(--bone);line-height:1.55}
   .modal-body p.muted{color:var(--ash);font-size:.84rem}
 

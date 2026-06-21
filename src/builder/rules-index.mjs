@@ -58,13 +58,24 @@ const classFeatures = rj(path.join(ROOT, "src", "content", "class-features.json"
 const subclasses = rj(path.join(ROOT, "src", "content", "subclasses.json"));
 const glossary = extractObject(path.join(ROOT, "src", "engine", "glossary.js"), "var GLOSSARY = {");
 
+function spellInfoLine(s) {
+  const parts = [];
+  if (s.castTime) parts.push("Cast " + s.castTime);
+  if (s.range) parts.push("Range " + s.range);
+  let comp = s.components || "";
+  if (s.material) comp = (comp ? comp + " " : "") + "(" + s.material + ")";
+  if (comp) parts.push("Components " + comp);
+  if (s.duration) parts.push("Duration " + s.duration);
+  if (s.ritual) parts.push("Ritual");
+  return parts.join("  ·  ");
+}
 function spellDesc(s) {
   const header = (s.level === 0 ? "Cantrip" : "Level " + s.level) + (s.school ? " · " + cap(s.school) : "");
   const cls = (s.classes || []).map(cap).join(", ");
   const lines = ["**" + header + "**" + (cls ? "  \nClasses: " + cls : "")];
+  const info = spellInfoLine(s);
+  if (info) lines.push(info);
   if (s.dice) lines.push("_" + generic(s.dice) + "_");
-  if (s.cast) lines.push("Casting time: " + s.cast);
-  (s.chips || []).forEach((c) => { /* chips fold into the body context; skip to keep it clean */ });
   (s.body || []).forEach((b) => lines.push(generic(b)));
   return lines.join("\n\n");
 }
