@@ -5,7 +5,7 @@
   "bespoke": true,
   "subtitle": "Variant Human · Rogue 4 / Cleric 8 / Monk 4 · Lvl 16",
   "title": "Wex",
-  "footer": "Rogue (Assassin) 4 / Cleric (Twilight) 8 / Monk (Shadow) 4",
+  "footer": "Rogue (Inquisitive) 4 / Cleric (Twilight) 8 / Monk (Shadow) 4",
   "storageKey": "dnd_wex",
   "level": 16,
   "hitDice": [
@@ -194,9 +194,19 @@
           "sub": "Rogue · finesse/ranged · once per turn"
         },
         {
-          "ref": "assassinate",
-          "name": "Assassinate",
-          "sub": "Assassin · advantage vs. those who haven't acted; crit vs. surprised"
+          "ref": "insightfulfighting",
+          "name": "Insightful Fighting",
+          "sub": "Inquisitive · Sneak Attack without Advantage (Insight vs. Deception)"
+        },
+        {
+          "ref": "eyefordetail",
+          "name": "Eye for Detail",
+          "sub": "Inquisitive · Bonus-Action Perception / Investigation"
+        },
+        {
+          "ref": "eardeceit",
+          "name": "Ear for Deceit",
+          "sub": "Inquisitive · detect lies (treat a d20 of 7 or lower as 8 on Insight)"
         },
         {
           "ref": "cunningaction",
@@ -307,21 +317,21 @@
     {
       "type": "buildlog",
       "title": "Build Log",
-      "hint": "Rogue 1–4 → Cleric 1–8 → Monk 1–4 · per character level",
+      "hint": "Per character level · Rogue→Cleric→Monk→Rogue/Cleric (2014 rules)",
       "levels": [
         {
           "title": "Level 1",
           "tag": "Rogue 1",
           "items": [
             {
-              "html": "<b>Variant Human</b> — +1 to two abilities, one extra skill, and a level-1 Origin feat; Speed 30"
+              "html": "<b>Variant Human</b> — +1 to two abilities, an extra skill (Survival), and a level-1 Origin feat: <b>Shadow Touched</b>; Speed 30"
             },
             {
               "cls": "choice",
               "html": "<b>Background:</b> Criminal (Smuggler) — Deception &amp; Stealth; Thieves' Tools, Gaming Set"
             },
             {
-              "html": "<b>Rogue 1:</b> Expertise (Perception, Stealth), Sneak Attack (1d6), Thieves' Cant, Weapon Mastery"
+              "html": "<b>Rogue 1:</b> Expertise (Perception, Stealth), Sneak Attack (1d6), Thieves' Cant"
             }
           ]
         },
@@ -336,19 +346,34 @@
         },
         {
           "title": "Level 3",
-          "tag": "Rogue 3 · Assassin",
+          "tag": "Cleric 1 · Twilight",
           "items": [
             {
-              "html": "<b>Rogue 3 — Assassin:</b> Assassinate; Assassin's Tools (Disguise Kit &amp; Poisoner's Kit)"
-            },
-            {
-              "html": "<b>Steady Aim</b> — Bonus Action for Advantage on your next attack (Speed 0)"
+              "html": "<b>Cleric 1 — Twilight Domain:</b> Spellcasting (Wisdom); Eyes of Night (300-ft darkvision), Vigilant Blessing; domain spells"
             }
           ]
         },
         {
           "title": "Level 4",
-          "tag": "Rogue 4",
+          "tag": "Cleric 2",
+          "items": [
+            {
+              "html": "<b>Cleric 2:</b> Channel Divinity — Twilight Sanctuary &amp; Turn Undead; Harness Divine Power"
+            }
+          ]
+        },
+        {
+          "title": "Level 5",
+          "tag": "Cleric 3",
+          "items": [
+            {
+              "html": "<b>Cleric 3:</b> 2nd-level spell slots"
+            }
+          ]
+        },
+        {
+          "title": "Level 6",
+          "tag": "Cleric 4",
           "items": [
             {
               "cls": "choice",
@@ -357,93 +382,34 @@
           ]
         },
         {
-          "title": "Level 5",
-          "tag": "Cleric 1",
-          "items": [
-            {
-              "html": "<b>Cleric 1 (Twilight):</b> Spellcasting (Wisdom), Divine Order"
-            }
-          ]
-        },
-        {
-          "title": "Level 6",
-          "tag": "Cleric 2",
-          "items": [
-            {
-              "html": "<b>Cleric 2:</b> Channel Divinity (Turn Undead); Harness Divine Power — expend Channel Divinity to regain a spell slot"
-            }
-          ]
-        },
-        {
           "title": "Level 7",
-          "tag": "Cleric 3 · Twilight",
+          "tag": "Cleric 5",
           "items": [
             {
-              "html": "<b>Cleric 3 — Twilight Domain:</b> Eyes of Night, Vigilant Blessing, Channel Divinity: Twilight Sanctuary; domain spells"
+              "html": "<b>Cleric 5:</b> Destroy Undead (CR ½); 3rd-level spell slots"
             }
           ]
         },
         {
           "title": "Level 8",
-          "tag": "Cleric 4",
+          "tag": "Cleric 6 · Twilight",
           "items": [
             {
-              "cls": "choice",
-              "html": "<b>Ability Score Improvement → Shadow Touched</b> — +1 Wis; Invisibility &amp; Disguise Self 1×/long rest"
+              "html": "<b>Cleric 6 — Twilight:</b> Steps of Night (Bonus-Action fly speed in dim light/darkness); Channel Divinity 2×/rest"
             }
           ]
         },
         {
           "title": "Level 9",
-          "tag": "Cleric 5",
+          "tag": "Monk 1",
           "items": [
             {
-              "html": "<b>Cleric 5:</b> Destroy Undead (CR 1/2); 3rd-level spell slots"
+              "html": "<b>Monk 1:</b> Martial Arts (d4), Unarmored Defense (10 + Dex + Wis)"
             }
           ]
         },
         {
           "title": "Level 10",
-          "tag": "Cleric 6 · Twilight",
-          "items": [
-            {
-              "html": "<b>Cleric 6 — Twilight:</b> Steps of Night — Bonus Action fly speed in dim light or darkness"
-            }
-          ]
-        },
-        {
-          "title": "Level 11",
-          "tag": "Cleric 7",
-          "items": [
-            {
-              "html": "<b>Cleric 7:</b> 4th-level spell slots"
-            }
-          ]
-        },
-        {
-          "title": "Level 12",
-          "tag": "Cleric 8 · Twilight",
-          "items": [
-            {
-              "html": "<b>Cleric 8 — Twilight:</b> Divine Strike — +1d8 radiant on a weapon hit, once per turn"
-            },
-            {
-              "cls": "choice",
-              "html": "<b>Ability Score Improvement</b> <span class=\"tag\">+2 Wisdom → 20 (inferred)</span>"
-            }
-          ]
-        },
-        {
-          "title": "Level 13",
-          "tag": "Monk 1",
-          "items": [
-            {
-              "html": "<b>Monk 1 (Shadow):</b> Martial Arts (d4), Unarmored Defense"
-            }
-          ]
-        },
-        {
-          "title": "Level 14",
           "tag": "Monk 2",
           "items": [
             {
@@ -452,24 +418,68 @@
           ]
         },
         {
-          "title": "Level 15",
+          "title": "Level 11",
           "tag": "Monk 3 · Shadow",
           "items": [
             {
-              "html": "<b>Monk 3 — Warrior of Shadow:</b> Shadow Arts; Deflect Missiles"
+              "html": "<b>Monk 3 — Way of Shadow:</b> Shadow Arts (spend Ki for Darkness, Darkvision, Pass without Trace, Silence; gain Minor Illusion); Deflect Missiles"
+            }
+          ]
+        },
+        {
+          "title": "Level 12",
+          "tag": "Monk 4",
+          "items": [
+            {
+              "cls": "choice",
+              "html": "<b>Ability Score Improvement</b> — +2 Wisdom (→ 20)"
+            },
+            {
+              "html": "<b>Slow Fall</b> — Reaction to reduce fall damage by 5× your monk level"
+            }
+          ]
+        },
+        {
+          "title": "Level 13",
+          "tag": "Rogue 3 · Inquisitive",
+          "items": [
+            {
+              "html": "<b>Rogue 3 — Inquisitive:</b> Insightful Fighting (Sneak Attack without Advantage), Eye for Detail, Ear for Deceit; Sneak Attack → 2d6"
+            },
+            {
+              "html": "<b>Steady Aim</b> — Bonus Action for Advantage on your next attack (Speed 0)"
+            }
+          ]
+        },
+        {
+          "title": "Level 14",
+          "tag": "Cleric 7",
+          "items": [
+            {
+              "html": "<b>Cleric 7:</b> 4th-level spell slots"
+            }
+          ]
+        },
+        {
+          "title": "Level 15",
+          "tag": "Cleric 8 · Twilight",
+          "items": [
+            {
+              "html": "<b>Cleric 8 — Twilight:</b> Divine Strike — +1d8 radiant on a weapon hit, once per turn"
+            },
+            {
+              "cls": "choice",
+              "html": "<b>Ability Score Improvement</b> <span class=\"tag\">Dexterity (inferred)</span>"
             }
           ]
         },
         {
           "title": "Level 16",
-          "tag": "Monk 4",
+          "tag": "Rogue 4",
           "items": [
             {
               "cls": "choice",
-              "html": "<b>Ability Score Improvement</b> <span class=\"tag\">Dexterity (inferred)</span>"
-            },
-            {
-              "html": "<b>Slow Fall</b> — Reaction to reduce fall damage by 5× your monk level"
+              "html": "<b>Ability Score Improvement</b> <span class=\"tag\">Dexterity → 18 (inferred)</span>"
             }
           ]
         }
@@ -516,18 +526,6 @@
       ],
       "body": [
         "Once per turn, deal an extra 2d6 when you hit with a finesse or ranged weapon and have Advantage, or an ally is adjacent to the target and you don't have Disadvantage."
-      ]
-    },
-    "assassinate": {
-      "title": "Assassinate",
-      "chips": [
-        {
-          "t": "Surprise → crit",
-          "c": "ember"
-        }
-      ],
-      "body": [
-        "Advantage on attacks against any creature that hasn't taken a turn yet. Any hit against a surprised creature is a critical hit."
       ]
     },
     "cunningaction": {
@@ -704,6 +702,41 @@
       "body": [
         "Step through a moonlit shadow and emerge from another unobserved moonlit shadow within line of sight (120 ft) or tied to a strong memory. Counts as a 0-ft move; both shadows must be unobserved by non-allies."
       ]
+    },
+    "insightfulfighting": {
+      "title": "Insightful Fighting",
+      "chips": [
+        {
+          "t": "Sneak Attack enabler",
+          "c": "ember"
+        }
+      ],
+      "body": [
+        "As a Bonus Action, make a Wisdom (Insight) check contested by the target's Charisma (Deception). On a success you can use Sneak Attack against that target even without Advantage (but not with Disadvantage) for 1 minute or until you use this on a different target."
+      ]
+    },
+    "eyefordetail": {
+      "title": "Eye for Detail",
+      "chips": [
+        {
+          "t": "Bonus action"
+        }
+      ],
+      "body": [
+        "As a Bonus Action, make a Wisdom (Perception) check to spot a hidden creature or object, or an Intelligence (Investigation) check to uncover or decipher a clue."
+      ]
+    },
+    "eardeceit": {
+      "title": "Ear for Deceit",
+      "chips": [
+        {
+          "t": "Insight",
+          "c": "storm"
+        }
+      ],
+      "body": [
+        "Whenever you make a Wisdom (Insight) check to determine whether a creature is lying, treat a roll of 7 or lower on the d20 as an 8."
+      ]
     }
   },
   "build": {
@@ -712,7 +745,7 @@
     "classes": [
       {
         "class": "rogue",
-        "subclass": "assassin",
+        "subclass": "inquisitive",
         "level": 4
       },
       {
