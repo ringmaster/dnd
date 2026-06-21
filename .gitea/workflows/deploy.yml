@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     uses: ringmaster/actions/.gitea/workflows/deploy-static.yml@main
+    secrets: inherit
     with:
       site: dnd
       build-command: node src/build.mjs
