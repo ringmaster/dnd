@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import url from "url";
 import { compile } from "./builder/compile.mjs";
+import { buildRules } from "./builder/rules-index.mjs";
 import { portraitDataUri, ogTitle, ogDesc, ogImageUrl, ogPageUrl } from "./builder/share.mjs";
 
 const SRC = path.dirname(url.fileURLToPath(import.meta.url));
@@ -381,4 +382,5 @@ const viewerHtml = template
   .replace('<header>', viewerBody + "\n<header>");
 fs.writeFileSync(path.join(DOCS, "view.html"), viewerHtml);
 console.log("built docs/view.html  (" + viewerHtml.length + " bytes)");
+buildRules();   // offline rules corpus (docs/rules/) for the in-sheet search
 console.log("done — " + built + " sheet(s).");

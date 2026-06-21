@@ -417,14 +417,62 @@ function runSearch(){
     }
     searchResults.appendChild(row);
   });
-  if(!matches.length){ var none=document.createElement("div"); none.className="sr-empty"; none.textContent="Nothing on the sheet."; searchResults.appendChild(none); }
+  if(!matches.length){ var none=document.createElement("div"); none.className="sr-empty"; none.textContent="Nothing on this sheet."; searchResults.appendChild(none); }
+  renderCorpusMatches(q, matches);   // offline rules library: every spell & feat, not just this character's
   if(q.length>=2){
     var ob=document.createElement("button"); ob.type="button"; ob.className="sr-online";
-    ob.innerHTML=svgIcon("search")+'<span>Search 5e Online Reference</span>';
+    ob.innerHTML=svgIcon("search")+'<span>Search the web (Open5e)</span>';
     ob.addEventListener("click", function(){ remoteSearch(q); });
     searchResults.appendChild(ob);
   }
   searchResults.style.display="block";
+}
+/* ----- offline rules library -----
+   A static, cached corpus (docs/rules/) shipped alongside the sheets, so any
+   spell or feat is searchable — not just the ones on this character. Loaded on
+   demand and cached (Cache API), it works offline after first use. */
+var RULES=null, RULES_LOADING=false;
+function rulesBase(){ return location.pathname.replace(/[^/]*$/, "") + "rules/"; }
+function cachedJson(u){
+  if(typeof caches!=="undefined" && caches.open){
+    return caches.open("dnd-rules-v1").then(function(c){
+      return c.match(u).then(function(hit){
+        if(hit) return hit.json();
+        return fetch(u).then(function(r){ if(r && r.ok){ try{ c.put(u, r.clone()); }catch(e){} return r.json(); } throw new Error("fetch failed"); });
+      });
+    });
+  }
+  return fetch(u).then(function(r){ return r.json(); });
+}
+function loadRules(){
+  if(RULES) return Promise.resolve(RULES);
+  return cachedJson(rulesBase()+"index.json").then(function(j){ RULES=(j&&j.entries)||[]; return RULES; }).catch(function(){ RULES=[]; return RULES; });
+}
+function renderCorpusMatches(q, localMatches){
+  function paint(){
+    var local={}; localMatches.forEach(function(m){ local[m.label.toLowerCase()]=1; });
+    var cm=RULES.filter(function(e){ return e.n.toLowerCase().indexOf(q)>=0 && !local[e.n.toLowerCase()]; });
+    cm.sort(function(a,b){ var as=a.n.toLowerCase().indexOf(q)===0?0:1, bs=b.n.toLowerCase().indexOf(q)===0?0:1; return as!==bs ? as-bs : a.n.localeCompare(b.n); });
+    if(!cm.length) return;
+    var head=document.createElement("div"); head.className="sr-src"; head.textContent="Rules library"; searchResults.appendChild(head);
+    cm.slice(0,10).forEach(function(e){
+      var row=document.createElement("div"); row.className="sr-row";
+      var main=document.createElement("button"); main.type="button"; main.className="sr-main";
+      main.innerHTML='<span>'+esc(e.n)+'</span><span class="sr-tag">'+esc(e.sub||e.t)+'</span>';
+      main.addEventListener("click", function(){ closeSearch(); openCorpusEntry(e); });
+      row.appendChild(main); searchResults.appendChild(row);
+    });
+  }
+  if(RULES){ paint(); return; }
+  if(RULES_LOADING) return;
+  RULES_LOADING=true;
+  loadRules().then(function(){ RULES_LOADING=false; if(searchInput.value.trim().toLowerCase()===q) runSearch(); });
+}
+function openCorpusEntry(e){
+  cachedJson(rulesBase()+e.s+".json").then(function(shard){
+    var x=shard[e.i]; if(!x) return;
+    openRemoteModal(Object.assign({}, x, {_foot:"From your offline rules library (SRD). This sheet uses 2024 rules — wording may differ."}));
+  }).catch(function(){});
 }
 function scrollToAnchor(sel){
   var el=document.querySelector(sel); if(!el) return;
@@ -482,7 +530,7 @@ function openRemoteModal(x){
   }
   if(!refBody.childNodes.length){ var p=document.createElement("p"); p.textContent="No description available."; refBody.appendChild(p); }
   linkifyTerms(refBody);
-  refFoot.innerHTML='<span class="uses-left">via Open5e · SRD (5e). Your sheet uses 2024 rules — wording may differ.</span>';
+  refFoot.innerHTML='<span class="uses-left">'+esc(x._foot || "via Open5e · SRD (5e). Your sheet uses 2024 rules — wording may differ.")+'</span>';
   refOverlay.classList.add("show"); document.getElementById("refClose").focus();
 }
 
