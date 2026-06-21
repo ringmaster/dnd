@@ -1,0 +1,215 @@
+{
+  "$kind": "character-schema",
+  "version": 1,
+  "note": "Describes the character SOURCE format (the JSON in src/characters/ and what the builder exports). A field spec is { type, desc, required?, derived?, fields?, items?, values?, enum?, ref?, example? }. type ∈ string|number|boolean|dice|enum|object|array|map|variant. 'map' = object with arbitrary keys (values spec applies to each); 'variant' = tagged union selected by `on` field. 'derived' fields are computed by compile() and need not be authored.",
+
+  "defs": {
+    "ability": { "type": "enum", "enum": ["STR", "DEX", "CON", "INT", "WIS", "CHA"], "desc": "An ability score code." },
+    "dieType": { "type": "enum", "enum": ["d4", "d6", "d8", "d10", "d12", "d20"], "desc": "A polyhedral die." },
+    "restKind": { "type": "enum", "enum": ["short", "long"], "desc": "Which rest recharges a resource." },
+    "chip": {
+      "type": "object", "desc": "A small tag rendered on a card or ref modal.",
+      "fields": {
+        "t": { "type": "string", "required": true, "desc": "Tag text." },
+        "c": { "type": "enum", "enum": ["ember", "storm"], "desc": "Optional accent color (ember = offense/emphasis, storm = defense/utility)." }
+      }
+    },
+    "ref": {
+      "type": "object", "desc": "A reference-modal entry (tapping a feature/weapon/spell opens this). Keyed by refId in the top-level `ref` map.",
+      "fields": {
+        "title": { "type": "string", "required": true, "desc": "Modal heading." },
+        "body": { "type": "array", "required": true, "items": { "type": "string" }, "desc": "Paragraphs of rules text. Glossary terms auto-linkify." },
+        "dice": { "type": "string", "desc": "A roll/summary line shown under the title, e.g. 'To hit: d20 +5 · 1d8+3'." },
+        "chips": { "type": "array", "items": { "ref": "chip" }, "desc": "Tags shown under the title." },
+        "level": { "type": "number", "desc": "Spell level (spell refs only)." },
+        "pool": { "type": "string", "desc": "Id of a resource pool this ref spends." },
+        "concentration": { "type": "string", "desc": "If set, casting this requires Concentration (value is the spell name)." }
+      }
+    },
+    "weapon": {
+      "type": "object", "desc": "A carried or known weapon. May reference a catalog weapon by id, or be fully inline.",
+      "fields": {
+        "id": { "type": "string", "desc": "Catalog weapon id (e.g. 'longsword'); inherits its stats." },
+        "name": { "type": "string", "desc": "Display name (for inline/custom weapons)." },
+        "carried": { "type": "boolean", "desc": "Owned/drawn by the character." },
+        "ability": { "type": "enum", "enum": ["STR", "DEX", "CON", "INT", "WIS", "CHA", "FIN"], "desc": "Attack ability; FIN = Finesse (best of STR/DEX)." },
+        "dmgDice": { "type": "dice", "desc": "Base damage dice, e.g. '1d8'." },
+        "props": { "type": "array", "items": { "type": "string" }, "desc": "Weapon properties/keywords, e.g. ['slashing','finesse','thrown 20/60']." },
+        "atkBonus": { "type": "number", "desc": "Flat bonus to attack rolls (magic, Archery, etc.)." },
+        "dmgBonus": { "type": "number", "desc": "Flat bonus to damage." },
+        "addProps": { "type": "array", "items": { "type": "string" }, "desc": "Extra props layered onto a catalog weapon." },
+        "ref": { "type": "string", "desc": "refId for this weapon's detail modal." }
+      }
+    },
+    "stud": {
+      "type": "object", "desc": "A header stat 'stud' (AC, Init, Speed, etc.).",
+      "fields": {
+        "ref": { "type": "string", "required": true, "desc": "Built-in stat ref id, e.g. 'stat_ac'." },
+        "label": { "type": "string", "required": true, "desc": "Short label." },
+        "id": { "type": "string", "desc": "DOM id for live updates (e.g. 'acVal')." }
+      }
+    },
+    "pool": {
+      "type": "object", "desc": "A spendable resource (Ki, Channel Divinity, spell slots, …). Tracked on the sheet.",
+      "fields": {
+        "id": { "type": "string", "desc": "Pool id (the map key; present on source grantsPool blocks)." },
+        "label": { "type": "string", "required": true, "desc": "Display name." },
+        "max": { "type": ["number", "string"], "required": true, "desc": "Maximum uses (a number; in source grantsPool it may be the string 'prof')." },
+        "rest": { "ref": "restKind", "required": true },
+        "ref": { "type": "string", "desc": "refId of the modal explaining this resource." },
+        "storm": { "type": "boolean", "desc": "Render with the storm (defensive/utility) accent." },
+        "note": { "type": "string", "desc": "Short recharge note." },
+        "use": { "type": "string", "desc": "Spend-button label." },
+        "reminder": { "type": "string", "desc": "Toast/reminder text when spent." },
+        "slotLevel": { "type": "number", "desc": "Spell-slot level (slot pools only)." }
+      }
+    },
+    "source": {
+      "type": "object", "desc": "A declarative build source: a feat/feature/proficiency the builder emits and compile() materializes. Lives in build.sources.",
+      "fields": {
+        "id": { "type": "string", "required": true, "desc": "Stable identifier for this source." },
+        "name": { "type": "string", "desc": "Human label." },
+        "include": { "type": "string", "desc": "Resolve from a catalog: 'background:<id>', 'species:<id>:<trait>', or 'class:<cls>:<Feature>'." },
+        "effects": { "ref": "effects", "desc": "Mechanical grants." },
+        "grantsFeat": { "type": "string", "desc": "Feat id this source grants (origin/ASI feat)." },
+        "refId": { "type": "string", "desc": "Key under which `ref` is materialized." },
+        "ref": { "ref": "ref", "desc": "Inline reference modal for this source." }
+      }
+    },
+    "effects": {
+      "type": "object", "desc": "Mechanical grants attached to a source/feature.",
+      "fields": {
+        "skills": { "type": "array", "items": { "type": "string" }, "desc": "Skill proficiencies granted." },
+        "expertise": { "type": "array", "items": { "type": "string" }, "desc": "Skills gaining Expertise." },
+        "tools": { "type": "array", "items": { "type": "string" }, "desc": "Tool proficiencies." },
+        "language": { "type": "array", "items": { "type": "string" }, "desc": "Languages known." },
+        "abilityIncrease": { "type": "map", "values": { "type": "number" }, "desc": "Ability → bonus (background +2/+1)." },
+        "checkBonus": { "type": "map", "values": { "type": "string" }, "desc": "Ability → bonus expression (e.g. CHA → 'wisMod')." },
+        "initiativeBonus": { "type": "string", "desc": "Initiative bonus, often 'prof'." },
+        "alwaysPrepared": { "type": "array", "items": { "type": "object", "fields": { "ref": { "type": "string" }, "name": { "type": "string" }, "sub": { "type": "string" } } }, "desc": "Spells always prepared (don't count against limits)." },
+        "grantsPool": { "ref": "pool", "desc": "A resource pool granted (pool gets an `id`)." },
+        "spellcasting": { "type": "object", "desc": "Confers spellcasting. On a class feature it's a marker (ability/progression/list); on the builder's 'spellcasting' source it's the full materialized block (ability + slots/cantrips/prepared).", "fields": {
+          "ability": { "ref": "ability" },
+          "progression": { "type": "enum", "enum": ["full", "half", "third", "pact"] },
+          "list": { "type": "string", "desc": "Spell list id (class name)." },
+          "schools": { "type": "array", "items": { "type": "string" }, "desc": "Allowed schools (restricted casters)." },
+          "cantripsKnown": { "type": "array", "items": { "type": "number" }, "desc": "Cantrips known by level (index = level)." },
+          "preparedKnown": { "type": "array", "items": { "type": "number" }, "desc": "Prepared count by level." },
+          "anySchool": { "type": "array", "items": { "type": "number" }, "desc": "Off-school picks allowed by level." },
+          "slotPool": { "type": "string", "desc": "Single slot-pool id (alt to slots)." },
+          "slots": { "type": "array", "items": { "ref": "pool" }, "desc": "Spell-slot pools (materialized block)." },
+          "cantrips": { "type": "array", "items": { "type": "object", "fields": { "ref": { "type": "string" }, "name": { "type": "string" }, "sub": { "type": "string" } } }, "desc": "Known cantrips (materialized block)." },
+          "prepared": { "type": "object", "desc": "Prepared list + pick-from catalog.", "fields": {
+            "max": { "type": "number" },
+            "default": { "type": "array", "items": { "type": "string" }, "desc": "Prepared spell ids." },
+            "catalog": { "type": "array", "items": { "type": "object", "fields": { "id": { "type": "string" }, "name": { "type": "string" }, "note": { "type": "string" }, "level": { "type": "number" }, "cast": { "type": "string" } } } }
+          }}
+        }}
+      }
+    },
+    "card": {
+      "type": "variant", "on": "type", "desc": "A card rendered on the sheet, selected by its `type`.",
+      "variants": {
+        "abilities": { "fields": {} },
+        "hitpoints": { "fields": {} },
+        "skills": { "fields": {} },
+        "attacks": { "fields": {
+          "extras": { "type": "array", "items": { "type": "object", "fields": { "ref": { "type": "string" }, "name": { "type": "string" }, "sub": { "type": "string" } } }, "desc": "Extra attack-rider lines." }
+        }},
+        "spellcasting": { "fields": {} },
+        "pools": { "fields": {
+          "title": { "type": "string" },
+          "hint": { "type": "string" },
+          "pools": { "type": ["string", "array"], "items": { "type": "string" }, "desc": "Pool ids to show, or '*' for all." },
+          "extras": { "type": "array", "items": { "type": "object", "fields": { "ref": { "type": "string" }, "name": { "type": "string" }, "sub": { "type": "string" } } } }
+        }},
+        "inventory": { "fields": {
+          "items": { "type": "array", "items": { "type": "object", "fields": { "name": { "type": "string", "required": true }, "tag": { "type": "string" } } } },
+          "magic": { "type": "object", "fields": { "ref": { "type": "string" }, "name": { "type": "string" }, "tag": { "type": "string" }, "desc": { "type": "string" } } }
+        }},
+        "features": { "fields": {
+          "title": { "type": "string" },
+          "list": { "type": "array", "items": { "type": "object", "fields": { "ref": { "type": "string" }, "name": { "type": "string", "required": true }, "sub": { "type": "string" }, "spanId": { "type": "string" } } } }
+        }},
+        "background": { "fields": {
+          "hint": { "type": "string" },
+          "paras": { "type": "array", "items": { "type": "string" }, "desc": "Story paragraphs." }
+        }},
+        "buildlog": { "fields": {
+          "title": { "type": "string" }, "hint": { "type": "string" },
+          "levels": { "type": "array", "items": { "type": "object", "fields": {
+            "title": { "type": "string" }, "tag": { "type": "string" },
+            "items": { "type": "array", "items": { "type": "object", "fields": { "html": { "type": "string" }, "cls": { "type": "string" } } } }
+          } } }
+        }}
+      }
+    },
+    "build": {
+      "type": "object", "desc": "Authoring metadata: declarative choices compile() expands into the sheet. Stripped from the shipped CHARACTER (kept as CHARACTER_SOURCE for editing).",
+      "fields": {
+        "species": { "type": "string", "required": true, "desc": "Species id." },
+        "background": { "type": "string", "required": true, "desc": "Background id." },
+        "class": { "type": "string", "desc": "Single-class: class id." },
+        "subclass": { "type": "string", "desc": "Single-class: subclass id." },
+        "classes": { "type": "array", "desc": "Multiclass: one entry per class.", "items": { "type": "object", "fields": {
+          "class": { "type": "string", "required": true }, "subclass": { "type": "string" }, "level": { "type": "number", "required": true }
+        } } },
+        "abilities": { "type": "map", "values": { "type": "number" }, "required": true, "desc": "Base ability scores (pre-background/ASI), keyed by ability code." },
+        "sources": { "type": "array", "required": true, "items": { "ref": "source" }, "desc": "The declarative grants." }
+      }
+    }
+  },
+
+  "root": {
+    "id": { "type": "string", "required": true, "desc": "Slug used for storage and filenames." },
+    "out": { "type": "string", "required": true, "desc": "Output HTML filename, e.g. 'kaeral_vance.html'." },
+    "name": { "type": "string", "required": true, "desc": "Character name." },
+    "subtitle": { "type": "string", "desc": "Species · Class · Subclass · Lvl line under the name." },
+    "title": { "type": "string", "desc": "HTML <title> / share title." },
+    "footer": { "type": "string", "desc": "Footer label." },
+    "portrait": { "type": "string", "desc": "Portrait image filename (embedded at build if present)." },
+    "storageKey": { "type": "string", "desc": "localStorage key for runtime sheet state." },
+    "level": { "type": "number", "required": true, "desc": "Total character level." },
+    "hitDie": { "ref": "dieType", "desc": "Single-class hit die." },
+    "hitDice": { "type": "array", "desc": "Multiclass hit dice, merged by die type.", "items": { "type": "object", "fields": { "die": { "ref": "dieType", "required": true }, "count": { "type": "number", "required": true } } } },
+    "proficiencyBonus": { "type": "number", "derived": true, "desc": "Computed from level if omitted." },
+    "saves": { "type": "array", "required": true, "items": { "ref": "ability" }, "desc": "Saving-throw proficiencies." },
+    "speed": { "type": "number", "desc": "Walking speed in feet." },
+    "ac": {
+      "type": "object", "desc": "Armor/shield/style the character owns; what's worn is chosen on the sheet.",
+      "fields": {
+        "armor": { "type": ["string", "object"], "desc": "Default-worn armor: a catalog armor id, or a full block.", "fields": { "id": { "type": "string" }, "label": { "type": "string" }, "base": { "type": "number" }, "addDex": { "type": "boolean" }, "dexCap": { "type": "number" }, "note": { "type": "string" }, "default": { "type": "boolean" } } },
+        "armory": { "type": "array", "desc": "Owned armor ids (first = default).", "items": { "type": "string" } },
+        "shield": { "type": "object", "fields": { "label": { "type": "string" }, "bonus": { "type": "number" }, "note": { "type": "string" }, "default": { "type": "boolean" } } },
+        "style": { "type": "object", "desc": "Fighting-style AC bonus (Defense).", "fields": { "label": { "type": "string" }, "bonus": { "type": "number" }, "note": { "type": "string" }, "requiresArmor": { "type": "boolean" }, "default": { "type": "boolean" } } },
+        "unarmored": { "type": "object", "desc": "Unarmored Defense (Monk/Barbarian).", "fields": { "ability": { "ref": "ability" }, "label": { "type": "string" } } }
+      }
+    },
+    "hp": { "type": "object", "required": true, "fields": { "max": { "type": "number", "required": true, "desc": "Maximum hit points." } } },
+    "masteryMax": { "type": "number", "desc": "Number of weapon masteries the character has." },
+    "masteryDefault": { "type": "array", "items": { "type": "string" }, "desc": "Default-mastered weapon ids." },
+    "studs": { "type": "array", "items": { "ref": "stud" }, "desc": "Header stat studs." },
+    "weapons": { "type": "array", "items": { "ref": "weapon" }, "desc": "Owned/known weapons." },
+    "rest": {
+      "type": "object", "desc": "Rest-modal copy.",
+      "fields": {
+        "short": { "type": "array", "items": { "type": "string" } },
+        "long": { "type": "array", "items": { "type": "string" } },
+        "shortToast": { "type": "string" },
+        "longToast": { "type": "string" }
+      }
+    },
+    "cards": { "type": "array", "required": true, "items": { "ref": "card" }, "desc": "Ordered sheet cards." },
+    "ref": { "type": "map", "values": { "ref": "ref" }, "desc": "Reference modals keyed by refId. Largely materialized by compile() from sources; authored entries supplement them." },
+    "pools": { "type": "map", "values": { "ref": "pool" }, "desc": "Resource pools keyed by id. Usually derived from source grantsPool; may be authored." },
+    "hitRiders": { "type": "array", "desc": "On-hit damage riders shown in the attack view.", "items": { "type": "object", "fields": { "ref": { "type": "string" }, "label": { "type": "string" }, "dmg": { "type": "string" }, "note": { "type": "string" }, "pool": { "type": "string" }, "requiresConc": { "type": "string" }, "offNote": { "type": "string" } } } },
+    "riderHead": { "type": "string", "desc": "Heading shown above the hit riders." },
+    "checkModNote": { "type": "map", "values": { "type": "string" }, "desc": "Ability → note explaining a bonus to that ability's checks." },
+    "bespoke": { "type": "boolean", "desc": "Hand-authored, not-necessarily-RAW. Waives legality; shows a banner." },
+    "homebrew": { "type": "boolean", "desc": "Allowed-illegal build. Waives legality; shows a banner." },
+    "homebrewNote": { "type": "string", "desc": "Optional explanation shown on the bespoke/homebrew banner." },
+    "identity": { "type": "object", "derived": true, "desc": "Stamped by compile() (species/class/subclass/background/classes)." },
+    "combat": { "type": "object", "derived": true, "desc": "Combat-mode block derived by compile() from weapons + pools + features." },
+    "build": { "ref": "build", "required": true }
+  }
+}
