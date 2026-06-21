@@ -35,6 +35,30 @@ function expandGrants(sources, cat){
 }
 const sg = n => (n >= 0 ? "+" : "") + n;
 function subst(s, t){ return s == null ? s : String(s).replace(/\{dc\}/g, t.dc).replace(/\{atk\}/g, t.atk).replace(/\{mod\}/g, t.mod); }
+// Spell chip colors follow ONE convention, enforced here so authored data can't
+// drift. A chip is gray unless it names something you TRACK or that CHANGES A
+// ROLL — never for static stat-block facts:
+//   gray  = printed facts: range, area, target, shape, duration, casting time
+//   storm = a casting constraint worth flagging: Concentration, Ritual
+//   ember = a tactical effect that alters an outcome (Auto-hit, Ignores cover,
+//           Grants Advantage, No reactions, damage riders) — author opt-in
+// Anything that reads as a standard descriptor is forced gray; only chips the
+// author accented AND that aren't standard descriptors keep their ember accent.
+const CHIP_CONSTRAINT = /\b(concentration|ritual)\b/i;
+const CHIP_STANDARD = /\b(ft|feet|foot|touch|self|sight|unlimited|radius|cone|cube|sphere|cylinder|line|wall|column|square|mile|miles|aura|void|fly|range|ranged|instantaneous|action|reaction|hour|hours|hr|minute|minutes|min|round|rounds|day|days|week|weeks|permanent|special)\b/i;
+function normChips(chips){
+  const out = [];
+  for (const c of (chips || [])){
+    const text = (c && c.t != null) ? String(c.t).trim() : "";
+    if (!text) continue;                              // drop dangling colorless/textless cruft
+    let col;
+    if (CHIP_CONSTRAINT.test(text)) col = "storm";    // Concentration / Ritual → flagged
+    else if (CHIP_STANDARD.test(text)) col = undefined; // static stat-block fact → gray
+    else col = c.c;                                   // standout effect keeps its authored accent
+    out.push(col ? { t: text, c: col } : { t: text });
+  }
+  return out;
+}
 // One consistent "casting · range · components · duration" line for a spell,
 // shown wherever a known spell is displayed. Same shape used by the corpus.
 function spellInfoLine(reg){
@@ -53,11 +77,11 @@ function spellRef(reg, t, classLabel){
   // "Wizard cantrip", or just "Level 3" when no class on the sheet grants it.
   const lvlWord = reg.level === 0 ? "cantrip" : reg.level;
   const lead = classLabel ? classLabel + " " + lvlWord : (reg.level === 0 ? "Cantrip" : "Level " + reg.level);
-  const chips = [{ t: lead }];
-  if (reg.school) chips.push({ t: cap(reg.school) });
-  if (reg.concentration) chips.push({ t: "Concentration", c: "storm" });
-  (reg.chips || []).forEach(c => chips.push(c));
-  const ref = { title: reg.title || reg.name, chips, body: (reg.body || []).map(b => subst(b, t)) };
+  const raw = [{ t: lead }];
+  if (reg.school) raw.push({ t: cap(reg.school) });
+  if (reg.concentration) raw.push({ t: "Concentration", c: "storm" });
+  (reg.chips || []).forEach(c => raw.push(c));
+  const ref = { title: reg.title || reg.name, chips: normChips(raw), body: (reg.body || []).map(b => subst(b, t)) };
   if (reg.level >= 1) ref.level = reg.level;
   if (reg.dice) ref.dice = subst(reg.dice, t);
   if (reg.concentration) ref.concentration = reg.name;

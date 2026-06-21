@@ -597,35 +597,63 @@ function concCastConfirm(newName, onYes){
 }
 /* ----- Casting a leveled spell: choose which slot (or a free cast) to spend ----- */
 function castOptions(r){
-  var opts=[];
+  var free=null;
   if(r.freePool && POOL_MAX[r.freePool]!=null){
-    opts.push({ pool:r.freePool, free:true, label:"Free cast — no slot", n:state[r.freePool], max:POOL_MAX[r.freePool] });
+    free={ pool:r.freePool, free:true, label:"Free cast — no slot", n:state[r.freePool], max:POOL_MAX[r.freePool] };
   }
-  var firstSlot=true;
+  var slots=[];
   slotPoolsList().forEach(function(sp){
     if(sp.level < (r.level||1)) return;
-    // First available slot keeps the full label; higher (upcast) slots are abbreviated to just the ordinal to save space.
-    opts.push({ pool:sp.id, level:sp.level, label:firstSlot?ordinal(sp.level)+"-level slot":ordinal(sp.level), n:state[sp.id], max:sp.max });
-    firstSlot=false;
+    slots.push({ pool:sp.id, level:sp.level, n:state[sp.id], max:sp.max });
   });
-  return opts;
+  // base = a slot at the spell's own level (the main button); the rest are upcasts
+  return { free:free, base:slots[0]||null, ups:slots.slice(1) };
+}
+function castOptBtn(r, o, cls){
+  var b=document.createElement("button"); b.type="button"; b.className="btn "+cls+(o.n>0?" ember":"");
+  b.disabled=o.n<=0; b.style.opacity=o.n<=0?".5":"1";
+  var lbl=o.free ? o.label : ordinal(o.level)+"-level slot";
+  b.innerHTML='<span class="cast-lbl">'+esc(lbl)+'</span><span class="cast-n">'+o.n+"/"+o.max+'</span>';
+  b.addEventListener("click", function(){ if(o.n>0) doCast(r, o.pool); });
+  return b;
 }
 function renderCastFoot(r){
   refFoot.innerHTML="";
-  var opts=castOptions(r), any=opts.some(function(o){ return o.n>0; });
+  var o=castOptions(r);
+  var any=(o.free&&o.free.n>0) || (o.base&&o.base.n>0) || o.ups.some(function(u){ return u.n>0; });
   if(r.concentration && state.conc && state.conc!==r.concentration){
     var note=document.createElement("span"); note.className="uses-left cast-conc";
     note.textContent="Casting ends concentration on "+state.conc+".";
     refFoot.appendChild(note);
   }
-  if(!opts.length){ var s=document.createElement("span"); s.className="uses-left"; s.textContent="No spell slots."; refFoot.appendChild(s); return; }
-  opts.forEach(function(o){
-    var b=document.createElement("button"); b.type="button"; b.className="btn cast-opt"+(o.n>0?" ember":"");
-    b.disabled=o.n<=0; b.style.opacity=o.n<=0?".5":"1";
-    b.innerHTML='<span class="cast-lbl">'+esc(o.label)+'</span><span class="cast-n">'+o.n+"/"+o.max+'</span>';
-    b.addEventListener("click", function(){ if(o.n>0) doCast(r, o.pool); });
-    refFoot.appendChild(b);
-  });
+  if(!o.free && !o.base){ var s=document.createElement("span"); s.className="uses-left"; s.textContent="No spell slots."; refFoot.appendChild(s); return; }
+  var wrap=document.createElement("div"); wrap.className="cast-controls";
+  if(o.free) wrap.appendChild(castOptBtn(r, o.free, "cast-opt cast-full"));
+  if(o.base){
+    var split=document.createElement("div"); split.className="cast-split";
+    split.appendChild(castOptBtn(r, o.base, "cast-opt cast-main"));
+    if(o.ups.length){
+      var menu=document.createElement("div"); menu.className="cast-upcast";
+      var head=document.createElement("div"); head.className="cast-up-head"; head.textContent="Upcast — spend a higher slot"; menu.appendChild(head);
+      var grid=document.createElement("div"); grid.className="cast-up-grid";
+      o.ups.forEach(function(u){ grid.appendChild(castOptBtn(r, u, "btn tiny cast-opt cast-up")); });
+      menu.appendChild(grid);
+      var disc=document.createElement("button"); disc.type="button"; disc.className="btn cast-disc";
+      disc.setAttribute("aria-expanded","false"); disc.setAttribute("aria-label","Show upcast options");
+      disc.innerHTML='<span class="cast-tri">▾</span>';
+      disc.addEventListener("click", function(){
+        var open=menu.classList.toggle("open");
+        disc.setAttribute("aria-expanded", open?"true":"false");
+        disc.querySelector(".cast-tri").textContent= open?"▴":"▾";
+      });
+      split.appendChild(disc);
+      wrap.appendChild(split);
+      wrap.appendChild(menu);
+    } else {
+      wrap.appendChild(split);
+    }
+  }
+  refFoot.appendChild(wrap);
   if(!any){ var w=document.createElement("span"); w.className="uses-left"; w.textContent="None left — take a rest."; refFoot.appendChild(w); }
 }
 function doCast(r, poolId){

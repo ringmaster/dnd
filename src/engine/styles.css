@@ -103,6 +103,20 @@
   .btn.cast-opt .cast-n{font-size:.72rem;color:var(--ash);font-variant-numeric:tabular-nums}
   .btn.cast-opt.ember .cast-n{color:var(--ember)}
   .cast-conc{flex-basis:100%;color:var(--ember)}
+  /* Cast controls: one primary "cast at base level" button with a disclosure
+     triangle that reveals the upcast (higher-slot) menu on demand. */
+  .cast-controls{display:flex;flex-direction:column;gap:.5rem;width:100%}
+  .cast-split{display:flex;align-items:stretch;gap:0}
+  .btn.cast-main{flex:1;border-top-right-radius:0;border-bottom-right-radius:0;border-right:none}
+  .btn.cast-full{width:100%}
+  .btn.cast-disc{min-width:46px;padding:.7rem .5rem;border-top-left-radius:0;border-bottom-left-radius:0;display:flex;align-items:center;justify-content:center}
+  .btn.cast-main.ember + .cast-disc{border-color:var(--ember)}
+  .cast-tri{font-size:.7rem;line-height:1;color:var(--ash)}
+  .cast-upcast{display:none;flex-direction:column;gap:.45rem;padding:.55rem .6rem;background:rgba(0,0,0,.18);border:1px solid var(--iron);border-radius:8px}
+  .cast-upcast.open{display:flex}
+  .cast-up-head{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ash)}
+  .cast-up-grid{display:flex;flex-wrap:wrap;gap:.4rem}
+  .btn.cast-up{min-width:7rem;flex:1 1 7rem}
   .btn:focus-visible, .ability:focus-visible, .tap:focus-visible, .rivet:focus-visible, .pip:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
 
   /* ---------- Grid / cards ---------- */
