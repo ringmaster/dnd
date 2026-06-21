@@ -28,6 +28,10 @@ if (!charFiles.length) { console.error("No characters in src/characters/"); proc
 
 const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+const buildStamp = new Date().toLocaleString("en-US", {
+  dateStyle: "long", timeStyle: "short",
+});
+
 let built = 0;
 const index = [];
 for (const cf of charFiles) {
@@ -120,7 +124,7 @@ const indexHtml = `<!DOCTYPE html>
     <div class="pcs">
 ${cards}
     </div>
-    <footer>Generated from <code>src/</code> · ${index.length} character${index.length === 1 ? "" : "s"}</footer>
+    <footer>Generated from <code>src/</code> · ${index.length} character${index.length === 1 ? "" : "s"} · Generated on ${buildStamp}</footer>
   </div>
 </body>
 </html>
