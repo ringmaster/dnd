@@ -384,8 +384,7 @@
     subclassGrants().forEach(function(g){ sources.push({ id:g.id, name:scName+": "+g.name, effects:g.effects, ref:g.ref, refId:g.id }); });
     // level-1 origin feat (e.g. Human Versatile)
     if(state.originFeat) sources.push({ id:"feat-"+state.originFeat, name:"Origin feat: "+(CAT.feats[state.originFeat]||{}).name, grantsFeat:state.originFeat });
-    // hit dice pool scales with level
-    sources.push({ id:"hitdice", name:"Hit Dice ("+(cd.hitDie||"d8")+")", effects:{ grantsPool:{ id:"hd", label:"Hit Dice", max:state.level, rest:"long", ref:"hitdice", storm:false, note:"long rest", use:"Spend Hit Die", reminder:"Spend a Hit Die on a short rest to heal." } } });
+    // hit dice are derived by compile from class + level — not authored here
     // ASIs at 4/8/12/16/19 (cumulative ability increases or feats)
     reachedASIs().forEach(function(l){ var a=state.asis[l]; if(!a) return;
       if(a.mode==="feat" && a.feat) sources.push({ id:"asi-"+l, name:"Level "+l+" feat: "+(CAT.feats[a.feat]||{}).name, grantsFeat:a.feat });

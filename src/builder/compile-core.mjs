@@ -182,6 +182,12 @@ export function compile(input, cat){
   if (tools.size) c.tools = [...tools].sort();
   if (langChoices || langNames.size) c.languages = { known: [...langNames], choices: langChoices };
   if (Object.keys(pools).length) c.pools = pools;
+  // hit dice are implied by class + level — synthesize the pool unless authored
+  if (c.hitDie && c.level && !(c.pools && c.pools.hd)) {
+    const heal = "1" + c.hitDie + sg(abilMod(c.abilities || {}, "CON"));
+    c.pools = c.pools || {};
+    c.pools.hd = { label: "Hit Dice", max: c.level, rest: "long", ref: "hitdice", storm: false, note: heal + " · short rest", use: "Use", reminder: "Hit Die: roll " + heal + ", then add it with Heal." };
+  }
 
   const sc = (c.cards||[]).find(x => x.type === "spellcasting");
   if (spellcasting){

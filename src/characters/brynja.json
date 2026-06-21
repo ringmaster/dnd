@@ -819,23 +819,6 @@
         }
       },
       {
-        "id": "ranger-hitdice",
-        "name": "Hit Dice (d10)",
-        "effects": {
-          "grantsPool": {
-            "id": "hd",
-            "label": "Hit Dice",
-            "max": 4,
-            "rest": "long",
-            "ref": "hitdice",
-            "storm": false,
-            "note": "1d10+1 · short rest",
-            "use": "Use",
-            "reminder": "Hit Die: roll 1d10+1, then add it with Heal."
-          }
-        }
-      },
-      {
         "id": "versatile",
         "name": "Human: Versatile",
         "grantsFeat": "lucky",

@@ -679,23 +679,6 @@
         "include": "species:dwarf:stonecunning"
       },
       {
-        "id": "fighter-hitdice",
-        "name": "Hit Dice (d10)",
-        "effects": {
-          "grantsPool": {
-            "id": "hd",
-            "label": "Hit Dice",
-            "max": 4,
-            "rest": "long",
-            "ref": "hitdice",
-            "storm": false,
-            "note": "1d10+2 · short rest",
-            "use": "Use",
-            "reminder": "Hit Die: roll 1d10+2, then add it with Heal."
-          }
-        }
-      },
-      {
         "id": "asi-4",
         "name": "Level 4: Ability Score Improvement",
         "effects": {
