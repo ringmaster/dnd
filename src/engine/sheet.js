@@ -5,6 +5,7 @@ var ARMORY = (CHARACTER.ac && CHARACTER.ac.armory) ? CHARACTER.ac.armory.slice()
            : (CHARACTER.ac && CHARACTER.ac.armor) ? [CHARACTER.ac.armor] : [];
 var SHIELD = (CHARACTER.ac && CHARACTER.ac.shield) || null;
 var AC_STYLE = (CHARACTER.ac && CHARACTER.ac.style) || null;
+var AC_UNARMORED = (CHARACTER.ac && CHARACTER.ac.unarmored) || null;   // Monk/Barbarian: 10 + Dex + another ability while unarmored
 function armorById(id){ for(var i=0;i<ARMORY.length;i++){ if(ARMORY[i].id===id) return ARMORY[i]; } return null; }
 function armorDefaultId(){ for(var i=0;i<ARMORY.length;i++){ if(ARMORY[i].default!==false) return ARMORY[i].id; } return ""; }
 function equippedArmor(){ var id = (typeof state==="object" && state) ? state.armorId : armorDefaultId(); return id ? armorById(id) : null; }

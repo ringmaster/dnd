@@ -741,5 +741,263 @@
         ]
       }
     }
+  },
+  "Wex": {
+    "abilities": {
+      "STR": 10,
+      "DEX": 18,
+      "CON": 14,
+      "INT": 12,
+      "WIS": 20,
+      "CHA": 8
+    },
+    "skillProf": [
+      "Acrobatics",
+      "Deception",
+      "Insight",
+      "Perception",
+      "Sleight of Hand",
+      "Stealth",
+      "Survival"
+    ],
+    "skillExp": [
+      "Perception",
+      "Stealth"
+    ],
+    "checkMods": {},
+    "initiativeBonus": 0,
+    "always": [],
+    "tools": [
+      "Disguise Kit",
+      "Gaming Set",
+      "Poisoner's Kit",
+      "Thieves' Tools"
+    ],
+    "languages": {
+      "known": [
+        "Common",
+        "Celestial",
+        "Undercommon"
+      ],
+      "choices": 0
+    },
+    "pools": {
+      "ki": {
+        "label": "Ki Points",
+        "max": 4,
+        "rest": "short",
+        "ref": "ki",
+        "storm": true,
+        "note": "short rest · DC 18",
+        "use": "Spend Ki",
+        "reminder": "Spend Ki: Flurry of Blows, Patient Defense, Step of the Wind, or Shadow Arts (2)."
+      },
+      "cd": {
+        "label": "Channel Divinity",
+        "max": 2,
+        "rest": "short",
+        "ref": "twilightsanctuary",
+        "storm": false,
+        "note": "regain on a short rest",
+        "use": "Use",
+        "reminder": "Channel Divinity: Twilight Sanctuary, Turn Undead, or Harness Divine Power."
+      },
+      "sn": {
+        "label": "Steps of Night",
+        "max": 5,
+        "rest": "long",
+        "ref": "stepsofnight",
+        "storm": false,
+        "note": "Prof/long rest",
+        "use": "Use",
+        "reminder": "Steps of Night: fly speed for 1 minute in dim light or darkness."
+      },
+      "slot1": {
+        "label": "Level 1 Slots",
+        "max": 4,
+        "rest": "long",
+        "ref": "spellslots1",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 1st-level spell slot.",
+        "slotLevel": 1
+      },
+      "slot2": {
+        "label": "Level 2 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots2",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 2nd-level spell slot.",
+        "slotLevel": 2
+      },
+      "slot3": {
+        "label": "Level 3 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots3",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 3rd-level spell slot.",
+        "slotLevel": 3
+      },
+      "slot4": {
+        "label": "Level 4 Slots",
+        "max": 3,
+        "rest": "long",
+        "ref": "spellslots4",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 4th-level spell slot.",
+        "slotLevel": 4
+      },
+      "slot5": {
+        "label": "Level 5 Slots",
+        "max": 1,
+        "rest": "long",
+        "ref": "spellslots5",
+        "storm": true,
+        "note": "long rest",
+        "use": "Spend a slot",
+        "reminder": "Spend a 5th-level spell slot.",
+        "slotLevel": 5
+      },
+      "hd": {
+        "label": "Hit Dice",
+        "max": 16,
+        "rest": "long",
+        "ref": "hitdice",
+        "storm": false,
+        "note": "16d8 (+2 each) · short rest",
+        "use": "Use",
+        "reminder": "Hit Die: spend one, roll its die +2, then add it with Heal."
+      }
+    },
+    "spellcasting": {
+      "ability": "WIS"
+    },
+    "prepared": {
+      "max": 13,
+      "default": [
+        "guidingbolt",
+        "spiritguardians",
+        "moonbeam",
+        "silence",
+        "holdperson",
+        "dispelmagic",
+        "revivify",
+        "banishment",
+        "daylight",
+        "auraoflife"
+      ],
+      "catalog": [
+        {
+          "id": "guidingbolt",
+          "name": "Guiding Bolt",
+          "note": "ranged spell atk +10 · 4d6 radiant",
+          "level": 1
+        },
+        {
+          "id": "moonbeam",
+          "name": "Moonbeam",
+          "note": "domain · 2d10 radiant beam · Conc.",
+          "level": 2,
+          "cast": "Action"
+        },
+        {
+          "id": "silence",
+          "name": "Silence",
+          "note": "20-ft no sound · Conc.",
+          "level": 2
+        },
+        {
+          "id": "holdperson",
+          "name": "Hold Person",
+          "note": "Wis save DC 18 · Conc.",
+          "level": 2
+        },
+        {
+          "id": "spiritguardians",
+          "name": "Spirit Guardians",
+          "note": "3d8 radiant aura · Conc.",
+          "level": 3,
+          "cast": "Action"
+        },
+        {
+          "id": "dispelmagic",
+          "name": "Dispel Magic",
+          "note": "end a spell ≤ 3rd freely",
+          "level": 3
+        },
+        {
+          "id": "daylight",
+          "name": "Daylight",
+          "note": "60-ft bright light",
+          "level": 3
+        },
+        {
+          "id": "revivify",
+          "name": "Revivify",
+          "note": "raise a creature dead ≤ 1 min",
+          "level": 3
+        },
+        {
+          "id": "banishment",
+          "name": "Banishment",
+          "note": "Cha save DC 18 · Conc.",
+          "level": 4,
+          "cast": "Action"
+        },
+        {
+          "id": "auraoflife",
+          "name": "Aura of Life",
+          "note": "domain · resist necrotic · Conc.",
+          "level": 3
+        }
+      ]
+    },
+    "spellcastingCard": {
+      "type": "spellcasting",
+      "slotPools": [
+        "slot1",
+        "slot2",
+        "slot3",
+        "slot4",
+        "slot5"
+      ],
+      "cantrips": [
+        {
+          "ref": "guidance",
+          "name": "Guidance",
+          "sub": "+1d4 to one ability check · Conc."
+        },
+        {
+          "ref": "sacredflame",
+          "name": "Sacred Flame",
+          "sub": "Dex save DC 18 · 3d8 radiant · ignores cover"
+        },
+        {
+          "ref": "wordofradiance",
+          "name": "Word of Radiance",
+          "sub": "Con save DC 18 · 2d6 radiant nearby"
+        },
+        {
+          "ref": "thaumaturgy",
+          "name": "Thaumaturgy",
+          "sub": "minor wonders"
+        },
+        {
+          "ref": "minorillusion",
+          "name": "Minor Illusion",
+          "sub": "Shadow Arts · a sound or image"
+        }
+      ],
+      "prepared": true
+    }
   }
 }

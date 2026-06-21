@@ -75,6 +75,13 @@ for (const f of fs.readdirSync(path.join(ROOT, "src", "characters")).filter((x) 
   console.log("  pristine  : " + (pBad.length ? "✗ " + pBad.join(", ") : "✓ mechanics identical"));
   failures += pBad.length ? 1 : 0;
 
+  // The edited/regenerate check only applies to characters the builder can
+  // actually rebuild — i.e. whose classes are all in the catalog. Hand-authored
+  // bespoke characters (e.g. Wex's Rogue/Monk) are pristine-only.
+  const classes = (source.build && source.build.classes) || (source.build && source.build.class ? [{ class: source.build.class }] : []);
+  const builderKnows = classes.length && classes.every((cl) => CAT.classes[cl.class || cl.cls]);
+  if (!builderKnows) { console.log("  edited    : — skipped (bespoke / class not in builder catalog) —"); continue; }
+
   // 2. one representative edit -> forces regenerate
   B.loadState(JSON.parse(JSON.stringify(source)));
   B.state().equipment.push({ kind: "item", name: PROBE });

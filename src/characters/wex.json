@@ -1,0 +1,182 @@
+{
+  "id": "wex",
+  "out": "wex.html",
+  "name": "Wex",
+  "subtitle": "Variant Human · Rogue 4 / Cleric 8 / Monk 4 · Lvl 16",
+  "title": "Wex",
+  "footer": "Rogue (Assassin) 4 / Cleric (Twilight) 8 / Monk (Shadow) 4",
+  "storageKey": "dnd_wex",
+  "level": 16,
+  "hitDice": [{ "die": "d8", "count": 16 }],
+  "proficiencyBonus": 5,
+  "saves": ["DEX", "INT", "WIS"],
+  "speed": 40,
+  "ac": { "unarmored": { "ability": "WIS", "label": "Unarmored Defense (Monk): 10 + Dex + Wis" } },
+  "hp": { "max": 102 },
+  "masteryMax": 0,
+  "rest": {
+    "short": ["Spend Hit Dice to heal", "Regain Ki", "Recover short-rest features"],
+    "long": ["HP → maximum", "Spell slots → full", "Ki → full", "Hit Dice → half restored", "All per-rest features reset"],
+    "shortToast": "Short rest taken.",
+    "longToast": "Long rest — fully restored."
+  },
+  "studs": [
+    { "ref": "stat_ac", "label": "AC", "id": "acVal" },
+    { "ref": "stat_init", "label": "Init" },
+    { "ref": "stat_speed", "label": "Speed" },
+    { "ref": "stat_prof", "label": "Prof" },
+    { "ref": "stat_pass", "label": "Pass.Per" }
+  ],
+  "weapons": [
+    { "id": "noxascrescent", "name": "Noxa's Crescent", "carried": true, "ability": "DEX", "dmgDice": "1d6", "atkBonus": 0, "props": ["slashing", "finesse", "thrown 20/60", "magical"], "ref": "noxascrescent" },
+    { "id": "crescenthandaxe", "name": "Crescent Handaxe", "carried": true, "ability": "DEX", "dmgDice": "1d6", "props": ["slashing", "finesse", "thrown 20/60"] },
+    { "id": "dagger", "name": "Dagger", "carried": true, "ability": "DEX", "dmgDice": "1d4", "props": ["piercing", "finesse", "light", "thrown 20/60"] },
+    { "id": "shortbow", "name": "Shortbow", "carried": true, "ability": "DEX", "dmgDice": "1d6", "props": ["piercing", "ammunition", "two-handed", "range 80/320"] }
+  ],
+  "cards": [
+    { "type": "abilities" },
+    { "type": "hitpoints" },
+    { "type": "attacks" },
+    { "type": "spellcasting" },
+    { "type": "skills" },
+    { "type": "pools", "title": "Resources", "pools": "*" },
+    {
+      "type": "inventory",
+      "magic": { "ref": "veil", "name": "Veil of Dusk and Dawn", "tag": "wondrous", "desc": "Invisibility & pass without trace 1×/short rest; see in magic darkness; advantage on Perception." },
+      "items": [
+        { "name": "Studded Leather (stowed)", "tag": "rarely worn — unarmored AC is higher" },
+        { "name": "Arrows & Quiver" },
+        { "name": "Thieves' Tools" },
+        { "name": "Caltrops, crowbar, grappling hook" },
+        { "name": "Driftglobe", "tag": "moonlight" },
+        { "name": "Healing potion (4d4+4)" },
+        { "name": "Sending stones (Shae, Adalicia)" },
+        { "name": "Explorer's kit, rope 50'", "tag": "" }
+      ]
+    },
+    { "type": "features", "title": "Features & Traits", "list": [
+      { "ref": "sneakattack", "name": "Sneak Attack 2d6", "sub": "Rogue · finesse/ranged · once per turn" },
+      { "ref": "assassinate", "name": "Assassinate", "sub": "Assassin · advantage vs. those who haven't acted; crit vs. surprised" },
+      { "ref": "cunningaction", "name": "Cunning Action", "sub": "Rogue · Dash/Disengage/Hide as a Bonus Action" },
+      { "ref": "steadyaim", "name": "Steady Aim", "sub": "Rogue · Bonus Action: advantage on next attack (speed 0)" },
+      { "ref": "expertise", "name": "Expertise", "sub": "Rogue · Perception, Stealth" },
+      { "ref": "twilightsanctuary", "name": "Channel Divinity: Twilight Sanctuary", "sub": "Twilight · 30-ft twilight, temp HP or end charm/fright" },
+      { "ref": "turnundead", "name": "Channel Divinity: Turn Undead", "sub": "Cleric · Destroy Undead CR 1/2" },
+      { "ref": "eyesofnight", "name": "Eyes of Night", "sub": "Twilight · darkvision 300 ft (shareable)" },
+      { "ref": "vigilantblessing", "name": "Vigilant Blessing", "sub": "Twilight · grant Initiative advantage" },
+      { "ref": "stepsofnight", "name": "Steps of Night", "sub": "Twilight · Bonus Action: fly speed in dim/dark (prof/long rest)" },
+      { "ref": "divinestrike", "name": "Divine Strike 1d8 radiant", "sub": "Twilight · once per turn on a weapon hit" },
+      { "ref": "harnessdivine", "name": "Harness Divine Power", "sub": "Cleric · Channel Divinity → regain a spell slot" },
+      { "ref": "martialarts", "name": "Martial Arts (d4)", "sub": "Monk · Dex for unarmed/monk weapons; unarmed BA strike" },
+      { "ref": "ki", "name": "Ki", "sub": "Monk · Flurry of Blows, Patient Defense, Step of the Wind · DC 18" },
+      { "ref": "shadowarts", "name": "Shadow Arts", "sub": "Shadow · 2 Ki: darkness/darkvision/pass without trace/silence" },
+      { "ref": "deflectmissiles", "name": "Deflect Missiles", "sub": "Monk · reaction: reduce ranged damage 1d10 + Dex + monk lvl" },
+      { "ref": "unarmoredmovement", "name": "Unarmored Movement", "sub": "Monk · +10 ft speed unarmored" },
+      { "ref": "slowfall", "name": "Slow Fall", "sub": "Monk · reaction: reduce fall damage by 5× monk level" },
+      { "ref": "shadowtouched", "name": "Shadow Touched (feat)", "sub": "+1 Wis · invisibility & disguise self 1×/long rest" },
+      { "ref": "resilient", "name": "Resilient (Wisdom) (feat)", "sub": "+1 Wis · proficiency in Wisdom saves" },
+      { "ref": "umbrastep", "name": "Umbra Step (DM)", "sub": "step through unobserved moonlit shadows" }
+    ]},
+    { "type": "background", "hint": "Variant Human · Criminal (Smuggler) · Neutral Good", "paras": [
+      "Wex moves through Port Haven's underside like a shadow with a conscience — a smuggler and fixer turned moon-touched agent of Noxa, the twilight goddess.",
+      "Loyal to friends rather than ideals; haunted by a death he blames on his own mistake, and determined that it never happen again. Tell him he can't do something and it's as good as done.",
+      "He keeps a worn prayer book to Noxa, a sending stone for Shae of the Dusk House, and a knack for being exactly where the moonlight falls."
+    ]},
+    { "type": "buildlog", "title": "Build Log", "hint": "Rogue 4 → Cleric 8 → Monk 4", "levels": [
+      { "title": "Rogue 1–4", "tag": "Assassin", "items": [
+        { "html": "<b>Rogue:</b> Expertise (Perception, Stealth), Sneak Attack, Thieves' Cant, Cunning Action; <b>Assassin</b> at 3 (Assassinate); Steady Aim" },
+        { "cls": "choice", "html": "<b>Level 4 feat:</b> Resilient (Wisdom)" }
+      ]},
+      { "title": "Cleric 1–8", "tag": "Twilight", "items": [
+        { "html": "<b>Cleric (Twilight):</b> Eyes of Night, Vigilant Blessing, Channel Divinity (Twilight Sanctuary, Turn Undead), Destroy Undead, Steps of Night, Divine Strike, Harness Divine Power" },
+        { "cls": "choice", "html": "<b>Cleric level 4 feat:</b> Shadow Touched (counts as variant human's bonus feat slot in play)" }
+      ]},
+      { "title": "Monk 1–4", "tag": "Shadow", "items": [
+        { "html": "<b>Monk (Shadow):</b> Unarmored Defense & Movement, Martial Arts, Ki, Deflect Missiles, Shadow Arts, Slow Fall" }
+      ]}
+    ]}
+  ],
+  "ref": {
+    "noxascrescent": { "title": "Noxa's Crescent", "chips": [{ "t": "Finesse · 1d6 slashing" }, { "t": "Magical", "c": "ember" }], "body": [
+      "A crescent blade blessed by Noxa. Finesse — uses Dexterity. Melee or thrown 20/60.",
+      "Gains 1d6 force for every 20 ft you moved this turn; in moonlight, hits grant advantage on your next attack; once per turn you can cast Spiritual Weapon as a Bonus Action; grants proficiency in Undercommon."
+    ]},
+    "veil": { "title": "Veil of Dusk and Dawn", "chips": [{ "t": "Wondrous" }], "body": [
+      "Once per short rest, become invisible and gain the effect of Pass without Trace.",
+      "+10 ft to your Twilight Sanctuary; you see normally in magical darkness; no Disadvantage to detect invisible creatures within 30 ft; advantage on all Perception checks."
+    ]},
+    "sneakattack": { "title": "Sneak Attack", "dice": "+2d6", "chips": [{ "t": "Once per turn", "c": "ember" }], "body": ["Once per turn, deal an extra 2d6 when you hit with a finesse or ranged weapon and have Advantage, or an ally is adjacent to the target and you don't have Disadvantage."] },
+    "assassinate": { "title": "Assassinate", "chips": [{ "t": "Surprise → crit", "c": "ember" }], "body": ["Advantage on attacks against any creature that hasn't taken a turn yet. Any hit against a surprised creature is a critical hit."] },
+    "cunningaction": { "title": "Cunning Action", "body": ["A Bonus Action each turn to Dash, Disengage, or Hide."] },
+    "steadyaim": { "title": "Steady Aim", "body": ["Bonus Action (if you haven't moved): Advantage on your next attack this turn; your speed becomes 0 until end of turn."] },
+    "expertise": { "title": "Expertise", "chips": [{ "t": "Perception · Stealth", "c": "storm" }], "body": ["Double your Proficiency Bonus for Perception and Stealth checks."] },
+    "twilightsanctuary": { "title": "Channel Divinity: Twilight Sanctuary", "pool": "cd", "chips": [{ "t": "30-ft sphere", "c": "ember" }], "body": ["As an Action, a 30-ft sphere of dim light moves with you for 1 minute. When a creature ends its turn inside, grant it 1d6 + your cleric level temp HP, or end a charm/fright effect on it."] },
+    "turnundead": { "title": "Channel Divinity: Turn Undead", "pool": "cd", "body": ["As an Action, undead within 30 ft that fail a Wisdom save are turned for 1 minute. Destroy Undead instantly destroys turned undead of CR 1/2 or lower."] },
+    "eyesofnight": { "title": "Eyes of Night", "chips": [{ "t": "300 ft darkvision", "c": "storm" }], "body": ["Darkvision out to 300 ft. You can share it with willing creatures (Wis-mod number) for 1 hour after a long rest."] },
+    "vigilantblessing": { "title": "Vigilant Blessing", "body": ["As an Action, give yourself or another creature Advantage on the next Initiative roll. Lasts until your next rest or you use it again."] },
+    "stepsofnight": { "title": "Steps of Night", "pool": "sn", "chips": [{ "t": "Fly speed", "c": "ember" }], "body": ["In dim light or darkness, as a Bonus Action gain a fly speed equal to your walking speed for 1 minute. Uses = Proficiency Bonus per long rest."] },
+    "divinestrike": { "title": "Divine Strike", "dice": "+1d8 radiant", "chips": [{ "t": "Once per turn" }], "body": ["Once per turn, a weapon hit deals an extra 1d8 radiant damage."] },
+    "harnessdivine": { "title": "Harness Divine Power", "pool": "cd", "body": ["Bonus Action: expend a Channel Divinity use to regain one spell slot of level ≤ half your Proficiency Bonus (rounded up)."] },
+    "martialarts": { "title": "Martial Arts", "dice": "1d4", "chips": [{ "t": "Dex-based", "c": "storm" }], "body": ["Use Dex for unarmed strikes and monk weapons; roll a d4 for their damage; one unarmed strike as a Bonus Action after the Attack action."] },
+    "ki": { "title": "Ki", "pool": "ki", "chips": [{ "t": "Save DC 18", "c": "ember" }], "body": ["Spend Ki to fuel Flurry of Blows (1 Ki — two unarmed strikes as a BA), Patient Defense (1 Ki — Dodge as a BA), or Step of the Wind (1 Ki — Dash/Disengage as a BA). Regain on a short or long rest."] },
+    "shadowarts": { "title": "Shadow Arts", "pool": "ki", "body": ["Spend 2 Ki as an Action to cast Darkness, Darkvision, Pass without Trace, or Silence without material components. You also know Minor Illusion."] },
+    "deflectmissiles": { "title": "Deflect Missiles", "body": ["Reaction when hit by a ranged weapon attack: reduce the damage by 1d10 + Dex + your monk level. If reduced to 0 and the missile is small enough, catch it; spend 1 Ki to throw it back (20/60)."] },
+    "unarmoredmovement": { "title": "Unarmored Movement", "body": ["+10 ft speed while not wearing armor or wielding a shield (already in your Speed)."] },
+    "slowfall": { "title": "Slow Fall", "body": ["Reaction when you fall: reduce the falling damage by 5 × your monk level."] },
+    "shadowtouched": { "title": "Shadow Touched (Origin Feat)", "chips": [{ "t": "+1 Wis", "c": "ember" }], "body": ["You learn Invisibility and a 1st-level Illusion/Necromancy spell (Disguise Self), each castable once per long rest without a slot (or with slots)."] },
+    "resilient": { "title": "Resilient — Wisdom", "chips": [{ "t": "+1 Wis · Wis saves", "c": "ember" }], "body": ["Increase Wisdom by 1 and gain proficiency in Wisdom saving throws."] },
+    "umbrastep": { "title": "Umbra Step (DM-bestowed)", "body": ["Step through a moonlit shadow and emerge from another unobserved moonlit shadow within line of sight (120 ft) or tied to a strong memory. Counts as a 0-ft move; both shadows must be unobserved by non-allies."] }
+  },
+  "build": {
+    "species": "human",
+    "background": "criminal",
+    "classes": [
+      { "class": "rogue", "subclass": "assassin", "level": 4 },
+      { "class": "cleric", "subclass": "twilight", "level": 8 },
+      { "class": "monk", "subclass": "shadow", "level": 4 }
+    ],
+    "abilities": { "STR": 10, "DEX": 18, "CON": 14, "INT": 12, "WIS": 20, "CHA": 8 },
+    "sources": [
+      { "id": "rogue-skills", "name": "Rogue & class skills", "effects": { "skills": ["Acrobatics", "Deception", "Insight", "Perception", "Sleight of Hand", "Stealth", "Survival"] } },
+      { "id": "expertise", "name": "Expertise", "effects": { "expertise": ["Perception", "Stealth"] } },
+      { "id": "languages", "name": "Languages", "effects": { "language": ["Common", "Celestial", "Undercommon"] } },
+      { "id": "tools", "name": "Tool proficiencies", "effects": { "tools": ["Thieves' Tools", "Gaming Set", "Disguise Kit", "Poisoner's Kit"] } },
+      { "id": "ki", "name": "Ki", "effects": { "grantsPool": { "id": "ki", "label": "Ki Points", "max": 4, "rest": "short", "ref": "ki", "storm": true, "note": "short rest · DC 18", "use": "Spend Ki", "reminder": "Spend Ki: Flurry of Blows, Patient Defense, Step of the Wind, or Shadow Arts (2)." } } },
+      { "id": "cd", "name": "Channel Divinity", "effects": { "grantsPool": { "id": "cd", "label": "Channel Divinity", "max": 2, "rest": "short", "ref": "twilightsanctuary", "storm": false, "note": "regain on a short rest", "use": "Use", "reminder": "Channel Divinity: Twilight Sanctuary, Turn Undead, or Harness Divine Power." } } },
+      { "id": "sn", "name": "Steps of Night", "effects": { "grantsPool": { "id": "sn", "label": "Steps of Night", "max": 5, "rest": "long", "ref": "stepsofnight", "storm": false, "note": "Prof/long rest", "use": "Use", "reminder": "Steps of Night: fly speed for 1 minute in dim light or darkness." } } },
+      { "id": "spellcasting", "name": "Spellcasting (Cleric)", "effects": { "spellcasting": {
+        "ability": "WIS",
+        "slots": [
+          { "id": "slot1", "label": "Level 1 Slots", "max": 4, "rest": "long", "ref": "spellslots1", "storm": true, "note": "long rest", "use": "Spend a slot", "reminder": "Spend a 1st-level spell slot.", "slotLevel": 1 },
+          { "id": "slot2", "label": "Level 2 Slots", "max": 3, "rest": "long", "ref": "spellslots2", "storm": true, "note": "long rest", "use": "Spend a slot", "reminder": "Spend a 2nd-level spell slot.", "slotLevel": 2 },
+          { "id": "slot3", "label": "Level 3 Slots", "max": 3, "rest": "long", "ref": "spellslots3", "storm": true, "note": "long rest", "use": "Spend a slot", "reminder": "Spend a 3rd-level spell slot.", "slotLevel": 3 },
+          { "id": "slot4", "label": "Level 4 Slots", "max": 3, "rest": "long", "ref": "spellslots4", "storm": true, "note": "long rest", "use": "Spend a slot", "reminder": "Spend a 4th-level spell slot.", "slotLevel": 4 },
+          { "id": "slot5", "label": "Level 5 Slots", "max": 1, "rest": "long", "ref": "spellslots5", "storm": true, "note": "long rest", "use": "Spend a slot", "reminder": "Spend a 5th-level spell slot.", "slotLevel": 5 }
+        ],
+        "cantrips": [
+          { "ref": "guidance", "name": "Guidance", "sub": "+1d4 to one ability check · Conc." },
+          { "ref": "sacredflame", "name": "Sacred Flame", "sub": "Dex save DC 18 · 3d8 radiant · ignores cover" },
+          { "ref": "wordofradiance", "name": "Word of Radiance", "sub": "Con save DC 18 · 2d6 radiant nearby" },
+          { "ref": "thaumaturgy", "name": "Thaumaturgy", "sub": "minor wonders" },
+          { "ref": "minorillusion", "name": "Minor Illusion", "sub": "Shadow Arts · a sound or image" }
+        ],
+        "prepared": {
+          "max": 13,
+          "default": ["guidingbolt", "spiritguardians", "moonbeam", "silence", "holdperson", "dispelmagic", "revivify", "banishment", "daylight", "auraoflife"],
+          "catalog": [
+            { "id": "guidingbolt", "name": "Guiding Bolt", "note": "ranged spell atk +10 · 4d6 radiant", "level": 1 },
+            { "id": "moonbeam", "name": "Moonbeam", "note": "domain · 2d10 radiant beam · Conc.", "level": 2, "cast": "Action" },
+            { "id": "silence", "name": "Silence", "note": "20-ft no sound · Conc.", "level": 2 },
+            { "id": "holdperson", "name": "Hold Person", "note": "Wis save DC 18 · Conc.", "level": 2 },
+            { "id": "spiritguardians", "name": "Spirit Guardians", "note": "3d8 radiant aura · Conc.", "level": 3, "cast": "Action" },
+            { "id": "dispelmagic", "name": "Dispel Magic", "note": "end a spell ≤ 3rd freely", "level": 3 },
+            { "id": "daylight", "name": "Daylight", "note": "60-ft bright light", "level": 3 },
+            { "id": "revivify", "name": "Revivify", "note": "raise a creature dead ≤ 1 min", "level": 3 },
+            { "id": "banishment", "name": "Banishment", "note": "Cha save DC 18 · Conc.", "level": 4, "cast": "Action" },
+            { "id": "auraoflife", "name": "Aura of Life", "note": "domain · resist necrotic · Conc.", "level": 3 }
+          ]
+        }
+      } } }
+    ]
+  }
+}

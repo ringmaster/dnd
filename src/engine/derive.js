@@ -52,7 +52,7 @@ function critDmg(w){
 function computeAC(){
   var dex=abilMod("DEX"), arm=(typeof equippedArmor==="function"?equippedArmor():null), base;
   if(arm){ var dexAdd = arm.addDex ? (arm.dexCap!=null ? Math.min(dex, arm.dexCap) : dex) : 0; base = arm.base + dexAdd; }
-  else base = 10 + dex;
+  else { base = 10 + dex; if(typeof AC_UNARMORED!=="undefined" && AC_UNARMORED && AC_UNARMORED.ability) base += abilMod(AC_UNARMORED.ability); }
   if(state.shield && SHIELD) base += SHIELD.bonus;
   if(state.style && AC_STYLE && arm) base += AC_STYLE.bonus;
   return base;
