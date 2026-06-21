@@ -76,7 +76,9 @@ var CARD = {
            (CHARACTER.combat ? '<div id="combatView" style="display:none"><div id="combatBody"></div></div>' : '');
   },
   pools: function(card){
-    var ids = card.pools==="*" ? Object.keys(CHARACTER.pools||{}).filter(function(id){ return id!=="hd"; }) : (card.pools||[]);
+    // "*" = all pools except hit dice and spell slots (slots render in the Spellcasting card;
+    // listing them here too would duplicate DOM ids and leave these copies pip-less).
+    var ids = card.pools==="*" ? Object.keys(CHARACTER.pools||{}).filter(function(id){ return id!=="hd" && !(CHARACTER.pools[id]||{}).slotLevel; }) : (card.pools||[]);
     var pools=ids.map(poolBlock).join("");
     var extras=(card.extras||[]).map(function(f,i){ return featBtn(f, i===0); }).join("");
     var hint=card.hint?' <span class="hint">'+esc(card.hint)+'</span>':'';
