@@ -1,35 +1,523 @@
 {
-  "aid": {
-    "name": "Aid",
-    "level": 2,
-    "dice": "+5 max & current HP",
+  "acidsplash": {
+    "name": "Acid Splash",
+    "level": 0,
+    "dice": "Dex save DC {dc} · 1d6 acid",
     "chips": [
       {
-        "t": "8 hours"
+        "t": "60 ft"
+      },
+      {
+        "t": "5 ft",
+        "c": "ember"
       }
     ],
     "body": [
-      "Up to three creatures each gain +5 to their hit point maximum and current hit points for 8 hours (more at higher levels)."
+      "Hurl a bubble of acid at one creature, or two within 5 feet of each other; each must make a Dexterity save DC {dc} or take 1d6 acid damage. Scales to 2d6 at level 5, 3d6 at 11, 4d6 at 17."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "chilltouch": {
+    "name": "Chill Touch",
+    "level": 0,
+    "dice": "To hit: d20 {atk} · 1d8 necrotic",
+    "chips": [
+      {
+        "t": "120 ft"
+      },
+      {
+        "t": "No heal",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Ranged spell attack ({atk}); on a hit, 1d8 necrotic damage and the target can't regain hit points until the start of your next turn. Undead also have disadvantage on attacks against you until then. Scales to 2d8 at level 5, 3d8 at 11, 4d8 at 17."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "dancinglights": {
+    "name": "Dancing Lights",
+    "level": 0,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "storm"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "Create up to four torch-sized lights (or one glowing humanoid form) that hover and can be moved up to 60 feet as a bonus action, each shedding dim light in a 10-foot radius. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "druidcraft": {
+    "name": "Druidcraft",
+    "level": 0,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Create a minor nature effect: predict 24-hour weather, bloom a plant, sense a harmless sensory effect, or light/snuff a small flame."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "eldritchblast": {
+    "name": "Eldritch Blast",
+    "level": 0,
+    "dice": "To hit: d20 {atk} · 1d10 force",
+    "chips": [
+      {
+        "t": "120 ft"
+      },
+      {
+        "t": "Multi-beam",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Ranged spell attack ({atk}); on a hit, 1d10 force damage. Creates one additional beam at levels 5, 11, and 17 (up to four beams), each aimed separately and rolled to hit independently."
+    ],
+    "classes": [
+      "warlock"
+    ]
+  },
+  "firebolt": {
+    "name": "Fire Bolt",
+    "level": 0,
+    "dice": "To hit: d20 {atk}   ·   1d10 fire",
+    "chips": [
+      {
+        "t": "120 ft"
+      },
+      {
+        "t": "Ranged spell attack",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Hurl a mote of fire at a target within 120 ft: ranged spell attack ({atk}), 1d10 fire on a hit. The die grows at higher levels (2d10 at character level 5).",
+      "A flammable object hit by it ignites if it isn't worn or carried."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "guidance": {
+    "name": "Guidance",
+    "level": 0,
+    "concentration": true,
+    "dice": "+1d4 to a check",
+    "body": [
+      "Touch a willing creature; once before the spell ends (up to 1 minute) it can roll 1d4 and add it to one ability check of its choice. Requires Concentration."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
+  },
+  "light": {
+    "name": "Light",
+    "level": 0,
+    "body": [
+      "Touch an object so it sheds Bright Light in a 20-ft radius and Dim Light for another 20 ft for 1 hour (Dex save to avoid if cast on a creature's gear)."
+    ],
+    "classes": [
+      "wizard",
+      "cleric"
+    ]
+  },
+  "magehand": {
+    "name": "Mage Hand",
+    "level": 0,
+    "chips": [
+      {
+        "t": "30 ft"
+      }
+    ],
+    "body": [
+      "A spectral hand you can use to manipulate objects, open doors, or carry up to 10 pounds, for 1 minute. It can't attack or carry more than 10 lb."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "mending": {
+    "name": "Mending",
+    "level": 0,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Repair a single break or tear in an object no larger than 1 foot in any dimension, leaving no trace; cannot restore magic to an object."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "message": {
+    "name": "Message",
+    "level": 0,
+    "chips": [
+      {
+        "t": "120 ft"
+      }
+    ],
+    "body": [
+      "You point toward a creature within range and whisper a message. The target (and only the target) hears it and can whisper a reply that only you hear. You can extend the spell around corners and through openings."
+    ],
+    "classes": [
+      "wizard",
+      "druid",
+      "bard"
+    ]
+  },
+  "minorillusion": {
+    "name": "Minor Illusion",
+    "level": 0,
+    "body": [
+      "Create a sound or a 5-ft image for 1 minute. Investigation (vs your DC {dc}) reveals an image as false."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "poisonspray": {
+    "name": "Poison Spray",
+    "level": 0,
+    "dice": "Con save DC {dc} · 1d12 poison",
+    "chips": [
+      {
+        "t": "10 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature within range must succeed on a Constitution save DC {dc} or take 1d12 poison damage. Scales to 2d12 at level 5, 3d12 at 11, 4d12 at 17."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "prestidigitation": {
+    "name": "Prestidigitation",
+    "level": 0,
+    "body": [
+      "A handful of minor magical tricks — clean or soil an object, light or snuff a small flame, chill/warm/flavor food, a harmless sensory effect."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "produceflame": {
+    "name": "Produce Flame",
+    "level": 0,
+    "dice": "1d8 fire · spell atk {atk}",
+    "chips": [
+      {
+        "t": "Bright light 10 ft"
+      }
+    ],
+    "body": [
+      "A flame in your hand sheds Bright Light (10 ft) and Dim Light (another 10 ft) for 10 minutes. You can hurl it as a ranged spell attack ({atk}, to 30 ft) for 1d8 fire damage; the die grows at higher levels.",
+      "A handy light source and a backup ranged option when a bow won't serve."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "rayoffrost": {
+    "name": "Ray of Frost",
+    "level": 0,
+    "dice": "To hit: d20 {atk} · 1d8 cold",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "t": "-10 ft speed",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Ranged spell attack ({atk}); on a hit, 1d8 cold damage and the target's speed is reduced by 10 feet until the start of your next turn. Scales to 2d8 at level 5, 3d8 at 11, 4d8 at 17."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "resistance": {
+    "name": "Resistance",
+    "level": 0,
+    "concentration": true,
+    "dice": "+1d4 to a save",
+    "body": [
+      "Touch a willing creature; once before the spell ends it adds 1d4 to one saving throw. Concentration."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
+  },
+  "sacredflame": {
+    "name": "Sacred Flame",
+    "level": 0,
+    "dice": "Dex save DC {dc} · 1d8 radiant",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "t": "Ignores cover",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Flame-like radiance descends on a creature within 60 ft: Dexterity save (DC {dc}) or 1d8 radiant. The target gains no benefit from cover. The die grows at higher levels."
     ],
     "classes": [
       "cleric"
     ]
   },
-  "augury": {
-    "name": "Augury",
-    "level": 2,
+  "shillelagh": {
+    "name": "Shillelagh",
+    "level": 0,
     "chips": [
       {
-        "t": "Ritual",
+        "t": "Bonus action",
+        "c": "ember"
+      },
+      {
+        "t": "1 min"
+      }
+    ],
+    "cast": "Bonus Action",
+    "body": [
+      "Imbue a club or quarterstaff you hold so its damage die becomes 1d8 and it uses your spellcasting modifier for attack and damage rolls for 1 minute. The weapon also counts as magical."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "shockinggrasp": {
+    "name": "Shocking Grasp",
+    "level": 0,
+    "dice": "To hit: d20 {atk} · 1d8 lightning",
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "t": "No reactions",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Melee spell attack ({atk}) with advantage if the target wears metal armor; on a hit, 1d8 lightning damage and the target can't take reactions until the start of its next turn. Scales to 2d8 at level 5, 3d8 at 11, 4d8 at 17."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "sparethedying": {
+    "name": "Spare the Dying",
+    "level": 0,
+    "chips": [
+      {
+        "t": "30 ft"
+      }
+    ],
+    "body": [
+      "Stabilize a creature that has 0 hit points within 30 ft without needing an action to make death saves."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
+  },
+  "thaumaturgy": {
+    "name": "Thaumaturgy",
+    "level": 0,
+    "chips": [
+      {
+        "t": "30 ft"
+      }
+    ],
+    "body": [
+      "Manifest a minor wonder within 30 ft for up to 1 minute: boom your voice three times as loud, flicker flames, cause harmless tremors, sound a phantom noise, fling open or shut an unbarred door or window, or alter your eyes' appearance. You can sustain up to three effects at once."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "tollthedead": {
+    "name": "Toll the Dead",
+    "level": 0,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft"
+      }
+    ],
+    "body": [
+      "A target makes a Wisdom save (DC {dc}) or takes 1d8 necrotic — 1d12 if it's already missing hit points."
+    ],
+    "classes": [
+      "wizard",
+      "cleric"
+    ]
+  },
+  "truestrike": {
+    "name": "True Strike",
+    "level": 0,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "Point at a target and gain insight into its defenses; on your next turn you have advantage on your first attack roll against it, provided this spell hasn't ended. Concentration, up to 1 round."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "viciousmockery": {
+    "name": "Vicious Mockery",
+    "level": 0,
+    "dice": "Wis save DC {dc} · 1d4 psychic",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "t": "Disadv. attack",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Unleash a string of insults at a creature that can hear you; it must make a Wisdom save DC {dc} or take 1d4 psychic damage and have disadvantage on its next attack roll before the end of its next turn. Scales to 2d4 at level 5, 3d4 at 11, 4d4 at 17."
+    ],
+    "classes": [
+      "bard"
+    ]
+  },
+  "wordofradiance": {
+    "name": "Word of Radiance",
+    "level": 0,
+    "dice": "Con save DC {dc} · 2d6 radiant",
+    "chips": [
+      {
+        "t": "5 ft"
+      }
+    ],
+    "body": [
+      "Each creature of your choice within 5 ft makes a Constitution save (DC {dc}) or takes 2d6 radiant damage. The dice increase with level (3d6 at 5th, 4d6 at 11th, 5d6 at 17th)."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "alarm": {
+    "name": "Alarm",
+    "level": 1,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      },
+      {
+        "t": "8 hours"
+      }
+    ],
+    "body": [
+      "Set a mental or audible alarm on a door, window, or area up to a 20-ft cube; you're alerted when a creature you didn't designate touches or enters the warded area."
+    ],
+    "classes": [
+      "ranger",
+      "wizard"
+    ]
+  },
+  "animalfriendship": {
+    "name": "Animal Friendship",
+    "level": 1,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft"
+      },
+      {
+        "t": "24 hours",
         "c": "storm"
       }
     ],
     "body": [
-      "Read an omen about a specific course of action you plan to take within 30 minutes: Weal, Woe, Weal and Woe, or Nothing."
+      "A beast you can see must succeed on a Wisdom save ({dc}) or be charmed by you for 24 hours; it automatically fails if its Intelligence is 4 or higher. Targets one extra beast per slot above 1st."
     ],
     "classes": [
-      "cleric",
-      "wizard"
+      "bard",
+      "druid",
+      "ranger"
+    ]
+  },
+  "bane": {
+    "name": "Bane",
+    "level": 1,
+    "concentration": true,
+    "dice": "Cha save DC {dc} · subtract 1d4",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "Up to three creatures must succeed on a Charisma save ({dc}) or subtract 1d4 from each attack roll and saving throw they make for the duration. One extra target per slot above 1st."
+    ],
+    "classes": [
+      "bard",
+      "cleric"
     ]
   },
   "bless": {
@@ -43,6 +531,24 @@
       "cleric"
     ]
   },
+  "burninghands": {
+    "name": "Burning Hands",
+    "level": 1,
+    "dice": "Dex save DC {dc} · 3d6 fire",
+    "chips": [
+      {
+        "t": "15-ft cone",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Each creature in a 15-ft cone makes a Dexterity save ({dc}), taking 3d6 fire damage on a failure or half on a success. +1d6 per slot above 1st."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
   "charmperson": {
     "name": "Charm Person",
     "level": 1,
@@ -53,6 +559,81 @@
     ],
     "classes": [
       "wizard",
+      "druid"
+    ]
+  },
+  "colorspray": {
+    "name": "Color Spray",
+    "level": 1,
+    "dice": "6d10 HP of creatures blinded",
+    "chips": [
+      {
+        "t": "15-ft cone",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Roll 6d10; creatures in a 15-ft cone are blinded until your next turn in ascending HP order until the total is used up, skipping any with more current HP than remains. +2d10 per slot above 1st."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "command": {
+    "name": "Command",
+    "level": 1,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature that can hear you must succeed on a Wisdom save ({dc}) or follow a one-word command on its next turn (approach, drop, flee, grovel, or halt). One extra target per slot above 1st."
+    ],
+    "classes": [
+      "cleric",
+      "paladin"
+    ]
+  },
+  "comprehendlanguages": {
+    "name": "Comprehend Languages",
+    "level": 1,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "1 hour"
+      }
+    ],
+    "body": [
+      "For 1 hour you understand the literal meaning of any spoken language you hear and any written language you touch, reading 1 page per minute."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "createordestroywater": {
+    "name": "Create or Destroy Water",
+    "level": 1,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Create up to 10 gallons of clean water in a container or as rain in a 30-ft cube, or destroy that much water or fog. Affects 10 more gallons or a 5-ft-larger cube per slot above 1st."
+    ],
+    "classes": [
+      "cleric",
       "druid"
     ]
   },
@@ -72,6 +653,27 @@
       "cleric",
       "ranger",
       "druid"
+    ]
+  },
+  "detectevilandgood": {
+    "name": "Detect Evil and Good",
+    "level": 1,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "For up to 10 minutes you sense the location of any aberration, celestial, elemental, fey, fiend, or undead within 30 ft, and whether a place or object has been consecrated or desecrated."
+    ],
+    "classes": [
+      "cleric",
+      "paladin"
     ]
   },
   "detectmagic": {
@@ -94,6 +696,72 @@
       "ranger",
       "druid"
     ]
+  },
+  "detectpoisonanddisease": {
+    "name": "Detect Poison and Disease",
+    "level": 1,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "For up to 10 minutes you sense the presence and location of poisons, poisonous creatures, and diseases within 30 ft, and can identify each kind."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "paladin",
+      "ranger"
+    ]
+  },
+  "disguiseself": {
+    "name": "Disguise Self",
+    "level": 1,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "1 hour"
+      }
+    ],
+    "body": [
+      "Make yourself, including clothing and gear, look different for 1 hour; a creature can use its action to inspect and disbelieve the illusion with an Investigation check against your spell save DC ({dc})."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "divinefavor": {
+    "name": "Divine Favor",
+    "level": 1,
+    "concentration": true,
+    "dice": "+1d4 radiant on hits",
+    "chips": [
+      {
+        "t": "Self",
+        "c": "ember"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "For the duration your weapon attacks deal an extra 1d4 radiant damage on a hit."
+    ],
+    "classes": [
+      "paladin"
+    ],
+    "cast": "Bonus Action"
   },
   "ensnaringstrike": {
     "name": "Ensnaring Strike",
@@ -128,6 +796,29 @@
       "druid"
     ]
   },
+  "expeditiousretreat": {
+    "name": "Expeditious Retreat",
+    "level": 1,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "Bonus action"
+      }
+    ],
+    "body": [
+      "Cast as a Bonus Action to gain the Dash action this turn, and you can take the Dash action again as a Bonus Action on each turn for the duration."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ],
+    "cast": "Bonus Action"
+  },
   "faeriefire": {
     "name": "Faerie Fire",
     "level": 1,
@@ -139,6 +830,24 @@
     "classes": [
       "druid",
       "ranger"
+    ]
+  },
+  "falselife": {
+    "name": "False Life",
+    "level": 1,
+    "dice": "temp HP 2d4 +4 {mod}",
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You gain 2d4 + 4 temporary hit points for 1 hour. +5 temp HP per slot above 1st."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
     ]
   },
   "featherfall": {
@@ -158,22 +867,39 @@
     ],
     "cast": "Reaction"
   },
-  "firebolt": {
-    "name": "Fire Bolt",
-    "level": 0,
-    "dice": "To hit: d20 {atk}   ·   1d10 fire",
+  "findfamiliar": {
+    "name": "Find Familiar",
+    "level": 1,
     "chips": [
       {
-        "t": "120 ft"
+        "t": "10 ft",
+        "c": "storm"
       },
       {
-        "t": "Ranged spell attack",
-        "c": "storm"
+        "t": "Ritual"
       }
     ],
     "body": [
-      "Hurl a mote of fire at a target within 120 ft: ranged spell attack ({atk}), 1d10 fire on a hit. The die grows at higher levels (2d10 at character level 5).",
-      "A flammable object hit by it ignites if it isn't worn or carried."
+      "You gain a spirit familiar in animal form that obeys you, scouts, and delivers your touch spells; it acts independently and you can see through its senses. Casting takes 1 hour and 10 gp of materials."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "floatingdisk": {
+    "name": "Floating Disk",
+    "level": 1,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      },
+      {
+        "t": "1 hour"
+      }
+    ],
+    "body": [
+      "Create a 3-ft-diameter horizontal force disk that hovers and follows you, holding up to 500 lb; it stays within 20 ft and vanishes if you move more than 100 ft from it."
     ],
     "classes": [
       "wizard"
@@ -207,17 +933,24 @@
     ],
     "cast": "Bonus Action"
   },
-  "guidance": {
-    "name": "Guidance",
-    "level": 0,
-    "concentration": true,
-    "dice": "+1d4 to a check",
+  "grease": {
+    "name": "Grease",
+    "level": 1,
+    "dice": "Dex save DC {dc} or fall prone",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      },
+      {
+        "t": "10-ft square"
+      }
+    ],
     "body": [
-      "Touch a willing creature; once before the spell ends (up to 1 minute) it can roll 1d4 and add it to one ability check of its choice. Requires Concentration."
+      "Cover a 10-ft square in slick grease (difficult terrain); creatures there or entering must succeed on a Dexterity save ({dc}) or fall prone."
     ],
     "classes": [
-      "cleric",
-      "druid"
+      "wizard"
     ]
   },
   "guidingbolt": {
@@ -261,16 +994,68 @@
     ],
     "cast": "Bonus Action"
   },
-  "holdperson": {
-    "name": "Hold Person",
-    "level": 2,
-    "concentration": true,
-    "dice": "Wis save DC {dc}",
+  "hellishrebuke": {
+    "name": "Hellish Rebuke",
+    "level": 1,
+    "dice": "Dex save DC {dc} · 2d10 fire",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      },
+      {
+        "t": "Reaction"
+      }
+    ],
     "body": [
-      "A humanoid makes a Wisdom save or is Paralyzed for the duration, repeating the save at the end of each of its turns. Concentration, up to 1 minute."
+      "As a Reaction when a creature damages you, it makes a Dexterity save ({dc}), taking 2d10 fire damage on a failure or half on a success. +1d10 per slot above 1st."
     ],
     "classes": [
-      "cleric",
+      "warlock"
+    ],
+    "cast": "Reaction"
+  },
+  "heroism": {
+    "name": "Heroism",
+    "level": 1,
+    "concentration": true,
+    "dice": "temp HP {mod} each turn",
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "A willing creature becomes immune to being frightened and gains temporary HP equal to your modifier ({mod}) at the start of each of its turns for the duration. One extra target per slot above 1st."
+    ],
+    "classes": [
+      "bard",
+      "paladin"
+    ]
+  },
+  "hideouslaughter": {
+    "name": "Hideous Laughter",
+    "level": 1,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "A creature must succeed on a Wisdom save ({dc}) or fall prone, incapacitated, and unable to stand, laughing for the duration; it repeats the save each turn and when it takes damage. Creatures with Int 4 or lower are unaffected."
+    ],
+    "classes": [
+      "bard",
       "wizard"
     ]
   },
@@ -293,31 +1078,81 @@
     ],
     "cast": "Bonus Action"
   },
-  "lesserrestoration": {
-    "name": "Lesser Restoration",
-    "level": 2,
+  "identify": {
+    "name": "Identify",
+    "level": 1,
     "chips": [
       {
-        "t": "Touch"
+        "t": "Touch",
+        "c": "storm"
+      },
+      {
+        "t": "Ritual"
       }
     ],
     "body": [
-      "End one disease or the Blinded, Deafened, Paralyzed, or Poisoned condition on a creature you touch."
+      "Over 1 minute you learn an object's magical properties, how to use them, whether it requires attunement, and any charges, or detect a spell affecting a creature you touch."
     ],
     "classes": [
-      "cleric",
-      "ranger"
+      "bard",
+      "wizard"
     ]
   },
-  "light": {
-    "name": "Light",
-    "level": 0,
+  "illusoryscript": {
+    "name": "Illusory Script",
+    "level": 1,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      },
+      {
+        "t": "10 days"
+      }
+    ],
     "body": [
-      "Touch an object so it sheds Bright Light in a 20-ft radius and Dim Light for another 20 ft for 1 hour (Dex save to avoid if cast on a creature's gear)."
+      "Write on parchment so only creatures you designate can read it; to everyone else the text appears as indecipherable or innocuous writing of your choice."
     ],
     "classes": [
-      "wizard",
+      "bard",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "inflictwounds": {
+    "name": "Inflict Wounds",
+    "level": 1,
+    "dice": "To hit: d20 {atk} · 3d10 necrotic",
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Melee spell attack ({atk}); on a hit the target takes 3d10 necrotic damage. +1d10 per slot above 1st."
+    ],
+    "classes": [
       "cleric"
+    ]
+  },
+  "jump": {
+    "name": "Jump",
+    "level": 1,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "For 1 minute a creature you touch has its jump distance tripled."
+    ],
+    "classes": [
+      "druid",
+      "ranger",
+      "sorcerer",
+      "wizard"
     ]
   },
   "longstrider": {
@@ -353,21 +1188,6 @@
       "wizard"
     ]
   },
-  "magehand": {
-    "name": "Mage Hand",
-    "level": 0,
-    "chips": [
-      {
-        "t": "30 ft"
-      }
-    ],
-    "body": [
-      "A spectral hand you can use to manipulate objects, open doors, or carry up to 10 pounds, for 1 minute. It can't attack or carry more than 10 lb."
-    ],
-    "classes": [
-      "wizard"
-    ]
-  },
   "magicmissile": {
     "name": "Magic Missile",
     "level": 1,
@@ -385,138 +1205,66 @@
       "wizard"
     ]
   },
-  "message": {
-    "name": "Message",
-    "level": 0,
-    "chips": [
-      {
-        "t": "120 ft"
-      }
-    ],
-    "body": [
-      "You point toward a creature within range and whisper a message. The target (and only the target) hears it and can whisper a reply that only you hear. You can extend the spell around corners and through openings."
-    ],
-    "classes": [
-      "wizard",
-      "druid",
-      "bard"
-    ]
-  },
-  "minorillusion": {
-    "name": "Minor Illusion",
-    "level": 0,
-    "body": [
-      "Create a sound or a 5-ft image for 1 minute. Investigation (vs your DC {dc}) reveals an image as false."
-    ],
-    "classes": [
-      "wizard"
-    ]
-  },
-  "mirrorimage": {
-    "name": "Mirror Image",
-    "level": 2,
-    "chips": [
-      {
-        "t": "3 duplicates"
-      }
-    ],
-    "body": [
-      "Three illusory duplicates appear around you. When an attack hits you, it may strike a duplicate instead (rolled randomly); each duplicate has AC 10 + your Dex and pops when hit."
-    ],
-    "classes": [
-      "wizard"
-    ]
-  },
-  "mistystep": {
-    "name": "Misty Step",
-    "level": 2,
-    "chips": [
-      {
-        "t": "Bonus action"
-      }
-    ],
-    "body": [
-      "As a Bonus Action, teleport up to 30 feet to an unoccupied space you can see, wreathed in silvery mist."
-    ],
-    "classes": [
-      "wizard"
-    ],
-    "cast": "Bonus Action"
-  },
-  "prayerofhealing": {
-    "name": "Prayer of Healing",
-    "level": 2,
-    "dice": "heal 2d8 + Wis ×5",
-    "chips": [
-      {
-        "t": "10-min cast"
-      }
-    ],
-    "body": [
-      "Up to five creatures you can see regain 2d8 + your spellcasting modifier ({mod}) hit points. A 10-minute casting — out-of-combat healing."
-    ],
-    "classes": [
-      "cleric"
-    ]
-  },
-  "prestidigitation": {
-    "name": "Prestidigitation",
-    "level": 0,
-    "body": [
-      "A handful of minor magical tricks — clean or soil an object, light or snuff a small flame, chill/warm/flavor food, a harmless sensory effect."
-    ],
-    "classes": [
-      "wizard"
-    ]
-  },
-  "produceflame": {
-    "name": "Produce Flame",
-    "level": 0,
-    "dice": "1d8 fire · spell atk {atk}",
-    "chips": [
-      {
-        "t": "Bright light 10 ft"
-      }
-    ],
-    "body": [
-      "A flame in your hand sheds Bright Light (10 ft) and Dim Light (another 10 ft) for 10 minutes. You can hurl it as a ranged spell attack ({atk}, to 30 ft) for 1d8 fire damage; the die grows at higher levels.",
-      "A handy light source and a backup ranged option when a bow won't serve."
-    ],
-    "classes": [
-      "druid"
-    ]
-  },
-  "resistance": {
-    "name": "Resistance",
-    "level": 0,
+  "protectionfromevilandgood": {
+    "name": "Protection from Evil and Good",
+    "level": 1,
     "concentration": true,
-    "dice": "+1d4 to a save",
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
     "body": [
-      "Touch a willing creature; once before the spell ends it adds 1d4 to one saving throw. Concentration."
+      "A willing creature gains protection against aberrations, celestials, elementals, fey, fiends, and undead: those creatures have Disadvantage to hit it, and it can't be charmed, frightened, or possessed by them."
     ],
     "classes": [
       "cleric",
-      "druid"
+      "paladin",
+      "warlock",
+      "wizard"
     ]
   },
-  "sacredflame": {
-    "name": "Sacred Flame",
-    "level": 0,
-    "dice": "Dex save DC {dc} · 1d8 radiant",
+  "purifyfoodanddrink": {
+    "name": "Purify Food and Drink",
+    "level": 1,
     "chips": [
       {
-        "t": "60 ft"
+        "t": "10 ft",
+        "c": "storm"
       },
       {
-        "t": "Ignores cover",
+        "t": "Ritual"
+      }
+    ],
+    "body": [
+      "All nonmagical food and drink in a 5-ft-radius sphere is purified and rendered free of poison and disease."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "paladin"
+    ]
+  },
+  "rayofsickness": {
+    "name": "Ray of Sickness",
+    "level": 1,
+    "dice": "To hit: d20 {atk} · 2d8 poison",
+    "chips": [
+      {
+        "t": "60 ft",
         "c": "ember"
       }
     ],
     "body": [
-      "Flame-like radiance descends on a creature within 60 ft: Dexterity save (DC {dc}) or 1d8 radiant. The target gains no benefit from cover. The die grows at higher levels."
+      "Ranged spell attack ({atk}); on a hit the target takes 2d8 poison damage and must succeed on a Constitution save ({dc}) or be poisoned until the end of your next turn. +1d8 per slot above 1st."
     ],
     "classes": [
-      "cleric"
+      "sorcerer",
+      "wizard"
     ]
   },
   "sanctuary": {
@@ -571,22 +1319,26 @@
     ],
     "cast": "Bonus Action"
   },
-  "silence": {
-    "name": "Silence",
-    "level": 2,
+  "silentimage": {
+    "name": "Silent Image",
+    "level": 1,
     "concentration": true,
     "chips": [
       {
-        "t": "Ritual",
+        "t": "60 ft",
         "c": "storm"
+      },
+      {
+        "t": "Concentration"
       }
     ],
     "body": [
-      "No sound can be created within or pass through a 20-ft-radius sphere for the duration — blocks verbal spellcasting and thunder damage. Concentration, up to 10 minutes."
+      "Create a movable visual illusion no larger than a 15-ft cube; a creature can use its action to inspect and disbelieve it with an Investigation check against your spell save DC ({dc})."
     ],
     "classes": [
-      "cleric",
-      "ranger"
+      "bard",
+      "sorcerer",
+      "wizard"
     ]
   },
   "sleep": {
@@ -599,22 +1351,6 @@
     ],
     "classes": [
       "wizard"
-    ]
-  },
-  "sparethedying": {
-    "name": "Spare the Dying",
-    "level": 0,
-    "chips": [
-      {
-        "t": "30 ft"
-      }
-    ],
-    "body": [
-      "Stabilize a creature that has 0 hit points within 30 ft without needing an action to make death saves."
-    ],
-    "classes": [
-      "cleric",
-      "druid"
     ]
   },
   "speakwithanimals": {
@@ -638,85 +1374,738 @@
       "druid"
     ]
   },
-  "spiritualweapon": {
-    "name": "Spiritual Weapon",
-    "level": 2,
-    "dice": "1d8 {mod} force",
+  "thunderwave": {
+    "name": "Thunderwave",
+    "level": 1,
+    "dice": "Con save DC {dc} · 2d8 thunder",
     "chips": [
       {
-        "t": "Bonus action"
-      },
-      {
-        "t": "Force"
+        "t": "15-ft cube",
+        "c": "ember"
       }
     ],
     "body": [
-      "Create a floating spectral weapon for 1 minute. On casting and as a Bonus Action each turn, move it 20 ft and make a melee spell attack ({atk}) for 1d8 {mod} force. No Concentration in the 2024 rules."
+      "Each creature in a 15-ft cube makes a Constitution save ({dc}), taking 2d8 thunder damage and being pushed 10 ft on a failure, or half damage and no push on a success. +1d8 per slot above 1st."
     ],
     "classes": [
-      "cleric"
-    ],
-    "cast": "Bonus Action"
-  },
-  "tollthedead": {
-    "name": "Toll the Dead",
-    "level": 0,
-    "dice": "Wis save DC {dc}",
-    "chips": [
-      {
-        "t": "60 ft"
-      }
-    ],
-    "body": [
-      "A target makes a Wisdom save (DC {dc}) or takes 1d8 necrotic — 1d12 if it's already missing hit points."
-    ],
-    "classes": [
-      "wizard",
-      "cleric"
+      "bard",
+      "druid",
+      "sorcerer",
+      "wizard"
     ]
   },
-  "web": {
-    "name": "Web",
-    "level": 2,
-    "concentration": true,
-    "dice": "Dex save DC {dc}",
+  "unseenservant": {
+    "name": "Unseen Servant",
+    "level": 1,
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      },
+      {
+        "t": "Ritual"
+      }
+    ],
     "body": [
-      "Fill a 20-ft cube with sticky webs (Difficult Terrain). A creature entering or starting its turn there makes a Dexterity save or is Restrained; it can break free with a Strength check. Flammable."
+      "Create an invisible, mindless force of AC 10 and 1 HP that follows your spoken commands to perform simple tasks like fetching, cleaning, or carrying, taking actions within 60 ft of you."
+    ],
+    "classes": [
+      "bard",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "witchbolt": {
+    "name": "Witch Bolt",
+    "level": 1,
+    "concentration": true,
+    "dice": "To hit: d20 {atk} · 1d12 lightning",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      },
+      {
+        "t": "Concentration"
+      }
+    ],
+    "body": [
+      "Ranged spell attack ({atk}); on a hit deal 1d12 lightning and on each later turn you can use your action to automatically deal 1d12 again while the arc holds. +1d12 initial per slot above 1st."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "acidarrow": {
+    "name": "Acid Arrow",
+    "level": 2,
+    "dice": "To hit: d20 {atk} · 4d4 acid",
+    "chips": [
+      {
+        "t": "90 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A shimmering arrow streaks at a target (+{atk} to hit), dealing 4d4 acid on hit and 2d4 acid at the end of its next turn; on a miss, half initial damage and no later damage. +1d4 to both rolls per slot above 2nd."
     ],
     "classes": [
       "wizard"
     ]
   },
-  "wordofradiance": {
-    "name": "Word of Radiance",
-    "level": 0,
-    "dice": "Con save DC {dc} · 2d6 radiant",
+  "aid": {
+    "name": "Aid",
+    "level": 2,
+    "dice": "+5 max & current HP",
     "chips": [
       {
-        "t": "5 ft"
+        "t": "8 hours"
       }
     ],
     "body": [
-      "Each creature of your choice within 5 ft makes a Constitution save (DC {dc}) or takes 2d6 radiant damage. The dice increase with level (3d6 at 5th, 4d6 at 11th, 5d6 at 17th)."
+      "Up to three creatures each gain +5 to their hit point maximum and current hit points for 8 hours (more at higher levels)."
     ],
     "classes": [
       "cleric"
     ]
   },
-  "thaumaturgy": {
-    "name": "Thaumaturgy",
-    "level": 0,
+  "alterself": {
+    "name": "Alter Self",
+    "level": 2,
+    "concentration": true,
     "chips": [
       {
-        "t": "30 ft"
+        "c": "storm"
       }
     ],
     "body": [
-      "Manifest a minor wonder within 30 ft for up to 1 minute: boom your voice three times as loud, flicker flames, cause harmless tremors, sound a phantom noise, fling open or shut an unbarred door or window, or alter your eyes' appearance. You can sustain up to three effects at once."
+      "Transform yourself: gain an aquatic form, change your appearance, or grow natural weapons (1d6 + {mod} damage). Concentration, up to 1 hour; you may shift options on your turn."
     ],
     "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "animalmessenger": {
+    "name": "Animal Messenger",
+    "level": 2,
+    "chips": [
+      {
+        "t": "30 ft"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A tiny beast you can see carries a short message to a destination you describe, traveling up to 24 hours. +48 hours of travel per slot above 2nd."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "ranger"
+    ]
+  },
+  "arcanelock": {
+    "name": "Arcane Lock",
+    "level": 2,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A door, chest, or portal becomes magically locked, impassable until you or a chosen creature opens it; the DC to break or pick it rises by 10. Lasts until dispelled."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "augury": {
+    "name": "Augury",
+    "level": 2,
+    "chips": [
+      {
+        "t": "Ritual",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Read an omen about a specific course of action you plan to take within 30 minutes: Weal, Woe, Weal and Woe, or Nothing."
+    ],
+    "classes": [
+      "cleric",
+      "wizard"
+    ]
+  },
+  "barkskin": {
+    "name": "Barkskin",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature's skin turns bark-like; its AC can't be lower than 16 regardless of armor. Concentration, up to 1 hour."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ]
+  },
+  "blindnessdeafness": {
+    "name": "Blindness/Deafness",
+    "level": 2,
+    "dice": "Con save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature must succeed on a Con save (DC {dc}) or be Blinded or Deafened (your choice) for 1 minute, repeating the save at the end of each of its turns. +1 target per slot above 2nd."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "blur": {
+    "name": "Blur",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Your form blurs; attackers have Disadvantage to hit you unless they don't rely on sight. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "calmemotions": {
+    "name": "Calm Emotions",
+    "level": 2,
+    "concentration": true,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Each humanoid in a 20-ft radius makes a Cha save (DC {dc}); on a fail you may suppress its charm/fear effects or make it indifferent toward chosen creatures. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "bard",
       "cleric"
     ]
+  },
+  "continualflame": {
+    "name": "Continual Flame",
+    "level": 2,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A flame equal to torchlight springs from an object, giving heatless light until dispelled; it can be covered but not smothered or drowned. Consumes 50 gp of ruby dust."
+    ],
+    "classes": [
+      "cleric",
+      "wizard"
+    ]
+  },
+  "crownofmadness": {
+    "name": "Crown of Madness",
+    "level": 2,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "120 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A humanoid makes a Wis save (DC {dc}) or you compel it to attack a creature of your choice each turn; it repeats the save each turn to end the effect. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "darkness": {
+    "name": "Darkness",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Magical darkness fills a 15-ft radius that even darkvision can't see through, blocking and being blocked by nonmagical light. Concentration, up to 10 minutes."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "darkvision": {
+    "name": "Darkvision",
+    "level": 2,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature gains darkvision out to 60 ft for 8 hours."
+    ],
+    "classes": [
+      "druid",
+      "ranger",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "detectthoughts": {
+    "name": "Detect Thoughts",
+    "level": 2,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Read the surface thoughts of a creature within 30 ft, probing deeper if it fails a Wis save (DC {dc}); you can also detect thinking creatures nearby. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "enhanceability": {
+    "name": "Enhance Ability",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature gains Advantage on checks with one chosen ability, plus a rider (e.g. Bull's Strength doubles carrying capacity; Cat's Grace negates fall damage from up to 20 ft). Concentration, up to 1 hour. +1 target per slot above 2nd."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "sorcerer"
+    ]
+  },
+  "enlargereduce": {
+    "name": "Enlarge/Reduce",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Enlarge a creature or object one size (Advantage on Str, +1d4 weapon damage) or reduce it (Disadvantage on Str, −1d4 weapon damage). Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "enthrall": {
+    "name": "Enthrall",
+    "level": 2,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Each chosen creature makes a Wis save (DC {dc}) or has Disadvantage on Perception checks to notice anyone but you for 1 minute."
+    ],
+    "classes": [
+      "bard",
+      "warlock"
+    ]
+  },
+  "findsteed": {
+    "name": "Find Steed",
+    "level": 2,
+    "chips": [
+      {
+        "t": "30 ft"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Summon a loyal spirit steed (warhorse, pony, etc.) of CR 1 or lower with a telepathic bond; it vanishes when reduced to 0 HP. You can share touch spells through it."
+    ],
+    "classes": [
+      "paladin"
+    ]
+  },
+  "findtraps": {
+    "name": "Find Traps",
+    "level": 2,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You sense the presence of any trap within line of sight, learning its general nature but not its exact location or how to disable it."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "ranger"
+    ]
+  },
+  "flamingsphere": {
+    "name": "Flaming Sphere",
+    "level": 2,
+    "concentration": true,
+    "dice": "Dex save DC {dc} · 2d6 fire",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A 5-ft fiery sphere appears; creatures within 5 ft when it moves into them or that end their turn there make a Dex save (DC {dc}), taking 2d6 fire (half on success). Move it 30 ft as a Bonus Action. +1d6 per slot above 2nd. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "druid",
+      "wizard"
+    ]
+  },
+  "gentlerepose": {
+    "name": "Gentle Repose",
+    "level": 2,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A corpse is protected from decay and can't become undead; the time it spends under the spell doesn't count against revival time limits. Lasts 10 days."
+    ],
+    "classes": [
+      "cleric",
+      "wizard"
+    ]
+  },
+  "gustofwind": {
+    "name": "Gust of Wind",
+    "level": 2,
+    "concentration": true,
+    "dice": "Str save DC {dc}",
+    "chips": [
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A 60-ft line of strong wind pushes creatures that fail a Str save (DC {dc}) 15 ft away and snuffs flames; you can redirect it as a Bonus Action. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "druid",
+      "ranger",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "heatmetal": {
+    "name": "Heat Metal",
+    "level": 2,
+    "concentration": true,
+    "dice": "Con save DC {dc} · 2d8 fire",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A metal object glows red-hot, dealing 2d8 fire when cast and again as a Bonus Action; a creature touching it must make a Con save (DC {dc}) or drop it and have Disadvantage on attacks until its next turn. +1d8 per slot above 2nd. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "bard",
+      "druid"
+    ]
+  },
+  "holdperson": {
+    "name": "Hold Person",
+    "level": 2,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "body": [
+      "A humanoid makes a Wisdom save or is Paralyzed for the duration, repeating the save at the end of each of its turns. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "cleric",
+      "wizard"
+    ]
+  },
+  "invisibility": {
+    "name": "Invisibility",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature you touch becomes Invisible until it attacks or casts a spell. Concentration, up to 1 hour. +1 target per slot above 2nd."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "knock": {
+    "name": "Knock",
+    "level": 2,
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A target lock opens, an arcane lock suppresses for 10 minutes, or one bar lifts; a loud knock audible 300 ft away accompanies the effect."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "lesserrestoration": {
+    "name": "Lesser Restoration",
+    "level": 2,
+    "chips": [
+      {
+        "t": "Touch"
+      }
+    ],
+    "body": [
+      "End one disease or the Blinded, Deafened, Paralyzed, or Poisoned condition on a creature you touch."
+    ],
+    "classes": [
+      "cleric",
+      "ranger"
+    ]
+  },
+  "levitate": {
+    "name": "Levitate",
+    "level": 2,
+    "concentration": true,
+    "dice": "Con save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature or object up to 500 lb rises up to 20 ft and floats (unwilling targets resist with a Con save, DC {dc}); you move it vertically on your turn. Concentration, up to 10 minutes."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "locateanimalsorplants": {
+    "name": "Locate Animals or Plants",
+    "level": 2,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Name one kind of beast or plant; you instantly learn the direction and distance to the nearest such within 5 miles, if any."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "ranger"
+    ]
+  },
+  "locateobject": {
+    "name": "Locate Object",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Sense the direction to a familiar or described object within 1,000 ft, if it's within range and not blocked by lead. Concentration, up to 10 minutes."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "paladin",
+      "ranger",
+      "wizard"
+    ]
+  },
+  "magicaura": {
+    "name": "Magic Aura",
+    "level": 2,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Mask a creature or object so divination magic reads a false aura or no aura, or make a creature register as a chosen creature type. Lasts 24 hours."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "magicmouth": {
+    "name": "Magic Mouth",
+    "level": 2,
+    "chips": [
+      {
+        "t": "30 ft"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Implant a message of up to 25 words in an object that speaks aloud when a chosen trigger condition occurs. Lasts until dispelled."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "magicweapon": {
+    "name": "Magic Weapon",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A nonmagical weapon becomes a +1 magic weapon (+2 at 4th-level slot, +3 at 6th). Concentration, up to 1 hour."
+    ],
+    "classes": [
+      "paladin",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "mirrorimage": {
+    "name": "Mirror Image",
+    "level": 2,
+    "chips": [
+      {
+        "t": "3 duplicates"
+      }
+    ],
+    "body": [
+      "Three illusory duplicates appear around you. When an attack hits you, it may strike a duplicate instead (rolled randomly); each duplicate has AC 10 + your Dex and pops when hit."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "mistystep": {
+    "name": "Misty Step",
+    "level": 2,
+    "chips": [
+      {
+        "t": "Bonus action"
+      }
+    ],
+    "body": [
+      "As a Bonus Action, teleport up to 30 feet to an unoccupied space you can see, wreathed in silvery mist."
+    ],
+    "classes": [
+      "wizard"
+    ],
+    "cast": "Bonus Action"
   },
   "moonbeam": {
     "name": "Moonbeam",
@@ -737,23 +2126,511 @@
     ],
     "cast": "Action"
   },
-  "spiritguardians": {
-    "name": "Spirit Guardians",
-    "level": 3,
+  "passwithouttrace": {
+    "name": "Pass without Trace",
+    "level": 2,
     "concentration": true,
-    "dice": "Wis save DC {dc} · 3d8 radiant",
     "chips": [
       {
-        "t": "15-ft aura"
+        "c": "storm"
       }
     ],
     "body": [
-      "Spectral guardians fill a 15-ft radius around you for the duration. The area is Difficult Terrain for enemies; when a creature of your choice enters the aura or starts its turn there it makes a Wisdom save (DC {dc}), taking 3d8 radiant on a failure (half on success). 3d8 increases by 1d8 per slot level above 3rd."
+      "You and allies within 30 ft gain +10 to Stealth checks and leave no tracks or trail. Concentration, up to 1 hour."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ]
+  },
+  "prayerofhealing": {
+    "name": "Prayer of Healing",
+    "level": 2,
+    "dice": "heal 2d8 + Wis ×5",
+    "chips": [
+      {
+        "t": "10-min cast"
+      }
+    ],
+    "body": [
+      "Up to five creatures you can see regain 2d8 + your spellcasting modifier ({mod}) hit points. A 10-minute casting — out-of-combat healing."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "protectionfrompoison": {
+    "name": "Protection from Poison",
+    "level": 2,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Neutralize one poison on a creature and grant Advantage on saves against poison plus Resistance to poison damage for 1 hour."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "paladin",
+      "ranger"
+    ]
+  },
+  "rayofenfeeblement": {
+    "name": "Ray of Enfeeblement",
+    "level": 2,
+    "concentration": true,
+    "dice": "To hit: d20 {atk} · Con save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A black beam strikes a creature (+{atk} to hit); on hit it deals only half damage with Strength-based weapon attacks, repeating a Con save (DC {dc}) each turn to end it. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "warlock",
+      "wizard"
+    ]
+  },
+  "ropetrick": {
+    "name": "Rope Trick",
+    "level": 2,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A rope rises and its top end vanishes into an extradimensional space holding up to eight creatures, invisible from outside. Lasts 1 hour."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "scorchingray": {
+    "name": "Scorching Ray",
+    "level": 2,
+    "dice": "To hit: d20 {atk} · 2d6 fire (×3 rays)",
+    "chips": [
+      {
+        "t": "120 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Hurl three fiery rays, each a separate attack (+{atk} to hit) dealing 2d6 fire on hit; you may aim them at one or several targets. +1 ray per slot above 2nd."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "seeinvisibility": {
+    "name": "See Invisibility",
+    "level": 2,
+    "chips": [
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "For 1 hour you see invisible creatures and objects and can see into the Ethereal Plane."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "shatter": {
+    "name": "Shatter",
+    "level": 2,
+    "dice": "Con save DC {dc} · 3d8 thunder",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A burst of thunder in a 10-ft radius forces a Con save (DC {dc}), dealing 3d8 thunder on a fail (half on success); creatures of inorganic material have Disadvantage. +1d8 per slot above 2nd."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "silence": {
+    "name": "Silence",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Ritual",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "No sound can be created within or pass through a 20-ft-radius sphere for the duration — blocks verbal spellcasting and thunder damage. Concentration, up to 10 minutes."
+    ],
+    "classes": [
+      "cleric",
+      "ranger"
+    ]
+  },
+  "spiderclimb": {
+    "name": "Spider Climb",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature can climb walls and ceilings hands-free, gaining a climb speed equal to its walking speed. Concentration, up to 1 hour."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "spikegrowth": {
+    "name": "Spike Growth",
+    "level": 2,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "150 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A 20-ft radius becomes difficult terrain of spikes; a creature takes 2d4 piercing per 5 ft it moves through, and the ground is hard to spot. Concentration, up to 10 minutes."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ]
+  },
+  "spiritualweapon": {
+    "name": "Spiritual Weapon",
+    "level": 2,
+    "dice": "1d8 {mod} force",
+    "chips": [
+      {
+        "t": "Bonus action"
+      },
+      {
+        "t": "Force"
+      }
+    ],
+    "body": [
+      "Create a floating spectral weapon for 1 minute. On casting and as a Bonus Action each turn, move it 20 ft and make a melee spell attack ({atk}) for 1d8 {mod} force. No Concentration in the 2024 rules."
     ],
     "classes": [
       "cleric"
     ],
-    "cast": "Action"
+    "cast": "Bonus Action"
+  },
+  "suggestion": {
+    "name": "Suggestion",
+    "level": 2,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft"
+      },
+      {
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Verbally suggest a reasonable course of action to one creature, which must make a Wis save (DC {dc}) or pursue it for up to 8 hours or until completed. Concentration, up to 8 hours."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "wardingbond": {
+    "name": "Warding Bond",
+    "level": 2,
+    "chips": [
+      {
+        "t": "Touch"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature gains +1 AC and saves and Resistance to all damage, but you take the same damage it takes while you remain within 60 ft. Lasts 1 hour."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "web": {
+    "name": "Web",
+    "level": 2,
+    "concentration": true,
+    "dice": "Dex save DC {dc}",
+    "body": [
+      "Fill a 20-ft cube with sticky webs (Difficult Terrain). A creature entering or starting its turn there makes a Dexterity save or is Restrained; it can break free with a Strength check. Flammable."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "zoneoftruth": {
+    "name": "Zone of Truth",
+    "level": 2,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Creatures in a 15-ft radius that fail a Cha save (DC {dc}) can't speak deliberate lies for 10 minutes; you know who succeeded. Affected creatures can still evade with careful wording."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "paladin"
+    ]
+  },
+  "animatedead": {
+    "name": "Animate Dead",
+    "level": 3,
+    "chips": [
+      {
+        "t": "bones/corpse"
+      },
+      {
+        "t": "24 hr control"
+      }
+    ],
+    "body": [
+      "Raise a bone pile or corpse as an undead skeleton or zombie under your command for 24 hours, after which you must recast to retain control. +2 undead per slot above 3rd."
+    ],
+    "classes": [
+      "cleric",
+      "wizard"
+    ]
+  },
+  "auraoflife": {
+    "name": "Aura of Life",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30-ft aura"
+      }
+    ],
+    "body": [
+      "A 30-ft aura radiates from you for up to 10 minutes (Concentration). You and allies in it have Resistance to necrotic damage, your hit point maximums can't be reduced, and any ally there with 0 HP that isn't dead regains 1 HP at the start of its turn."
+    ],
+    "classes": [
+      "cleric",
+      "paladin"
+    ]
+  },
+  "beaconofhope": {
+    "name": "Beacon of Hope",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Creatures of your choice in range gain advantage on Wisdom saves and death saves, and regain the maximum from any healing."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "bestowcurse": {
+    "name": "Bestow Curse",
+    "level": 3,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "touch",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "On a touch, the target makes a Wisdom save (DC {dc}) or is cursed with a chosen effect, such as disadvantage on a chosen ability or attacks against it, or taking 1d8 extra necrotic. Higher slots extend the duration."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "wizard"
+    ]
+  },
+  "blink": {
+    "name": "Blink",
+    "level": 3,
+    "chips": [
+      {
+        "t": "50% vanish",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "At the end of each of your turns, roll a d20; on an 11 or higher you vanish to the Ethereal Plane until the start of your next turn, untouchable while gone."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "calllightning": {
+    "name": "Call Lightning",
+    "level": 3,
+    "concentration": true,
+    "dice": "Dex save DC {dc} · 3d10 lightning",
+    "chips": [
+      {
+        "t": "100-ft storm"
+      },
+      {
+        "t": "5-ft radius",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Conjure a storm cloud and call a bolt; each creature in a 5-ft radius makes a Dexterity save (DC {dc}), taking 3d10 lightning on a fail (half on success). Call another bolt each turn as an action. +1d10 per slot above 3rd."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "clairvoyance": {
+    "name": "Clairvoyance",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "1 mile"
+      }
+    ],
+    "body": [
+      "Create an invisible sensor at a location you know or can describe, letting you see or hear through it for the duration."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "conjureanimals": {
+    "name": "Conjure Animals",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "t": "summon"
+      }
+    ],
+    "body": [
+      "Summon fey spirits taking the form of beasts to fight for you for the duration. Higher slots summon more creatures."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ]
+  },
+  "counterspell": {
+    "name": "Counterspell",
+    "level": 3,
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Interrupt a creature casting a spell; a spell of 3rd level or lower fails automatically, otherwise make an ability check (DC 10 + the spell's level) to negate it. Upcast raises the automatic threshold."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ],
+    "cast": "Reaction"
+  },
+  "createfoodandwater": {
+    "name": "Create Food and Water",
+    "level": 3,
+    "chips": [
+      {
+        "t": "food for 15"
+      }
+    ],
+    "body": [
+      "Create 45 pounds of food and 30 gallons of water, enough to sustain fifteen humanoids or five steeds for 24 hours."
+    ],
+    "classes": [
+      "cleric",
+      "paladin"
+    ]
+  },
+  "daylight": {
+    "name": "Daylight",
+    "level": 3,
+    "chips": [
+      {
+        "t": "60-ft bright"
+      }
+    ],
+    "body": [
+      "A 60-ft-radius sphere of bright light (plus 60 ft of dim light beyond) spreads from a point or object you choose, lasting 1 hour. It counts as sunlight. If cast on an area of magical darkness of 3rd level or lower, that darkness is dispelled."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
   },
   "dispelmagic": {
     "name": "Dispel Magic",
@@ -772,20 +2649,352 @@
       "druid"
     ]
   },
-  "daylight": {
-    "name": "Daylight",
+  "fear": {
+    "name": "Fear",
     "level": 3,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
     "chips": [
       {
-        "t": "60-ft bright"
+        "t": "30-ft cone",
+        "c": "ember"
       }
     ],
     "body": [
-      "A 60-ft-radius sphere of bright light (plus 60 ft of dim light beyond) spreads from a point or object you choose, lasting 1 hour. It counts as sunlight. If cast on an area of magical darkness of 3rd level or lower, that darkness is dispelled."
+      "Each creature in a 30-ft cone makes a Wisdom save (DC {dc}) or drops what it holds and becomes frightened, fleeing on its turns until it can no longer see you and saves at turn's end."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "feigndeath": {
+    "name": "Feign Death",
+    "level": 3,
+    "chips": [
+      {
+        "t": "touch"
+      },
+      {
+        "t": "1 hr"
+      }
+    ],
+    "body": [
+      "A willing creature you touch appears dead for the duration, blinded, incapacitated, and resistant to all but psychic damage."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "wizard"
+    ]
+  },
+  "fireball": {
+    "name": "Fireball",
+    "level": 3,
+    "dice": "Dex save DC {dc} · 8d6 fire",
+    "chips": [
+      {
+        "t": "150 ft"
+      },
+      {
+        "t": "20-ft radius",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A 20-ft-radius burst; each creature makes a Dexterity save (DC {dc}), 8d6 fire on a fail (half on success). +1d6 per slot above 3rd."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "fly": {
+    "name": "Fly",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "60-ft fly",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature you touch gains a flying speed of 60 feet for the duration. +1 creature per slot above 3rd."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "gaseousform": {
+    "name": "Gaseous Form",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature becomes a misty cloud with a 10-ft fly speed, resistant to nonmagical damage, able to pass through small openings but unable to attack or cast."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "glyphofwarding": {
+    "name": "Glyph of Warding",
+    "level": 3,
+    "dice": "save DC {dc}",
+    "chips": [
+      {
+        "t": "trap"
+      },
+      {
+        "t": "5d8",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Inscribe a glyph that triggers on a condition you set, either unleashing a stored spell or an explosion dealing 5d8 of a chosen damage type (Dexterity save DC {dc} for half). +1d8 explosion or +1 stored spell level per slot above 3rd."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "wizard"
+    ]
+  },
+  "haste": {
+    "name": "Haste",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature gains doubled speed, +2 AC, advantage on Dexterity saves, and an extra limited action each turn; when the spell ends it can't move or act for one turn."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "hypnoticpattern": {
+    "name": "Hypnotic Pattern",
+    "level": 3,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30-ft cube",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A twisting pattern appears; each creature in a 30-ft cube makes a Wisdom save (DC {dc}) or becomes charmed, incapacitated, and unable to move until it takes damage or is shaken awake."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "lightningbolt": {
+    "name": "Lightning Bolt",
+    "level": 3,
+    "dice": "Dex save DC {dc} · 8d6 lightning",
+    "chips": [
+      {
+        "t": "100-ft line"
+      },
+      {
+        "t": "5-ft wide",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A 100-ft line of lightning; each creature makes a Dexterity save (DC {dc}), 8d6 lightning on a fail (half on success). +1d6 per slot above 3rd."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "magiccircle": {
+    "name": "Magic Circle",
+    "level": 3,
+    "chips": [
+      {
+        "t": "10-ft cylinder",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Create a warded cylinder that hinders a chosen creature type from entering or leaving and gives them disadvantage on attacks against those inside. Higher slots extend the duration."
+    ],
+    "classes": [
+      "cleric",
+      "paladin",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "majorimage": {
+    "name": "Major Image",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "120 ft"
+      },
+      {
+        "t": "20-ft illusion"
+      }
+    ],
+    "body": [
+      "Create a 20-ft illusion with sound, smell, and temperature that you can move and alter as an action. Cast at 6th level or higher, it lasts until dispelled."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "masshealingword": {
+    "name": "Mass Healing Word",
+    "level": 3,
+    "dice": "heal 1d4 {mod}",
+    "chips": [
+      {
+        "t": "up to 6",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Up to six creatures of your choice in range each regain 1d4 + {mod} hit points. +1d4 per slot above 3rd."
+    ],
+    "classes": [
+      "cleric"
+    ],
+    "cast": "Bonus Action"
+  },
+  "meldintostone": {
+    "name": "Meld into Stone",
+    "level": 3,
+    "chips": [
+      {
+        "t": "8 hr"
+      }
+    ],
+    "body": [
+      "Step into a stone object or surface large enough to contain you, remaining merged for up to 8 hours with limited awareness of your surroundings."
     ],
     "classes": [
       "cleric",
       "druid"
+    ]
+  },
+  "nondetection": {
+    "name": "Nondetection",
+    "level": 3,
+    "chips": [
+      {
+        "t": "touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "For 8 hours, a target you touch is hidden from divination magic and cannot be perceived through magical scrying sensors."
+    ],
+    "classes": [
+      "bard",
+      "ranger",
+      "wizard"
+    ]
+  },
+  "phantomsteed": {
+    "name": "Phantom Steed",
+    "level": 3,
+    "chips": [
+      {
+        "t": "100-ft mount"
+      }
+    ],
+    "body": [
+      "A quasi-real horselike steed appears for up to 1 hour, with a 100-ft speed and able to carry one rider far without tiring."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "plantgrowth": {
+    "name": "Plant Growth",
+    "level": 3,
+    "chips": [
+      {
+        "t": "100-ft radius"
+      }
+    ],
+    "body": [
+      "Overgrow plants to make an area difficult terrain, or over 8 hours enrich a half-mile radius so crops yield double for a year."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "ranger"
+    ]
+  },
+  "protectionfromenergy": {
+    "name": "Protection from Energy",
+    "level": 3,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature you touch gains resistance to one damage type of your choice: acid, cold, fire, lightning, or thunder."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "ranger",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "removecurse": {
+    "name": "Remove Curse",
+    "level": 3,
+    "chips": [
+      {
+        "t": "touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "End all curses on a creature you touch, and free it from attunement to a single cursed item it carries."
+    ],
+    "classes": [
+      "cleric",
+      "paladin",
+      "warlock",
+      "wizard"
     ]
   },
   "revivify": {
@@ -807,21 +3016,245 @@
       "cleric"
     ]
   },
-  "auraoflife": {
-    "name": "Aura of Life",
+  "sending": {
+    "name": "Sending",
     "level": 3,
-    "concentration": true,
     "chips": [
       {
-        "t": "30-ft aura"
+        "t": "unlimited range"
       }
     ],
     "body": [
-      "A 30-ft aura radiates from you for up to 10 minutes (Concentration). You and allies in it have Resistance to necrotic damage, your hit point maximums can't be reduced, and any ally there with 0 HP that isn't dead regains 1 HP at the start of its turn."
+      "Send a short 25-word message to a creature you know, which can reply in kind; the message crosses any distance and planes, though planar travel risks failure."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "wizard"
+    ]
+  },
+  "sleetstorm": {
+    "name": "Sleet Storm",
+    "level": 3,
+    "concentration": true,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "40-ft cylinder",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Freezing rain fills a 40-ft cylinder, making the ground difficult terrain (Dexterity save DC {dc} to avoid falling prone), heavily obscuring it, and forcing concentration checks on spellcasters within."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "slow": {
+    "name": "Slow",
+    "level": 3,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "40-ft cube",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Up to six creatures in a 40-ft cube make a Wisdom save (DC {dc}) or have their speed halved, lose AC and Dexterity saves, and act on only a limited action; they save again each turn to end it."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "speakwithdead": {
+    "name": "Speak with Dead",
+    "level": 3,
+    "chips": [
+      {
+        "t": "5 questions"
+      }
+    ],
+    "body": [
+      "Grant a semblance of life to a corpse with an intact mouth and ask it up to five questions, which it answers cryptically within its prior knowledge."
+    ],
+    "classes": [
+      "bard",
+      "cleric"
+    ]
+  },
+  "speakwithplants": {
+    "name": "Speak with Plants",
+    "level": 3,
+    "chips": [
+      {
+        "t": "30-ft radius"
+      }
+    ],
+    "body": [
+      "Imbue nearby plants with awareness and limited movement for 10 minutes, letting you question them about events and command them to hinder others."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "ranger"
+    ]
+  },
+  "spiritguardians": {
+    "name": "Spirit Guardians",
+    "level": 3,
+    "concentration": true,
+    "dice": "Wis save DC {dc} · 3d8 radiant",
+    "chips": [
+      {
+        "t": "15-ft aura"
+      }
+    ],
+    "body": [
+      "Spectral guardians fill a 15-ft radius around you for the duration. The area is Difficult Terrain for enemies; when a creature of your choice enters the aura or starts its turn there it makes a Wisdom save (DC {dc}), taking 3d8 radiant on a failure (half on success). 3d8 increases by 1d8 per slot level above 3rd."
+    ],
+    "classes": [
+      "cleric"
+    ],
+    "cast": "Action"
+  },
+  "stinkingcloud": {
+    "name": "Stinking Cloud",
+    "level": 3,
+    "concentration": true,
+    "dice": "Con save DC {dc}",
+    "chips": [
+      {
+        "t": "20-ft radius",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A nauseating gas fills a 20-ft radius sphere; each creature there makes a Constitution save (DC {dc}) at the start of its turn or loses its action retching."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "tongues": {
+    "name": "Tongues",
+    "level": 3,
+    "chips": [
+      {
+        "t": "touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "For 1 hour, a creature you touch understands any spoken language it hears and is understood by any creature that knows a language."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "vampirictouch": {
+    "name": "Vampiric Touch",
+    "level": 3,
+    "concentration": true,
+    "dice": "To hit: d20 {atk} · 3d6 necrotic",
+    "chips": [
+      {
+        "t": "touch",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "On a melee spell attack ({atk}) you deal 3d6 necrotic and regain half that amount in hit points; you can strike again each turn for the duration. +1d6 per slot above 3rd."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "waterbreathing": {
+    "name": "Water Breathing",
+    "level": 3,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Up to ten willing creatures gain the ability to breathe underwater for 24 hours while retaining their normal respiration."
+    ],
+    "classes": [
+      "druid",
+      "ranger",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "waterwalk": {
+    "name": "Water Walk",
+    "level": 3,
+    "chips": [
+      {
+        "t": "up to 10",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Up to ten creatures gain the ability to move across liquid surfaces as if they were solid ground for 1 hour."
     ],
     "classes": [
       "cleric",
-      "paladin"
+      "druid",
+      "ranger",
+      "sorcerer"
+    ]
+  },
+  "windwall": {
+    "name": "Wind Wall",
+    "level": 3,
+    "concentration": true,
+    "dice": "Str save DC {dc} · 3d8 bludgeoning",
+    "chips": [
+      {
+        "t": "50-ft wall",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A wall of strong wind 50 ft long rises; creatures in its area make a Strength save (DC {dc}), taking 3d8 bludgeoning on a fail (half on success), and it deflects arrows and small flying creatures."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ]
+  },
+  "arcaneeye": {
+    "name": "Arcane Eye",
+    "level": 4,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Create an invisible magical eye that you can see through and move up to 30 feet each turn in any direction (including through small openings), with darkvision out to 30 feet. Concentration, up to 1 hour."
+    ],
+    "classes": [
+      "wizard"
     ]
   },
   "banishment": {
@@ -843,5 +3276,2824 @@
       "paladin"
     ],
     "cast": "Action"
+  },
+  "blacktentacles": {
+    "name": "Black Tentacles",
+    "level": 4,
+    "concentration": true,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "ember"
+      },
+      {
+        "t": "20 ft sq"
+      }
+    ],
+    "body": [
+      "Tentacles fill a 20-foot square; each creature there makes a Dexterity save (DC {dc}) or takes 3d6 bludgeoning and is restrained, taking the damage again each turn it remains. Concentration."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "blight": {
+    "name": "Blight",
+    "level": 4,
+    "dice": "Con save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature makes a Constitution save (DC {dc}), taking 8d8 necrotic on a fail or half on a success (plants automatically fail and take maximum). +1d8 per slot above 4th."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "compulsion": {
+    "name": "Compulsion",
+    "level": 4,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Each creature of your choice in range makes a Wisdom save (DC {dc}) or, on your turns, you can use a bonus action to dictate a direction it must move toward. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "bard"
+    ]
+  },
+  "confusion": {
+    "name": "Confusion",
+    "level": 4,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "ember"
+      },
+      {
+        "t": "10 ft"
+      }
+    ],
+    "body": [
+      "Each creature in a 10-foot sphere makes a Wisdom save (DC {dc}) or behaves randomly each turn (attacking, doing nothing, or moving erratically); it repeats the save each turn. +5 ft radius per slot above 4th. Concentration."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "conjureminorelementals": {
+    "name": "Conjure Minor Elementals",
+    "level": 4,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Summon elementals totaling CR 2 (or several lesser ones) that obey your verbal commands. Higher slots conjure more powerful elementals. Concentration, up to 1 hour."
+    ],
+    "classes": [
+      "druid",
+      "wizard"
+    ]
+  },
+  "conjurewoodlandbeings": {
+    "name": "Conjure Woodland Beings",
+    "level": 4,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Summon fey creatures totaling CR 2 (or several lesser ones) that obey your verbal commands. Higher slots conjure more powerful fey. Concentration, up to 1 hour."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ]
+  },
+  "controlwater": {
+    "name": "Control Water",
+    "level": 4,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "300 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Manipulate water in a large area to raise floods, part it, redirect its flow, or create a whirlpool. Concentration, up to 10 minutes."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "wizard"
+    ]
+  },
+  "deathward": {
+    "name": "Death Ward",
+    "level": 4,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature you touch is warded for 8 hours; the first time it would drop to 0 hit points it instead drops to 1, or an effect that would kill it outright is negated."
+    ],
+    "classes": [
+      "cleric",
+      "paladin"
+    ]
+  },
+  "dimensiondoor": {
+    "name": "Dimension Door",
+    "level": 4,
+    "chips": [
+      {
+        "t": "500 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Teleport yourself, and optionally one willing creature you touch, to a spot you can see, describe, or visualize up to 500 feet away."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "divination": {
+    "name": "Divination",
+    "level": 4,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Through a ritual you receive a short truthful reply about a goal, event, or activity within 7 days. Casting more than once before a long rest carries a cumulative 25% chance of a random reading."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "dominatebeast": {
+    "name": "Dominate Beast",
+    "level": 4,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A beast makes a Wisdom save (DC {dc}) or is charmed and obeys your telepathic commands for up to 1 minute (Concentration), repeating the save when it takes damage. Higher slots extend the duration."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer"
+    ]
+  },
+  "faithfulhound": {
+    "name": "Faithful Hound",
+    "level": 4,
+    "dice": "Atk +{atk}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Conjure an invisible watchdog that barks at hidden or approaching enemies and, when a foe is within 5 feet, makes a bite attack (+{atk}) for 4d8 piercing. Lasts 8 hours."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "fireshield": {
+    "name": "Fire Shield",
+    "level": 4,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "For 10 minutes flames wreathe you, granting resistance to either cold or fire (your choice); a creature hitting you with a melee attack takes 2d8 fire damage."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "freedomofmovement": {
+    "name": "Freedom of Movement",
+    "level": 4,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "For 1 hour the target ignores difficult terrain, can't be magically restrained or paralyzed by speed-reducing effects, and can spend 5 feet of movement to escape nonmagical restraints and grapples."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "ranger"
+    ]
+  },
+  "giantinsect": {
+    "name": "Giant Insect",
+    "level": 4,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Transform up to ten centipedes, three spiders, five wasps, or one scorpion into giant versions that obey your verbal commands. Concentration, up to 10 minutes."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "graspingvine": {
+    "name": "Grasping Vine",
+    "level": 4,
+    "concentration": true,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Conjure a vine that, on your bonus action, can pull a creature within 30 feet of it up to 20 feet toward it on a failed Dexterity save (DC {dc}). Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ],
+    "cast": "Bonus Action"
+  },
+  "greaterinvisibility": {
+    "name": "Greater Invisibility",
+    "level": 4,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature you touch becomes invisible until the spell ends, even while attacking or casting. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "guardianoffaith": {
+    "name": "Guardian of Faith",
+    "level": 4,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A spectral guardian appears in an unoccupied space; an enemy entering within 10 feet makes a Dexterity save (DC {dc}), taking 20 radiant on a fail or half on a success. It vanishes after dealing 60 damage. Lasts 8 hours."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "hallucinatoryterrain": {
+    "name": "Hallucinatory Terrain",
+    "level": 4,
+    "chips": [
+      {
+        "t": "300 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Make natural terrain in a 150-foot cube look, sound, and smell like a different sort of natural terrain; physical contact reveals the illusion. Lasts 24 hours."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "icestorm": {
+    "name": "Ice Storm",
+    "level": 4,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "300 ft",
+        "c": "ember"
+      },
+      {
+        "t": "20 ft"
+      }
+    ],
+    "body": [
+      "Hail pounds a 20-foot-radius cylinder; each creature makes a Dexterity save (DC {dc}), taking 2d8 bludgeoning and 4d6 cold (half on success), and the area becomes difficult terrain. +1d8 bludgeoning per slot above 4th."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "locatecreature": {
+    "name": "Locate Creature",
+    "level": 4,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "1000 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Sense the direction to a known creature or a kind of creature if it is within 1,000 feet; running water at least 10 feet wide blocks the spell. Concentration, up to 1 hour."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "paladin",
+      "ranger",
+      "wizard"
+    ]
+  },
+  "phantasmalkiller": {
+    "name": "Phantasmal Killer",
+    "level": 4,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature makes a Wisdom save (DC {dc}) or becomes frightened and takes 4d10 psychic, repeating the save each turn to take the damage again or end the effect. +1d10 per slot above 4th. Concentration."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "polymorph": {
+    "name": "Polymorph",
+    "level": 4,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature makes a Wisdom save (DC {dc}) or becomes a beast of CR ≤ its level for up to 1 hour; it gains the beast's stats and HP, reverting when those drop to 0. Concentration."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "privatesanctum": {
+    "name": "Private Sanctum",
+    "level": 4,
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Secure an area up to 100 feet on a side against sound, vision, divination, teleportation, and planar travel for 24 hours. Each casting in the same spot for a year makes it permanent."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "resilientsphere": {
+    "name": "Resilient Sphere",
+    "level": 4,
+    "concentration": true,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature or object is enclosed in a sphere of force (Dexterity save DC {dc} to negate for an unwilling creature); nothing passes through it, and a creature inside can slowly roll it. Concentration, up to 1 minute."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "secretchest": {
+    "name": "Secret Chest",
+    "level": 4,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Hide a special chest, and its contents, on the Ethereal Plane; you can recall it as an action while holding its miniature replica. After 60 days there is a cumulative chance it is lost."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "stoneshape": {
+    "name": "Stone Shape",
+    "level": 4,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Reshape a stone object or section up to 5 feet in any dimension into any form, such as a door, weapon, or container with simple features."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "wizard"
+    ]
+  },
+  "stoneskin": {
+    "name": "Stoneskin",
+    "level": 4,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A willing creature you touch gains resistance to nonmagical bludgeoning, piercing, and slashing damage for up to 1 hour. Concentration."
+    ],
+    "classes": [
+      "druid",
+      "ranger",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "walloffire": {
+    "name": "Wall of Fire",
+    "level": 4,
+    "concentration": true,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Raise a wall of fire up to 60 feet long; one side deals 5d8 fire to creatures within 10 feet, and any creature entering or ending its turn in the wall makes a Dexterity save (DC {dc}) for the same damage, half on success. +1d8 per slot above 4th. Concentration."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "animateobjects": {
+    "name": "Animate Objects",
+    "level": 5,
+    "concentration": true,
+    "dice": "+{atk} to hit",
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "ember"
+      },
+      {
+        "t": "up to 10 objects"
+      }
+    ],
+    "body": [
+      "Animate up to ten nonmagical objects that obey your commands; they attack with +{atk} to hit, dealing damage by size. Larger objects count as multiple. +2 objects per slot above 5th."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "antilifeshell": {
+    "name": "Antilife Shell",
+    "level": 5,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self (10-ft radius)",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A 10-ft barrier moves with you, preventing living creatures from passing through; they may still reach through with spells and attacks if they are already inside."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "awaken": {
+    "name": "Awaken",
+    "level": 5,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "After 8 hours of casting, grant a beast or plant of Intelligence 3 or less an Intelligence of 10, the ability to speak, and movement; it is charmed by you for 30 days."
+    ],
+    "classes": [
+      "bard",
+      "druid"
+    ]
+  },
+  "hand": {
+    "name": "Bigby's Hand",
+    "level": 5,
+    "concentration": true,
+    "dice": "+{atk} to hit · 4d8 force",
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "ember"
+      },
+      {
+        "t": "Large hand"
+      }
+    ],
+    "body": [
+      "Create a Large spectral hand that can clench (4d8 force, +{atk} to hit), shove, grapple, or block movement as a bonus action each turn. +2d8 per slot above 5th."
+    ],
+    "classes": [
+      "wizard"
+    ],
+    "cast": "Bonus Action"
+  },
+  "cloudkill": {
+    "name": "Cloudkill",
+    "level": 5,
+    "concentration": true,
+    "dice": "Con save DC {dc} · 5d8 poison",
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "ember"
+      },
+      {
+        "t": "20-ft sphere"
+      }
+    ],
+    "body": [
+      "A 20-ft sphere of poisonous fog; each creature inside makes a Constitution save (DC {dc}), 5d8 poison on a fail (half on success). The cloud moves 10 ft from you each turn. +1d8 per slot above 5th."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "commune": {
+    "name": "Commune",
+    "level": 5,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Contact your deity or a divine proxy and ask up to three yes-or-no questions, receiving truthful one-word answers."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "communewithnature": {
+    "name": "Commune with Nature",
+    "level": 5,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Become attuned to the surrounding 3 miles (or 300 ft underground) and learn up to three facts about terrain, water, prevailing creatures, plants, or structures."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ]
+  },
+  "coneofcold": {
+    "name": "Cone of Cold",
+    "level": 5,
+    "dice": "Con save DC {dc} · 8d8 cold",
+    "chips": [
+      {
+        "t": "60-ft cone",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A 60-ft cone; each creature makes a Constitution save (DC {dc}), 8d8 cold on a fail (half on success). +1d8 per slot above 5th."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "conjureelemental": {
+    "name": "Conjure Elemental",
+    "level": 5,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "ember"
+      },
+      {
+        "t": "CR 5 elemental"
+      }
+    ],
+    "body": [
+      "Summon an elemental of challenge rating 5 or lower in a suitable patch of element; it obeys you, but may turn hostile if your concentration breaks. +1 CR per slot above 5th."
+    ],
+    "classes": [
+      "druid",
+      "wizard"
+    ]
+  },
+  "contactotherplane": {
+    "name": "Contact Other Plane",
+    "level": 5,
+    "dice": "Int save DC 15",
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Mentally contact an extraplanar entity and ask up to five questions answered in one word; failing a DC 15 Intelligence save deals 6d6 psychic and stuns you until your next long rest."
+    ],
+    "classes": [
+      "warlock",
+      "wizard"
+    ]
+  },
+  "contagion": {
+    "name": "Contagion",
+    "level": 5,
+    "concentration": true,
+    "dice": "Con save DC {dc} · +{atk} to hit",
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A melee spell attack (+{atk}) afflicts a creature with disease; it makes Constitution saves (DC {dc}) each turn, suffering full effect after three failures or shaking it off after three successes."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
+  },
+  "creation": {
+    "name": "Creation",
+    "level": 5,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Create a nonliving object of vegetable matter (or denser material) up to a 5-ft cube that lasts from 1 hour to 24 hours depending on its substance. Larger cube per slot above 5th."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "dispelevilandgood": {
+    "name": "Dispel Evil and Good",
+    "level": 5,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Celestials, elementals, fey, fiends, and undead have disadvantage to hit you; you can also use an action to break their charm or hold on an ally, or attempt to dismiss one such creature back to its plane."
+    ],
+    "classes": [
+      "cleric",
+      "paladin"
+    ]
+  },
+  "dominateperson": {
+    "name": "Dominate Person",
+    "level": 5,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      },
+      {
+        "t": "humanoid"
+      }
+    ],
+    "body": [
+      "A humanoid makes a Wisdom save (DC {dc}) or is charmed and controlled by you, repeating the save when it takes damage. +1 duration tier and 6th-level upcast extends to 8 hours; higher slots extend further."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "dream": {
+    "name": "Dream",
+    "level": 5,
+    "dice": "Wis save DC {dc} · 3d6 psychic",
+    "chips": [
+      {
+        "t": "Special",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Shape the dreams of a creature you know on the same plane via a messenger you choose; as a nightmare, the target makes a Wisdom save (DC {dc}) or gains no rest benefit and takes 3d6 psychic."
+    ],
+    "classes": [
+      "bard",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "flamestrike": {
+    "name": "Flame Strike",
+    "level": 5,
+    "dice": "Dex save DC {dc} · 4d6 fire + 4d6 radiant",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      },
+      {
+        "t": "10-ft column"
+      }
+    ],
+    "body": [
+      "A 10-ft-radius column of divine flame; each creature makes a Dexterity save (DC {dc}), 4d6 fire plus 4d6 radiant on a fail (half on success). +1d6 of either type per slot above 5th."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "geas": {
+    "name": "Geas",
+    "level": 5,
+    "concentration": true,
+    "dice": "Wis save DC {dc} · 5d10 psychic",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature makes a Wisdom save (DC {dc}) or is magically compelled to follow your command for 30 days, taking 5d10 psychic when it disobeys (once per day). Higher slots extend the duration."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "paladin",
+      "wizard"
+    ]
+  },
+  "greaterrestoration": {
+    "name": "Greater Restoration",
+    "level": 5,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Touch a creature to end one effect: a charm or petrification, a curse, reduced ability score, or reduced hit point maximum."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid"
+    ]
+  },
+  "hallow": {
+    "name": "Hallow",
+    "level": 5,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      },
+      {
+        "t": "60-ft radius"
+      }
+    ],
+    "body": [
+      "Over 24 hours, sanctify an area up to 60 ft: specified creature types cannot enter, charm, frighten, or possess those inside, and you bind an extra guarding effect of your choice."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "holdmonster": {
+    "name": "Hold Monster",
+    "level": 5,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature (not undead) makes a Wisdom save (DC {dc}) or is paralyzed, repeating the save each turn; attacks within 5 ft auto-crit. +1 target per slot above 5th."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "insectplague": {
+    "name": "Insect Plague",
+    "level": 5,
+    "concentration": true,
+    "dice": "Con save DC {dc} · 4d10 piercing",
+    "chips": [
+      {
+        "t": "300 ft",
+        "c": "ember"
+      },
+      {
+        "t": "20-ft sphere"
+      }
+    ],
+    "body": [
+      "A 20-ft sphere of biting locusts is difficult terrain; each creature makes a Constitution save (DC {dc}), 4d10 piercing on a fail (half on success). +1d10 per slot above 5th."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "sorcerer"
+    ]
+  },
+  "legendlore": {
+    "name": "Legend Lore",
+    "level": 5,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Learn significant lore about a famous person, place, or object you name, with detail proportional to how much knowledge already exists about it."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "wizard"
+    ]
+  },
+  "masscurewounds": {
+    "name": "Mass Cure Wounds",
+    "level": 5,
+    "dice": "heal 3d8 {mod}",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "t": "30-ft sphere"
+      }
+    ],
+    "body": [
+      "Up to six creatures in a 30-ft sphere each regain 3d8 + your modifier ({mod}) HP. +1d8 per slot above 5th."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid"
+    ]
+  },
+  "mislead": {
+    "name": "Mislead",
+    "level": 5,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Become invisible and project an illusory double you control; you can see and hear through it and switch senses freely while it lasts."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "modifymemory": {
+    "name": "Modify Memory",
+    "level": 5,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature makes a Wisdom save (DC {dc}) or is charmed while you reshape its memory of an event within the last 24 hours. Higher slots reach further back, up to any time."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "passwall": {
+    "name": "Passwall",
+    "level": 5,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Open a passage up to 5 ft wide, 8 ft tall, and 20 ft deep through wood, plaster, or stone for 1 hour; closing it early ejects anything inside."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "planarbinding": {
+    "name": "Planar Binding",
+    "level": 5,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Bind a celestial, elemental, fey, or fiend within range to your service for 24 hours; it makes a Charisma save (DC {dc}) to resist. Higher slots extend the duration up to a year and a day."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "wizard"
+    ]
+  },
+  "raisedead": {
+    "name": "Raise Dead",
+    "level": 5,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Return a creature dead no more than 10 days to life with 1 HP, ending nonmagical diseases and poisons; it takes a -4 penalty to rolls that fades over several long rests."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "paladin"
+    ]
+  },
+  "telepathicbond": {
+    "name": "Rary's Telepathic Bond",
+    "level": 5,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Link up to eight willing creatures for 1 hour so they can communicate telepathically with one another across any distance on the same plane."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "reincarnate": {
+    "name": "Reincarnate",
+    "level": 5,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Touch a creature dead no more than 10 days to form a new adult body (race determined randomly) for its soul, restoring it to life with its memories intact."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "scrying": {
+    "name": "Scrying",
+    "level": 5,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature you name makes a Wisdom save (DC {dc}, modified by how well you know it) or you see and hear it through an invisible sensor for the duration."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "seeming": {
+    "name": "Seeming",
+    "level": 5,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Change the appearance of any number of willing creatures within range; unwilling targets get a Charisma save (DC {dc}). Physical inspection reveals the disguise."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "telekinesis": {
+    "name": "Telekinesis",
+    "level": 5,
+    "concentration": true,
+    "dice": "Str (or Int) check vs {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Move an object up to 1,000 lbs or attempt to move a creature, contesting your spellcasting check against its Strength check; you can shove, restrain, or hurl what you grip."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "teleportationcircle": {
+    "name": "Teleportation Circle",
+    "level": 5,
+    "chips": [
+      {
+        "t": "10 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Inscribe a circle linking to a permanent teleportation sigil you know; creatures stepping through are instantly transported to the destination circle for 1 round."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "treestride": {
+    "name": "Tree Stride",
+    "level": 5,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Step into one tree and emerge from another of the same kind within 500 ft as part of your movement, once per turn for the duration."
+    ],
+    "classes": [
+      "druid",
+      "ranger"
+    ]
+  },
+  "wallofforce": {
+    "name": "Wall of Force",
+    "level": 5,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "storm"
+      },
+      {
+        "t": "invisible wall"
+      }
+    ],
+    "body": [
+      "Create an invisible, immobile wall (a sphere/dome or flat panels) that nothing physical can pass; it is immune to damage and only Disintegrate or dispel magic destroys it."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "wallofstone": {
+    "name": "Wall of Stone",
+    "level": 5,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Create a 6-inch-thick stone wall from ten 10-by-10-ft panels; if you sustain concentration for 10 minutes the wall becomes permanent."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "bladebarrier": {
+    "name": "Blade Barrier",
+    "level": 6,
+    "concentration": true,
+    "dice": "Dex save DC {dc} · 6d10 slashing",
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You create a vertical wall of whirling blades up to 100 ft long; a creature entering or ending its turn there makes a Dexterity save (DC {dc}), taking 6d10 slashing on a fail or half on a success."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "chainlightning": {
+    "name": "Chain Lightning",
+    "level": 6,
+    "dice": "Dex save DC {dc} · 10d8 lightning",
+    "chips": [
+      {
+        "t": "150 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A primary target and up to three others within 30 ft each make a Dexterity save (DC {dc}), taking 10d8 lightning on a fail or half on a success. +1 target per slot above 6th."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "circleofdeath": {
+    "name": "Circle of Death",
+    "level": 6,
+    "dice": "Con save DC {dc} · 8d6 necrotic",
+    "chips": [
+      {
+        "t": "150 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Each creature in a 60-ft-radius sphere makes a Constitution save (DC {dc}), taking 8d6 necrotic on a fail or half on a success. +2d6 per slot above 6th."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "conjurefey": {
+    "name": "Conjure Fey",
+    "level": 6,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You summon a fey creature of CR 6 or lower that obeys your verbal commands; if you lose concentration or it drops to 0 HP it disappears. Use a higher slot for a CR equal to the slot level."
+    ],
+    "classes": [
+      "druid",
+      "warlock"
+    ]
+  },
+  "contingency": {
+    "name": "Contingency",
+    "level": 6,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You cast a spell of 5th level or lower (casting time of 1 action) that takes effect when a chosen circumstance occurs; only one contingency spell can be active at a time."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "createundead": {
+    "name": "Create Undead",
+    "level": 6,
+    "chips": [
+      {
+        "t": "10 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "You transform up to three corpses into ghouls under your control for 24 hours, reassertable by recasting before that ends. Higher slots create more or more powerful undead (ghasts/wights at 8th, mummies at 9th)."
+    ],
+    "classes": [
+      "cleric",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "disintegrate": {
+    "name": "Disintegrate",
+    "level": 6,
+    "dice": "Dex save DC {dc} · 10d6+40 force",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target makes a Dexterity save (DC {dc}); on a fail it takes 10d6+40 force, and if reduced to 0 HP is disintegrated to dust. +3d6 per slot above 6th."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "eyebite": {
+    "name": "Eyebite",
+    "level": 6,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Each turn you target a creature within 60 ft, which makes a Wisdom save (DC {dc}) or becomes asleep, panicked, or sickened of your choice for the duration."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "findthepath": {
+    "name": "Find the Path",
+    "level": 6,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You find the shortest, most direct physical route to a familiar location on the same plane, sensing its direction and distance for up to 24 hours."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid"
+    ]
+  },
+  "fleshtostone": {
+    "name": "Flesh to Stone",
+    "level": 6,
+    "concentration": true,
+    "dice": "Con save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target makes a Constitution save (DC {dc}), becoming restrained on a fail; it must repeat the save, turning to stone (petrified) on a third failure or shaking it off on a third success."
+    ],
+    "classes": [
+      "warlock",
+      "wizard"
+    ]
+  },
+  "forbiddance": {
+    "name": "Forbiddance",
+    "level": 6,
+    "dice": "5d10 radiant/necrotic",
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You ward an area up to 40,000 sq ft against magical travel and deal 5d10 radiant or necrotic to a chosen creature type that enters or starts there. Lasts 1 day, or permanently if cast daily for a year."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "freezingsphere": {
+    "name": "Freezing Sphere",
+    "level": 6,
+    "dice": "Con save DC {dc} · 10d6 cold",
+    "chips": [
+      {
+        "t": "300 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A frigid globe explodes in a 60-ft-radius sphere; each creature there makes a Constitution save (DC {dc}), taking 10d6 cold on a fail or half on a success, and water freezes. +1d6 per slot above 6th."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "globeofinvulnerability": {
+    "name": "Globe of Invulnerability",
+    "level": 6,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A 10-ft-radius immobile sphere around you blocks spells of 5th level or lower cast from outside; +1 spell level blocked per slot above 6th."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "guardsandwards": {
+    "name": "Guards and Wards",
+    "level": 6,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You secure up to 2,500 sq ft with effects like fog, webs, locked doors, and confusing corridors (Wisdom save DC {dc} to resist). Lasts 24 hours, or permanently if cast daily for a year."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "harm": {
+    "name": "Harm",
+    "level": 6,
+    "dice": "Con save DC {dc} · 14d6 necrotic",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target makes a Constitution save (DC {dc}), taking 14d6 necrotic on a fail (or half on success); on a fail its hit point maximum is reduced by that amount for 1 hour."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "heal": {
+    "name": "Heal",
+    "level": 6,
+    "dice": "heal 70 HP",
+    "chips": [
+      {
+        "t": "60 ft"
+      }
+    ],
+    "body": [
+      "A creature within 60 ft regains 70 HP and is cured of blindness, deafness, and any diseases. +10 HP per slot above 6th."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
+  },
+  "heroesfeast": {
+    "name": "Heroes' Feast",
+    "level": 6,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A 1-hour feast for up to twelve creatures cures diseases and poison, grants immunity to poison and fright, and gives +2d10 max and current HP and advantage on Wisdom saves for 24 hours."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
+  },
+  "instantsummons": {
+    "name": "Instant Summons",
+    "level": 6,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You inscribe a sapphire and an object under 10 lb; later crushing the gem teleports the item to your hand from anywhere on the same plane, and reveals who holds it."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "irresistibledance": {
+    "name": "Irresistible Dance",
+    "level": 6,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target begins dancing with disadvantage on attacks and Dexterity saves while attackers have advantage; it can use an action to make a Wisdom save (DC {dc}) to end the effect."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "magicjar": {
+    "name": "Magic Jar",
+    "level": 6,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "Self",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Your soul enters a prepared vessel, then can attempt to possess a humanoid within 100 ft, which makes a Charisma save (DC {dc}) to resist; on success you can't target it again for 24 hours."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "masssuggestion": {
+    "name": "Mass Suggestion",
+    "level": 6,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Up to twelve creatures each make a Wisdom save (DC {dc}) or follow a reasonable suggested course of action for 24 hours. Higher slots extend the duration up to a year or permanently (8th/9th)."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "moveearth": {
+    "name": "Move Earth",
+    "level": 6,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You reshape dirt, sand, and clay in a 40-ft area, raising or lowering terrain, digging trenches, or building walls over the 2-hour duration."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "planarally": {
+    "name": "Planar Ally",
+    "level": 6,
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You beseech an otherworldly entity to send an aligned creature to aid you; it negotiates a price for its service and is not under your control."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "programmedillusion": {
+    "name": "Programmed Illusion",
+    "level": 6,
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You create an illusion up to 30 ft in any dimension that activates and runs a scripted scene of up to 5 minutes when a chosen trigger occurs, then resets."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "sunbeam": {
+    "name": "Sunbeam",
+    "level": 6,
+    "concentration": true,
+    "dice": "Con save DC {dc} · 6d8 radiant",
+    "chips": [
+      {
+        "t": "60 ft line",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A 60-ft line of radiance forms; each creature there makes a Constitution save (DC {dc}), taking 6d8 radiant and becoming blinded on a fail, or half damage on a success. You can fire it again each turn for the duration."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "transportviaplants": {
+    "name": "Transport via Plants",
+    "level": 6,
+    "chips": [
+      {
+        "t": "10 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You link a Large or larger plant to another known plant on the same plane for 1 round, letting creatures step through one and emerge from the other."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "trueseeing": {
+    "name": "True Seeing",
+    "level": 6,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "For 1 hour a willing creature gains truesight out to 120 ft, seeing in darkness, through illusions, invisible creatures, and into the Ethereal Plane."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "wallofice": {
+    "name": "Wall of Ice",
+    "level": 6,
+    "concentration": true,
+    "dice": "Dex save DC {dc} · 10d6 cold",
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You form a wall or sheet of ice; a creature passing through makes a Dexterity save (DC {dc}), taking 10d6 cold on a fail or half on a success, and the panes have hit points. +2d6 passage damage per slot above 6th."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "wallofthorns": {
+    "name": "Wall of Thorns",
+    "level": 6,
+    "concentration": true,
+    "dice": "Dex save DC {dc} · 7d8 piercing",
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A wall of tough, pliant thorns appears; a creature entering or ending its turn there makes a Dexterity save (DC {dc}), taking 7d8 piercing on a fail or half on a success. +1d8 per slot above 6th."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "windwalk": {
+    "name": "Wind Walk",
+    "level": 6,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You and up to ten willing creatures transform into gaseous, cloud-like forms that can fly at 300 ft for up to 8 hours, reverting takes 1 minute."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "wordofrecall": {
+    "name": "Word of Recall",
+    "level": 6,
+    "chips": [
+      {
+        "t": "5 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You and up to five willing creatures within 5 ft instantly teleport to a designated sanctuary you previously consecrated."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "conjurecelestial": {
+    "name": "Conjure Celestial",
+    "level": 7,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "90 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You summon a celestial spirit that lasts up to 1 hour (Concentration), restoring hit points to creatures and emitting bright light. Upcast at 9th level increases its healing and radiant damage."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "delayedblastfireball": {
+    "name": "Delayed Blast Fireball",
+    "level": 7,
+    "concentration": true,
+    "dice": "Dex save DC {dc} · 12d6+ fire",
+    "chips": [
+      {
+        "t": "150 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A bead waits up to 1 minute (Concentration), gaining 1d6 each of your turns; when it detonates, a 20-ft sphere takes the accumulated fire on a failed Dex save (half on success)."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "divineword": {
+    "name": "Divine Word",
+    "level": 7,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Creatures of your choice within range make a Charisma save (DC {dc}); on a failure they are deafened, blinded, stunned, or killed depending on their current hit points. Celestials, elementals, feys, and fiends that fail are also banished to their home plane."
+    ],
+    "classes": [
+      "cleric"
+    ],
+    "cast": "Bonus Action"
+  },
+  "etherealness": {
+    "name": "Etherealness",
+    "level": 7,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You step into the Ethereal Plane for up to 8 hours, able to move through solid objects and perceive the bordering plane. Upcast at 8th level lets you bring up to three additional willing creatures with you."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "fingerofdeath": {
+    "name": "Finger of Death",
+    "level": 7,
+    "dice": "Con save DC {dc} · 7d8+30 necrotic",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target makes a Constitution save (DC {dc}); 7d8+30 necrotic on a fail (half on success). A humanoid killed by it rises as a zombie under your control."
+    ],
+    "classes": [
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "firestorm": {
+    "name": "Fire Storm",
+    "level": 7,
+    "dice": "Dex save DC {dc} · 7d10 fire",
+    "chips": [
+      {
+        "t": "150 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Sheets of flame fill ten connected 10-ft cubes; each creature in the area makes a Dexterity save (DC {dc}), taking 7d10 fire on a fail (half on success)."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "sorcerer"
+    ]
+  },
+  "forcecage": {
+    "name": "Forcecage",
+    "level": 7,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "100 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You create an invisible prison of force as a 20-ft cage or a 10-ft solid box that nothing can pass; a trapped creature can't leave by nonmagical means. A creature attempting to teleport or planeshift out must succeed on a Charisma save (DC {dc})."
+    ],
+    "classes": [
+      "bard",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "magnificentmansion": {
+    "name": "Magnificent Mansion",
+    "level": 7,
+    "chips": [
+      {
+        "t": "300 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You conjure an extradimensional dwelling lasting 24 hours, with a magical entrance only your chosen creatures can use. Inside are furnished rooms and servants that provide food and tend the guests."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "miragearcane": {
+    "name": "Mirage Arcane",
+    "level": 7,
+    "chips": [
+      {
+        "t": "Sight",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You make terrain up to a 1-mile square appear, sound, smell, and feel like another sort of terrain for up to 10 days. The illusion includes tangible features, though it can't disguise or conceal creatures."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "wizard"
+    ]
+  },
+  "planeshift": {
+    "name": "Plane Shift",
+    "level": 7,
+    "dice": "Cha save DC {dc}",
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You and up to eight willing creatures travel to a chosen plane of existence. Alternatively, one unwilling creature you touch must make a Charisma save (DC {dc}) or be banished to another plane."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "prismaticspray": {
+    "name": "Prismatic Spray",
+    "level": 7,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Eight rays of light flash from you in a 60-ft cone; each creature there rolls randomly for a color and makes a Dexterity save (DC {dc}), suffering fire, acid, lightning, poison, cold, or restraining/petrifying/banishing effects."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "projectimage": {
+    "name": "Project Image",
+    "level": 7,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "500 mi",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You create an illusory copy of yourself that lasts up to 1 day (Concentration) and mimics your actions, letting you see and speak through it. Physical interaction reveals it as an illusion."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "regenerate": {
+    "name": "Regenerate",
+    "level": 7,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "A creature you touch regains 4d8+15 hit points and then 1 hit point every 10 minutes for 1 hour. Severed body parts are restored after 2 minutes."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "druid"
+    ]
+  },
+  "resurrection": {
+    "name": "Resurrection",
+    "level": 7,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You return a creature dead up to 100 years to life with full hit points, provided it didn't die of old age. Reduced resurrection penalties wear off after a few days."
+    ],
+    "classes": [
+      "bard",
+      "cleric"
+    ]
+  },
+  "reversegravity": {
+    "name": "Reverse Gravity",
+    "level": 7,
+    "concentration": true,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "100 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Gravity reverses in a 50-ft-radius, 100-ft-high cylinder for up to 1 minute (Concentration), causing unanchored creatures and objects to fall upward. A creature able to grab a fixed object makes a Dexterity save (DC {dc}) to hold on."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "sequester": {
+    "name": "Sequester",
+    "level": 7,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You hide a willing creature or object from divination, rendering it invisible and placing a creature into suspended animation. The effect ends after a set condition you name or when the target takes damage."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "simulacrum": {
+    "name": "Simulacrum",
+    "level": 7,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Over 12 hours and using ice and snow, you craft an obedient duplicate of a beast or humanoid with half the original's hit point maximum. It can't recover spell slots or hit points except by repair using costly materials."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "symbol": {
+    "name": "Symbol",
+    "level": 7,
+    "dice": "varies save DC {dc}",
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "You inscribe a harmful glyph that triggers when a condition you set is met, affecting creatures in a 60-ft radius. The chosen effect (death, discord, fear, pain, sleep, stunning, or insanity) forces the appropriate saving throw (DC {dc})."
+    ],
+    "classes": [
+      "bard",
+      "cleric",
+      "wizard"
+    ]
+  },
+  "teleport": {
+    "name": "Teleport",
+    "level": 7,
+    "chips": [
+      {
+        "t": "10 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You and up to eight willing creatures, or a single object, instantly travel to a destination you know. Accuracy depends on your familiarity with the target, with a chance to arrive off target or somewhere unexpected."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "animalshapes": {
+    "name": "Animal Shapes",
+    "level": 8,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "Transform any number of willing creatures you can see into a beast of CR 4 or lower for the duration; each gains the beast's stats and temporary HP, keeping its own mind and alignment.",
+      "You can change the form of any target again as a Bonus Action on later turns."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "antimagicfield": {
+    "name": "Antimagic Field",
+    "level": 8,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "10-ft sphere"
+      }
+    ],
+    "body": [
+      "A 10-ft sphere of antimagic moves with you, suppressing spells, magical effects, and magic item properties within it for the duration. Spells cannot be cast or take effect inside, and ongoing effects are suspended while in the area."
+    ],
+    "classes": [
+      "cleric",
+      "wizard"
+    ]
+  },
+  "antipathysympathy": {
+    "name": "Antipathy/Sympathy",
+    "level": 8,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft"
+      },
+      {
+        "t": "200 ft radius"
+      }
+    ],
+    "body": [
+      "You enchant a target so a chosen kind of creature is either repelled or drawn to it; on a failed Wisdom save (DC {dc}) it must flee or approach. A repelled creature frightened away repeats the save every 24 hours; a drawn creature can save again 1 minute after taking damage."
+    ],
+    "classes": [
+      "druid",
+      "wizard"
+    ]
+  },
+  "clone": {
+    "name": "Clone",
+    "level": 8,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You grow an inert duplicate of a living creature in a vessel over 120 days as a safeguard against death. When the original dies, its soul transfers to the clone if free, and the clone becomes the creature with all its memories."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "controlweather": {
+    "name": "Control Weather",
+    "level": 8,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "5-mile radius"
+      }
+    ],
+    "body": [
+      "Over 5 miles you change precipitation, temperature, and wind, shifting each condition up or down one stage per 1d4 x 10 minutes. The weather reverts gradually when the spell ends; you must be outdoors with a clear view of the sky."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "wizard"
+    ]
+  },
+  "demiplane": {
+    "name": "Demiplane",
+    "level": 8,
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You create a shadowy door to a 30-ft cube demiplane that lasts until the spell ends. The same door can connect to a demiplane you previously created, letting you store creatures or objects there."
+    ],
+    "classes": [
+      "warlock",
+      "wizard"
+    ]
+  },
+  "dominatemonster": {
+    "name": "Dominate Monster",
+    "level": 8,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature must succeed on a Wisdom save (DC {dc}) or be charmed and controlled by you for the duration, repeating the save each time it takes damage. Upcast at 9th level extends the duration to 8 hours."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "earthquake": {
+    "name": "Earthquake",
+    "level": 8,
+    "concentration": true,
+    "dice": "Dex save DC {dc} · 1d6 bludgeoning",
+    "chips": [
+      {
+        "t": "500 ft"
+      },
+      {
+        "t": "100-ft radius",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A tremor shakes a 100-ft radius for the duration, knocking creatures prone (Dexterity save DC {dc}) and opening fissures. Structures take 50 bludgeoning each turn and collapse, dealing 1d6 per spell level to those buried."
+    ],
+    "classes": [
+      "cleric",
+      "druid",
+      "sorcerer"
+    ]
+  },
+  "feeblemind": {
+    "name": "Feeblemind",
+    "level": 8,
+    "dice": "Int save DC {dc} · 4d6 psychic",
+    "chips": [
+      {
+        "t": "150 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A target takes 4d6 psychic and on a failed Intelligence save (DC {dc}) drops its Intelligence and Charisma to 1, unable to cast spells or understand language. It repeats the save every 30 days to end the effect."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "glibness": {
+    "name": "Glibness",
+    "level": 8,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "For 1 hour, you can replace any Charisma check roll with a 15, and magic that detects lies registers you as truthful no matter what you say."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock"
+    ]
+  },
+  "holyaura": {
+    "name": "Holy Aura",
+    "level": 8,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "30-ft radius"
+      }
+    ],
+    "body": [
+      "Allies of your choice in a 30-ft radius gain advantage on saving throws, and attackers have disadvantage against them. When a fiend or undead hits a warded creature, it must succeed on a Constitution save (DC {dc}) or be blinded until the spell ends."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "incendiarycloud": {
+    "name": "Incendiary Cloud",
+    "level": 8,
+    "concentration": true,
+    "dice": "Dex save DC {dc} · 10d8 fire",
+    "chips": [
+      {
+        "t": "150 ft"
+      },
+      {
+        "t": "20-ft sphere",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A swirling cloud of embers fills a 20-ft sphere, dealing 10d8 fire to creatures in it (Dexterity save DC {dc} for half) when it appears and on each of your later turns. The cloud moves 10 ft away from you each turn and is dispersed by strong wind."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "maze": {
+    "name": "Maze",
+    "level": 8,
+    "concentration": true,
+    "dice": "Int save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature is banished into a labyrinthine demiplane for the duration. It can use an action to attempt a DC 20 Intelligence check to escape, returning when it succeeds or the spell ends."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "mindblank": {
+    "name": "Mind Blank",
+    "level": 8,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "For 24 hours, a willing creature is immune to psychic damage, charm, divination, and any effect that would sense its emotions or read its thoughts. Even wish cannot gather information about or affect it."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "powerwordstun": {
+    "name": "Power Word Stun",
+    "level": 8,
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature with 150 HP or fewer is Stunned (no save), repeating a Constitution save at the end of each of its turns to end it. Higher-HP targets are unaffected."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "sunburst": {
+    "name": "Sunburst",
+    "level": 8,
+    "dice": "Con save DC {dc} · 12d6 radiant",
+    "chips": [
+      {
+        "t": "150 ft"
+      },
+      {
+        "t": "60-ft sphere",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Brilliant sunlight fills a 60-ft sphere; each creature makes a Constitution save (DC {dc}), 12d6 radiant and blinded for 1 minute on a fail (half damage, no blind on success)."
+    ],
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "telepathy": {
+    "name": "Telepathy",
+    "level": 8,
+    "chips": [
+      {
+        "t": "Unlimited",
+        "c": "storm"
+      }
+    ],
+    "body": [
+      "You forge a telepathic link with a willing creature you know, letting you exchange words, images, sounds, and other sensations for 24 hours regardless of distance on the same plane. The link works even if you lack a shared language."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "tsunami": {
+    "name": "Tsunami",
+    "level": 8,
+    "concentration": true,
+    "dice": "Str save DC {dc} · 6d10 bludgeoning",
+    "chips": [
+      {
+        "t": "Sight"
+      },
+      {
+        "t": "300-ft wall",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A wall of water up to 300 ft long and 300 ft tall deals 6d10 bludgeoning (Strength save DC {dc} for half) and sweeps creatures along. The wall loses 50 ft of height and 1d10 of damage each of your subsequent turns as it advances."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "astralprojection": {
+    "name": "Astral Projection",
+    "level": 9,
+    "chips": [
+      {
+        "t": "10 ft",
+        "c": "storm"
+      },
+      {
+        "t": "Special duration"
+      }
+    ],
+    "body": [
+      "You and up to eight willing creatures project your astral bodies into the Astral Plane, leaving your physical bodies behind in a state of suspended animation. The cord linking each astral form to its body persists until the spell ends or the cord is severed."
+    ],
+    "classes": [
+      "cleric",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "foresight": {
+    "name": "Foresight",
+    "level": 9,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      },
+      {
+        "t": "8 hours"
+      }
+    ],
+    "body": [
+      "A willing creature gains advantage on attack rolls, ability checks, and saving throws for 8 hours, and can't be surprised. Attack rolls against it have disadvantage."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "gate": {
+    "name": "Gate",
+    "level": 9,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      },
+      {
+        "t": "5-20 ft portal"
+      }
+    ],
+    "body": [
+      "You conjure a circular portal linking to a precise location on another plane, allowing travel in either direction. Speaking a named being's name may pull it through if nothing prevents it."
+    ],
+    "classes": [
+      "cleric",
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "imprisonment": {
+    "name": "Imprisonment",
+    "level": 9,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "ember"
+      },
+      {
+        "t": "Until dispelled"
+      }
+    ],
+    "body": [
+      "A creature makes a Wisdom save (DC {dc}) or is bound by one of several forms of magical imprisonment (chaining, burial, minimus containment, slumber, or hedged prison) until the spell is broken."
+    ],
+    "classes": [
+      "warlock",
+      "wizard"
+    ]
+  },
+  "massheal": {
+    "name": "Mass Heal",
+    "level": 9,
+    "dice": "Heal 700 HP total",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      },
+      {
+        "t": "Up to ∞ creatures"
+      }
+    ],
+    "body": [
+      "A flood of healing energy restores up to 700 hit points divided among any creatures you choose within range. Each is also cured of disease and any blindness or deafness."
+    ],
+    "classes": [
+      "cleric"
+    ]
+  },
+  "meteorswarm": {
+    "name": "Meteor Swarm",
+    "level": 9,
+    "dice": "Dex save DC {dc} · 40d6 (fire+bludgeoning)",
+    "chips": [
+      {
+        "t": "1 mile"
+      },
+      {
+        "t": "4× 40-ft spheres",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "Four 40-ft-radius bursts; each creature in them makes a Dexterity save (DC {dc}), taking 20d6 fire + 20d6 bludgeoning on a fail (half on success). Overlaps don't stack."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "powerwordkill": {
+    "name": "Power Word Kill",
+    "level": 9,
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "ember"
+      }
+    ],
+    "body": [
+      "A creature with 100 HP or fewer dies instantly, no save. Higher-HP targets are unaffected."
+    ],
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "prismaticwall": {
+    "name": "Prismatic Wall",
+    "level": 9,
+    "dice": "Dex save DC {dc}",
+    "chips": [
+      {
+        "t": "60 ft",
+        "c": "storm"
+      },
+      {
+        "t": "7 layers"
+      }
+    ],
+    "body": [
+      "A shimmering, multicolored wall of seven layers appears, each with its own effect; passing through forces saves (DC {dc}) and inflicts damage or conditions per layer. The red, orange, yellow, and green layers can be destroyed by specific damage or effects."
+    ],
+    "classes": [
+      "bard",
+      "wizard"
+    ]
+  },
+  "shapechange": {
+    "name": "Shapechange",
+    "level": 9,
+    "concentration": true,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "CR ≤ your level"
+      }
+    ],
+    "body": [
+      "You assume the form of a creature with a challenge rating no higher than your level, gaining its statistics while keeping your alignment, personality, and Intelligence, Wisdom, and Charisma scores. You can shift between forms as an action while concentrating."
+    ],
+    "classes": [
+      "druid",
+      "wizard"
+    ]
+  },
+  "stormofvengeance": {
+    "name": "Storm of Vengeance",
+    "level": 9,
+    "concentration": true,
+    "dice": "Con/Dex/Str saves DC {dc} · escalating damage",
+    "chips": [
+      {
+        "t": "1 mile",
+        "c": "ember"
+      },
+      {
+        "t": "360-ft storm"
+      }
+    ],
+    "body": [
+      "A churning storm cloud spans 360 feet, dealing 2d6 thunder and deafening creatures beneath it on the first turn. Over following rounds it unleashes acid, lightning (Dex save DC {dc}), hail, and freezing rain that hampers movement and vision."
+    ],
+    "classes": [
+      "druid"
+    ]
+  },
+  "timestop": {
+    "name": "Time Stop",
+    "level": 9,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "1d4+1 turns"
+      }
+    ],
+    "body": [
+      "You take 1d4 + 1 turns in a row, during which time stops for everyone else and you act normally. The spell ends if any action you take affects another creature or an object worn or carried by another, or if you move more than 1,000 feet from where you cast it."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
+  },
+  "truepolymorph": {
+    "name": "True Polymorph",
+    "level": 9,
+    "concentration": true,
+    "dice": "Wis save DC {dc}",
+    "chips": [
+      {
+        "t": "30 ft",
+        "c": "storm"
+      },
+      {
+        "t": "Permanent if held"
+      }
+    ],
+    "body": [
+      "You transform a creature into a different creature, a creature into an object, or an object into a creature; an unwilling target makes a Wisdom save (DC {dc}) to resist. If you concentrate for the full hour, the transformation becomes permanent."
+    ],
+    "classes": [
+      "bard",
+      "druid",
+      "warlock",
+      "wizard"
+    ]
+  },
+  "trueresurrection": {
+    "name": "True Resurrection",
+    "level": 9,
+    "chips": [
+      {
+        "t": "Touch",
+        "c": "storm"
+      },
+      {
+        "t": "Dead ≤ 200 years"
+      }
+    ],
+    "body": [
+      "You restore life to a creature dead for up to 200 years that didn't die of old age, even without a body if you speak its name. The new body is healed of all wounds, poisons, diseases, and curses, replacing missing or damaged organs and limbs."
+    ],
+    "classes": [
+      "cleric",
+      "druid"
+    ]
+  },
+  "weird": {
+    "name": "Weird",
+    "level": 9,
+    "concentration": true,
+    "dice": "Wis save DC {dc} · 4d10 psychic",
+    "chips": [
+      {
+        "t": "120 ft",
+        "c": "ember"
+      },
+      {
+        "t": "30-ft sphere"
+      }
+    ],
+    "body": [
+      "You manifest each creature's deepest fears in a 30-ft sphere; targets that fail a Wisdom save (DC {dc}) become frightened. A frightened creature takes 4d10 psychic damage at the end of each of its turns and repeats the save to end the effect."
+    ],
+    "classes": [
+      "wizard"
+    ]
+  },
+  "wish": {
+    "name": "Wish",
+    "level": 9,
+    "chips": [
+      {
+        "t": "Self",
+        "c": "storm"
+      },
+      {
+        "t": "Reality-altering"
+      }
+    ],
+    "body": [
+      "The mightiest spell, Wish can duplicate any spell of 8th level or lower with no components, or reshape reality to your verbal request at the DM's discretion. Effects beyond duplicating a spell carry a chance of severe stress that may prevent you ever casting Wish again."
+    ],
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ]
   }
 }
