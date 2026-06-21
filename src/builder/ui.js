@@ -11,6 +11,9 @@
 
   var ASI_LEVELS = [4,8,12,16,19];
   var state = {
+    // classes is the canonical multiclass breakdown; cls/subclass/level are kept
+    // in sync as the PRIMARY class + TOTAL level (syncPrimary) for single-class code
+    classes:[{cls:"ranger", subclass:"", level:4}],
     name:"New Hero", species:"human", cls:"ranger", subclass:"", background:"guide", level:4,
     base:{STR:15,DEX:14,CON:13,INT:12,WIS:10,CHA:8},
     skills:[], originFeat:"", asis:{}, masteries:[], cantrips:[], prepared:[],
@@ -91,6 +94,10 @@
     return out;
   }
   function classData(){ return CAT.classes[state.cls] || {}; }
+  /* keep the primary-class mirror (cls/subclass) and total level in sync with the
+     canonical state.classes breakdown — single-class code reads the mirror */
+  function syncPrimary(){ if(!state.classes||!state.classes.length) state.classes=[{cls:"ranger",subclass:"",level:1}];
+    var p=state.classes[0]; state.cls=p.cls; state.subclass=p.subclass||""; state.level=state.classes.reduce(function(n,x){return n+(x.level||0);},0); }
   function grantedSkills(){
     var set = {};
     var bg = CAT.backgrounds[state.background];
@@ -251,11 +258,14 @@
     // compiled `identity` stamp (build-stripped sheets) — never inferred.
     var b=ch.build||{}, id=ch.identity||{};
     state.name = ch.name || state.name;
-    state.level = ch.level || b.level || state.level;
     state.species = b.species || id.species || state.species;
-    state.cls = b.class || id.class || state.cls;
-    state.subclass = b.subclass || id.subclass || "";
     state.background = b.background || id.background || state.background;
+    // class breakdown: build.classes / identity.classes (multiclass) or a single class
+    var mcls = (Array.isArray(b.classes) && b.classes) || (Array.isArray(id.classes) && id.classes) || null;
+    state.classes = (mcls && mcls.length)
+      ? mcls.map(function(c){ return { cls:c.class||c.cls, subclass:c.subclass||"", level:c.level||1 }; })
+      : [{ cls:(b.class||id.class||state.cls), subclass:(b.subclass||id.subclass||""), level:(ch.level||b.level||state.level) }];
+    syncPrimary();
     if(b.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}; ABIL.forEach(function(a){ if(b.abilities[a]!=null) base[a]=b.abilities[a]; }); state.base=base; }
     state.masteries = (ch.masteryDefault||[]).slice();
     var bgCard = (ch.cards||[]).find(function(c){ return c && c.type==="background"; });
@@ -324,7 +334,7 @@
   /* a signature of every field the form can change; if it still matches the
      value captured at load time, nothing has been edited */
   function editSig(){
-    return JSON.stringify([ state.name, state.species, state.cls, state.subclass, state.background, state.level,
+    return JSON.stringify([ state.name, state.species, state.classes, state.background,
       state.base, state.skills, state.equipment, state.originFeat, state.asis,
       state.masteries, state.cantrips, state.prepared, state.languages, state.choices, state.bio, state.customs ]);
   }
@@ -392,7 +402,8 @@
         if(Object.keys(inc).length) sources.push({ id:"asi-"+l, name:"Level "+l+": Ability Score Improvement", effects:{ abilityIncrease:inc } }); }
     });
     return {
-      species:state.species, class:state.cls, subclass:state.subclass||undefined, background:state.background,
+      species:state.species, background:state.background,
+      classes: state.classes.map(function(c){ return { class:c.cls, subclass:c.subclass||undefined, level:c.level }; }),
       abilities: Object.assign({}, state.base),
       sources: sources
     };
@@ -453,6 +464,7 @@
   function scaffold(){
     // pristine pass-through: unedited since load -> return the original verbatim
     if(state._orig && state._sig === editSig()) return JSON.parse(JSON.stringify(state._orig));
+    syncPrimary();
     var d = derive(), cd = classData();
     var slug = state.name.toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"") || "hero";
     var hr = hitRiderData(), cmn = checkModNote();
@@ -547,7 +559,9 @@
   }
   function render(){
     root.innerHTML="";
-    if(state.level<3) state.subclass="";                       // subclass is a level-3 choice
+    syncPrimary();
+    if(state.classes[0].level<3) state.classes[0].subclass="";  // subclass is a level-3 choice
+    syncPrimary();
     var cd = classData(), sp = CAT.species[state.species], bg = CAT.backgrounds[state.background];
     var d = derive();
     // drop spell picks no longer valid for the class/level
@@ -560,10 +574,10 @@
       field("Name", el("input",{class:"binput", value:state.name, oninput:function(e){ state.name=e.target.value; refreshOut(); }})),
       el("div",{class:"bgrid"},[
         selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; if(!speciesGrantsFeat()) state.originFeat=""; if(!speciesSkillTrait()) state.choices.skillful=""; render(); }, "", speciesHelp()),
-        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.cls=v; state.subclass=""; state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:"",order:"",skillful:state.choices.skillful}; render(); }, "", classHelp()),
-        selField("Subclass", state.subclass, state.level<3 ? [["","— locked —"]] : [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.subclass=v; render(); }, state.level<3 ? "Subclass is gained at level 3." : "Pick a class first.", subclassHelp()),
+        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.classes[0].cls=v; state.classes[0].subclass=""; state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:"",order:"",skillful:state.choices.skillful}; render(); }, "", classHelp()),
+        selField("Subclass", state.subclass, state.level<3 ? [["","— locked —"]] : [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.classes[0].subclass=v; render(); }, state.level<3 ? "Subclass is gained at level 3." : "Pick a class first.", subclassHelp()),
         selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp()),
-        selField("Level", String(state.level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.level=parseInt(v,10); render(); }, "", "Your character level (1–20). Higher levels raise Proficiency Bonus, HP, spell slots, and unlock features.")
+        selField("Level", String(state.classes[0].level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.classes[0].level=parseInt(v,10); render(); }, "", "Level in your primary class. (Multiclass class rows come next; total level drives proficiency bonus and hit dice.)")
       ])
     ]);
 
