@@ -568,17 +568,31 @@
     state.cantrips = state.cantrips.filter(function(id){ return classCantrips().indexOf(id)>=0; });
     state.prepared = state.prepared.filter(function(id){ return classLeveledSpells().indexOf(id)>=0; });
 
+    // class rows (multiclass): one row per class with class + level + subclass
+    var classList = el("div",{class:"cls-list"});
+    state.classes.forEach(function(cl, i){
+      var cdi = CAT.classes[cl.cls] || {}, scLvl = cdi.subclassLevel || 3;
+      var subOpts = cl.level < scLvl ? [["","— lvl "+scLvl+" —"]] : [["","— none —"]].concat((cdi.subclasses||[]).map(function(s){ return [s,(CAT.subclasses[s]||{}).name||titleCase(s)]; }));
+      var row = el("div",{class:"cls-row"},[
+        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:"",order:"",skillful:state.choices.skillful}; } render(); }),
+        select(String(cl.level), Array.from({length:20},function(_,n){return [String(n+1),"Lvl "+(n+1)];}), function(v){ cl.level=parseInt(v,10); render(); }),
+        select(cl.subclass, subOpts, function(v){ cl.subclass=v; render(); }),
+        (i>0 ? el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove class", text:"✕", onclick:function(){ state.classes.splice(i,1); render(); }}) : el("span",{class:"cls-tag", text:"primary"}))
+      ]);
+      classList.appendChild(row);
+    });
+    classList.appendChild(el("button",{class:"bbtn tiny ember", type:"button", text:"+ Add class", onclick:function(){ state.classes.push({cls:"fighter", subclass:"", level:1}); render(); }}));
+
     // identity + core selects
     var core = el("div",{class:"bcard"},[
       el("h2",{text:"Identity"}),
       field("Name", el("input",{class:"binput", value:state.name, oninput:function(e){ state.name=e.target.value; refreshOut(); }})),
       el("div",{class:"bgrid"},[
         selField("Species", state.species, Object.keys(CAT.species).map(function(k){return [k,CAT.species[k].name];}), function(v){ state.species=v; if(!speciesGrantsFeat()) state.originFeat=""; if(!speciesSkillTrait()) state.choices.skillful=""; render(); }, "", speciesHelp()),
-        selField("Class", state.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ state.classes[0].cls=v; state.classes[0].subclass=""; state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:"",order:"",skillful:state.choices.skillful}; render(); }, "", classHelp()),
-        selField("Subclass", state.subclass, state.level<3 ? [["","— locked —"]] : [["","— none —"]].concat((cd.subclasses||[]).map(function(s){return [s,(CAT.subclasses[s]||{}).name || titleCase(s)];})), function(v){ state.classes[0].subclass=v; render(); }, state.level<3 ? "Subclass is gained at level 3." : "Pick a class first.", subclassHelp()),
-        selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp()),
-        selField("Level", String(state.classes[0].level), Array.from({length:20},function(_,i){return [String(i+1),"Level "+(i+1)];}), function(v){ state.classes[0].level=parseInt(v,10); render(); }, "", "Level in your primary class. (Multiclass class rows come next; total level drives proficiency bonus and hit dice.)")
-      ])
+        selField("Background", state.background, Object.keys(CAT.backgrounds).map(function(k){return [k,CAT.backgrounds[k].name];}), function(v){ state.background=v; render(); }, "", backgroundHelp())
+      ]),
+      el("div",{class:"bsub",text:"Classes — total level "+state.level+" · proficiency bonus "+fmt(pbForLevel(state.level))+(state.classes.length>1?" · saves from your first class":"")}),
+      classList
     ]);
 
     // equipment: one autocomplete to add weapons, armor, shields, and supplies.

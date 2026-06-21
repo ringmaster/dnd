@@ -231,6 +231,10 @@ ${styles}
   .sk-name{flex:1;color:var(--bone)}
   .sk-ab{font-family:"Cinzel",serif;font-size:.66rem;letter-spacing:.05em;color:var(--ash)}
   .skill-row:not(.na){cursor:pointer}
+  .cls-list{display:flex;flex-direction:column;gap:.45rem;margin-top:.4rem}
+  .cls-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+  .cls-row .bsel{flex:1 1 7rem;min-width:5rem}
+  .cls-tag{font-family:"Cinzel",serif;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ash);border:1px solid var(--iron-light);border-radius:5px;padding:.2rem .4rem;white-space:nowrap}
 </style>
 </head>
 <body>
