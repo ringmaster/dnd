@@ -218,7 +218,11 @@ export function compile(input, cat){
   const skills = new Set(), exp = new Set(), tools = new Set(), checkMods = {}, pools = {}, always = [];
   let init = 0, langChoices = 0; const langNames = new Set();
   let spellcasting = null, initiate = null, innateAbility = null;
+  const resist = new Set(), immune = new Set(), speeds = {};
   for (const e of eff){
+    (e.resistances||[]).forEach(x => resist.add(x));
+    (e.immunities||[]).forEach(x => immune.add(x));
+    if (e.speeds) for (const m in e.speeds){ const v = e.speeds[m]; if (m === "hover") speeds.hover = speeds.hover || !!v; else speeds[m] = Math.max(speeds[m] || 0, resolveVal(v, ctx)); }
     (e.skills||[]).forEach(x => skills.add(x));
     (e.expertise||[]).forEach(x => exp.add(x));
     (e.tools||[]).forEach(x => tools.add(x));
@@ -250,6 +254,10 @@ export function compile(input, cat){
   if (Object.keys(checkMods).length) c.checkMods = checkMods; else if (hadKey(eff, "checkBonus")) delete c.checkMods;
   if (hadKey(eff, "initiativeBonus") || c.initiativeBonus != null) c.initiativeBonus = init;
   if (tools.size) c.tools = [...tools].sort();
+  // immunity supersedes resistance to the same type
+  if (immune.size) c.immunities = [...immune].sort();
+  if (resist.size){ const r = [...resist].filter(x => !immune.has(x)).sort(); if (r.length) c.resistances = r; }
+  if (Object.keys(speeds).length) c.speeds = speeds;
   if (langChoices || langNames.size) c.languages = { known: [...langNames], choices: langChoices };
   if (Object.keys(pools).length) c.pools = pools;
   // hit dice are implied by class + level — synthesize the pool unless authored.

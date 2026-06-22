@@ -37,6 +37,10 @@ function renderHeaderHTML(){
   var studs = CHARACTER.studs.map(function(s){
     return '<button class="stud" data-ref="'+esc(s.ref)+'" type="button"><span class="sl">'+esc(s.label)+'</span><span class="sv"'+(s.id?' id="'+s.id+'"':'')+'>'+esc(studDisplay(s))+'</span></button>';
   }).join("");
+  // synthetic Defenses stud when features grant damage resistance/immunity
+  var nr=(CHARACTER.resistances||[]).length, ni=(CHARACTER.immunities||[]).length;
+  if(nr||ni){ var dv=(nr?nr+" resist":"")+(nr&&ni?" · ":"")+(ni?ni+" immune":"");
+    studs += '<button class="stud" data-ref="stat_defenses" type="button"><span class="sl">Defenses</span><span class="sv">'+esc(dv)+'</span></button>'; }
   var flag = CHARACTER.bespoke
     ? { cls:"bespoke", text:"Bespoke character — it contains custom traits that don't necessarily match the rules as written." }
     : CHARACTER.homebrew
