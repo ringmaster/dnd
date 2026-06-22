@@ -1,18 +1,19 @@
 {
   "id": "circle-of-spirits",
   "name": "Circle of Spirits (Druid)",
-  "by": "5esrd.com · 3rd-party SRD",
+  "by": "Tempest Kingdoms",
   "subclasses": {
     "spirits": {
       "class": "druid",
       "name": "Circle of Spirits",
-      "desc": "A druid who walks with the spirits of nature, channeling their guidance and protection.",
+      "desc": "A druid who hears the unseen voices of the world — an intermediary between the mortal and spirit worlds, calling spirit allies and walking the hidden paths between.",
       "features": [
         "Circle Spells",
-        "Spirit Guide",
-        "Spirit Dance",
-        "Savior Spirits",
-        "Spirit Walk"
+        "Spirit Speaker",
+        "Spirit Companion",
+        "Between Worlds",
+        "Spirit Step",
+        "Spirit Conduit"
       ],
       "grants": [
         {
@@ -21,67 +22,86 @@
           "ref": {
             "title": "Circle Spells",
             "chips": [
-              { "t": "Level 2", "c": "storm" },
+              { "t": "Level 3", "c": "storm" },
               { "t": "Always prepared" }
             ],
             "body": [
-              "Your bond with nature's spirits grants you Circle spells that are always prepared and don't count against your prepared total: Detect Evil and Good and False Life (2nd level), Augury and Invisibility (3rd), Speak with Dead and Spirit Guardians (5th), Divination and Hallucinatory Terrain (7th), and Antilife Shell and Scrying (9th)."
+              "Your connection to the spirit world grants Circle spells that are always prepared and don't count against your prepared total: Speak with Animals, Beast Sense, and Detect Magic (3rd level), Augury (5th), Spirit Guardians (7th), and Commune with Nature (9th)."
             ]
           }
         },
         {
-          "id": "spiritguide",
-          "name": "Spirit Guide",
+          "id": "spiritspeaker",
+          "name": "Spirit Speaker",
           "ref": {
-            "title": "Spirit Guide",
+            "title": "Spirit Speaker",
             "chips": [
-              { "t": "Level 2" },
-              { "t": "Concentration", "c": "storm" }
+              { "t": "Level 3" },
+              { "t": "Wis / long rest", "c": "storm" },
+              { "t": "Expertise" }
             ],
             "body": [
-              "You can cast Find Familiar as a ritual without material components to summon a spirit guide. While the guide is within 100 feet of you, it can maintain Concentration on a druid spell you have cast, making the Constitution saving throws to keep Concentration when it takes damage. As normal, you can concentrate on only one effect at a time."
+              "As an Action, commune with a natural spirit tied to a nearby place, creature, weather phenomenon, or feature. It answers through emotions, images, memories, and brief phrases, within the limits of its nature. Each communion lasts 1 minute and grants Advantage on one related Nature, Survival, Insight, or Perception check. You can use this a number of times equal to your Wisdom modifier (minimum once), regaining all uses on a Long Rest.",
+              "A spirit has also mentored you: choose Nature or Survival — you gain Expertise in it, or proficiency if you weren't already proficient."
             ]
           }
         },
         {
-          "id": "spiritdance",
-          "name": "Spirit Dance",
+          "id": "spiritcompanion",
+          "name": "Spirit Companion",
           "ref": {
-            "title": "Spirit Dance",
+            "title": "Spirit Companion",
+            "chips": [
+              { "t": "Level 3" },
+              { "t": "Short rest", "c": "storm" },
+              { "t": "Wild Shape", "c": "ember" }
+            ],
+            "body": [
+              "As an Action, manifest an incorporeal spirit ally for 1 minute. It occupies no space, can't be targeted or harmed, stays within 30 feet of you, and grants its form's benefits. You have two uses, regaining one on a Short Rest and all on a Long Rest; as a Bonus Action you can trade a Wild Shape use for a Spirit Companion use, or vice versa. You can't change the form while it's active.",
+              "Choose one form: Bear (you and allies within 10 ft have Advantage on saves vs. Frightened; grant temp HP equal to your Wis mod each round), Elk (+10 ft speed, ignore natural difficult terrain; let an ally move half its speed without provoking), Fox (Advantage on Stealth; reposition half your speed without provoking), Owl (Darkvision 120 ft — or +60 ft — and Advantage on Perception/Investigation), Raven (Advantage to find hidden creatures and tracks; as a Reaction impose Disadvantage on an attack within 30 ft), Salmon (swim speed and hold breath 1 hour; let an ally ignore difficult terrain), Wolf (a Wisdom-based spirit attack for 1d8 + your Druid level Force damage, slowing the target), or Thunderhawk (a 10-ft-radius Constitution save for 1d6 Thunder and Deafened, scaling to 4d6 at 14th)."
+            ]
+          }
+        },
+        {
+          "id": "betweenworlds",
+          "name": "Between Worlds",
+          "ref": {
+            "title": "Between Worlds",
             "chips": [
               { "t": "Level 6" },
-              { "t": "Short rest", "c": "storm" }
+              { "t": "Prof / long rest", "c": "storm" }
             ],
             "body": [
-              "As a Bonus Action you channel spirit power. The next druid spell you cast within 1 minute is enhanced: one creature of your choice that makes a saving throw against that spell has Disadvantage on the save. Once you use this feature, you must finish a Short or Long Rest to use it again."
+              "As a Bonus Action, enter a state of heightened spiritual awareness for 1 minute: natural difficult terrain doesn't slow you, you can move through nonmagical plants unharmed, you can perceive invisible spirits, fey, and supernatural manifestations within 60 feet, and you have Advantage on Wisdom (Survival) checks to track. You can use this a number of times equal to your Proficiency Bonus, regaining all uses on a Long Rest."
             ]
           }
         },
         {
-          "id": "saviorspirits",
-          "name": "Savior Spirits",
+          "id": "spiritstep",
+          "name": "Spirit Step",
           "ref": {
-            "title": "Savior Spirits",
+            "title": "Spirit Step",
             "chips": [
               { "t": "Level 10" },
-              { "t": "Long rest", "c": "storm" }
+              { "t": "Wis / long rest", "c": "storm" }
             ],
             "body": [
-              "When you are reduced to 0 Hit Points but not killed outright, the spirits sustain you and you drop to 1 Hit Point instead. Once you use this feature, you must finish a Long Rest to use it again."
+              "As a Bonus Action, briefly pass through the spirit world to teleport up to 30 feet to an unoccupied space you can see. Until the end of your turn you have Advantage on your next attack roll, ability check, or saving throw, and until the start of your next turn opportunity attacks against you are made with Disadvantage. You can use this a number of times equal to your Wisdom modifier, regaining all uses on a Long Rest."
             ]
           }
         },
         {
-          "id": "spiritwalk",
-          "name": "Spirit Walk",
+          "id": "spiritconduit",
+          "name": "Spirit Conduit",
           "ref": {
-            "title": "Spirit Walk",
+            "title": "Spirit Conduit",
             "chips": [
               { "t": "Level 14" },
               { "t": "Long rest", "c": "storm" }
             ],
             "body": [
-              "As an action you become ectoplasmic for 1 minute, gaining a flying speed, Resistance to damage, and immunity to the Grappled, Petrified, Prone, and Restrained conditions. You can move through creatures and objects as if they were Difficult Terrain, taking 1d10 Force damage if you end your turn inside an object. Once you use this feature, you must finish a Long Rest to use it again."
+              "As an Action, become a living bridge between the Material and Spirit Worlds: for 1 minute a 60-foot-radius aura surrounds you in which spirits become visible, invisible creatures can't benefit from invisibility, and friendly creatures have Advantage on Wisdom saves and can't be Frightened.",
+              "At the start of each of your turns, choose a manifestation — Ancestors' Guidance (one creature gains Advantage on its next attack, check, or save), Protection (one creature gains Resistance to all damage until your next turn), Wrath (one hostile creature makes a Wisdom save vs. your spell save DC, taking 3d8 Force and losing invisibility on a failure, half on a success), or Revelation (one creature can perceive spirits and invisible creatures and gains Advantage on Perception and Insight). Once you use this feature, you must finish a Long Rest to use it again."
             ]
           }
         }
