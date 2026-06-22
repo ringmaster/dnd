@@ -56,6 +56,15 @@ const feats = rj(path.join(ROOT, "src", "builder", "feats.json"));
 const classes = rj(path.join(ROOT, "src", "content", "classes.json"));
 const classFeatures = rj(path.join(ROOT, "src", "content", "class-features.json"));
 const subclasses = rj(path.join(ROOT, "src", "content", "subclasses.json"));
+// fold optional content packs in too, so their features are searchable and a
+// deleted pack file drops cleanly out of the corpus on rebuild
+const PACKDIR = path.join(ROOT, "src", "content", "packs");
+if (fs.existsSync(PACKDIR)) {
+  for (const pf of fs.readdirSync(PACKDIR).filter((f) => f.endsWith(".json"))) {
+    const pack = rj(path.join(PACKDIR, pf));
+    for (const sid in (pack.subclasses || {})) if (!subclasses[sid]) subclasses[sid] = pack.subclasses[sid];
+  }
+}
 const glossary = extractObject(path.join(ROOT, "src", "engine", "glossary.js"), "var GLOSSARY = {");
 
 function spellInfoLine(s) {

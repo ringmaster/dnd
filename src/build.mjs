@@ -147,12 +147,43 @@ const CAT = {
   armor: readJson(path.join(CONTENT, "armor.json")),
   classFeatures: readJson(path.join(CONTENT, "class-features.json")),
 };
+// ---- optional content packs (src/content/packs/*.json): homebrew / 3rd-party
+// sources kept OUT of core. Each is merged into CAT (so its entries compile and
+// render) but tagged with `_source`, and surfaced to the builder as a toggle so
+// it's offered only when enabled. Deleting a pack file removes it entirely. ----
+const PACKDIR = path.join(CONTENT, "packs");
+const PACKS = [];
+const packCats = ["subclasses", "species", "backgrounds", "feats"];   // categories a pack may extend
+if (fs.existsSync(PACKDIR)) {
+  for (const pf of fs.readdirSync(PACKDIR).filter((f) => f.endsWith(".json")).sort()) {
+    const pack = readJson(path.join(PACKDIR, pf));
+    const adds = {};
+    for (const cat of packCats) {
+      for (const id in (pack[cat] || {})) {
+        CAT[cat][id] = Object.assign({}, pack[cat][id], { _source: pack.id });
+        (adds[cat] = adds[cat] || []).push(id);
+        // a subclass declares the class it belongs to; register it there so the
+        // builder can list it under that class (filtered by enabled source)
+        if (cat === "subclasses") {
+          const cls = pack[cat][id].class;
+          if (cls && CAT.classes[cls] && Array.isArray(CAT.classes[cls].subclasses) && CAT.classes[cls].subclasses.indexOf(id) < 0) {
+            CAT.classes[cls].subclasses.push(id);
+          }
+        }
+      }
+    }
+    PACKS.push({ id: pack.id, name: pack.name, by: pack.by || "", adds });
+    console.log("loaded pack " + pack.id + " (" + Object.entries(adds).map(([c, l]) => l.length + " " + c).join(", ") + ")");
+  }
+}
+
 const uiJs = read(path.join(SRC, "builder", "ui.js"));
 // the legality checker is shared with the round-trip test; inline it (export stripped) so the builder
 // can surface a live Completeness panel from the same rules the test enforces
 const legalityJs = read(path.join(SRC, "builder", "legality.mjs")).replace(/^export\s+/gm, "");
 const schemaJson = read(path.join(SRC, "builder", "character-schema.json")).replace(/<\/script/gi, "<\\/script");
 const catJson = JSON.stringify(CAT).replace(/<\/script/gi, "<\\/script");
+const packsJson = JSON.stringify(PACKS).replace(/<\/script/gi, "<\\/script");
 const builderHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -260,6 +291,8 @@ ${styles}
   .comp-row.soft .comp-dot{color:#d9c37a}
   .comp-msg{flex:1 1 auto}
   .hb-toggle{display:flex;gap:.45rem;align-items:flex-start;font-size:.78rem;color:var(--ash);margin:.1rem 0 .5rem;cursor:pointer}
+  .src-block{margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--iron)}
+  .src-block .bsub{margin:.1rem 0 .5rem}
   .hb-toggle input{margin-top:.15rem}
   .bcard.flash{animation:compflash 1.2s ease-out}
   @keyframes compflash{0%,40%{box-shadow:0 0 0 2px var(--ember-bright),0 4px 12px rgba(0,0,0,.35)}100%{box-shadow:0 4px 12px rgba(0,0,0,.35)}}
@@ -293,6 +326,7 @@ ${styles}
     <div id="builder"></div>
   </div>
   <script>var CAT = ${catJson};</script>
+  <script>var PACKS = ${packsJson};</script>
   <script>var CHARACTER_SCHEMA = ${schemaJson};</script>
   <script>${legalityJs.replace(/<\/script/gi, "<\\/script")}</script>
   <script>${uiJs.replace(/<\/script/gi, "<\\/script")}</script>
