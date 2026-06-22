@@ -8275,5 +8275,59 @@
     "body": [
       "Touch a willing Beast. For the duration you can use your action to perceive through the beast's senses — seeing and hearing what it does, plus any special senses it has — until you use your action to return to your own. While perceiving through the beast you are Blinded and Deafened to your own surroundings."
     ]
+  },
+  "stormsphere": {
+    "name": "Storm Sphere",
+    "level": 4,
+    "school": "evocation",
+    "concentration": true,
+    "upcast": true,
+    "classes": [
+      "sorcerer",
+      "wizard"
+    ],
+    "range": "150 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 minute",
+    "body": [
+      "A 20-foot-radius Sphere of whirling air springs into existence centered on a point you can see. A creature takes 2d6 bludgeoning damage the first time it enters the Sphere on a turn or starts its turn there, and the Sphere's space is Difficult Terrain.",
+      "Until the spell ends, you can use a Bonus Action to call a lightning strike from the Sphere at a creature or object within 60 feet of its center; that target makes a Dexterity saving throw, taking 4d6 lightning damage on a failed save. Upcast: the bludgeoning damage increases by 1d6 for each spell slot above 4th."
+    ]
+  },
+  "controlwinds": {
+    "name": "Control Winds",
+    "level": 5,
+    "school": "transmutation",
+    "concentration": true,
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ],
+    "range": "300 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 hour",
+    "body": [
+      "You take control of the air in a 100-foot Cube you can see. Choose one effect when you cast the spell and as a later Action: Gusts (a wind blows in a chosen horizontal direction, snuffing unprotected flames and making ranged weapon attacks through it have Disadvantage), Downdraft (creatures must succeed on a Strength save or be knocked Prone), or Updraft (a creature within can use its Reaction to extend a jump or slow a fall)."
+    ]
+  },
+  "gust": {
+    "name": "Gust",
+    "level": 0,
+    "school": "transmutation",
+    "classes": [
+      "druid",
+      "sorcerer",
+      "wizard"
+    ],
+    "range": "30 feet",
+    "components": "V, S",
+    "castTime": "1 action",
+    "duration": "Instantaneous",
+    "body": [
+      "You seize the air and compel it to create one of the following effects: a Large or smaller creature must succeed on a Strength save or be pushed up to 5 feet away from you; you push an unsecured object up to 5 pounds up to 10 feet; or you create a harmless sensory gust of wind (a flickering candle, fluttering papers, a faint whistle)."
+    ]
   }
 }
