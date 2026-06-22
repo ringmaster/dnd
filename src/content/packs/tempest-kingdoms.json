@@ -57,9 +57,6 @@
           "name": "Spirit Speaker",
           "level": 3,
           "effects": {
-            "expertise": [
-              "Nature"
-            ],
             "grantsPool": {
               "id": "spk",
               "label": "Spirit Speaker",
@@ -89,7 +86,11 @@
               "As an Action, commune with a natural spirit tied to a nearby place, creature, weather phenomenon, or feature. It answers through emotions, images, memories, and brief phrases, within the limits of its nature. Each communion lasts 1 minute and grants Advantage on one related Nature, Survival, Insight, or Perception check. You can use this a number of times equal to your Wisdom modifier (minimum once), regaining all uses on a Long Rest.",
               "A spirit has also mentored you: you gain Expertise in Nature (or Survival — change it in the builder), or proficiency if you weren't already proficient."
             ]
-          }
+          },
+          "chooseExpertise": [
+            "Nature",
+            "Survival"
+          ]
         },
         {
           "id": "spiritcompanion",
@@ -104,7 +105,8 @@
               "storm": true,
               "note": "short rest · or trade Wild Shape",
               "use": "Summon",
-              "reminder": "Spirit Companion: manifest an incorporeal spirit ally (within 30 ft, 1 minute) of a chosen form."
+              "reminder": "Spirit Companion: manifest an incorporeal spirit ally (within 30 ft, 1 minute) of a chosen form.",
+              "shortRegain": 1
             }
           },
           "ref": {
@@ -352,6 +354,12 @@
             "body": [
               "You gain Resistance to lightning and thunder damage. Whenever you cast a spell of 1st level or higher that deals lightning or thunder damage, each creature of your choice within 10 feet of you takes lightning or thunder damage (your choice) equal to your Charisma modifier — no saving throw."
             ]
+          },
+          "effects": {
+            "resistances": [
+              "lightning",
+              "thunder"
+            ]
           }
         },
         {
@@ -407,6 +415,14 @@
               "note": "long rest",
               "use": "Share flight",
               "reminder": "Wind Soul: as a Bonus Action, reduce your speed to 30 and grant flight (equal to walking speed, 1 hour) to creatures equal to your Charisma modifier."
+            },
+            "immunities": [
+              "lightning",
+              "thunder"
+            ],
+            "speeds": {
+              "fly": 60,
+              "hover": true
             }
           },
           "ref": {

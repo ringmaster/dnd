@@ -19,7 +19,7 @@
     skills:[], originFeat:"", asis:{}, masteries:[], cantrips:[], prepared:[],
     equipment:[],          // unified inventory: {kind:'weapon'|'armor'|'shield'|'item', id?, name}
     languages:[],          // known languages (resolved, not "choices")
-    choices:{ style:"", expertise:[], order:"", skillful:"", lineage:"", terrain:"" },
+    choices:{ style:"", expertise:[], order:"", skillful:"", lineage:"", terrain:"", subExpertise:{} },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
     homebrew:false,       // when true, legality issues are non-blocking and the export is flagged homebrew
     bespoke:false,        // hand-authored character with custom, not-necessarily-RAW content (legality waived)
@@ -270,7 +270,7 @@
       { feature:"Arcane Recovery", id:"arcrec", label:"Arcane Recovery", ref:"arcanerecovery", storm:false, rest:"long", note:"once per day", use:"Use", max:function(){return 1;}, reminder:"Arcane Recovery: on a short rest, recover slots totaling up to half your wizard level (round up), none above 5th." }
     ],
     cleric: [
-      { feature:"Channel Divinity", id:"cd", label:"Channel Divinity", ref:"channeldivinity", storm:false, rest:"short", note:"regain 1 on a short rest", use:"Use", max:function(l){return l>=18?4:(l>=6?3:2);}, reminder:"Channel Divinity: Divine Spark or Turn Undead." }
+      { feature:"Channel Divinity", id:"cd", label:"Channel Divinity", ref:"channeldivinity", storm:false, rest:"short", shortRegain:1, note:"regain 1 on a short rest", use:"Use", max:function(l){return l>=18?4:(l>=6?3:2);}, reminder:"Channel Divinity: Divine Spark or Turn Undead." }
     ],
     monk: [
       { feature:"Ki", id:"ki", label:"Ki / Focus Points", ref:"ki", storm:true, rest:"short", note:"short rest", use:"Spend Ki", max:function(l){return l;}, reminder:"Spend Ki: Flurry of Blows, Patient Defense, or Step of the Wind." }
@@ -286,10 +286,10 @@
     ],
     paladin: [
       { feature:"Lay on Hands", id:"loh", label:"Lay on Hands (HP pool)", ref:"layonhands", storm:false, rest:"long", note:"long rest", use:"Heal", max:function(l){return 5*l;}, reminder:"Lay on Hands: as a Bonus Action, spend points to heal (or 5 to cure a disease/poison)." },
-      { feature:"Channel Divinity", id:"cd", label:"Channel Divinity", ref:"channeldivinity", storm:false, rest:"short", note:"regain on a short rest", use:"Use", max:function(l){return l>=11?3:2;}, reminder:"Channel Divinity: fuel your Oath's options." }
+      { feature:"Channel Divinity", id:"cd", label:"Channel Divinity", ref:"channeldivinity", storm:false, rest:"short", shortRegain:1, note:"regain 1 on a short rest", use:"Use", max:function(l){return l>=11?3:2;}, reminder:"Channel Divinity: fuel your Oath's options." }
     ],
     druid: [
-      { feature:"Wild Shape", id:"ws", label:"Wild Shape", ref:"wildshape", storm:true, rest:"short", note:"regain on short/long rest", use:"Transform", max:function(l){return l>=17?4:(l>=6?3:2);}, reminder:"Wild Shape: Bonus Action — transform into a known beast form." }
+      { feature:"Wild Shape", id:"ws", label:"Wild Shape", ref:"wildshape", storm:true, rest:"short", shortRegain:1, note:"regain 1 on a short rest, all on a long rest", use:"Transform", max:function(l){return l>=17?4:(l>=6?3:2);}, reminder:"Wild Shape: Bonus Action — transform into a known beast form." }
     ]
   };
   /* is a class feature reached in any class (or a specific class) at its level */
@@ -329,7 +329,7 @@
     var out=[], d=derive();   // some pools size off an ability modifier (e.g. Bardic Inspiration = CHA)
     state.classes.forEach(function(cl){ (CLASS_POOLS[cl.cls]||[]).forEach(function(cp){ if(!clsReached(cp.feature, cl)) return;
       var mx=cp.max(cl.level, d); if(mx<=0) return;
-      out.push({ id:cp.id, name:cp.feature, effects:{ grantsPool:{ id:cp.id, label:cp.label, max:mx, rest:cp.rest, ref:cp.ref, storm:cp.storm, note:cp.note, use:cp.use, reminder:cp.reminder } } }); }); });
+      out.push({ id:cp.id, name:cp.feature, effects:{ grantsPool:{ id:cp.id, label:cp.label, max:mx, rest:cp.rest, shortRegain:cp.shortRegain, ref:cp.ref, storm:cp.storm, note:cp.note, use:cp.use, reminder:cp.reminder } } }); }); });
     return out;
   }
   function featureList(){
@@ -417,7 +417,7 @@
     var invCard=(ch.cards||[]).find(function(c){ return c && c.type==="inventory"; });
     if(invCard && Array.isArray(invCard.items)) invCard.items.forEach(function(it){ if(it && it.name && !gearNames[baseName(it.name)]) state.equipment.push({kind:"item", name:it.name, tag:it.tag}); });
     state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[]; state.languages=[];
-    state.choices={style:"",expertise:[],order:"",skillful:"",lineage:"",terrain:""};
+    state.choices={style:"",expertise:[],order:"",skillful:"",lineage:"",terrain:"",subExpertise:{}};
     // grant ids that come from the chosen subclasses — their effects are fixed, not player choices
     var scGrantIds={}; state.classes.forEach(function(cl){ (((CAT.subclasses[cl.subclass]||{}).grants)||[]).forEach(function(g){ scGrantIds[g.id]=1; }); });
     (b.sources||[]).forEach(function(s){
@@ -435,6 +435,7 @@
       if(eff.skills && id===speciesSkillTrait()) state.choices.skillful=eff.skills[0];   // Human Skillful's chosen skill
       if(id==="divine-order" && s.name) state.choices.order=/Thaumaturge/i.test(s.name)?"thaumaturge":"protector";
       if(id==="circlespells-land" && s.name){ var tm=/\(([a-z]+)\)/.exec(s.name); if(tm) state.choices.terrain=tm[1]; }   // Circle of the Land terrain
+      if(scGrantIds[id] && eff.expertise && eff.expertise.length) state.choices.subExpertise[id]=eff.expertise[0];   // recover a subclass Expertise choice (e.g. Spirit Speaker)
       if(id==="lineage" && s.refId){ var lin=(CAT.species[b.species||state.species]||{}).lineage; if(lin) Object.keys(lin.options).forEach(function(lk){ if(lin.options[lk].refId===s.refId) state.choices.lineage=lk; }); }
       if(eff.spellcasting){ var spc=eff.spellcasting;   // spellcasting source, however its id is tagged (e.g. ranger-spellcasting)
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
@@ -650,7 +651,11 @@
     if(featureReached("Divine Order") && ch.order){ var od = ch.order==="thaumaturge" ? {t:"Thaumaturge", b:"You know an extra cleric cantrip and add your Wisdom modifier to Intelligence (Arcana or Religion) checks."} : {t:"Protector", b:"You gain proficiency with martial weapons and heavy armor."}; sources.push({ id:"divine-order", name:"Divine Order: "+od.t, refId:"divineorder", ref:{ title:"Divine Order: "+od.t, body:[od.b] } }); }
     // subclass features (gained at level 3+)
     var scName=(CAT.subclasses[state.subclass]||{}).name||"";
-    subclassGrants().forEach(function(g){ sources.push({ id:g.id, name:scName+": "+g.name, effects:g.effects, ref:g.ref, refId:g.id }); });
+    subclassGrants().forEach(function(g){
+      var eff=g.effects;
+      if(g.chooseExpertise){ var pick=state.choices.subExpertise[g.id]||g.chooseExpertise[0]; eff=Object.assign({}, g.effects, { expertise:[pick] }); }   // a feature that lets you pick which skill to gain Expertise in (e.g. Spirit Speaker)
+      sources.push({ id:g.id, name:scName+": "+g.name, effects:eff, ref:g.ref, refId:g.id });
+    });
     // druid circle spells (always-prepared, level-gated by druid class level; Land uses the chosen terrain)
     circleSpellSources().forEach(function(s){ sources.push(s); });
     // level-1 origin feat (e.g. Human Versatile)
@@ -846,7 +851,7 @@
       var subList = (cdi.subclasses||[]).filter(function(s){ return sourceOn(CAT.subclasses[s]) || cl.subclass===s; });   // keep a selected packed subclass visible even if its source is off
       var subOpts = cl.level < scLvl ? [["","— lvl "+scLvl+" —"]] : [["","— none —"]].concat(subList.map(function(s){ var sc=CAT.subclasses[s]||{}; return [s,(sc.name||titleCase(s))+(sc._source?" ✦":"")]; }));
       var row = el("div",{class:"cls-row"},[
-        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:[],order:"",skillful:state.choices.skillful,lineage:state.choices.lineage,terrain:state.choices.terrain}; } render(); }),
+        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:[],order:"",skillful:state.choices.skillful,lineage:state.choices.lineage,terrain:state.choices.terrain,subExpertise:{}}; } render(); }),
         select(String(cl.level), Array.from({length:20},function(_,n){return [String(n+1),"Lvl "+(n+1)];}), function(v){ cl.level=parseInt(v,10); render(); }),
         select(cl.subclass, subOpts, function(v){ cl.subclass=v; render(); }),
         (i>0 ? el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove class", text:"✕", onclick:function(){ state.classes.splice(i,1); render(); }}) : el("span",{class:"cls-tag", text:"primary"}))
@@ -891,6 +896,13 @@
         select(state.choices.terrain, TERRAINS, function(v){ state.choices.terrain=v; render(); })
       ]));
     }
+    // subclass features that let you choose a skill for Expertise (e.g. Spirit Speaker)
+    subclassGrants().filter(function(g){ return g.chooseExpertise; }).forEach(function(g){
+      core.appendChild(el("div",{class:"src-block"},[
+        el("div",{class:"bsub",text:g.name+" — choose a skill for Expertise"}),
+        select(state.choices.subExpertise[g.id]||g.chooseExpertise[0], g.chooseExpertise.map(function(s){ return [s,s]; }), function(v){ state.choices.subExpertise[g.id]=v; render(); })
+      ]));
+    });
 
     // equipment: one autocomplete to add weapons, armor, shields, and supplies.
     // Equipping (worn armor, drawn weapons) happens on the sheet, not here.

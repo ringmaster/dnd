@@ -71,8 +71,23 @@ buildAbilityRefs();
   REF["stat_init"]={title:"Initiative", dice:"Initiative: d20 "+fmt(initiative()), chips:initChips, body:initBody};
 
   var spd=effSpeed(), penal=spd<CHARACTER.speed;
-  REF["stat_speed"]={title:"Speed", dice:spd+" feet", chips:[{t:"Base "+CHARACTER.speed}].concat(penal?[{t:"−10 heavy armor",c:"ember"}]:[]),
-    body:["Your walking speed is "+spd+" feet — how far you can move on your turn."+(penal?" Your Strength is below your heavy armor's requirement, so it's reduced by 10.":""),"Difficult terrain costs double, and the Dash action lets you move that far again."]};
+  // extra movement modes granted by features (fly/swim/climb/burrow + hover)
+  var capW=function(s){ return s.charAt(0).toUpperCase()+s.slice(1); };
+  var XS=CHARACTER.speeds||{}, MODE_ORDER=["fly","swim","climb","burrow"];
+  var modeChips=MODE_ORDER.filter(function(m){return XS[m];}).map(function(m){ return {t:capW(m)+" "+XS[m]+" ft"+(m==="fly"&&XS.hover?" (hover)":""), c:"storm"}; });
+  var modeBody=MODE_ORDER.filter(function(m){return XS[m];}).map(function(m){ return capW(m)+" speed "+XS[m]+" ft"+(m==="fly"&&XS.hover?" (you can hover)":"")+"."; });
+  REF["stat_speed"]={title:"Speed", dice:spd+" feet", chips:[{t:"Base "+CHARACTER.speed}].concat(penal?[{t:"−10 heavy armor",c:"ember"}]:[]).concat(modeChips),
+    body:["Your walking speed is "+spd+" feet — how far you can move on your turn."+(penal?" Your Strength is below your heavy armor's requirement, so it's reduced by 10.":""),"Difficult terrain costs double, and the Dash action lets you move that far again."].concat(modeBody)};
+
+  // Defenses: damage resistances / immunities from features (a synthetic stud surfaces it)
+  var RES=CHARACTER.resistances||[], IMM=CHARACTER.immunities||[];
+  if(RES.length || IMM.length){
+    var dChips=RES.map(function(t){return {t:"Resist "+t,c:"storm"};}).concat(IMM.map(function(t){return {t:"Immune "+t,c:"ember"};}));
+    var dBody=[];
+    if(RES.length) dBody.push("Resistance to "+RES.join(", ")+" damage — you take half damage of those types (applied after other modifiers; resistance doesn't stack).");
+    if(IMM.length) dBody.push("Immunity to "+IMM.join(", ")+" damage — you take none of those types.");
+    REF["stat_defenses"]={title:"Defenses", dice:(RES.length?RES.length+" resist":"")+(RES.length&&IMM.length?" · ":"")+(IMM.length?IMM.length+" immune":""), chips:dChips, body:dBody};
+  }
 
   REF["stat_prof"]={title:"Proficiency Bonus", dice:fmt(PB), chips:[{t:"Level "+CHARACTER.level,c:"storm"}],
     body:["Your Proficiency Bonus is "+fmt(PB)+", set by your character level (it rises as you advance).",
@@ -965,7 +980,9 @@ function openGlossModal(key, trigger){
 function openRest(){ restOverlay.classList.add("show"); }
 function closeRest(){ restOverlay.classList.remove("show"); }
 function doShortRest(){
-  Object.keys(CHARACTER.pools).forEach(function(id){ if(CHARACTER.pools[id].rest==="short") state[id]=CHARACTER.pools[id].max; });
+  Object.keys(CHARACTER.pools).forEach(function(id){ var p=CHARACTER.pools[id]; if(p.rest!=="short") return;
+    // shortRegain N = recover only N uses on a short rest (e.g. Wild Shape, Channel Divinity); otherwise refill fully
+    state[id] = p.shortRegain ? Math.min(p.max, (parseInt(state[id],10)||0) + p.shortRegain) : p.max; });
   state.conc=""; persist(); renderPools(); renderConc(); closeRest(); toast(CHARACTER.rest.shortToast||"Short rest.");
 }
 function doLongRest(){
