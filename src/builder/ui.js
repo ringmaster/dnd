@@ -19,7 +19,7 @@
     skills:[], originFeat:"", asis:{}, masteries:[], cantrips:[], prepared:[],
     equipment:[],          // unified inventory: {kind:'weapon'|'armor'|'shield'|'item', id?, name}
     languages:[],          // known languages (resolved, not "choices")
-    choices:{ style:"", expertise:[], order:"", skillful:"", lineage:"" },
+    choices:{ style:"", expertise:[], order:"", skillful:"", lineage:"", terrain:"" },
     bio:"",               // Background-card story text (paragraphs separated by blank lines)
     homebrew:false,       // when true, legality issues are non-blocking and the export is flagged homebrew
     bespoke:false,        // hand-authored character with custom, not-necessarily-RAW content (legality waived)
@@ -298,9 +298,33 @@
   /* every class's subclass grants (each class's subclass, once it reaches its subclass level) */
   function subclassGrants(){
     var out=[];
-    state.classes.forEach(function(cl){ var scLvl=(CAT.classes[cl.cls]||{}).subclassLevel||3; if(cl.level>=scLvl && cl.subclass) out=out.concat(((CAT.subclasses[cl.subclass]||{}).grants)||[]); });
+    state.classes.forEach(function(cl){ var scLvl=(CAT.classes[cl.cls]||{}).subclassLevel||3; if(cl.level>=scLvl && cl.subclass)
+      (((CAT.subclasses[cl.subclass]||{}).grants)||[]).forEach(function(g){ if(!g.level || cl.level>=g.level) out.push(g); }); });   // a grant gained at a later level only appears once that class reaches it
     return out;
   }
+  /* Circle-spell (always-prepared) injection for druid circles: a grant may carry
+     circleSpells {level:[ids]} (fixed) or terrainSpells {terrain:{level:[ids]}}
+     (Circle of the Land's chosen terrain). Gated by the druid CLASS level so
+     multiclass druids prepare exactly what their druid level grants. */
+  function circleSpellSources(){
+    var out=[];
+    state.classes.forEach(function(cl){
+      var scLvl=(CAT.classes[cl.cls]||{}).subclassLevel||3;
+      if(cl.level<scLvl || !cl.subclass) return;
+      var sub=CAT.subclasses[cl.subclass]||{}, scName=sub.name||"";
+      (sub.grants||[]).forEach(function(g){
+        var byLvl=g.circleSpells || (g.terrainSpells && state.choices.terrain ? g.terrainSpells[state.choices.terrain] : null);
+        if(!byLvl) return;
+        var label=scName+(g.terrainSpells?(" · "+titleCase(state.choices.terrain)):"");
+        var prep=[];
+        Object.keys(byLvl).forEach(function(L){ if(cl.level>=parseInt(L,10)) byLvl[L].forEach(function(id){ prep.push({ ref:id, name:(CAT.spells[id]||{}).name||id, sub:label }); }); });
+        if(prep.length) out.push({ id:"circlespells-"+cl.subclass, name:scName+": Circle Spells"+(g.terrainSpells?(" ("+state.choices.terrain+")"):""), effects:{ alwaysPrepared:prep } });
+      });
+    });
+    return out;
+  }
+  /* is the current build a druid eligible to choose a Circle of the Land terrain? */
+  function landTerrainClass(){ return state.classes.filter(function(cl){ return cl.cls==="druid" && cl.subclass==="land" && cl.level>=((CAT.classes.druid||{}).subclassLevel||3); })[0]; }
   function classPoolSources(){
     var out=[], d=derive();   // some pools size off an ability modifier (e.g. Bardic Inspiration = CHA)
     state.classes.forEach(function(cl){ (CLASS_POOLS[cl.cls]||[]).forEach(function(cp){ if(!clsReached(cp.feature, cl)) return;
@@ -393,7 +417,9 @@
     var invCard=(ch.cards||[]).find(function(c){ return c && c.type==="inventory"; });
     if(invCard && Array.isArray(invCard.items)) invCard.items.forEach(function(it){ if(it && it.name && !gearNames[baseName(it.name)]) state.equipment.push({kind:"item", name:it.name, tag:it.tag}); });
     state.skills=[]; state.originFeat=""; state.asis={}; state.cantrips=[]; state.prepared=[]; state.languages=[];
-    state.choices={style:"",expertise:[],order:"",skillful:"",lineage:""};
+    state.choices={style:"",expertise:[],order:"",skillful:"",lineage:"",terrain:""};
+    // grant ids that come from the chosen subclasses — their effects are fixed, not player choices
+    var scGrantIds={}; state.classes.forEach(function(cl){ (((CAT.subclasses[cl.subclass]||{}).grants)||[]).forEach(function(g){ scGrantIds[g.id]=1; }); });
     (b.sources||[]).forEach(function(s){
       var id=s.id||"", eff=s.effects||{};
       if(/-skills$/.test(id) && eff.skills) state.skills=eff.skills.slice();
@@ -405,9 +431,10 @@
           else state.asis[lv]={mode:"asi11",a:k[0],b:k[1]||k[0]}; } }
       else if(s.grantsFeat) state.originFeat=s.grantsFeat;   // extra origin feat (Human Versatile, etc.) however it's tagged
       if(id==="fighting-style" && s.name){ var fm=/Fighting Style:\s*(.+)$/.exec(s.name); if(fm){ var st=FIGHTING_STYLES.filter(function(x){return x.name===fm[1].trim();})[0]; if(st) state.choices.style=st.id; } }
-      if(eff.expertise) state.choices.expertise=eff.expertise.slice();   // all chosen Expertise skills (Deft Explorer/Scholar = 1, Rogue/Bard = 2 each)
+      if(eff.expertise && !scGrantIds[id]) state.choices.expertise=eff.expertise.slice();   // the player's Expertise picks (Deft Explorer/Scholar/Rogue/Bard) — NOT fixed subclass-granted expertise (e.g. Spirit Speaker)
       if(eff.skills && id===speciesSkillTrait()) state.choices.skillful=eff.skills[0];   // Human Skillful's chosen skill
       if(id==="divine-order" && s.name) state.choices.order=/Thaumaturge/i.test(s.name)?"thaumaturge":"protector";
+      if(id==="circlespells-land" && s.name){ var tm=/\(([a-z]+)\)/.exec(s.name); if(tm) state.choices.terrain=tm[1]; }   // Circle of the Land terrain
       if(id==="lineage" && s.refId){ var lin=(CAT.species[b.species||state.species]||{}).lineage; if(lin) Object.keys(lin.options).forEach(function(lk){ if(lin.options[lk].refId===s.refId) state.choices.lineage=lk; }); }
       if(eff.spellcasting){ var spc=eff.spellcasting;   // spellcasting source, however its id is tagged (e.g. ranger-spellcasting)
         if(spc.cantrips) state.cantrips=spc.cantrips.map(function(c){ return typeof c==="string"?c:c.ref; });
@@ -624,6 +651,8 @@
     // subclass features (gained at level 3+)
     var scName=(CAT.subclasses[state.subclass]||{}).name||"";
     subclassGrants().forEach(function(g){ sources.push({ id:g.id, name:scName+": "+g.name, effects:g.effects, ref:g.ref, refId:g.id }); });
+    // druid circle spells (always-prepared, level-gated by druid class level; Land uses the chosen terrain)
+    circleSpellSources().forEach(function(s){ sources.push(s); });
     // level-1 origin feat (e.g. Human Versatile)
     if(state.originFeat) sources.push({ id:"feat-"+state.originFeat, name:"Origin feat: "+(CAT.feats[state.originFeat]||{}).name, grantsFeat:state.originFeat });
     // hit dice are derived by compile from class + level — not authored here
@@ -817,7 +846,7 @@
       var subList = (cdi.subclasses||[]).filter(function(s){ return sourceOn(CAT.subclasses[s]) || cl.subclass===s; });   // keep a selected packed subclass visible even if its source is off
       var subOpts = cl.level < scLvl ? [["","— lvl "+scLvl+" —"]] : [["","— none —"]].concat(subList.map(function(s){ var sc=CAT.subclasses[s]||{}; return [s,(sc.name||titleCase(s))+(sc._source?" ✦":"")]; }));
       var row = el("div",{class:"cls-row"},[
-        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:[],order:"",skillful:state.choices.skillful,lineage:state.choices.lineage}; } render(); }),
+        select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:[],order:"",skillful:state.choices.skillful,lineage:state.choices.lineage,terrain:state.choices.terrain}; } render(); }),
         select(String(cl.level), Array.from({length:20},function(_,n){return [String(n+1),"Lvl "+(n+1)];}), function(v){ cl.level=parseInt(v,10); render(); }),
         select(cl.subclass, subOpts, function(v){ cl.subclass=v; render(); }),
         (i>0 ? el("button",{class:"bbtn tiny", type:"button", "aria-label":"Remove class", text:"✕", onclick:function(){ state.classes.splice(i,1); render(); }}) : el("span",{class:"cls-tag", text:"primary"}))
@@ -853,6 +882,14 @@
         ]);
       });
       core.appendChild(el("div",{class:"src-block"},[el("div",{class:"bsub",text:"Optional sources — homebrew / 3rd-party, off by default"})].concat(srcRows)));
+    }
+    // Circle of the Land: choose the terrain whose Circle spells you have prepared
+    if(landTerrainClass()){
+      var TERRAINS=[["","— choose a land —"],["arid","Arid"],["polar","Polar"],["temperate","Temperate"],["tropical","Tropical"]];
+      core.appendChild(el("div",{class:"src-block"},[
+        el("div",{class:"bsub",text:"Circle of the Land — terrain (sets your always-prepared Circle spells; change on a long rest)"}),
+        select(state.choices.terrain, TERRAINS, function(v){ state.choices.terrain=v; render(); })
+      ]));
     }
 
     // equipment: one autocomplete to add weapons, armor, shields, and supplies.

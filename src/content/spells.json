@@ -8257,5 +8257,23 @@
     "components": "S",
     "castTime": "1 action",
     "duration": "Instantaneous"
+  },
+  "beastsense": {
+    "name": "Beast Sense",
+    "level": 2,
+    "school": "divination",
+    "concentration": true,
+    "ritual": true,
+    "classes": [
+      "druid",
+      "ranger"
+    ],
+    "range": "Touch",
+    "components": "S",
+    "castTime": "1 action",
+    "duration": "Concentration, up to 1 hour",
+    "body": [
+      "Touch a willing Beast. For the duration you can use your action to perceive through the beast's senses — seeing and hearing what it does, plus any special senses it has — until you use your action to return to your own. While perceiving through the beast you are Blinded and Deafened to your own surroundings."
+    ]
   }
 }
