@@ -19,6 +19,13 @@
         {
           "id": "spiritscirclespells",
           "name": "Circle Spells",
+          "level": 3,
+          "circleSpells": {
+            "3": ["speakwithanimals", "beastsense", "detectmagic"],
+            "5": ["augury"],
+            "7": ["spiritguardians"],
+            "9": ["communewithnature"]
+          },
           "ref": {
             "title": "Circle Spells",
             "chips": [
@@ -33,6 +40,20 @@
         {
           "id": "spiritspeaker",
           "name": "Spirit Speaker",
+          "level": 3,
+          "effects": {
+            "expertise": ["Nature"],
+            "grantsPool": {
+              "id": "spk",
+              "label": "Spirit Speaker",
+              "max": "wisMod",
+              "rest": "long",
+              "storm": true,
+              "note": "long rest",
+              "use": "Commune",
+              "reminder": "Spirit Speaker: commune with a natural spirit (1 minute) for Advantage on a related Nature, Survival, Insight, or Perception check."
+            }
+          },
           "ref": {
             "title": "Spirit Speaker",
             "chips": [
@@ -42,13 +63,26 @@
             ],
             "body": [
               "As an Action, commune with a natural spirit tied to a nearby place, creature, weather phenomenon, or feature. It answers through emotions, images, memories, and brief phrases, within the limits of its nature. Each communion lasts 1 minute and grants Advantage on one related Nature, Survival, Insight, or Perception check. You can use this a number of times equal to your Wisdom modifier (minimum once), regaining all uses on a Long Rest.",
-              "A spirit has also mentored you: choose Nature or Survival — you gain Expertise in it, or proficiency if you weren't already proficient."
+              "A spirit has also mentored you: you gain Expertise in Nature (or Survival — change it in the builder), or proficiency if you weren't already proficient."
             ]
           }
         },
         {
           "id": "spiritcompanion",
           "name": "Spirit Companion",
+          "level": 3,
+          "effects": {
+            "grantsPool": {
+              "id": "spc",
+              "label": "Spirit Companion",
+              "max": 2,
+              "rest": "short",
+              "storm": true,
+              "note": "short rest · or trade Wild Shape",
+              "use": "Summon",
+              "reminder": "Spirit Companion: manifest an incorporeal spirit ally (within 30 ft, 1 minute) of a chosen form."
+            }
+          },
           "ref": {
             "title": "Spirit Companion",
             "chips": [
@@ -65,6 +99,19 @@
         {
           "id": "betweenworlds",
           "name": "Between Worlds",
+          "level": 6,
+          "effects": {
+            "grantsPool": {
+              "id": "btw",
+              "label": "Between Worlds",
+              "max": "prof",
+              "rest": "long",
+              "storm": true,
+              "note": "long rest",
+              "use": "Attune",
+              "reminder": "Between Worlds: heightened spiritual awareness for 1 minute — ignore natural difficult terrain, move through plants, see nearby spirits/fey, Advantage to track."
+            }
+          },
           "ref": {
             "title": "Between Worlds",
             "chips": [
@@ -79,6 +126,19 @@
         {
           "id": "spiritstep",
           "name": "Spirit Step",
+          "level": 10,
+          "effects": {
+            "grantsPool": {
+              "id": "sstep",
+              "label": "Spirit Step",
+              "max": "wisMod",
+              "rest": "long",
+              "storm": true,
+              "note": "long rest",
+              "use": "Step",
+              "reminder": "Spirit Step: Bonus Action teleport up to 30 ft, with Advantage on your next d20 and Disadvantage on opportunity attacks against you."
+            }
+          },
           "ref": {
             "title": "Spirit Step",
             "chips": [
@@ -93,6 +153,19 @@
         {
           "id": "spiritconduit",
           "name": "Spirit Conduit",
+          "level": 14,
+          "effects": {
+            "grantsPool": {
+              "id": "scon",
+              "label": "Spirit Conduit",
+              "max": 1,
+              "rest": "long",
+              "storm": true,
+              "note": "long rest",
+              "use": "Invoke",
+              "reminder": "Spirit Conduit: a 60-ft aura for 1 minute; each turn choose Ancestors' Guidance, Protection, Wrath, or Revelation."
+            }
+          },
           "ref": {
             "title": "Spirit Conduit",
             "chips": [

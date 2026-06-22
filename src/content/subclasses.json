@@ -765,6 +765,69 @@
           "body": [
             "Choose a land type (Arid, Polar, Temperate, or Tropical); you always have its associated spells prepared, and they don't count against your prepared total. You can change the land and its spells on a Long Rest, gaining more spells at levels 5, 7, and 9."
           ]
+        },
+        "terrainSpells": {
+          "arid": {
+            "3": [
+              "blur",
+              "burninghands",
+              "firebolt"
+            ],
+            "5": [
+              "fireball"
+            ],
+            "7": [
+              "blight"
+            ],
+            "9": [
+              "wallofstone"
+            ]
+          },
+          "polar": {
+            "3": [
+              "fogcloud",
+              "holdperson"
+            ],
+            "5": [
+              "sleetstorm"
+            ],
+            "7": [
+              "icestorm"
+            ],
+            "9": [
+              "coneofcold"
+            ]
+          },
+          "temperate": {
+            "3": [
+              "mistystep"
+            ],
+            "5": [
+              "lightningbolt"
+            ],
+            "7": [
+              "freedomofmovement"
+            ],
+            "9": [
+              "treestride"
+            ]
+          },
+          "tropical": {
+            "3": [
+              "acidsplash",
+              "rayofsickness",
+              "web"
+            ],
+            "5": [
+              "stinkingcloud"
+            ],
+            "7": [
+              "polymorph"
+            ],
+            "9": [
+              "insectplague"
+            ]
+          }
         }
       },
       {
@@ -855,6 +918,25 @@
           ],
           "body": [
             "You craft a Star Map as a Spellcasting Focus; you always have the Guidance and Guiding Bolt spells prepared, and can cast Guiding Bolt a number of times equal to your Wisdom modifier per Long Rest without a slot."
+          ]
+        },
+        "effects": {
+          "grantsPool": {
+            "id": "gb",
+            "label": "Guiding Bolt — free",
+            "max": "wisMod",
+            "rest": "long",
+            "ref": "guidingbolt",
+            "storm": true,
+            "note": "long rest",
+            "use": "Free cast",
+            "reminder": "Star Map: cast Guiding Bolt without a spell slot (Wisdom modifier times per Long Rest)."
+          }
+        },
+        "circleSpells": {
+          "3": [
+            "guidance",
+            "guidingbolt"
           ]
         }
       },
