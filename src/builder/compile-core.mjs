@@ -222,7 +222,7 @@ export function compile(input, cat){
   for (const e of eff){
     (e.resistances||[]).forEach(x => resist.add(x));
     (e.immunities||[]).forEach(x => immune.add(x));
-    if (e.speeds) for (const m in e.speeds){ const v = e.speeds[m]; if (m === "hover") speeds.hover = speeds.hover || !!v; else speeds[m] = Math.max(speeds[m] || 0, resolveVal(v, ctx)); }
+    if (e.speeds) for (const m in e.speeds){ const v = e.speeds[m]; if (m === "hover") speeds.hover = speeds.hover || !!v; else { const n = v === "speed" ? (c.speed || 30) : resolveVal(v, ctx); speeds[m] = Math.max(speeds[m] || 0, n); } }
     (e.skills||[]).forEach(x => skills.add(x));
     (e.expertise||[]).forEach(x => exp.add(x));
     (e.tools||[]).forEach(x => tools.add(x));

@@ -314,11 +314,16 @@
       var sub=CAT.subclasses[cl.subclass]||{}, scName=sub.name||"";
       (sub.grants||[]).forEach(function(g){
         var byLvl=g.circleSpells || (g.terrainSpells && state.choices.terrain ? g.terrainSpells[state.choices.terrain] : null);
-        if(!byLvl) return;
-        var label=scName+(g.terrainSpells?(" · "+titleCase(state.choices.terrain)):"");
-        var prep=[];
-        Object.keys(byLvl).forEach(function(L){ if(cl.level>=parseInt(L,10)) byLvl[L].forEach(function(id){ prep.push({ ref:id, name:(CAT.spells[id]||{}).name||id, sub:label }); }); });
-        if(prep.length) out.push({ id:"circlespells-"+cl.subclass, name:scName+": Circle Spells"+(g.terrainSpells?(" ("+state.choices.terrain+")"):""), effects:{ alwaysPrepared:prep } });
+        if(byLvl){
+          var label=scName+(g.terrainSpells?(" · "+titleCase(state.choices.terrain)):"");
+          var prep=[];
+          Object.keys(byLvl).forEach(function(L){ if(cl.level>=parseInt(L,10)) byLvl[L].forEach(function(id){ prep.push({ ref:id, name:(CAT.spells[id]||{}).name||id, sub:label }); }); });
+          if(prep.length) out.push({ id:"circlespells-"+cl.subclass, name:scName+": Circle Spells"+(g.terrainSpells?(" ("+state.choices.terrain+")"):""), effects:{ alwaysPrepared:prep } });
+        }
+        // Circle of the Land's Nature's Ward (level 10): resistance keyed to the chosen terrain
+        if(g.terrainResist && state.choices.terrain && cl.level>=10 && g.terrainResist[state.choices.terrain]){
+          out.push({ id:"naturesward-resist", name:scName+": Nature's Ward ("+state.choices.terrain+")", effects:{ resistances:[g.terrainResist[state.choices.terrain]] } });
+        }
       });
     });
     return out;
