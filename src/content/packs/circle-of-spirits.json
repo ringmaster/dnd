@@ -1,0 +1,91 @@
+{
+  "id": "circle-of-spirits",
+  "name": "Circle of Spirits (Druid)",
+  "by": "5esrd.com · 3rd-party SRD",
+  "subclasses": {
+    "spirits": {
+      "class": "druid",
+      "name": "Circle of Spirits",
+      "desc": "A druid who walks with the spirits of nature, channeling their guidance and protection.",
+      "features": [
+        "Circle Spells",
+        "Spirit Guide",
+        "Spirit Dance",
+        "Savior Spirits",
+        "Spirit Walk"
+      ],
+      "grants": [
+        {
+          "id": "spiritscirclespells",
+          "name": "Circle Spells",
+          "ref": {
+            "title": "Circle Spells",
+            "chips": [
+              { "t": "Level 2", "c": "storm" },
+              { "t": "Always prepared" }
+            ],
+            "body": [
+              "Your bond with nature's spirits grants you Circle spells that are always prepared and don't count against your prepared total: Detect Evil and Good and False Life (2nd level), Augury and Invisibility (3rd), Speak with Dead and Spirit Guardians (5th), Divination and Hallucinatory Terrain (7th), and Antilife Shell and Scrying (9th)."
+            ]
+          }
+        },
+        {
+          "id": "spiritguide",
+          "name": "Spirit Guide",
+          "ref": {
+            "title": "Spirit Guide",
+            "chips": [
+              { "t": "Level 2" },
+              { "t": "Concentration", "c": "storm" }
+            ],
+            "body": [
+              "You can cast Find Familiar as a ritual without material components to summon a spirit guide. While the guide is within 100 feet of you, it can maintain Concentration on a druid spell you have cast, making the Constitution saving throws to keep Concentration when it takes damage. As normal, you can concentrate on only one effect at a time."
+            ]
+          }
+        },
+        {
+          "id": "spiritdance",
+          "name": "Spirit Dance",
+          "ref": {
+            "title": "Spirit Dance",
+            "chips": [
+              { "t": "Level 6" },
+              { "t": "Short rest", "c": "storm" }
+            ],
+            "body": [
+              "As a Bonus Action you channel spirit power. The next druid spell you cast within 1 minute is enhanced: one creature of your choice that makes a saving throw against that spell has Disadvantage on the save. Once you use this feature, you must finish a Short or Long Rest to use it again."
+            ]
+          }
+        },
+        {
+          "id": "saviorspirits",
+          "name": "Savior Spirits",
+          "ref": {
+            "title": "Savior Spirits",
+            "chips": [
+              { "t": "Level 10" },
+              { "t": "Long rest", "c": "storm" }
+            ],
+            "body": [
+              "When you are reduced to 0 Hit Points but not killed outright, the spirits sustain you and you drop to 1 Hit Point instead. Once you use this feature, you must finish a Long Rest to use it again."
+            ]
+          }
+        },
+        {
+          "id": "spiritwalk",
+          "name": "Spirit Walk",
+          "ref": {
+            "title": "Spirit Walk",
+            "chips": [
+              { "t": "Level 14" },
+              { "t": "Long rest", "c": "storm" }
+            ],
+            "body": [
+              "As an action you become ectoplasmic for 1 minute, gaining a flying speed, Resistance to damage, and immunity to the Grappled, Petrified, Prone, and Restrained conditions. You can move through creatures and objects as if they were Difficult Terrain, taking 1d10 Force damage if you end your turn inside an object. Once you use this feature, you must finish a Long Rest to use it again."
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

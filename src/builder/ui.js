@@ -24,8 +24,13 @@
     homebrew:false,       // when true, legality issues are non-blocking and the export is flagged homebrew
     bespoke:false,        // hand-authored character with custom, not-necessarily-RAW content (legality waived)
     homebrewNote:"",      // optional explanation shown on the sheet banner
+    sources:[],           // enabled optional content packs (ids); core is always on
     customs:[]            // structured carriers for anything the builder doesn't model (see captureCustoms)
   };
+  var PACK_LIST = (typeof PACKS !== "undefined" && PACKS) ? PACKS : [];
+  // is a catalog entry available to offer right now? core (no _source) always; a
+  // packed entry only when its source is enabled.
+  function sourceOn(entry){ var s=entry && entry._source; return !s || state.sources.indexOf(s)>=0; }
   /* top-level keys the builder owns/regenerates; everything else on a loaded
      character is captured as a custom "root" element so it survives round-trip.
      `ref` is here because compile() auto-generates the reference modals from the
@@ -366,6 +371,9 @@
     state.classes = (mcls && mcls.length)
       ? mcls.map(function(c){ return { cls:c.class||c.cls, subclass:c.subclass||"", level:c.level||1 }; })
       : [{ cls:(b.class||id.class||state.cls), subclass:(b.subclass||id.subclass||""), level:(ch.level||b.level||state.level) }];
+    // auto-enable any optional source whose subclass this character uses, so a
+    // packed build re-opens with its picker available (not silently dropped)
+    state.classes.forEach(function(c){ var src=(CAT.subclasses[c.subclass]||{})._source; if(src && state.sources.indexOf(src)<0) state.sources.push(src); });
     syncPrimary();
     if(b.abilities){ var base={STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10}; ABIL.forEach(function(a){ if(b.abilities[a]!=null) base[a]=b.abilities[a]; }); state.base=base; }
     state.masteries = (ch.masteryDefault||[]).slice();
@@ -806,7 +814,8 @@
     var classList = el("div",{class:"cls-list"});
     state.classes.forEach(function(cl, i){
       var cdi = CAT.classes[cl.cls] || {}, scLvl = cdi.subclassLevel || 3;
-      var subOpts = cl.level < scLvl ? [["","— lvl "+scLvl+" —"]] : [["","— none —"]].concat((cdi.subclasses||[]).map(function(s){ return [s,(CAT.subclasses[s]||{}).name||titleCase(s)]; }));
+      var subList = (cdi.subclasses||[]).filter(function(s){ return sourceOn(CAT.subclasses[s]) || cl.subclass===s; });   // keep a selected packed subclass visible even if its source is off
+      var subOpts = cl.level < scLvl ? [["","— lvl "+scLvl+" —"]] : [["","— none —"]].concat(subList.map(function(s){ var sc=CAT.subclasses[s]||{}; return [s,(sc.name||titleCase(s))+(sc._source?" ✦":"")]; }));
       var row = el("div",{class:"cls-row"},[
         select(cl.cls, Object.keys(CAT.classes).map(function(k){return [k,CAT.classes[k].name];}), function(v){ cl.cls=v; cl.subclass=""; if(i===0){ state.skills=[]; state.originFeat=""; state.cantrips=[]; state.prepared=[]; state.choices={style:"",expertise:[],order:"",skillful:state.choices.skillful,lineage:state.choices.lineage}; } render(); }),
         select(String(cl.level), Array.from({length:20},function(_,n){return [String(n+1),"Lvl "+(n+1)];}), function(v){ cl.level=parseInt(v,10); render(); }),
@@ -828,6 +837,23 @@
       el("div",{class:"bsub",text:"Classes — total level "+state.level+" · proficiency bonus "+fmt(pbForLevel(state.level))+(state.classes.length>1?" · saves from your first class":"")}),
       classList
     ]);
+    // optional content packs — off by default; enabling one adds its entries
+    // (marked ✦) to the relevant pickers. Backing one out = uncheck, or delete
+    // its file from src/content/packs/.
+    if(PACK_LIST.length){
+      var srcRows = PACK_LIST.map(function(p){
+        var on = state.sources.indexOf(p.id)>=0;
+        return el("label",{class:"hb-toggle"},[
+          el("input",{type:"checkbox", checked:on?"checked":null, onchange:function(e){
+            if(e.target.checked){ if(state.sources.indexOf(p.id)<0) state.sources.push(p.id); }
+            else { state.sources=state.sources.filter(function(x){ return x!==p.id; }); }
+            render();
+          }}),
+          el("span",{html:"<b>"+esc(p.name)+"</b>"+(p.by?' <span class="bf-h">— '+esc(p.by)+"</span>":"")})
+        ]);
+      });
+      core.appendChild(el("div",{class:"src-block"},[el("div",{class:"bsub",text:"Optional sources — homebrew / 3rd-party, off by default"})].concat(srcRows)));
+    }
 
     // equipment: one autocomplete to add weapons, armor, shields, and supplies.
     // Equipping (worn armor, drawn weapons) happens on the sheet, not here.
